@@ -2,11 +2,13 @@ use axum::{
     routing::get,
     Router,
 };
+use tracing::{info};
 
 #[tokio::main]
 async fn main() {
-    // initialize tracing
-    // tracing_subscriber::fmt::init();
+    // install global subscriber configured based on RUST_LOG envvar.
+    tracing_subscriber::fmt::init();
+    info!("Logging enabled");
 
     // build our application with a route
     let app = Router::new()
@@ -20,6 +22,7 @@ async fn main() {
 
 // basic handler that responds with a static string
 async fn root() -> &'static str {
+    info!("root");
     "Hello, World!"
 }
 
