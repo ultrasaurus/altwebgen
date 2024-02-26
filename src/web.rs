@@ -5,6 +5,8 @@ use std::io::Read;
 use tracing::info;
 use axum::{response::Html, extract};
 
+const SOURCE_ROOT: &str = "source/";
+
 fn read_file(filename: &str) -> Result<String> {
     info!("read_file #{}", filename);
     let mut f = File::open(filename)?;
@@ -34,7 +36,8 @@ pub async fn render_root() -> Html<Cow<'static, str>> {
 
 pub async fn render(extract::Path(path): extract::Path<String>)
     -> Html<Cow<'static, str>> {
-    info!("render path: #{}", path);
-    return_file_as_html("source/index.html")
+    let filepath = format!("{}{}", SOURCE_ROOT, path);
+    info!("render path: {}", path);
+    return_file_as_html(&filepath)
 
 }
