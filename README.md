@@ -8,11 +8,9 @@ RUST_LOG=debug cargo run
 
 
 
-## Credits
+## Image Credits
+[huntsman-spider.jpeg](https://commons.wikimedia.org/wiki/File:Huntsman_spider_white_bg03.jpg) by "Fir0002/Flagstaffotos" License CC BY-NC via https://simple.wikipedia.org/wiki/Huntsman_spider
 
-https://simple.wikipedia.org/wiki/Huntsman_spider
-By Kevincollins123 - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=4134736 via https://en.wikipedia.org/wiki/Jumping_spider
+[spider-icon.webp](https://uxwing.com/spider-icon/) via https://uxwing.com/spider-icon/
 
-jumping_spider_closeup.jpeg - https://simple.wikipedia.org/wiki/Jumping_spider
-
-spider-icon.webp https://uxwing.com/spider-icon/
+[corner-cobwebs.png](https://pixabay.com/vectors/spider-web-corner-wall-design-311050/) CC0
