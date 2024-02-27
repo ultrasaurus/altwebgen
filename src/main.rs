@@ -5,6 +5,8 @@ use axum::{
 use tracing::{info};
 mod web;
 use web::*;
+use tower_http::services::ServeDir;
+
 // use std::borrow::Cow;
 
 #[tokio::main]
@@ -16,7 +18,10 @@ async fn main() {
     let app = Router::new()
         // `GET /` goes to `root`
         .route("/", get(render_root))
+        .nest_service("/image", ServeDir::new("source/image"))
+        .nest_service("/style", ServeDir::new("source/style"))
         .route("/*path", get(render));
+
 
     // run our app with hyper, listening globally on port 3000
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
