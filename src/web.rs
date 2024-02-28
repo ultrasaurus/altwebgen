@@ -1,13 +1,9 @@
 use anyhow::{Result, bail};
 use std::fs::File;
-use std::borrow::Cow;
 use std::io::Read;
 use tracing::info;
-use axum::{response::Html, extract};
 
-const SOURCE_ROOT: &str = "source/";
-
-fn read_file(filename: &str) -> Result<String> {
+pub fn read_file_to_string(filename: &str) -> Result<String> {
     info!("read_file #{}", filename);
     let mut f = File::open(filename)?;
     let mut buf = String::new();
@@ -18,26 +14,3 @@ fn read_file(filename: &str) -> Result<String> {
     Ok(buf)
 }
 
-fn return_file_as_html(filepath: &str) -> Html<Cow<'static, str>> {
-    let result: std::prelude::v1::Result<String, anyhow::Error> = read_file(filepath);
-    match result {
-        Ok(s) => Html(s.into()),
-        Err(e) => {
-            let error = format!("Error #{:?}", e);
-            Html(error.into())
-        }
-    }
-}
-
-pub async fn render_root() -> Html<Cow<'static, str>> {
-    info!("render_root");
-    return_file_as_html("source/index.html")
-}
-
-pub async fn render(extract::Path(path): extract::Path<String>)
-    -> Html<Cow<'static, str>> {
-    let filepath = format!("{}{}", SOURCE_ROOT, path);
-    info!("render path: {}", path);
-    return_file_as_html(&filepath)
-
-}
