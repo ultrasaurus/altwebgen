@@ -8,7 +8,7 @@ use axum::{
     Router,
 };
 use std::borrow::Cow;
-use tracing::info;
+use tracing::{error, info};
 use tower_http::services::ServeDir;
 use crate::{config::Config, web};
 mod log;
@@ -40,6 +40,7 @@ fn return_file_as_html_response(filepath: &str) -> (StatusCode, Html<Cow<'static
     match result {
         Ok(s) => (StatusCode::OK, Html(s.into())),
         Err(e) => {
+            error!("Error rendering {} -- {:?}", filepath, e);
             let err_status = match e {
                 _ => StatusCode::INTERNAL_SERVER_ERROR
             };
