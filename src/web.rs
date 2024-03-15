@@ -3,9 +3,10 @@ use std::{fs::File, ffi::OsStr, io::Read, path::Path};
 use tracing::info;
 use crate::config::Config;
 
-pub fn read_file_to_string(filename: &str) -> Result<String> {
-    info!("read_file #{}", filename);
-    let mut f = File::open(filename)?;
+pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> Result<String> {
+    let path = std::fs::canonicalize(filepath)?;
+    info!("read_file #{}", path.display());
+    let mut f = File::open(path)?;
     let mut buf = String::new();
     let bytes = f.read_to_string(&mut buf)?;
     if bytes == 0 {

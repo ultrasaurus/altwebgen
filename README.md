@@ -2,6 +2,7 @@
 
 Run with debug logging on:
 ```
+cd samples/basic
 RUST_LOG=debug cargo run
 ```
 

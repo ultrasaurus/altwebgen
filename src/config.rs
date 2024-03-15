@@ -1,4 +1,6 @@
 use std::path::{Path,PathBuf};
+use tracing::error;
+
 #[derive(Clone)]
 pub struct Config {
     pub outdir: PathBuf,
@@ -26,6 +28,14 @@ impl Config {
 
 impl Default for Config {
      fn default() -> Config {
+        let outdir = std::path::PathBuf::from(".dist");
+        if !outdir.exists() {
+            let _result = std::fs::create_dir_all(outdir);
+            if _result.is_err() {
+                error!("could not create default output director '.dist'");
+            }
+        }
+
         Config::new(".dist", "source")
     }
 }

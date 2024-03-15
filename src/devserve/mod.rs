@@ -43,7 +43,7 @@ fn return_file_as_html_response(filepath: &str) -> (StatusCode, Html<Cow<'static
             let err_status = match e {
                 _ => StatusCode::INTERNAL_SERVER_ERROR
             };
-        (err_status, Html(format!("Error #{:?}", e).into()))
+        (err_status, Html(format!("Error rendering {}<br>{:?}", filepath, e).into()))
         }
     }
 }
