@@ -4,7 +4,7 @@ use tracing::error;
 #[derive(Clone)]
 pub struct Config {
     pub outdir: PathBuf,
-    pub sourcedir: PathBuf, 
+    pub sourcedir: PathBuf,
 }
 
 impl Config {

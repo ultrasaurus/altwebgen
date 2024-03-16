@@ -26,7 +26,7 @@ fn create_destdir(config: &Config, sourcepath: &std::path::Path) -> anyhow::Resu
         let result = std::fs::create_dir_all(&dest_path);
         if result.is_err() {
             anyhow::bail!("failed to create {}", &dest_path.display())
-        } 
+        }
     }
     Ok(())
 }
