@@ -23,25 +23,25 @@
         <link rel="icon" href="{{ path_to_root }}favicon.svg">
         {{/if}}
         {{#if favicon_png}}
-        <link rel="shortcut icon" href="{{ path_to_root }}favicon.png">
+        <link rel="shortcut icon" href="{{ path_to_root }}theme/favicon.png">
         {{/if}}
-        <link rel="stylesheet" href="{{ path_to_root }}css/variables.css">
-        <link rel="stylesheet" href="{{ path_to_root }}css/general.css">
-        <link rel="stylesheet" href="{{ path_to_root }}css/chrome.css">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/css/variables.css">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/css/general.css">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/css/chrome.css">
         {{#if print_enable}}
-        <link rel="stylesheet" href="{{ path_to_root }}css/print.css" media="print">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/css/print.css" media="print">
         {{/if}}
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="{{ path_to_root }}FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/FontAwesome/css/font-awesome.min.css">
         {{#if copy_fonts}}
-        <link rel="stylesheet" href="{{ path_to_root }}fonts/fonts.css">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/fonts/fonts.css">
         {{/if}}
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="{{ path_to_root }}highlight.css">
-        <link rel="stylesheet" href="{{ path_to_root }}tomorrow-night.css">
-        <link rel="stylesheet" href="{{ path_to_root }}ayu-highlight.css">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/highlight.css">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/tomorrow-night.css">
+        <link rel="stylesheet" href="{{ path_to_root }}theme/ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         {{#each additional_css}}
@@ -110,7 +110,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                {{#toc}}{{/toc}}
+                {{> toc}}
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -212,12 +212,12 @@
 
                 <div id="content" class="content">
                     <main>
-                        {{{ content }}}
+                        {{> content }}
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                        {{#previous}}
+                        {{!-- {{#previous}}
                             <a rel="prev" href="{{ path_to_root }}{{link}}" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
@@ -227,7 +227,7 @@
                             <a rel="next prefetch" href="{{ path_to_root }}{{link}}" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        {{/next}}
+                        {{/next}} --}}
 
                         <div style="clear: both"></div>
                     </nav>
@@ -235,7 +235,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                {{#previous}}
+                {{!-- {{#previous}}
                     <a rel="prev" href="{{ path_to_root }}{{link}}" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
@@ -245,7 +245,7 @@
                     <a rel="next prefetch" href="{{ path_to_root }}{{link}}" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
-                {{/next}}
+                {{/next}} --}}
             </nav>
 
         </div>
@@ -301,22 +301,21 @@
         {{/if}}
 
         {{#if playground_js}}
-        <script src="{{ path_to_root }}ace.js"></script>
-        <script src="{{ path_to_root }}editor.js"></script>
-        <script src="{{ path_to_root }}mode-rust.js"></script>
-        <script src="{{ path_to_root }}theme-dawn.js"></script>
-        <script src="{{ path_to_root }}theme-tomorrow_night.js"></script>
+        <script src="{{ path_to_root }}theme/ace.js"></script>
+        <script src="{{ path_to_root }}theme/editor.js"></script>
+        <script src="{{ path_to_root }}theme/mode-rust.js"></script>
+        <script src="{{ path_to_root }}theme/theme-dawn.js"></script>
+        <script src="{{ path_to_root }}theme/theme-tomorrow_night.js"></script>
         {{/if}}
 
         {{#if search_js}}
-        <script src="{{ path_to_root }}elasticlunr.min.js"></script>
-        <script src="{{ path_to_root }}mark.min.js"></script>
-        <script src="{{ path_to_root }}searcher.js"></script>
+        <script src="{{ path_to_root }}theme/elasticlunr.min.js"></script>
+        <script src="{{ path_to_root }}theme/searcher.js"></script>
         {{/if}}
 
-        <script src="{{ path_to_root }}clipboard.min.js"></script>
-        <script src="{{ path_to_root }}highlight.js"></script>
-        <script src="{{ path_to_root }}book.js"></script>
+        <script src="{{ path_to_root }}theme/clipboard.min.js"></script>
+        <script src="{{ path_to_root }}theme/highlight.js"></script>
+        <script src="{{ path_to_root }}theme/book.js"></script>
 
         <!-- Custom JS scripts -->
         {{#each additional_js}}
