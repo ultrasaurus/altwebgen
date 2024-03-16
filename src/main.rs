@@ -1,11 +1,13 @@
+use handlebars::Handlebars;
 use tracing::{info, error};
+use walkdir::WalkDir;
+
 mod web;
 mod util;
 mod config;
 use config::Config;
 mod devserve;
-use walkdir::WalkDir;
-use crate::util::*;
+use util::*;
 
 fn get_current_working_dir() -> std::io::Result<std::path::PathBuf> {
     let wd = std::env::current_dir()?;
@@ -30,7 +32,7 @@ fn create_destdir(config: &Config, sourcepath: &std::path::Path) -> anyhow::Resu
     }
     Ok(())
 }
-fn process_files(config: &Config) -> anyhow::Result<()> {
+fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()> {
     let walker = WalkDir::new(&config.sourcedir)
         .follow_links(true)
         .into_iter()
@@ -45,7 +47,7 @@ fn process_files(config: &Config) -> anyhow::Result<()> {
         if path.is_dir() {
             create_destdir(config, path)?;
         } else {
-            web::render_file(config, path)?;
+            web::render_file(config, &handlebars, path)?;
         }
     }
 
@@ -59,7 +61,8 @@ async fn main() {
     info!("Logging enabled");
     let _wd = get_current_working_dir();
     let config:Config = Default::default();
-    let result = process_files(&config);
+    let hbs = Handlebars::new();
+    let result = process_files(&config, &hbs);
     match result {
         Err(e) => println!("oops: {}", e),
         Ok(_) => {
