@@ -17,8 +17,10 @@ fn create_destdir(config: &Config, sourcepath: &std::path::Path) -> anyhow::Resu
     let rel_path = sourcepath
         .strip_prefix(&config.sourcedir);
     if rel_path.is_err() {
-        anyhow::bail!("expected strip prefix match for soucepath {} and sourcedir {}", 
+        let err_report = format!("expected strip prefix match for soucepath {} and sourcedir {}",
             sourcepath.display(), config.sourcedir.display());
+        error!(err_report);
+        anyhow::bail!(err_report);
     } else {
         let dest_path = config.outdir.join(rel_path?);
         let result = std::fs::create_dir_all(&dest_path);

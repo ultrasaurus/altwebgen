@@ -8,7 +8,6 @@ use axum::{
     routing::get,
     Router,
 };
-use http_body_util::StreamBody;
 use tokio_util::io::ReaderStream;
 
 use tracing::{error, info};
