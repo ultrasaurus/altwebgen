@@ -22,9 +22,9 @@ pub fn render_file<P: AsRef<Path>>(config: &Config, hbs: &Handlebars, path: P) -
    info!("rendering: {}", sourcepath.display());
    let maybe_ext: Option<&str> = sourcepath.extension().and_then(OsStr::to_str);
    if let Some(ext) = maybe_ext {
-        if ext == "erb" {
+        if ext == "hbs" {
             //anyhow::bail!("erb: not yet supported");
-            // path for writing: w/o .erb, rooted in output directory
+            // path for writing: w/o .hbs, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension(""))?;
             let writer = std::fs::File::options().create(true).write(true).open(writepath)?;
             let sourcefile = read_file_to_string(sourcepath)?;
