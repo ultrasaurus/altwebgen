@@ -27,6 +27,7 @@ dependencies = [
  "http-body-util",
  "new_mime_guess",
  "tokio",
+ "tokio-util",
  "tower-http",
  "tracing",
  "tracing-subscriber",

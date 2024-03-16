@@ -1,16 +1,19 @@
 use axum::{
+    body::Body,
     extract,
     Extension,
     http::StatusCode,
     middleware,
-    response::Html,
+    response::IntoResponse,
     routing::get,
     Router,
 };
-use std::borrow::Cow;
+use http_body_util::StreamBody;
+use tokio_util::io::ReaderStream;
+
 use tracing::{error, info};
 use tower_http::services::ServeDir;
-use crate::{config::Config, web};
+use crate::config::Config;
 mod log;
 use log::*;
 
@@ -35,32 +38,40 @@ pub async fn run(config: &Config) {
     axum::serve(listener, app).await.unwrap();
 }
 
-fn return_file_as_html_response(filepath: &str) -> (StatusCode, Html<Cow<'static, str>>) {
-    let result: std::prelude::v1::Result<String, anyhow::Error> = web::read_file_to_string(filepath);
-    match result {
-        Ok(s) => (StatusCode::OK, Html(s.into())),
-        Err(e) => {
-            error!("Error rendering {} -- {:?}", filepath, e);
-            let err_status = match e {
-                _ => StatusCode::INTERNAL_SERVER_ERROR
-            };
-        (err_status, Html(format!("Error rendering {}<br>{:?}", filepath, e).into()))
-        }
-    }
+async fn get_filestream<P: AsRef<std::path::Path>>(filepath: P) ->
+    anyhow::Result<ReaderStream<tokio::fs::File>> {
+    let path = std::fs::canonicalize(&filepath)?;
+    info!("opening file #{}", &path.display());
+    let f= tokio::fs::File::open(&path).await?;
+    // convert the `AsyncRead` into a `Stream`
+    Ok(ReaderStream::new(f))
 }
 
-pub async fn render_root(Extension(config): Extension<Config>) -> (StatusCode, Html<Cow<'static, str>>) {
+async fn return_file_as_response <P: AsRef<std::path::Path>>(filepath: P)
+    -> (StatusCode, Body) {
+    let stream = match get_filestream(&filepath).await {
+        Err(e) => {
+            error!("Error opening file: {} -- {:?}", &filepath.as_ref().display(), e);
+            return (StatusCode::NOT_FOUND, Body::from(format!("File not found: {}", e)))
+        },
+        Ok(s) => s,
+    };
+    let body = Body::from_stream(stream);
+    // TODO: mime type
+    (StatusCode::OK, body)
+}
+
+pub async fn render_root(Extension(config): Extension<Config>) -> impl IntoResponse {
     info!("render_root");
-    // TODO: configure this, use SOURCE_ROOT or whatever it becomes
-    return_file_as_html_response(format!("{}/index.html", config.outdir.display()).as_str())
+    return_file_as_response(config.outdir.join("index.html")).await
 }
 
 pub async fn render(Extension(config): Extension<Config>,
                 extract::Path(path): extract::Path<String>)
-    -> (StatusCode, Html<Cow<'static, str>>) {
-    let filepath = format!("{}/{}", config.outdir.display(), path);
+    -> impl IntoResponse {
     info!("render path: {}", path);
-    return_file_as_html_response(&filepath)
+    let filepath = config.outdir.join(path);
+    return_file_as_response(&filepath).await
 
 }
 
