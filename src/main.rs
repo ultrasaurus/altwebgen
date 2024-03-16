@@ -1,4 +1,6 @@
+
 use handlebars::Handlebars;
+use std::default::Default;
 use tracing::{info, error};
 use walkdir::WalkDir;
 
@@ -33,6 +35,7 @@ fn create_destdir(config: &Config, sourcepath: &std::path::Path) -> anyhow::Resu
     Ok(())
 }
 fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()> {
+    info!("Processing files...");
     let walker = WalkDir::new(&config.sourcedir)
         .follow_links(true)
         .into_iter()
@@ -42,6 +45,7 @@ fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()>
 
     for entry_result in walker
     {
+        info!("  entry: {:?}", entry_result);
         let entry = entry_result?;
         let path = entry.path();
         if path.is_dir() {
@@ -54,6 +58,16 @@ fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()>
    Ok(())
 }
 
+fn setup(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
+    info!("Setup: start");
+    hbs.register_templates_directory("templates", Default::default())?;
+    info!("Setup: template directory '{}' registered", "templates");
+    process_files(&config, &hbs)?;
+    info!("Setup: complete");
+    Ok(())
+}
+
+
 #[tokio::main]
 async fn main() {
     // install global subscriber configured based on RUST_LOG envvar.
@@ -61,8 +75,8 @@ async fn main() {
     info!("Logging enabled");
     let _wd = get_current_working_dir();
     let config:Config = Default::default();
-    let hbs = Handlebars::new();
-    let result = process_files(&config, &hbs);
+    let mut hbs = Handlebars::new();
+    let result = setup(&config, &mut hbs);
     match result {
         Err(e) => println!("oops: {}", e),
         Ok(_) => {
