@@ -25,18 +25,6 @@
 <body class="sidebar-visible no-js">
     <div id="body-container">
         {{> theme.js }}
-        <!-- Set the theme before any content is loaded, prevents flash -->
-        <script>
-            var theme;
-            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
-            if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
-            html.classList.remove('{{ default_theme }}')
-            html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
-        </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
