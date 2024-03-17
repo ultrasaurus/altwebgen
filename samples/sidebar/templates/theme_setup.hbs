@@ -1,5 +1,6 @@
-<!-- Provide site root to javascript -->
+<!-- init global vars, load settings from local storage -->
 <script>
+   // Provide site root to javascript
     var path_to_root = "{{ path_to_root }}";
     var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "{{ preferred_dark_theme }}" : "{{ default_theme }}";
 
@@ -29,4 +30,22 @@
     body.classList.add('js');
 
 </script>
+<input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+<!-- Hide / unhide sidebar before it is displayed -->
+<script>
+    var body = document.querySelector('body');
+    var sidebar = null;
+    var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+    if (document.body.clientWidth >= 1080) {
+        try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+        sidebar = sidebar || 'visible';
+    } else {
+        sidebar = 'hidden';
+    }
+    sidebar_toggle.checked = sidebar === 'visible';
+    body.classList.remove('sidebar-visible');
+    body.classList.add("sidebar-" + sidebar);
+</script>
+
 
