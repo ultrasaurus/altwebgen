@@ -5,55 +5,21 @@
     <!-- Book generated using mdBook -->
     <meta charset="UTF-8">
     <title>{{ title }}</title>
-    {{#if is_print }}
-    <meta name="robots" content="noindex">
-    {{/if}}
-    {{#if base_url}}
-    <base href="{{ base_url }}">
-    {{/if}}
-
-
-    <!-- Custom HTML head -->
-    {{> head}}
-
-    <meta name="description" content="{{ description }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
 
-    {{#if favicon_svg}}
-    <link rel="icon" href="{{ path_to_root }}favicon.svg">
-    {{/if}}
-    {{#if favicon_png}}
-    <link rel="shortcut icon" href="{{ path_to_root }}theme/favicon.png">
-    {{/if}}
     <link rel="stylesheet" href="{{ path_to_root }}theme/css/variables.css">
     <link rel="stylesheet" href="{{ path_to_root }}theme/css/general.css">
     <link rel="stylesheet" href="{{ path_to_root }}theme/css/chrome.css">
-    {{#if print_enable}}
-    <link rel="stylesheet" href="{{ path_to_root }}theme/css/print.css" media="print">
-    {{/if}}
 
     <!-- Fonts -->
     <link rel="stylesheet" href="{{ path_to_root }}theme/FontAwesome/css/font-awesome.min.css">
-    {{#if copy_fonts}}
-    <link rel="stylesheet" href="{{ path_to_root }}theme/fonts/fonts.css">
-    {{/if}}
 
     <!-- Highlight.js Stylesheets -->
     <link rel="stylesheet" href="{{ path_to_root }}theme/highlight.css">
     <link rel="stylesheet" href="{{ path_to_root }}theme/tomorrow-night.css">
     <link rel="stylesheet" href="{{ path_to_root }}theme/ayu-highlight.css">
 
-    <!-- Custom theme stylesheets -->
-    {{#each additional_css}}
-    <link rel="stylesheet" href="{{ ../path_to_root }}{{ this }}">
-    {{/each}}
-
-    {{#if mathjax_support}}
-    <!-- MathJax -->
-    <script async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    {{/if}}
 </head>
 
 <body class="sidebar-visible no-js">
