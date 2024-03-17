@@ -43,6 +43,12 @@
     } else {
         sidebar = 'hidden';
     }
+    try {
+        var sidebar_width = localStorage.getItem('mdbook-sidebar-width');
+        if (typeof sidebar_width !== 'undefined') {
+            document.documentElement.style.setProperty('--sidebar-width', sidebar_width + 'px');
+        }
+    } catch (e) { }
     sidebar_toggle.checked = sidebar === 'visible';
     body.classList.remove('sidebar-visible');
     body.classList.add("sidebar-" + sidebar);

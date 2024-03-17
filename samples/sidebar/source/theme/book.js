@@ -518,6 +518,8 @@ function playground_text(playground, hidden = true) {
             }
             pos = Math.min(pos, window.innerWidth - 100);
             document.documentElement.style.setProperty('--sidebar-width', pos + 'px');
+            localStorage.setItem('mdbook-sidebar-width', pos);
+
         }
     }
     //on mouseup remove windows functions mousemove & mouseup
