@@ -8,6 +8,9 @@ RUST_LOG=debug cargo run
 
 
 
+## Code Credits
+
+* Thank you mdBook! sidebar sample theme started with mdBook theme, somewhat adjusted to fit into this format
 
 ## Image Credits
 [huntsman-spider.jpeg](https://commons.wikimedia.org/wiki/File:Huntsman_spider_white_bg03.jpg) by "Fir0002/Flagstaffotos" License CC BY-NC via https://simple.wikipedia.org/wiki/Huntsman_spider
