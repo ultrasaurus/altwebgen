@@ -91,7 +91,7 @@ async fn main() {
     match result {
         Err(e) => println!("oops: {}", e),
         Ok(_) => {
-            devserve::run(&config).await;
+            let _ = devserve::run(&config).await;
         }
     }
 }
