@@ -1,6 +1,6 @@
 
 use handlebars::Handlebars;
-use std::default::Default;
+use std::{default::Default, path::{Path, PathBuf}};
 use tracing::{info, error};
 use walkdir::WalkDir;
 
@@ -11,13 +11,13 @@ use config::Config;
 mod devserve;
 use util::*;
 
-fn get_current_working_dir() -> std::io::Result<std::path::PathBuf> {
+fn get_current_working_dir() -> std::io::Result<PathBuf> {
     let wd = std::env::current_dir()?;
     info!("working directory: {}", wd.display());
     Ok(wd)
 }
 
-fn create_destdir(config: &Config, sourcepath: &std::path::Path) -> anyhow::Result<()> {
+fn create_destdir(config: &Config, sourcepath: &Path) -> anyhow::Result<()> {
     let rel_path = sourcepath
         .strip_prefix(&config.sourcedir);
     if rel_path.is_err() {
@@ -34,8 +34,19 @@ fn create_destdir(config: &Config, sourcepath: &std::path::Path) -> anyhow::Resu
     }
     Ok(())
 }
+
+fn clean_and_setup_outpath<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
+    if path.as_ref().exists() {
+        std::fs::remove_dir_all(&path)?;
+    }
+    std::fs::create_dir_all(&path)?;
+    Ok(())
+}
+
+
 fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()> {
     info!("Processing files...");
+    clean_and_setup_outpath(&config.outdir)?;
     let walker = WalkDir::new(&config.sourcedir)
         .follow_links(true)
         .into_iter()
