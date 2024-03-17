@@ -1,13 +1,12 @@
+use std::path::PathBuf;
 use tracing::info;
 use warp::Filter;
 use crate::config::Config;
 
-pub async fn run(config: &Config) -> anyhow::Result<()> {
-    info!("devserve::run");
-    let website_dir = config.outdir.canonicalize()?;
+pub async fn serve(website_dir: PathBuf) -> anyhow::Result<()> {
     info!("serve website_dir: {}", website_dir.display());
 
-    // GET / => index.html
+     // GET / => index.html
     let root = warp::get()
         .and(warp::path::end())
         .and(warp::fs::file(website_dir.join("index.html")));
@@ -19,6 +18,13 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
                 .with(warp::trace::request());
 
     warp::serve(routes).run(([127, 0, 0, 1], 3456)).await;
+    Ok(())
+}
+
+pub async fn run(config: &Config) -> anyhow::Result<()> {
+    info!("devserve::run");
+    let website_dir = config.outdir.canonicalize()?;
+    let _ = serve(website_dir).await;
 
     Ok(())
 }
