@@ -1,5 +1,5 @@
 use std::path::{Path, PathBuf};
-use tracing::{info, warn};
+use tracing::info;
 use warp::Filter;
 use crate::config::Config;
 mod watch;
@@ -30,13 +30,16 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
     let website_dir = config.outdir.canonicalize()?;
 
     loop {
-        tokio::select! {
-            files = watch(&website_dir) => { info!("watch: files changed: {:?}", files)},
-            _ = serve(&website_dir) => { info!("serving done")},
+        match tokio::select! {
+            watch_result = watch(&website_dir) => { info!("watcher result {:?}", watch_result); Some(watch_result)},
+            _ = serve(&website_dir) => { info!("serving done"); None},
+        } {
+            Some(res) => {
+                info!("changes found! watch result = {:?}", res)
+            },
+            None => info!("server stopped ?!?")
         }
-        info!("done!!");
+
+
     }
-
-
-    Ok(())
 }
