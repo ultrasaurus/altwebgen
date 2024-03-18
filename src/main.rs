@@ -1,4 +1,4 @@
-
+use anyhow::anyhow;
 use handlebars::Handlebars;
 use std::{default::Default, path::{Path, PathBuf}};
 use tracing::{info, warn, error};
@@ -93,13 +93,19 @@ async fn main() {
     if let Err(e) = setup(&config, &mut hbs) {
         println!("oops, setup failed: {}", e);
     } else {
-        let website_dir = config.outdir.clone();
+        let watch_dir = config.sourcedir.clone();
         loop {
             tokio::select! {
-                _ = devserve::run(&config) => { warn!("unexpected serving done?"); },
-                watch_result = watch(&website_dir) => {
+                _ = devserve::run(&config) => {
+                    error!("unexpected server end");
+                    break
+                },
+                watch_result = watch(&watch_dir) => {
                     info!("watcher result {:?}", watch_result);
-                    //process_files(&config, &hbs)?;
+                    if let Err(e) = process_files(&config, &hbs) {
+                         error!("process_files failed: {:?}", e);
+                         break
+                    }
                 }
             }
         }
