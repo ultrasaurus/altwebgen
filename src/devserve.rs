@@ -2,8 +2,6 @@ use std::path::{Path, PathBuf};
 use tracing::info;
 use warp::Filter;
 use crate::config::Config;
-mod watch;
-use watch::watch;
 
 pub async fn serve<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
     info!("serve website_dir: {}", path.as_ref().display());
@@ -28,18 +26,5 @@ pub async fn serve<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
 pub async fn run(config: &Config) -> anyhow::Result<()> {
     info!("devserve::run");
     let website_dir = config.outdir.canonicalize()?;
-
-    loop {
-        match tokio::select! {
-            watch_result = watch(&website_dir) => { info!("watcher result {:?}", watch_result); Some(watch_result)},
-            _ = serve(&website_dir) => { info!("serving done"); None},
-        } {
-            Some(res) => {
-                info!("changes found! watch result = {:?}", res)
-            },
-            None => info!("server stopped ?!?")
-        }
-
-
-    }
+    serve(&website_dir).await
 }

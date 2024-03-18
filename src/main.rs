@@ -1,7 +1,7 @@
 
 use handlebars::Handlebars;
 use std::{default::Default, path::{Path, PathBuf}};
-use tracing::{info, error};
+use tracing::{info, warn, error};
 use walkdir::WalkDir;
 
 mod web;
@@ -10,6 +10,9 @@ mod config;
 use config::Config;
 mod devserve;
 use util::*;
+
+mod watch;
+use watch::watch;
 
 fn get_current_working_dir() -> std::io::Result<PathBuf> {
     let wd = std::env::current_dir()?;
@@ -87,12 +90,21 @@ async fn main() {
     let _wd = get_current_working_dir();
     let config:Config = Default::default();
     let mut hbs = Handlebars::new();
-    let result = setup(&config, &mut hbs);
-    match result {
-        Err(e) => println!("oops: {}", e),
-        Ok(_) => {
-            let _ = devserve::run(&config).await;
+    if let Err(e) = setup(&config, &mut hbs) {
+        println!("oops, setup failed: {}", e);
+    } else {
+        let website_dir = config.outdir.clone();
+        loop {
+            tokio::select! {
+                _ = devserve::run(&config) => { warn!("unexpected serving done?"); },
+                watch_result = watch(&website_dir) => {
+                    info!("watcher result {:?}", watch_result);
+                    //process_files(&config, &hbs)?;
+                }
+            }
         }
-    }
+    };
+
 }
+
 
