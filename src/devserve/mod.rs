@@ -1,15 +1,18 @@
-use std::path::PathBuf;
-use tracing::info;
+use std::path::{Path, PathBuf};
+use tracing::{info, warn};
 use warp::Filter;
 use crate::config::Config;
+mod watch;
+use watch::watch;
 
-pub async fn serve(website_dir: PathBuf) -> anyhow::Result<()> {
-    info!("serve website_dir: {}", website_dir.display());
-
+pub async fn serve<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
+    info!("serve website_dir: {}", path.as_ref().display());
+    let website_dir = PathBuf::from(path.as_ref());
+    let index_path = website_dir.join("index.html");
      // GET / => index.html
     let root = warp::get()
         .and(warp::path::end())
-        .and(warp::fs::file(website_dir.join("index.html")));
+        .and(warp::fs::file(index_path));
 
     // dir already requires GET...
     let all = warp::fs::dir(website_dir);
@@ -21,10 +24,19 @@ pub async fn serve(website_dir: PathBuf) -> anyhow::Result<()> {
     Ok(())
 }
 
+
 pub async fn run(config: &Config) -> anyhow::Result<()> {
     info!("devserve::run");
     let website_dir = config.outdir.canonicalize()?;
-    let _ = serve(website_dir).await;
+
+    loop {
+        tokio::select! {
+            files = watch(&website_dir) => { info!("watch: files changed: {:?}", files)},
+            _ = serve(&website_dir) => { info!("serving done")},
+        }
+        info!("done!!");
+    }
+
 
     Ok(())
 }
