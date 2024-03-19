@@ -117,11 +117,12 @@
 
         </div>
 
-        {{#if live_reload_endpoint}}
+        {{!-- {{#if live_reload_endpoint}} --}}
         <!-- Livereload script (if served using the cli tool) -->
         <script>
             const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "{{{live_reload_endpoint}}}";
+            //const wsAddress = wsProtocol + "//" + location.host + "/" + "{{{live_reload_endpoint}}}";
+            const wsAddress = wsProtocol + "//" + location.host + "/__livereload";
             const socket = new WebSocket(wsAddress);
             socket.onmessage = function (event) {
                 if (event.data === "reload") {
@@ -134,7 +135,7 @@
                 socket.close();
             }
         </script>
-        {{/if}}
+        {{!-- {{/if}} --}}
 
         {{#if google_analytics}}
         <!-- Google Analytics Tag -->

@@ -2,6 +2,7 @@ use handlebars::Handlebars;
 use std::{default::Default, path::{Path, PathBuf}};
 use tracing::{info, error};
 use walkdir::WalkDir;
+use warp::ws::Message;
 
 mod web;
 mod util;
@@ -92,9 +93,12 @@ async fn main() -> anyhow::Result<()> {
 
     let (config, hbs) = setup()?;
     let watch_dir = config.sourcedir.clone();
+
+    // A channel used to broadcast to any websockets to reload when a file changes.
+    let (tx, _rx) = tokio::sync::broadcast::channel::<Message>(100);
     loop {
         tokio::select! {
-            _ = devserve::run(&config) => {
+            _ = devserve::run(&config, tx.clone()) => {
                 error!("unexpected server end");
                 break
             },
@@ -103,6 +107,8 @@ async fn main() -> anyhow::Result<()> {
                 if let Err(e) = process_files(&config, &hbs) {
                         error!("process_files failed: {:?}", e);
                         break
+                } else {
+                    let _ = tx.send(Message::text("reload"));
                 }
             }
         }
