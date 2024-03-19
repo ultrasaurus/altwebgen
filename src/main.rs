@@ -71,44 +71,43 @@ fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()>
    Ok(())
 }
 
-fn setup(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
+fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     info!("Setup: start");
+    info!("       working directory {}", get_current_working_dir()?.display());
+    let config:Config = Default::default();
+    let mut hbs = Handlebars::new();
     hbs.register_templates_directory("templates", Default::default())?;
     info!("Setup: template directory '{}' registered", "templates");
     process_files(&config, &hbs)?;
     info!("Setup: complete");
-    Ok(())
+    Ok((config, hbs))
 }
 
 
 #[tokio::main]
-async fn main() {
+async fn main() -> anyhow::Result<()> {
     // install global subscriber configured based on RUST_LOG envvar.
     tracing_subscriber::fmt::init();
     info!("Logging enabled");
-    let _wd = get_current_working_dir();
-    let config:Config = Default::default();
-    let mut hbs = Handlebars::new();
-    if let Err(e) = setup(&config, &mut hbs) {
-        println!("oops, setup failed: {}", e);
-    } else {
-        let watch_dir = config.sourcedir.clone();
-        loop {
-            tokio::select! {
-                _ = devserve::run(&config) => {
-                    error!("unexpected server end");
-                    break
-                },
-                watch_result = watch(&watch_dir) => {
-                    info!("watcher result {:?}", watch_result);
-                    if let Err(e) = process_files(&config, &hbs) {
-                         error!("process_files failed: {:?}", e);
-                         break
-                    }
+
+    let (config, hbs) = setup()?;
+    let watch_dir = config.sourcedir.clone();
+    loop {
+        tokio::select! {
+            _ = devserve::run(&config) => {
+                error!("unexpected server end");
+                break
+            },
+            watch_result = watch(&watch_dir) => {
+                info!("watcher result {:?}", watch_result);
+                if let Err(e) = process_files(&config, &hbs) {
+                        error!("process_files failed: {:?}", e);
+                        break
                 }
             }
         }
-    };
+    }
+    Ok(())
 
 }
 
