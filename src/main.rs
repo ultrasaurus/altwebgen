@@ -1,7 +1,6 @@
-use anyhow::anyhow;
 use handlebars::Handlebars;
 use std::{default::Default, path::{Path, PathBuf}};
-use tracing::{info, warn, error};
+use tracing::{info, error};
 use walkdir::WalkDir;
 
 mod web;
