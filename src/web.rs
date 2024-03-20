@@ -21,8 +21,8 @@ pub fn render_file<P: AsRef<Path>>(config: &Config, hbs: &Handlebars, path: P) -
    let sourcepath = path.as_ref();
    info!("rendering: {}", sourcepath.display());
    let maybe_ext: Option<&str> = sourcepath.extension().and_then(OsStr::to_str);
-   if let Some(ext) = maybe_ext {
-        if ext == "hbs" {
+    match maybe_ext {
+        Some("hbs") => {
             //anyhow::bail!("erb: not yet supported");
             // path for writing: w/o .hbs, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension(""))?;
@@ -32,7 +32,8 @@ pub fn render_file<P: AsRef<Path>>(config: &Config, hbs: &Handlebars, path: P) -
             hbs.render_template_to_write(&sourcefile,
                     &data,
                     writer)?;
-        } else {
+        },
+        _ => {
             // copy the file
             let _ = std::fs::copy(&path, config.outpath(&path)?);
         }
