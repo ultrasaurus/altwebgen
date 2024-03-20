@@ -1,0 +1,165 @@
+{
+    "version": "1.0.0",
+    "segments": [
+        {
+            "startTime": 0,
+            "endTime": 0.2399999999999931,
+            "body": "let"
+        },
+        {
+            "startTime": 0.2399999999999931,
+            "endTime": 0.3599999999999923,
+            "body": "me"
+        },
+        {
+            "startTime": 0.3599999999999923,
+            "endTime": 0.8699999999999921,
+            "body": "introduce"
+        },
+        {
+            "startTime": 0.8699999999999921,
+            "endTime": 0.9899999999999931,
+            "body": "the"
+        },
+        {
+            "startTime": 0.9899999999999931,
+            "endTime": 1.379999999999992,
+            "body": "word."
+        },
+        {
+            "startTime": 1.6499999999999932,
+            "endTime": 2.6099999999999923,
+            "body": "Hypertext"
+        },
+        {
+            "startTime": 2.879999999999992,
+            "endTime": 3.0899999999999928,
+            "body": "to"
+        },
+        {
+            "startTime": 3.0899999999999928,
+            "endTime": 3.3899999999999935,
+            "body": "mean"
+        },
+        {
+            "startTime": 3.3899999999999935,
+            "endTime": 3.449999999999992,
+            "body": "a"
+        },
+        {
+            "startTime": 3.449999999999992,
+            "endTime": 4.079999999999993,
+            "body": "body"
+        },
+        {
+            "startTime": 4.169999999999993,
+            "endTime": 4.379999999999992,
+            "body": "of"
+        },
+        {
+            "startTime": 4.379999999999992,
+            "endTime": 4.8899999999999935,
+            "body": "written"
+        },
+        {
+            "startTime": 5.31999999999999,
+            "endTime": 5.529999999999987,
+            "body": "or"
+        },
+        {
+            "startTime": 5.529999999999987,
+            "endTime": 6.309999999999988,
+            "body": "pictorial"
+        },
+        {
+            "startTime": 6.309999999999988,
+            "endTime": 7.059999999999988,
+            "body": "material"
+        },
+        {
+            "startTime": 7.209999999999987,
+            "endTime": 8.259999999999987,
+            "body": "interconnected"
+        },
+        {
+            "startTime": 8.289999999999988,
+            "endTime": 8.49999999999999,
+            "body": "in"
+        },
+        {
+            "startTime": 8.49999999999999,
+            "endTime": 8.709999999999987,
+            "body": "such"
+        },
+        {
+            "startTime": 8.709999999999987,
+            "endTime": 8.799999999999986,
+            "body": "a"
+        },
+        {
+            "startTime": 8.799999999999986,
+            "endTime": 9.609999999999989,
+            "body": "complex"
+        },
+        {
+            "startTime": 9.609999999999989,
+            "endTime": 10.119999999999987,
+            "body": "way"
+        },
+        {
+            "startTime": 10.449999999999989,
+            "endTime": 10.629999999999988,
+            "body": "that"
+        },
+        {
+            "startTime": 10.629999999999988,
+            "endTime": 10.719999999999988,
+            "body": "it"
+        },
+        {
+            "startTime": 10.719999999999988,
+            "endTime": 10.959999999999987,
+            "body": "could"
+        },
+        {
+            "startTime": 10.959999999999987,
+            "endTime": 11.31999999999999,
+            "body": "not"
+        },
+        {
+            "startTime": 11.31999999999999,
+            "endTime": 12.24999999999999,
+            "body": "conveniently"
+        },
+        {
+            "startTime": 12.24999999999999,
+            "endTime": 12.429999999999989,
+            "body": "be"
+        },
+        {
+            "startTime": 12.429999999999989,
+            "endTime": 13.149999999999988,
+            "body": "presented"
+        },
+        {
+            "startTime": 13.179999999999989,
+            "endTime": 13.389999999999986,
+            "body": "or"
+        },
+        {
+            "startTime": 13.389999999999986,
+            "endTime": 14.229999999999986,
+            "body": "represented"
+        },
+        {
+            "startTime": 14.259999999999987,
+            "endTime": 14.529999999999987,
+            "body": "on"
+        },
+        {
+            "startTime": 14.529999999999987,
+            "endTime": 15.009999999999987,
+            "body": "paper."
+        }
+    ]
+}
