@@ -27,7 +27,6 @@ pub fn render_file<P: AsRef<Path>>(
     let maybe_ext: Option<&str> = sourcepath.extension().and_then(OsStr::to_str);
     match maybe_ext {
         Some("hbs") => {
-            //anyhow::bail!("erb: not yet supported");
             // path for writing: w/o .hbs, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension(""))?;
             let writer = std::fs::File::options()
