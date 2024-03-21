@@ -33,10 +33,24 @@ pub fn render_file<P: AsRef<Path>>(
                 .create(true)
                 .write(true)
                 .open(writepath)?;
-            let sourcefile = read_file_to_string(sourcepath)?;
+            let source = read_file_to_string(sourcepath)?;
             let data: HashMap<String, String> = HashMap::new();
-            hbs.render_template_to_write(&sourcefile, &data, writer)?;
+            hbs.render_template_to_write(&source, &data, writer)?;
         }
+        Some("md") => {
+            // use pulldown_cmark::{Event, Parser as MarkdownParser, Tag};
+
+            // path for writing: html extension, rooted in output directory
+            let writepath = config.outpath(sourcepath.with_extension("html"))?;
+            let writer = std::fs::File::options()
+                .create(true)
+                .write(true)
+                .open(writepath)?;
+            let source = read_file_to_string(sourcepath)?;
+            let parser = pulldown_cmark::Parser::new_ext(&source,
+                                pulldown_cmark::Options::empty());
+            pulldown_cmark::html::write_html(writer, parser)?;
+        },
         _ => {
             // copy the file
             let _ = std::fs::copy(&path, config.outpath(&path)?);
