@@ -1,3 +1,43 @@
-fn main() {
-    println!("Hello, world!");
+use regex::Regex;
+// use regex::Regex::Captures;
+
+fn main() -> anyhow::Result<()> {
+    let text = "Hello, everyone in the world!";
+    println!("text: {}", text);
+
+    println!("-- find_iter ---");
+
+    let regex = Regex::new(r"[a-zA-Z0-9]+")?;
+    let v = regex.find_iter(text)
+        .map(|c| c.as_str());
+
+    for m in v
+       {
+        println!("{:?}", m);
+    };
+        println!("-----");
+
+
+   for m in regex.find_iter(text) {
+        println!("{:?}", m);
+
+   }
+
+    println!("-- captures_iter ---");
+//    let regex: Regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+?)[[\s$][^a-zà-ýA-ZÀ-Ý0-9]]+?")?;
+    let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+?)([[\s$][^a-zà-ýA-ZÀ-Ý0-9]]+)")?;
+    let html_string = regex.captures_iter(text).map(|c| {
+        println!("{:?}", c);
+        let s = format!("{}{}", &c[1], &c[2]);
+        s
+    }).collect::<Vec<String>>().join("");
+
+    println!("-----");
+    println!("{}", html_string);
+
+    println!("-----");
+
+
+
+    Ok(())
 }
