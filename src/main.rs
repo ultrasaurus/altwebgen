@@ -26,9 +26,11 @@ fn main() -> anyhow::Result<()> {
     println!("-- captures_iter ---");
 //    let regex: Regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+?)[[\s$][^a-zà-ýA-ZÀ-Ý0-9]]+?")?;
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+?)([[\s$][^a-zà-ýA-ZÀ-Ý0-9]]+)")?;
+    let mut nth_word = 0;
     let html_string = regex.captures_iter(text).map(|c| {
         println!("{:?}", c);
-        let s = format!("{}{}", &c[1], &c[2]);
+        let s = format!("<span word='{}'>{}</span>{}", nth_word, &c[1], &c[2]);
+        nth_word = nth_word + 1;
         s
     }).collect::<Vec<String>>().join("");
 
