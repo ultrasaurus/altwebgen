@@ -1,33 +1,23 @@
 use regex::Regex;
-// use regex::Regex::Captures;
+use clap::Parser;
+
+#[derive(Parser)]
+#[clap(author, version, about, long_about = None)]
+struct Cli {
+    /// source text 
+    #[clap(short, long, value_parser, default_value = "Hello world!")]
+    text: String,
+}
 
 fn main() -> anyhow::Result<()> {
-    let text = "Hello, everyone in the world!";
-    println!("text: {}", text);
+    let cli = Cli::parse();
+    let text = cli.text;
+    // let text: &str = "Hello, everyone in the world!";
+    // println!("text: {}", text);
 
-    println!("-- find_iter ---");
-
-    let regex = Regex::new(r"[a-zA-Z0-9]+")?;
-    let v = regex.find_iter(text)
-        .map(|c| c.as_str());
-
-    for m in v
-       {
-        println!("{:?}", m);
-    };
-        println!("-----");
-
-
-   for m in regex.find_iter(text) {
-        println!("{:?}", m);
-
-   }
-
-    println!("-- captures_iter ---");
-//    let regex: Regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+?)[[\s$][^a-zà-ýA-ZÀ-Ý0-9]]+?")?;
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+?)([[\s$][^a-zà-ýA-ZÀ-Ý0-9]]+)")?;
     let mut nth_word = 0;
-    let html_string = regex.captures_iter(text).map(|c| {
+    let html_string = regex.captures_iter(&text).map(|c| {
         println!("{:?}", c);
         let range: std::ops::Range<usize> = c.get(0).unwrap().range();
         let s = format!("<span word='{}' char='{}'>{}</span>{}", 
@@ -36,14 +26,10 @@ fn main() -> anyhow::Result<()> {
         s
     }).collect::<Vec<String>>().join("");
 
-
-
     println!("-----");
     println!("{}", html_string);
 
     println!("-----");
-
-
 
     Ok(())
 }
