@@ -9,12 +9,7 @@ struct Cli {
     text: String,
 }
 
-fn main() -> anyhow::Result<()> {
-    let cli = Cli::parse();
-    let text = cli.text;
-    // let text: &str = "Hello, everyone in the world!";
-    // println!("text: {}", text);
-
+fn html_words(text: String) -> anyhow::Result<String> {
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+?)([[\s$][^a-zà-ýA-ZÀ-Ý0-9]]+)")?;
     let mut nth_word = 0;
     let html_string = regex.captures_iter(&text).map(|c| {
@@ -25,6 +20,11 @@ fn main() -> anyhow::Result<()> {
         nth_word = nth_word + 1;
         s
     }).collect::<Vec<String>>().join("");
+    Ok(html_string)    
+}
+fn main() -> anyhow::Result<()> {
+    let cli = Cli::parse();
+    let html_string = html_words(cli.text)?;
 
     println!("-----");
     println!("{}", html_string);
