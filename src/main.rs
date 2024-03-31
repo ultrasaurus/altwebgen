@@ -20,6 +20,38 @@ fn get_current_working_dir() -> std::io::Result<PathBuf> {
     Ok(wd)
 }
 
+// copy a directory with all of its files recursively
+fn copy_dir_all<P: AsRef<Path>>(src: P, dst: P) -> anyhow::Result<()> {
+    let dst_dir = PathBuf::from(dst.as_ref());
+    for entry in WalkDir::new(&src) {
+        let entry = entry?;
+
+        let from = entry.path();
+        let to = dst_dir.join(from.strip_prefix(&src)?);
+        println!("\tcopy {} => {}", from.display(), to.display());
+
+        // create directories
+        if entry.file_type().is_dir() {
+            if let Err(e) = std::fs::create_dir(to) {
+                match e.kind() {
+                    std::io::ErrorKind::AlreadyExists => {}
+                    _ => return Err(e.into()),
+                }
+            }
+        }
+        // copy files
+        else if entry.file_type().is_file() {
+            std::fs::copy(from, to)?;
+        }
+        // ignore the rest
+        else {
+            eprintln!("copy: ignored symlink {}", from.display());
+        }
+    }
+    Ok(())
+}
+
+
 fn create_destdir(config: &Config, sourcepath: &Path) -> anyhow::Result<()> {
     let rel_path = sourcepath
         .strip_prefix(&config.sourcedir);
