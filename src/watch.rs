@@ -7,7 +7,7 @@ use tracing::{info, error};
 use notify_debouncer_mini::{DebounceEventResult, new_debouncer};
 use anyhow::anyhow;
 
-pub async fn watch<P: AsRef<Path>>(path: P) -> anyhow::Result<Vec<PathBuf>> {
+pub async fn watch<P: AsRef<Path>>(paths: &Vec<P>) -> anyhow::Result<Vec<PathBuf>> {
     use notify::RecursiveMode::*;
     let rt = tokio::runtime::Handle::current();
 
@@ -28,10 +28,12 @@ pub async fn watch<P: AsRef<Path>>(path: P) -> anyhow::Result<Vec<PathBuf>> {
         }).map_err(|e| anyhow!("Error while trying to watch for changes:\n\n\t{:?}", e))?;
     let watcher = debouncer.watcher();
 
-    // Add the source directory to the watcher
-    if let Err(e) = watcher.watch(path.as_ref(), Recursive) {
-        anyhow::bail!("Error while watching {:?}:\n    {:?}", path.as_ref(), e);
-    };
+    // Add the source directories to the watcher
+    for path in paths {
+        if let Err(e) = watcher.watch(path.as_ref(), Recursive) {
+            anyhow::bail!("Error while watching {:?}:\n    {:?}", path.as_ref(), e);
+        }
+    }
 
     info!("Listening for changes...");
     let result = tokio::spawn(async move {

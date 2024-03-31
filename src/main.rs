@@ -1,6 +1,7 @@
 use handlebars::Handlebars;
 use std::{default::Default, path::{Path, PathBuf}};
 use tracing::{info, error};
+use anyhow::anyhow;
 use walkdir::WalkDir;
 use warp::ws::Message;
 
@@ -21,10 +22,11 @@ fn get_current_working_dir() -> std::io::Result<PathBuf> {
 }
 
 // copy a directory with all of its files recursively
-fn copy_dir_all<P: AsRef<Path>>(src: P, dst: P) -> anyhow::Result<()> {
-    let dst_dir = PathBuf::from(dst.as_ref());
-    for entry in WalkDir::new(&src) {
-        let entry = entry?;
+fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
+    let dst_path: &Path = dst.as_ref();
+    let dst_dir = dst_path.to_path_buf();
+    for entry_result in WalkDir::new(&src) {
+        let entry = entry_result?;
 
         let from = entry.path();
         let to = dst_dir.join(from.strip_prefix(&src)?);
@@ -70,18 +72,24 @@ fn create_destdir(config: &Config, sourcepath: &Path) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn clean_and_setup_outpath<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
-    if path.as_ref().exists() {
-        std::fs::remove_dir_all(&path)?;
+fn clean_and_recreate_dir<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
+    let path_ref = path.as_ref();
+    if path_ref.exists() {
+        std::fs::remove_dir_all(path_ref).map_err(|e| {
+            anyhow!(format!("failed to delete directory: {}, error: {}", path_ref.display(), e))
+        })?;
     }
-    std::fs::create_dir_all(&path)?;
+    std::fs::create_dir_all(path_ref).map_err(|e| {
+            anyhow!(format!("failed to create directory: {}, error: {}", path_ref.display(), e))
+        })?;
     Ok(())
 }
 
 
 fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()> {
     info!("Processing files...");
-    clean_and_setup_outpath(&config.outdir)?;
+    clean_and_recreate_dir(&config.outdir)?;
+
     let walker = WalkDir::new(&config.sourcedir)
         .follow_links(true)
         .into_iter()
@@ -104,14 +112,27 @@ fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()>
    Ok(())
 }
 
+fn setup_templates(config: &Config) -> anyhow::Result<()> {
+    clean_and_recreate_dir(&config.builddir)?;
+    let buildtemplatedir = config.buildtemplatedir();
+    copy_dir_all(&config.templatedir, &buildtemplatedir)?;
+    copy_dir_all("ref", &buildtemplatedir.join("ref"))?;
+
+    Ok(())
+}
 fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     info!("Setup: start");
     info!("       working directory {}", get_current_working_dir()?.display());
     let config:Config = Default::default();
+    setup_templates(&config)?;
+
     let mut hbs = Handlebars::new();
-    let template_dir_name = "template";
-    hbs.register_templates_directory(template_dir_name, Default::default())?;
-    info!("Setup: template directory '{}' registered", template_dir_name);
+    let buildtemplatedir = config.buildtemplatedir();
+    hbs.register_templates_directory(&buildtemplatedir, Default::default())
+        .map_err(|_| {
+            anyhow!("failed to register template directory: {}", buildtemplatedir.display())
+        })?;
+    info!("Setup: template directory '{}' registered", &buildtemplatedir.display());
     process_files(&config, &hbs)?;
     info!("Setup: complete");
     Ok((config, hbs))
@@ -124,8 +145,12 @@ async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
     info!("Logging enabled");
 
-    let (config, hbs) = setup()?;
-    let watch_dir = config.sourcedir.clone();
+    let (config, mut hbs) = setup()?;
+    let mut source_watch = Vec::new();
+    source_watch.push(config.sourcedir.clone());
+    let mut template_watch = Vec::new();
+    template_watch.push(config.templatedir.clone());
+    template_watch.push(PathBuf::from("ref"));
 
     // A channel used to broadcast to any websockets to reload when a file changes.
     let (tx, _rx) = tokio::sync::broadcast::channel::<Message>(100);
@@ -135,8 +160,28 @@ async fn main() -> anyhow::Result<()> {
                 error!("unexpected server end");
                 break
             },
-            watch_result = watch(&watch_dir) => {
-                info!("watcher result {:?}", watch_result);
+            source_result = watch(&source_watch) => {
+                info!("source watcher result {:?}", source_result);
+                if let Err(e) = process_files(&config, &hbs) {
+                        error!("process_files failed: {:?}", e);
+                        break
+                } else {
+                    let _ = tx.send(Message::text("reload"));
+                }
+            },
+            template_result = watch(&template_watch) => {
+                info!("template watcher result {:?}", template_result);
+                hbs.clear_templates();
+                if let Err(e) = setup_templates(&config) {
+                    error!("setup_templates failed: {:?}", e);
+                    break
+                };
+                let buildtemplatedir = config.buildtemplatedir();
+                hbs.register_templates_directory(&buildtemplatedir, Default::default())
+                .map_err(|_| {
+                    anyhow!("failed to register template directory: {}", buildtemplatedir.display())
+                })?;
+
                 if let Err(e) = process_files(&config, &hbs) {
                         error!("process_files failed: {:?}", e);
                         break
