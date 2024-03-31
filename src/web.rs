@@ -38,7 +38,7 @@ pub fn render_file<P: AsRef<Path>>(
             hbs.render_template_to_write(&source, &data, writer)?;
         }
         Some("md") => {
-            // use pulldown_cmark::{Event, Parser as MarkdownParser, Tag};
+            use pulldown_cmark as md;
 
             // path for writing: html extension, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension("html"))?;
@@ -47,9 +47,9 @@ pub fn render_file<P: AsRef<Path>>(
                 .write(true)
                 .open(writepath)?;
             let source = read_file_to_string(sourcepath)?;
-            let parser = pulldown_cmark::Parser::new_ext(&source,
-                                pulldown_cmark::Options::empty());
-            pulldown_cmark::html::write_html(writer, parser)?;
+            let parser = md::Parser::new_ext(&source,
+                                md::Options::empty());
+            md::html::write_html(writer, parser)?;
         },
         _ => {
             // copy the file
