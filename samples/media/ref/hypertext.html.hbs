@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<script>
+    const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    //const wsAddress = wsProtocol + "//" + location.host + "/" + "";
+    const wsAddress = wsProtocol + "//" + location.host + "/__livereload";
+    const socket = new WebSocket(wsAddress);
+    socket.onmessage = function (event) {
+        if (event.data === "reload") {
+            socket.close();
+            location.reload();
+        }
+    };
+
+    window.onbeforeunload = function () {
+        socket.close();
+    }
+</script>
+
+
+<body>
+    <p>....Let me introduce the word "hypertext" to mean a body of written or pictorial material interconnected in such a complex way that it could not conveniently be presented or represented on paper. It may contain summaries, or maps of its contents and their interrelations; it may contain annotations, additions and footnotes from scholars who have examined it. Let me suggest that such an object and system, properly designed and administered, could have great potential for education, increasing the student's range of choices, his sense of freedom, his motivation, and his intellectual grasp. Such a system could grow indefinitely, gradually including more and more of the world's written knowledge. However, its internal file structure would have to be built to accept growth, change and complex informational arrangements.</p>
+
+</body>
+
+</html>
