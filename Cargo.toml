@@ -14,6 +14,7 @@ new_mime_guess = "4.0.1"
 notify = "6.1.1"
 notify-debouncer-mini = { version = "0.4.1", default-features = false }
 pulldown-cmark = "0.10.0"
+serde = "1.0.197"
 tokio = {version="1.36", features = ["macros", "rt-multi-thread"]}
 tokio-util = "0.7.10"
 tower-http = {version="0.5.2", features = ["fs"]}

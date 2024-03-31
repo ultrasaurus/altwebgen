@@ -29,6 +29,7 @@ dependencies = [
  "notify",
  "notify-debouncer-mini",
  "pulldown-cmark",
+ "serde",
  "tokio",
  "tokio-util",
  "tower-http",

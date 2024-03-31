@@ -77,8 +77,9 @@ fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     info!("       working directory {}", get_current_working_dir()?.display());
     let config:Config = Default::default();
     let mut hbs = Handlebars::new();
-    hbs.register_templates_directory("templates", Default::default())?;
-    info!("Setup: template directory '{}' registered", "templates");
+    let template_dir_name = "template";
+    hbs.register_templates_directory(template_dir_name, Default::default())?;
+    info!("Setup: template directory '{}' registered", template_dir_name);
     process_files(&config, &hbs)?;
     info!("Setup: complete");
     Ok((config, hbs))

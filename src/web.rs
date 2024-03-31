@@ -39,6 +39,14 @@ pub fn render_file<P: AsRef<Path>>(
         }
         Some("md") => {
             use pulldown_cmark as md;
+            // use std::collections::HashMap;
+
+            let mut html_body = Vec::new();
+
+            let source = read_file_to_string(sourcepath)?;
+            let parser = md::Parser::new_ext(&source,
+                                md::Options::empty());
+            md::html::write_html(&mut html_body, parser)?;
 
             // path for writing: html extension, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension("html"))?;
@@ -46,10 +54,12 @@ pub fn render_file<P: AsRef<Path>>(
                 .create(true)
                 .write(true)
                 .open(writepath)?;
-            let source = read_file_to_string(sourcepath)?;
-            let parser = md::Parser::new_ext(&source,
-                                md::Options::empty());
-            md::html::write_html(writer, parser)?;
+
+            let mut template_vars = HashMap::new();
+            let body_string = String::from_utf8(html_body)?;
+            template_vars.insert("body", body_string);
+
+            hbs.render_to_write("default", &template_vars, writer)?;
         },
         _ => {
             // copy the file
