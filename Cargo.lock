@@ -25,6 +25,7 @@ dependencies = [
  "futures-util",
  "handlebars",
  "http-body-util",
+ "mime",
  "new_mime_guess",
  "notify",
  "notify-debouncer-mini",

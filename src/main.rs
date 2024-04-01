@@ -1,7 +1,10 @@
-use handlebars::Handlebars;
-use std::{default::Default, path::{Path, PathBuf}};
-use tracing::{info, error};
 use anyhow::anyhow;
+use handlebars::Handlebars;
+use new_mime_guess as mime_guess;
+use std::{default::Default, path::{Path, PathBuf}};
+use std::io::Write;
+
+use tracing::{info, error};
 use walkdir::WalkDir;
 use warp::ws::Message;
 
@@ -27,7 +30,7 @@ fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
     let dst_dir = dst_path.to_path_buf();
     for entry_result in WalkDir::new(&src) {
         let entry = entry_result.map_err(|_| {
-            anyhow!("failed to copy directory, from {} to {}",
+            anyhow!("invalid DirEntry, failed to copy directory, from {} to {}",
                 src.as_ref().display(),
                 dst_path.display())
         })?;
@@ -120,12 +123,91 @@ fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()>
    Ok(())
 }
 
+#[derive(Debug, Clone)]
+struct Ref {
+    pub md: Option<PathBuf>,
+    pub audio: Option<PathBuf>,
+}
+impl Ref {
+    pub fn new() -> Self {
+        Ref { md: None, audio: None }
+    }
+    pub fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
+        if let Some(md) = &self.md {
+            let html_body = web::md2html(&md)?;
+            writer.write(&html_body)?;
+        }
+        Ok(())
+    }
+    pub fn write_to_dest(&self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
+        info!("write_to_dest Ref: {:?}", self);
+        if let Some(md) = &self.md {
+            let relpath = md.strip_prefix(source_dir)?;
+             info!("     relpath: {:?}", relpath);
+             let writepath = dest_dir
+                .join(relpath)
+                .with_extension("html.hbs");
+             info!("     writepath: {:?}", writepath);
+            let mut writer = std::fs::File::options()
+                .create(true)
+                .write(true)
+                .open(writepath)?;
+            self.write_html(&mut writer)?;
+        }
+        Ok(())
+    }
+
+}
+
+fn process_ref_markdown<P: AsRef<Path>>(source_dir: P, dest_dir:&Path) -> anyhow::Result<()> {
+    let src_dir_path = source_dir.as_ref();
+    info!("process_ref_markdown from '{}' to '{}'", src_dir_path.display(), dest_dir.display());
+    // maybe first create a map of stem => Vec[file types]
+    let mut prev_stem = None;
+    let mut current_ref = Ref::new();
+    for e in WalkDir::new(src_dir_path) { //}.into_iter().for_each(|e| {
+        let entry = e?;
+        let path: &Path = entry.path();
+        if std::fs::metadata(path)?.is_file() {
+            let path_stem = path.with_extension("").with_extension("");
+            info!("prev_stem: {:?}", prev_stem);
+            info!("path_stem: {}", path_stem.display());
+            let mime = mime_guess::from_path(path).first_or_octet_stream();
+            if prev_stem != Some(path_stem.clone()) {
+                if prev_stem.is_some() {
+                    current_ref.write_to_dest(src_dir_path, &dest_dir)?;
+                }
+                current_ref = Ref::new();
+                prev_stem = Some(path_stem);
+            }
+            match (mime.type_(), mime.subtype()) {
+                (mime::TEXT, subtype) => {
+                    if subtype == "markdown" {
+                        current_ref.md = Some(path.to_path_buf())
+                    }
+                    // else ignore
+                },
+                (mime::AUDIO, _) => current_ref.audio = Some(path.to_path_buf()),
+                _ => { }  // ignore other file types
+            }
+        }
+    };
+    current_ref.write_to_dest(src_dir_path, &dest_dir)?;
+
+    Ok(())
+}
+
 fn setup_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
     info!("setup_templates");
     clean_and_recreate_dir(&config.builddir)?;
     let buildtemplatedir = config.buildtemplatedir();
     copy_dir_all(&config.templatedir, &buildtemplatedir)?;
-    copy_dir_all("ref", &buildtemplatedir.join("ref"))?;
+    let buildrefdir = buildtemplatedir.join("ref");
+    std::fs::create_dir_all(&buildrefdir).map_err(|e| {
+        anyhow!(format!("failed to create directory: {}, error: {}", &buildrefdir.display(), e))
+    })?;
+
+    process_ref_markdown("ref", &buildtemplatedir.join("ref"))?;
 
         let buildtemplatedir = config.buildtemplatedir();
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
@@ -136,6 +218,8 @@ fn setup_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> 
 
     Ok(())
 }
+
+// initial setup, called only once
 fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     info!("Setup: start");
     info!("       working directory {}", get_current_working_dir()?.display());

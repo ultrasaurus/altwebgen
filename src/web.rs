@@ -1,7 +1,9 @@
 use crate::config::Config;
 use anyhow::{bail, Result};
 use handlebars::Handlebars;
+use pulldown_cmark as md;
 use std::{ffi::OsStr, fs::File, io::Read, path::Path};
+use std::collections::HashMap;
 use tracing::info;
 
 pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> Result<String> {
@@ -16,7 +18,16 @@ pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> Result<String> {
     Ok(buf)
 }
 
-use std::collections::HashMap;
+pub fn md2html<P: AsRef<Path>>(sourcepath: P) -> Result<Vec<u8>> {
+    let mut html_body = Vec::new();
+
+    let source = read_file_to_string(sourcepath)?;
+    let parser = md::Parser::new(&source);
+    md::html::write_html(&mut html_body, parser)?;
+
+    Ok(html_body)
+}
+
 pub fn render_file<P: AsRef<Path>>(
     config: &Config,
     hbs: &Handlebars,
@@ -38,15 +49,11 @@ pub fn render_file<P: AsRef<Path>>(
             hbs.render_template_to_write(&source, &data, writer)?;
         }
         Some("md") => {
-            use pulldown_cmark as md;
-            // use std::collections::HashMap;
+            let html_body = md2html(sourcepath)?;
 
-            let mut html_body = Vec::new();
-
-            let source = read_file_to_string(sourcepath)?;
-            let parser = md::Parser::new_ext(&source,
-                                md::Options::empty());
-            md::html::write_html(&mut html_body, parser)?;
+            // let source = read_file_to_string(sourcepath)?;
+            // let parser = md::Parser::new(&source);
+            // md::html::write_html(&mut html_body, parser)?;
 
             // path for writing: html extension, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension("html"))?;
