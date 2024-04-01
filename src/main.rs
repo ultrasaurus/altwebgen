@@ -26,7 +26,11 @@ fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
     let dst_path: &Path = dst.as_ref();
     let dst_dir = dst_path.to_path_buf();
     for entry_result in WalkDir::new(&src) {
-        let entry = entry_result?;
+        let entry = entry_result.map_err(|_| {
+            anyhow!("failed to copy directory, from {} to {}",
+                src.as_ref().display(),
+                dst_path.display())
+        })?;
 
         let from = entry.path();
         let to = dst_dir.join(from.strip_prefix(&src)?);
@@ -43,7 +47,11 @@ fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
         }
         // copy files
         else if entry.file_type().is_file() {
-            std::fs::copy(from, to)?;
+            std::fs::copy(&from, &to).map_err(|_| {
+                anyhow!("copy_dir_all: failed to copy file, from {} to {}",
+                    from.display(),
+                    to.display())
+            })?;
         }
         // ignore the rest
         else {
@@ -112,11 +120,19 @@ fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()>
    Ok(())
 }
 
-fn setup_templates(config: &Config) -> anyhow::Result<()> {
+fn setup_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
+    info!("setup_templates");
     clean_and_recreate_dir(&config.builddir)?;
     let buildtemplatedir = config.buildtemplatedir();
     copy_dir_all(&config.templatedir, &buildtemplatedir)?;
     copy_dir_all("ref", &buildtemplatedir.join("ref"))?;
+
+        let buildtemplatedir = config.buildtemplatedir();
+    hbs.register_templates_directory(&buildtemplatedir, Default::default())
+        .map_err(|_| {
+            anyhow!("failed to register template directory: {}", buildtemplatedir.display())
+        })?;
+    info!("Setup: template directory '{}' registered", &buildtemplatedir.display());
 
     Ok(())
 }
@@ -124,15 +140,8 @@ fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     info!("Setup: start");
     info!("       working directory {}", get_current_working_dir()?.display());
     let config:Config = Default::default();
-    setup_templates(&config)?;
-
     let mut hbs = Handlebars::new();
-    let buildtemplatedir = config.buildtemplatedir();
-    hbs.register_templates_directory(&buildtemplatedir, Default::default())
-        .map_err(|_| {
-            anyhow!("failed to register template directory: {}", buildtemplatedir.display())
-        })?;
-    info!("Setup: template directory '{}' registered", &buildtemplatedir.display());
+    setup_templates(&config, &mut hbs)?;
     process_files(&config, &hbs)?;
     info!("Setup: complete");
     Ok((config, hbs))
@@ -172,16 +181,10 @@ async fn main() -> anyhow::Result<()> {
             template_result = watch(&template_watch) => {
                 info!("template watcher result {:?}", template_result);
                 hbs.clear_templates();
-                if let Err(e) = setup_templates(&config) {
+                if let Err(e) = setup_templates(&config, &mut hbs) {
                     error!("setup_templates failed: {:?}", e);
                     break
                 };
-                let buildtemplatedir = config.buildtemplatedir();
-                hbs.register_templates_directory(&buildtemplatedir, Default::default())
-                .map_err(|_| {
-                    anyhow!("failed to register template directory: {}", buildtemplatedir.display())
-                })?;
-
                 if let Err(e) = process_files(&config, &hbs) {
                         error!("process_files failed: {:?}", e);
                         break
