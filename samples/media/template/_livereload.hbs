@@ -1,5 +1,6 @@
 <script>
     const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    //TODO: make variable for endpoint
     //const wsAddress = wsProtocol + "//" + location.host + "/" + "{{{live_reload_endpoint}}}";
     const wsAddress = wsProtocol + "//" + location.host + "/__livereload";
     const socket = new WebSocket(wsAddress);
