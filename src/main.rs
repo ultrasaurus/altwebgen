@@ -1,6 +1,7 @@
 use anyhow::anyhow;
 use handlebars::Handlebars;
 use new_mime_guess as mime_guess;
+use mime::Mime;
 use std::{default::Default, path::{Path, PathBuf}};
 use std::io::Write;
 
@@ -93,14 +94,14 @@ fn clean_and_recreate_dir<P: AsRef<Path>>(path: P) -> anyhow::Result<()> {
     std::fs::create_dir_all(path_ref).map_err(|e| {
             anyhow!(format!("failed to create directory: {}, error: {}", path_ref.display(), e))
         })?;
+    let media_dir = path_ref.to_path_buf().join("media");
+    std::fs::create_dir(&media_dir)?;
     Ok(())
 }
 
 
 fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()> {
     info!("Processing files...");
-    clean_and_recreate_dir(&config.outdir)?;
-
     let walker = WalkDir::new(&config.sourcedir)
         .follow_links(true)
         .into_iter()
@@ -124,15 +125,30 @@ fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()>
 }
 
 #[derive(Debug, Clone)]
+struct AudioFile {
+    pub path: PathBuf,
+    pub mime: Mime
+}
+#[derive(Debug, Clone)]
 struct Ref {
     pub md: Option<PathBuf>,
-    pub audio: Option<PathBuf>,
+    pub audio: Option<AudioFile>,
 }
 impl Ref {
     pub fn new() -> Self {
         Ref { md: None, audio: None }
     }
     pub fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
+        if let Some(audio) = &self.audio {
+            let file_name = audio.path.file_name().unwrap().to_string_lossy();
+            let url = format!("/media/{}",file_name);
+            let link_tag= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
+                &url, &file_name, &file_name);
+            let audio_tag= format!("<audio controls><source src=\"{}\" type=\"{}\">Your browser does not support the audio element. {}</audio>",
+                url, audio.mime, &link_tag);
+            writer.write(&audio_tag.as_bytes())?;
+
+        }
         if let Some(md) = &self.md {
             let html_body = web::md2html(&md)?;
             writer.write(&html_body)?;
@@ -141,6 +157,14 @@ impl Ref {
     }
     pub fn write_to_dest(&self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
         info!("write_to_dest Ref: {:?}", self);
+        if let Some(audio) = &self.audio {
+            let source_path = &audio.path;
+            let dest_path = PathBuf::from(format!(".dist/media/{}",
+                source_path.file_name().unwrap().to_string_lossy()));
+            //let dest_path = dest_dir.join(dest_relpath);
+            info!("copy from {:?} to {:?}", &source_path, &dest_path);
+            std::fs::copy(source_path, dest_path)?;
+        }
         if let Some(md) = &self.md {
             let relpath = md.strip_prefix(source_dir)?;
              info!("     relpath: {:?}", relpath);
@@ -187,7 +211,10 @@ fn process_ref_markdown<P: AsRef<Path>>(source_dir: P, dest_dir:&Path) -> anyhow
                     }
                     // else ignore
                 },
-                (mime::AUDIO, _) => current_ref.audio = Some(path.to_path_buf()),
+                (mime::AUDIO, _) => current_ref.audio =
+                    Some(AudioFile {
+                    path: path.to_path_buf(),
+                    mime}),
                 _ => { }  // ignore other file types
             }
         }
@@ -225,6 +252,7 @@ fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     info!("       working directory {}", get_current_working_dir()?.display());
     let config:Config = Default::default();
     let mut hbs = Handlebars::new();
+    clean_and_recreate_dir(&config.outdir)?;
     setup_templates(&config, &mut hbs)?;
     process_files(&config, &hbs)?;
     info!("Setup: complete");
@@ -255,6 +283,7 @@ async fn main() -> anyhow::Result<()> {
             },
             source_result = watch(&source_watch) => {
                 info!("source watcher result {:?}", source_result);
+                clean_and_recreate_dir(&config.outdir)?;
                 if let Err(e) = process_files(&config, &hbs) {
                         error!("process_files failed: {:?}", e);
                         break
@@ -265,6 +294,7 @@ async fn main() -> anyhow::Result<()> {
             template_result = watch(&template_watch) => {
                 info!("template watcher result {:?}", template_result);
                 hbs.clear_templates();
+                clean_and_recreate_dir(&config.outdir)?;
                 if let Err(e) = setup_templates(&config, &mut hbs) {
                     error!("setup_templates failed: {:?}", e);
                     break
