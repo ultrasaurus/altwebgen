@@ -185,6 +185,10 @@ impl Ref {
 
 fn process_ref_markdown<P: AsRef<Path>>(source_dir: P, dest_dir:&Path) -> anyhow::Result<()> {
     let src_dir_path = source_dir.as_ref();
+    if !src_dir_path.exists() {
+        info!("skipping process_ref_markdown, no ref source directory: '{}'", src_dir_path.display());
+        return Ok(())
+    }
     info!("process_ref_markdown from '{}' to '{}'", src_dir_path.display(), dest_dir.display());
     // maybe first create a map of stem => Vec[file types]
     let mut prev_stem = None;
@@ -253,6 +257,15 @@ fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     let config:Config = Default::default();
     let mut hbs = Handlebars::new();
     clean_and_recreate_dir(&config.outdir)?;
+    std::fs::create_dir_all(&config.sourcedir).map_err(|e| {
+        anyhow!(format!("failed to create directory: {}, error: {}", &config.sourcedir.display(), e))
+    })?;
+    let refdir = "ref";    // TODO: config?
+    std::fs::create_dir_all(refdir).map_err(|e| {
+        anyhow!(format!("failed to create directory: {}, error: {}", refdir, e))
+    })?;
+
+
     setup_templates(&config, &mut hbs)?;
     process_files(&config, &hbs)?;
     info!("Setup: complete");
