@@ -264,6 +264,10 @@ fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     std::fs::create_dir_all(refdir).map_err(|e| {
         anyhow!(format!("failed to create directory: {}, error: {}", refdir, e))
     })?;
+    std::fs::create_dir_all(&config.templatedir).map_err(|e| {
+        anyhow!(format!("failed to create directory: {}, error: {}", &config.templatedir.display(), e))
+    })?;
+
 
 
     setup_templates(&config, &mut hbs)?;

@@ -45,8 +45,26 @@ pub fn render_file<P: AsRef<Path>>(
                 .write(true)
                 .open(writepath)?;
             let source = read_file_to_string(sourcepath)?;
-            let data: HashMap<String, String> = HashMap::new();
-            hbs.render_template_to_write(&source, &data, writer)?;
+            use matter::matter;
+            let (mut data, content) = match matter(&source) {
+                None => {info!("matter: None");
+                    let data: HashMap<String, String> = HashMap::new();
+                    (data, source)
+                },
+
+                Some((yaml_string, content)) => {
+                    info!("matter:\n{:?}\n------", yaml_string);
+                    let data:HashMap<String, String> = serde_yaml::from_str(&yaml_string)?;
+
+                  //  let data: HashMap<&str, String> = HashMap::new();
+                    (data, content)
+                }
+            };
+            let html_body = hbs.render_template(&content, &data)?;
+            data.insert("body".into(), html_body);
+            // hbs.render_template_to_write("default", &data, writer)?;
+            hbs.render_to_write("default", &data, writer)?;
+
         }
         Some("md") => {
             let html_body = md2html(sourcepath)?;
