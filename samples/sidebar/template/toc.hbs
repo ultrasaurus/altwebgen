@@ -1,7 +1,19 @@
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        let current_path = location.href.replace(location.origin, '');
+        if (current_path == "/") {
+            current_path = "/index.html";
+        }
+        let elem = document.querySelector('li.chapter-item > a[href="'+current_path+'"]');
+        elem.classList.add("active");
+    })
+</script>
+
 <ol class="chapter">
-    <li class="chapter-item expanded affix "><a href="index.html" class="active">Introduction</a></li>
+    <li class="chapter-item expanded affix "><a href="/index.html"
+        >Introduction</a></li>
     <li class="chapter-item expanded affix ">
     <li class="part-title">Items</li>
-    <li class="chapter-item expanded "><a href="item_one.html"><strong aria-hidden="true">1.</strong>
+    <li class="chapter-item expanded "><a href="/item_one.html"><strong aria-hidden="true">1.</strong>
             Item One</a></li>
 </ol>
