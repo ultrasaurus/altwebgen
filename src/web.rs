@@ -28,6 +28,27 @@ pub fn md2html<P: AsRef<Path>>(sourcepath: P) -> Result<Vec<u8>> {
     Ok(html_body)
 }
 
+fn read_source<P: AsRef<Path>>(sourcepath: P) -> Result<(HashMap<String, String>, String)>
+{
+    let source = read_file_to_string(sourcepath)?;
+    use matter::matter;
+    let (data, content) = match matter(&source) {
+        None => {info!("matter: None");
+            let data: HashMap<String, String> = HashMap::new();
+            (data, source)
+        },
+
+        Some((yaml_string, content)) => {
+            info!("matter:\n{:?}\n------", yaml_string);
+            let data:HashMap<String, String> = serde_yaml::from_str(&yaml_string)?;
+
+            //  let data: HashMap<&str, String> = HashMap::new();
+            (data, content)
+        }
+    };
+    Ok((data, content))
+}
+
 pub fn render_file<P: AsRef<Path>>(
     config: &Config,
     hbs: &Handlebars,
@@ -38,28 +59,13 @@ pub fn render_file<P: AsRef<Path>>(
     let maybe_ext: Option<&str> = sourcepath.extension().and_then(OsStr::to_str);
     match maybe_ext {
         Some("hbs") => {
+            let (mut data, content) = read_source(sourcepath)?;
             // path for writing: w/o .hbs, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension(""))?;
             let writer = std::fs::File::options()
                 .create(true)
                 .write(true)
                 .open(writepath)?;
-            let source = read_file_to_string(sourcepath)?;
-            use matter::matter;
-            let (mut data, content) = match matter(&source) {
-                None => {info!("matter: None");
-                    let data: HashMap<String, String> = HashMap::new();
-                    (data, source)
-                },
-
-                Some((yaml_string, content)) => {
-                    info!("matter:\n{:?}\n------", yaml_string);
-                    let data:HashMap<String, String> = serde_yaml::from_str(&yaml_string)?;
-
-                  //  let data: HashMap<&str, String> = HashMap::new();
-                    (data, content)
-                }
-            };
             let html_body = hbs.render_template(&content, &data)?;
             data.insert("body".into(), html_body);
             // hbs.render_template_to_write("default", &data, writer)?;
