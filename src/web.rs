@@ -4,11 +4,11 @@ use handlebars::Handlebars;
 use pulldown_cmark as md;
 use std::{ffi::OsStr, fs::File, io::Read, path::Path};
 use std::collections::HashMap;
-use tracing::info;
+use tracing::{info, trace};
 
 pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> Result<String> {
     let path = std::fs::canonicalize(filepath)?;
-    info!("read_file #{}", path.display());
+    trace!("read_file #{}", path.display());
     let mut f = File::open(path)?;
     let mut buf = String::new();
     let bytes = f.read_to_string(&mut buf)?;
@@ -55,7 +55,7 @@ pub fn render_file<P: AsRef<Path>>(
     path: P,
 ) -> anyhow::Result<()> {
     let sourcepath = path.as_ref();
-    info!("rendering: {}", sourcepath.display());
+    trace!("rendering: {}", sourcepath.display());
     let maybe_ext: Option<&str> = sourcepath.extension().and_then(OsStr::to_str);
     match maybe_ext {
         Some("hbs") => {

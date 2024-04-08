@@ -5,7 +5,7 @@ use mime::Mime;
 use std::{default::Default, path::{Path, PathBuf}};
 use std::io::Write;
 
-use tracing::{info, error};
+use tracing::{info, error, trace};
 use walkdir::WalkDir;
 use warp::ws::Message;
 
@@ -111,7 +111,7 @@ fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()>
 
     for entry_result in walker
     {
-        info!("  entry: {:?}", entry_result);
+        trace!("  entry: {:?}", entry_result);
         let entry = entry_result?;
         let path = entry.path();
         if path.is_dir() {
@@ -139,8 +139,11 @@ impl Ref {
         Ref { md: None, audio: None }
     }
     pub fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
+        trace!("write_html for ref: {:?}", self);
         if let Some(audio) = &self.audio {
+            trace!("write_html audio file_name: {:?}", audio.path.file_name());
             let file_name = audio.path.file_name().unwrap().to_string_lossy();
+            trace!("write_html audio file_name: {:?}", file_name);
             let url = format!("/media/{}",file_name);
             let link_tag= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
                 &url, &file_name, &file_name);
@@ -162,16 +165,16 @@ impl Ref {
             let dest_path = PathBuf::from(format!(".dist/media/{}",
                 source_path.file_name().unwrap().to_string_lossy()));
             //let dest_path = dest_dir.join(dest_relpath);
-            info!("copy from {:?} to {:?}", &source_path, &dest_path);
+            trace!("copy from {:?} to {:?}", &source_path, &dest_path);
             std::fs::copy(source_path, dest_path)?;
         }
         if let Some(md) = &self.md {
             let relpath = md.strip_prefix(source_dir)?;
-             info!("     relpath: {:?}", relpath);
+             trace!("     relpath: {:?}", relpath);
              let writepath = dest_dir
                 .join(relpath)
                 .with_extension("html.hbs");
-             info!("     writepath: {:?}", writepath);
+             trace!("     writepath: {:?}", writepath);
             let mut writer = std::fs::File::options()
                 .create(true)
                 .write(true)
@@ -189,17 +192,19 @@ fn process_ref_markdown<P: AsRef<Path>>(source_dir: P, dest_dir:&Path) -> anyhow
         info!("skipping process_ref_markdown, no ref source directory: '{}'", src_dir_path.display());
         return Ok(())
     }
-    info!("process_ref_markdown from '{}' to '{}'", src_dir_path.display(), dest_dir.display());
+    trace!("process_ref_markdown from '{}' to '{}'", src_dir_path.display(), dest_dir.display());
     // maybe first create a map of stem => Vec[file types]
     let mut prev_stem = None;
     let mut current_ref = Ref::new();
-    for e in WalkDir::new(src_dir_path) { //}.into_iter().for_each(|e| {
+    for e in WalkDir::new(src_dir_path)
+        .sort_by(|a,b| a.file_name().cmp(b.file_name()))
+        {
         let entry = e?;
         let path: &Path = entry.path();
         if std::fs::metadata(path)?.is_file() {
             let path_stem = path.with_extension("").with_extension("");
-            info!("prev_stem: {:?}", prev_stem);
-            info!("path_stem: {}", path_stem.display());
+            trace!("prev_stem: {:?}", prev_stem);
+            trace!("path_stem: {}", path_stem.display());
             let mime = mime_guess::from_path(path).first_or_octet_stream();
             if prev_stem != Some(path_stem.clone()) {
                 if prev_stem.is_some() {
