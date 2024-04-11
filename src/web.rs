@@ -60,6 +60,9 @@ pub fn render_file<P: AsRef<Path>>(
     match maybe_ext {
         Some("hbs") => {
             let (mut data, content) = read_source(sourcepath)?;
+            let site_attr_ref = &config.site_attr;
+            data.extend(site_attr_ref.into_iter().map(|(k, v)| (k.clone(), v.clone())));
+
             // path for writing: w/o .hbs, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension(""))?;
             let writer = std::fs::File::options()

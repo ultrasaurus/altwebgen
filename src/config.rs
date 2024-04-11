@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use std::path::{Path,PathBuf};
 use tracing::{error, info};
 
@@ -7,6 +8,7 @@ pub struct Config {
     pub builddir: PathBuf,
     pub sourcedir: PathBuf,
     pub templatedir: PathBuf,
+    pub site_attr: HashMap<String, String>
 }
 
 impl Config {
@@ -21,6 +23,18 @@ impl Config {
     pub fn buildtemplatedir(&self) -> PathBuf {
          self.builddir.join("template")
     }
+}
+
+fn read_site_yaml(sourcedir: &Path) -> anyhow::Result<HashMap<String, String>> {
+
+    let site_yaml_path = sourcedir.join("_site.yaml");
+    let site_attr:HashMap<String, String>  = if !site_yaml_path.exists() {
+        HashMap::new()
+    } else {
+        let f = std::fs::File::open(&site_yaml_path)?;
+        serde_yaml::from_reader(f)?
+    };
+    Ok(site_attr)
 }
 
 impl Default for Config {
@@ -51,13 +65,20 @@ impl Default for Config {
                 error!("could not create build template directory: {}, error: {}", buildtemplatedir.display(), e)
             };
         }
-
-
+        let sourcedir = PathBuf::from("source");
+        let site_attr = match read_site_yaml(&sourcedir) {
+            Ok(h) => h,
+            Err(e) => {
+                error!("could not read _site.yaml from {}, {:?}", &sourcedir.display(), e);
+                HashMap::new()
+            }
+        };
         Config {
             outdir,
             builddir,
-            sourcedir: PathBuf::from("source"),
-            templatedir: PathBuf::from("template")
+            sourcedir,
+            templatedir: PathBuf::from("template"),
+            site_attr,
         }
 
     }
