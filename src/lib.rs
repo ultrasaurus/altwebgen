@@ -13,3 +13,26 @@ pub fn html_words<S: AsRef<str>>(text: S) -> anyhow::Result<String> {
     }).collect::<Vec<String>>().join("");
     Ok(html_string)    
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+     #[test]
+    fn html_words_empty_string() {
+        let result = html_words("");
+        assert!(result.is_ok());
+        let result_string = result.unwrap();
+        assert_eq!(result_string, "");
+    }
+
+    #[test]
+    fn html_words_hello_world() {
+        let result = html_words("Hello world!");
+        assert!(result.is_ok());
+        let result_string = result.unwrap();
+        let expected_string = "<span word='0' char='0'>Hello</span> <span word='1' char='6'>world</span>!";
+        assert_eq!(result_string, expected_string);
+    }
+
+}
