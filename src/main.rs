@@ -67,10 +67,9 @@ fn setup_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> 
 }
 
 // initial setup, called only once
-fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
+fn setup(config: &Config) -> anyhow::Result<Handlebars<'static>> {
     info!("Setup: start");
     info!("       working directory {}", get_current_working_dir()?.display());
-    let config:Config = Default::default();
     let mut hbs = Handlebars::new();
     clean_and_recreate_dir(&config.outdir)?;
     std::fs::create_dir_all(&config.sourcedir).map_err(|e| {
@@ -89,7 +88,7 @@ fn setup() -> anyhow::Result<(Config, Handlebars<'static>)> {
     setup_templates(&config, &mut hbs)?;
     process_files(&config, &hbs)?;
     info!("Setup: complete");
-    Ok((config, hbs))
+    Ok(hbs)
 }
 
 
@@ -99,7 +98,9 @@ async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
     info!("Logging enabled");
 
-    let (config, mut hbs) = setup()?;
+    let config:Config = Default::default();
+    let  mut hbs= setup(&config)?;
+
     let mut source_watch = Vec::new();
     source_watch.push(config.sourcedir.clone());
     let mut template_watch = Vec::new();
