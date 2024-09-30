@@ -1,4 +1,5 @@
 use regex::Regex;
+mod transcript;
 
 pub fn html_words<S: AsRef<str>>(text: S) -> anyhow::Result<String> {
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+?)([[\s$][^a-zà-ýA-ZÀ-Ý0-9]]+)")?;

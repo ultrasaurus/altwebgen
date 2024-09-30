@@ -12,3 +12,5 @@ description = "generate HTML with a span for each word"
 anyhow = "1.0.81"
 clap = {version = "4.5.0", features = ["derive"]}
 regex = "1.10.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.48"
