@@ -20,10 +20,10 @@ fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
     let html_string = match cli.input {
-        None => html_words(&cli.text)?,
+        None => html_words(&cli.text, None)?,
         Some(path) => {
             let input = std::fs::read_to_string(path)?;
-            html_words(input)?
+            html_words(input, None)?
         }
     };
 

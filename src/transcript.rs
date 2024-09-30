@@ -6,9 +6,9 @@ use anyhow::anyhow;
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct WordTime {
-    start_time: f32,
-    end_time: f32,
-    body: String
+    pub start_time: f32,
+    pub end_time: f32,
+    pub body: String
 }
 
 #[derive(Debug, Deserialize)]
