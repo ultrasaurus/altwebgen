@@ -1,5 +1,11 @@
+use anyhow::anyhow;
 use clap::Parser;
-use words::html_words;
+use std::{
+    fs,
+    io::BufReader,
+    path::PathBuf
+};
+use words::{html_words, WordTime};
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -21,9 +27,31 @@ fn main() -> anyhow::Result<()> {
 
     let html_string = match cli.input {
         None => html_words(&cli.text, None)?,
-        Some(path) => {
-            let input = std::fs::read_to_string(path)?;
-            html_words(input, None)?
+        Some(path_string) => {
+            println!("Text input path: {}", path_string);
+            let txt_path = PathBuf::from(path_string);
+            let transcript_path = txt_path.with_extension("transcript.json");
+            let text: String = fs::read_to_string(txt_path)?;
+            println!("Checking for transcript file: {}", transcript_path.display());
+            match fs::File::open(transcript_path) {
+                Ok(file) => {
+                    let transcript_reader =
+                        BufReader::new(file);
+                    let timing =
+                        WordTime::from_transcript(transcript_reader)?;
+                    html_words(text, Some(timing))?
+                },
+                Err(e) => {
+                    if e.kind() == std::io::ErrorKind::NotFound {
+                        println!("No transcript file found: rendering HTML without word timing");
+                        html_words(text, None)?
+                    } else {
+                        // Err(anyhow!(e)
+                        // .context("transcript file could not be opened {}", txt_path))
+                        return Err(anyhow!(e).context("from_transcript: failed to convert to json"))
+                    }
+                }
+            }
         }
     };
 
