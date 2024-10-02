@@ -1,24 +1,12 @@
 use crate::config::Config;
-use anyhow::{bail, Result};
+use crate::util::read_file_to_string;
+use anyhow::Result;
 use handlebars::Handlebars;
-use std::{ffi::OsStr, fs::File, io::Read, path::Path};
+use std::{ffi::OsStr, path::Path};
 use std::collections::HashMap;
 use tracing::{info, trace};
-mod ref_markdown;
-pub use ref_markdown::Ref as Ref;
 mod md;
-
-pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> Result<String> {
-    let path = std::fs::canonicalize(filepath)?;
-    trace!("read_file #{}", path.display());
-    let mut f = File::open(path)?;
-    let mut buf = String::new();
-    let bytes = f.read_to_string(&mut buf)?;
-    if bytes == 0 {
-        bail!("failed to read: 0 bytes returned from read_to_string");
-    }
-    Ok(buf)
-}
+pub use md::Ref as Ref;
 
 fn read_source<P: AsRef<Path>>(sourcepath: P) -> Result<(HashMap<String, String>, String)>
 {

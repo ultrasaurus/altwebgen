@@ -1,6 +1,8 @@
 use pulldown_cmark as cmark;
 use crate::web::read_file_to_string;
 use std::path::Path;
+mod ref_markdown;
+pub use ref_markdown::Ref as Ref;
 
 pub fn file2html<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<Vec<u8>> {
     let source = read_file_to_string(sourcepath)?;

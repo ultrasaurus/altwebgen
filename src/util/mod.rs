@@ -1,12 +1,29 @@
-use anyhow::anyhow;
-use std::path::{Path, PathBuf};
-use tracing::{info, error};
+use anyhow::{anyhow, bail};
+use std::{
+    fs::File,
+    io::Read,
+    path::{Path, PathBuf}
+};
+use tracing::{info, error, trace};
 use walkdir::WalkDir;
 
 mod dir_entry;
 pub use self::dir_entry::DirEntryExt;
 
 use crate::config::Config;
+
+pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> anyhow::Result<String> {
+    let path = std::fs::canonicalize(filepath)?;
+    trace!("read_file #{}", path.display());
+    let mut f = File::open(path)?;
+    let mut buf = String::new();
+    let bytes = f.read_to_string(&mut buf)?;
+    if bytes == 0 {
+        bail!("failed to read: 0 bytes returned from read_to_string");
+    }
+    Ok(buf)
+}
+
 
 pub fn get_current_working_dir() -> std::io::Result<PathBuf> {
     let wd = std::env::current_dir()?;
