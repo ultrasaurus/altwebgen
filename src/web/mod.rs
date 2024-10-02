@@ -5,6 +5,8 @@ use pulldown_cmark as md;
 use std::{ffi::OsStr, fs::File, io::Read, path::Path};
 use std::collections::HashMap;
 use tracing::{info, trace};
+mod ref_markdown;
+pub use ref_markdown::Ref as Ref;
 
 pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> Result<String> {
     let path = std::fs::canonicalize(filepath)?;

@@ -13,13 +13,11 @@ mod devserve;
 mod util;
 use util::*;
 
-mod ref2md;
-use ref2md::Ref;
-
 mod watch;
 use watch::watch;
 
 mod web;
+use web::Ref;
 
 fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()> {
     info!("Processing files...");
