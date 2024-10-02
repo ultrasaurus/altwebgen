@@ -10,6 +10,9 @@ use walkdir::WalkDir;
 mod dir_entry;
 pub use self::dir_entry::DirEntryExt;
 
+pub mod path;
+pub use self::path::PathExt;
+
 use crate::config::Config;
 
 pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> anyhow::Result<String> {
