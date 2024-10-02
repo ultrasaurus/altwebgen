@@ -6,7 +6,8 @@ use std::{
 };
 use tracing::{info, trace};
 use walkdir::WalkDir;
-use crate::web;
+
+use crate::web::md;
 
 
 #[derive(Debug, Clone)]
@@ -38,7 +39,7 @@ impl Ref {
 
         }
         if let Some(md) = &self.md {
-            let html_body = web::md2html(&md)?;
+            let html_body = md::file2html(&md)?;
             writer.write(&html_body)?;
         }
         Ok(())

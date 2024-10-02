@@ -1,12 +1,12 @@
 use crate::config::Config;
 use anyhow::{bail, Result};
 use handlebars::Handlebars;
-use pulldown_cmark as md;
 use std::{ffi::OsStr, fs::File, io::Read, path::Path};
 use std::collections::HashMap;
 use tracing::{info, trace};
 mod ref_markdown;
 pub use ref_markdown::Ref as Ref;
+mod md;
 
 pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> Result<String> {
     let path = std::fs::canonicalize(filepath)?;
@@ -18,16 +18,6 @@ pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> Result<String> {
         bail!("failed to read: 0 bytes returned from read_to_string");
     }
     Ok(buf)
-}
-
-pub fn md2html<P: AsRef<Path>>(sourcepath: P) -> Result<Vec<u8>> {
-    let mut html_body = Vec::new();
-
-    let source = read_file_to_string(sourcepath)?;
-    let parser = md::Parser::new(&source);
-    md::html::write_html(&mut html_body, parser)?;
-
-    Ok(html_body)
 }
 
 fn read_source<P: AsRef<Path>>(sourcepath: P) -> Result<(HashMap<String, String>, String)>
@@ -78,11 +68,7 @@ pub fn render_file<P: AsRef<Path>>(
 
         }
         Some("md") => {
-            let html_body = md2html(sourcepath)?;
-
-            // let source = read_file_to_string(sourcepath)?;
-            // let parser = md::Parser::new(&source);
-            // md::html::write_html(&mut html_body, parser)?;
+            let html_body = md::file2html(sourcepath)?;
 
             // path for writing: html extension, rooted in output directory
             let writepath = config.outpath(sourcepath.with_extension("html"))?;
