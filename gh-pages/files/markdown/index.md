@@ -1,3 +1,3 @@
 # Demos
 
-* Same with text and audio: [media](media)
+* Text and audio: [media](media)
