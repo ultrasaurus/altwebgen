@@ -17,10 +17,12 @@ install binary command-line tool locally:
 ```
 cargo install --path .
 ```
-run using test data:
-```
-words -i testdata/hypertext.txt
 
+Sample commands
+```
+words --help
+words -i testdata/hypertext.txt
+```
 
 ## Development
 
