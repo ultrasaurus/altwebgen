@@ -2,7 +2,7 @@ use words::html_words;
 use words::WordTime;
 
 fn main() -> anyhow::Result<()> {
-    let text = "Let me introduce";
+    let text: &str = "Let me introduce";
     let timing_json = r#"{
     "version": "1.0.0",
     "segments": [
