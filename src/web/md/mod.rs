@@ -4,9 +4,6 @@ use crate::web::read_file_to_string;
 use std::path::Path;
 use words::WordTime;
 
-mod cowstr;
-pub use self::cowstr::CowStrExt;
-
 mod ref_markdown;
 pub use ref_markdown::Ref as Ref;
 
@@ -42,7 +39,7 @@ fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result
             Event::Text(cow_str) => {
                 let html_buf = words::html_words(cow_str, Some(timings))?;
                 let html_string = String::from(html_buf);
-                Event::Text(html_string.into())
+                Event::Html(html_string.into())
             },
             _ => event,
         };
@@ -74,13 +71,13 @@ mod tests {
 
     #[test]
     fn str2html_with_timing_phrase() {
-        let mut timings = vec![
+        let timings = vec![
             WordTime { start_time: 0.9, end_time: 0.1, body: "hello".to_string() },
             WordTime { start_time: 0.2, end_time: 0.3, body: "world".to_string() }
         ];
        let result = str2html_with_timing("hello world", &timings).unwrap();
        let result_string = String::from_utf8(result).unwrap();
-        assert_eq!("<p>hello world</p>\n", result_string);
+        assert_eq!("<p><span word='0' char='0' start='0.9' end='0.1' debug_body='hello'>hello</span> <span word='1' char='6' start='0.2' end='0.3' debug_body='world'>world</span></p>\n", result_string);
 
     }
 
