@@ -19,10 +19,11 @@ struct AudioFile {
 pub struct Ref {
     md: Option<PathBuf>,
     audio: Option<AudioFile>,
+    transcript: Option<PathBuf>,
 }
 impl Ref {
     pub fn new() -> Self {
-        Ref { md: None, audio: None }
+        Ref { md: None, audio: None, transcript: None }
     }
     pub fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
@@ -39,7 +40,10 @@ impl Ref {
 
         }
         if let Some(md) = &self.md {
-            let html_body = md::file2html(&md)?;
+            let html_body = match &self.transcript {
+                None => md::file2html(&md)?,
+                Some(transcript_path) => md::file2html_with_timing(&md, &transcript_path)?,
+            };
             writer.write(&html_body)?;
         }
         Ok(())
@@ -108,7 +112,11 @@ impl Ref {
                     Some(AudioFile {
                     path: path.to_path_buf(),
                     mime}),
-                _ => { }  // ignore other file types
+                (mime::APPLICATION, mime::JSON) => current_ref.transcript =
+                    Some(path.to_path_buf()),
+                _ => {
+                    info!("\n\nignorning unknown file type...\npath: {}\nmime: {}\n\n", path.display(), mime);
+                }  // ignore other file types
             }
         }
     };

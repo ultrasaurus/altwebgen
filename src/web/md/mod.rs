@@ -2,6 +2,8 @@ use pulldown_cmark as cmark;
 use cmark::Event;
 use crate::web::read_file_to_string;
 use std::path::Path;
+use words::WordTime;
+
 mod cowstr;
 pub use self::cowstr::CowStrExt;
 
@@ -22,7 +24,15 @@ fn str2html(source: &str) -> anyhow::Result<Vec<u8>> {
     Ok(html_body)
 }
 
-fn str2html_with_timing(source: &str) -> anyhow::Result<Vec<u8>> {
+pub fn file2html_with_timing<P: AsRef<Path>>(md_path: P, transcript_path: P) -> anyhow::Result<Vec<u8>> {
+    let md_text = read_file_to_string(md_path)?;
+    let file = std::fs::File::open(transcript_path)?;
+    let timings = WordTime::from_transcript(file)?;
+
+    str2html_with_timing(&md_text, &timings)
+}
+
+fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result<Vec<u8>> {
     let mut html_body = Vec::new();
 
     let mut new_event_list: Vec<Event> = Vec::new();
@@ -30,9 +40,9 @@ fn str2html_with_timing(source: &str) -> anyhow::Result<Vec<u8>> {
     while let Some(event) = parser.next() {
         let next_event= match event {
             Event::Text(cow_str) => {
-                // let html_string = "";
-                // Event::Text(html_string.into())
-                Event::Text(cow_str)
+                let html_buf = words::html_words(cow_str, Some(timings))?;
+                let html_string = String::from(html_buf);
+                Event::Text(html_string.into())
             },
             _ => event,
         };
@@ -60,6 +70,18 @@ mod tests {
        let result = str2html("hello world").unwrap();
        let result_string = String::from_utf8(result).unwrap();
         assert_eq!("<p>hello world</p>\n", result_string);
+    }
+
+    #[test]
+    fn str2html_with_timing_phrase() {
+        let mut timings = vec![
+            WordTime { start_time: 0.9, end_time: 0.1, body: "hello".to_string() },
+            WordTime { start_time: 0.2, end_time: 0.3, body: "world".to_string() }
+        ];
+       let result = str2html_with_timing("hello world", &timings).unwrap();
+       let result_string = String::from_utf8(result).unwrap();
+        assert_eq!("<p>hello world</p>\n", result_string);
+
     }
 
 }
