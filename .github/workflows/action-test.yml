@@ -1,0 +1,32 @@
+name: Run Tests
+
+on:
+  # run whenever any branch is pushed
+  push:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+
+# eventually good to have a dev or staging branch, so committers could
+# review code first to potentially prevent malicious tests
+permissions:
+  id-token: write   # to verify the deployment originates from an appropriate source
+
+jobs:
+
+  # build webgenr and examples
+  build-and-deploy:
+    name: Running tests...
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Run tests
+        run: cargo test
+
+
