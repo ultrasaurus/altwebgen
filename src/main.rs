@@ -39,7 +39,7 @@ fn main() -> anyhow::Result<()> {
                         BufReader::new(file);
                     let timing =
                         WordTime::from_transcript(transcript_reader)?;
-                    html_words(text, Some(timing))?
+                    html_words(text, Some(&timing))?
                 },
                 Err(e) => {
                     if e.kind() == std::io::ErrorKind::NotFound {
