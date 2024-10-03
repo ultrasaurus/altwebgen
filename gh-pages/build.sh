@@ -2,7 +2,7 @@
 (
 cd gh-pages/files
 
-INDEX_FILE="files/markdown/index.md"
+INDEX_FILE="markdown/index.md"
 echo $INDEX_FILE
 
 DATE_STRING=$(date +"%a, %b %d %Y - %I:%M %p")
