@@ -1,0 +1,72 @@
+name: Deploy Artifacts to GitHub Pages
+
+on:
+  push:
+    branches: [ "main", "deploy" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+
+# Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+permissions:
+  pages: write      # to deploy to Pages
+  id-token: write   # to verify the deployment originates from an appropriate source
+
+jobs:
+
+  # build webgenr and examples
+  build-and-deploy:
+    name: Running build...
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build command line tool
+        run: cargo install --verbose --path .
+
+      - name: Build examples
+        run: |
+          export BRANCH_NAME=${{ github.ref_name }}
+          source gh-pages/build.sh
+          pwd
+          ls -R1 gh-pages
+
+          OUT_DIR="gh-pages/files/_website"
+
+          (cd ./samples/media; webgenr; mv .dist $OUT_DIR/media)
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Where are we?
+        run: |
+          pwd
+          ls -l
+
+      - name: Upload to pages artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # A file, directory or wildcard pattern that describes what to upload
+          path: ./gh-pages/files/_website
+
+      - name: Deploy!
+        id: deployment
+        uses: actions/deploy-pages@v1
+
+
