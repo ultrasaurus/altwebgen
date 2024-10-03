@@ -1,5 +1,8 @@
 ## Experimental Web Development Server
 
+![Tests](https://github.com/ultrasaurus/altwebgen/actions/workflows/action-test.yml/badge.svg
+)
+
 Supports
 * handlebar templates (.hbs)
 * directly serves all other files
