@@ -46,6 +46,20 @@ fn create_source_dirs(config: &Config) -> anyhow::Result<()> {
     Ok(())
 }
 
+pub fn clean_build(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
+    clean_and_recreate_dir(&config.outdir)?;
+
+    if let Err(e) = init_templates(config, hbs) {
+        return Err(e.context("setting up templates failed"))
+    };
+
+    if let Err(e) = web::process_files(&config, &hbs) {
+        return Err(e.context("build failure"))
+    };
+
+    Ok(())
+}
+
 // initial setup, called only once
 pub fn init(config: &Config) -> anyhow::Result<Handlebars<'static>> {
     info!("init: start");
@@ -53,10 +67,7 @@ pub fn init(config: &Config) -> anyhow::Result<Handlebars<'static>> {
     let mut hbs = Handlebars::new();
     create_source_dirs(&config)?;
 
-    clean_and_recreate_dir(&config.outdir)?;
-    init_templates(&config, &mut hbs)?;
-    web::process_files(&config, &hbs)?;
-
+    clean_build(&config, &mut hbs)?;
     info!("init: complete");
     Ok(hbs)
 }

@@ -52,14 +52,9 @@ async fn main() -> anyhow::Result<()> {
             template_result = watch(&template_watch) => {
                 info!("template watcher result {:?}", template_result);
                 hbs.clear_templates();
-                clean_and_recreate_dir(&config.outdir)?;
-                if let Err(e) = setup::init_templates(&config, &mut hbs) {
-                    error!("setting up templates failed: {:?}", e);
+                if let Err(e) = setup::clean_build(&config, &mut hbs) {
+                    error!("build failed: {:?}", e);
                     break
-                };
-                if let Err(e) = web::process_files(&config, &hbs) {
-                        error!("process_files failed: {:?}", e);
-                        break
                 } else {
                     let _ = tx.send(Message::text("reload"));
                 }
