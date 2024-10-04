@@ -12,7 +12,7 @@ mkdir -p $OUT_DIR
 
 (cd ./samples/media; webgenr build)
 echo "pwd: " `pwd`
-mv ./samples/media/.dist $OUT_DIR/media-sampple
+mv ./samples/media/.dist $OUT_DIR/media-sample
 echo "ls $OUT_DIR"
 ls -lR $OUT_DIR
 
