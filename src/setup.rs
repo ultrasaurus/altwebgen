@@ -31,12 +31,7 @@ pub fn init_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<(
     Ok(())
 }
 
-// initial setup, called only once
-pub fn init(config: &Config) -> anyhow::Result<Handlebars<'static>> {
-    info!("Setup: start");
-    info!("       working directory {}", get_current_working_dir()?.display());
-    let mut hbs = Handlebars::new();
-    clean_and_recreate_dir(&config.outdir)?;
+fn create_source_dirs(config: &Config) -> anyhow::Result<()> {
     std::fs::create_dir_all(&config.sourcedir).map_err(|e| {
         anyhow!(format!("failed to create directory: {}, error: {}", &config.sourcedir.display(), e))
     })?;
@@ -48,10 +43,20 @@ pub fn init(config: &Config) -> anyhow::Result<Handlebars<'static>> {
         anyhow!(format!("failed to create directory: {}, error: {}", &config.templatedir.display(), e))
     })?;
 
+    Ok(())
+}
 
+// initial setup, called only once
+pub fn init(config: &Config) -> anyhow::Result<Handlebars<'static>> {
+    info!("init: start");
+    info!("      working directory {}", get_current_working_dir()?.display());
+    let mut hbs = Handlebars::new();
+    create_source_dirs(&config)?;
 
+    clean_and_recreate_dir(&config.outdir)?;
     init_templates(&config, &mut hbs)?;
     web::process_files(&config, &hbs)?;
-    info!("Setup: complete");
+
+    info!("init: complete");
     Ok(hbs)
 }
