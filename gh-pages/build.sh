@@ -41,6 +41,9 @@ $GITHUB_SHA
 EOT
 
 webgenr -o _website build
+
+echo "---> files that will be deployed <---"
+ls -lR _website
 )
 
 
