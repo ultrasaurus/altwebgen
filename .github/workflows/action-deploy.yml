@@ -54,13 +54,13 @@ jobs:
           ls -l
 
       - name: Upload to pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
           # A file, directory or wildcard pattern that describes what to upload
           path: ./gh-pages/content/_website
 
       - name: Deploy!
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v1
 
 
