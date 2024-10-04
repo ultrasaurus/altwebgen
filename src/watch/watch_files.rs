@@ -7,7 +7,7 @@ use tracing::{info, error};
 use notify_debouncer_mini::{DebounceEventResult, new_debouncer};
 use anyhow::anyhow;
 
-pub async fn watch<P: AsRef<Path>>(paths: &Vec<P>) -> anyhow::Result<Vec<PathBuf>> {
+pub async fn detect_changes<P: AsRef<Path>>(paths: &Vec<P>) -> anyhow::Result<Vec<PathBuf>> {
     use notify::RecursiveMode::*;
     let rt = tokio::runtime::Handle::current();
 
