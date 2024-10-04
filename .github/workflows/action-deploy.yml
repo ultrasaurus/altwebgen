@@ -40,19 +40,10 @@ jobs:
       - name: Build command line tool
         run: cargo install --verbose --path .
 
-      - name: Build examples
+      - name: Build examples and demo index page
         run: |
           export BRANCH_NAME=${{ github.ref_name }}
           source gh-pages/build.sh
-          pwd
-          ls -R1 gh-pages
-
-          OUT_DIR="gh-pages/content/_website"
-
-          (cd ./samples/media; webgenr build)
-          pwd
-          mv ./samples/media/.dist $OUT_DIR/media)
-          ls -lR $OUT_DIR
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

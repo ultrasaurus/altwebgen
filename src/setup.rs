@@ -10,7 +10,7 @@ use crate::{
 
 
 pub fn init_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
-    info!("setup_templates");
+    info!("init_templates");
     clean_and_recreate_dir(&config.builddir)?;
     let buildtemplatedir = config.buildtemplatedir();
     copy_dir_all(&config.templatedir, &buildtemplatedir)?;
@@ -47,6 +47,7 @@ fn create_source_dirs(config: &Config) -> anyhow::Result<()> {
 }
 
 pub fn clean_build(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
+    create_source_dirs(&config)?;
     clean_and_recreate_dir(&config.outdir)?;
 
     if let Err(e) = init_templates(config, hbs) {

@@ -59,8 +59,7 @@ async fn main() -> anyhow::Result<()> {
         Some(cmd) => match cmd {
             Command::Dev => watch::run(&config).await?,
             Command::Build => {
-                let  mut hbs= setup::init(&config)?;
-                setup::clean_build(&config, &mut hbs)?
+                let _hbs = setup::init(&config)?;
             }
         }
     };
