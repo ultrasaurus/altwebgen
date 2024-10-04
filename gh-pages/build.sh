@@ -12,7 +12,7 @@ mkdir -p $OUT_DIR
 
 (cd ./samples/media; webgenr build)
 echo "pwd: " `pwd`
-mv ./samples/media/.dist $OUT_DIR/media
+mv ./samples/media/.dist $OUT_DIR/media-sampple
 echo "ls $OUT_DIR"
 ls -lR $OUT_DIR
 
@@ -40,7 +40,8 @@ $GITHUB_SHA
 \`\`\`
 EOT
 
-webgenr -o _website build
+webgenr build
+mv .dist/index.html _website/.
 
 echo "---> files that will be deployed <---"
 ls -lR _website
