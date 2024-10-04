@@ -31,6 +31,7 @@ name = "altwebgen"
 version = "0.1.0"
 dependencies = [
  "anyhow",
+ "clap",
  "futures-util",
  "handlebars",
  "http-body-util",

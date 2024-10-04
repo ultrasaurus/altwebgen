@@ -23,6 +23,66 @@ impl Config {
     pub fn buildtemplatedir(&self) -> PathBuf {
          self.builddir.join("template")
     }
+
+    pub fn new(outdir_str: &str,
+           sourcedir_str: &str,
+           templatedir_str: &str,
+    ) -> Config {
+        info!("config...");
+        info!("   outdir:      {}", outdir_str);
+        info!("   sourcedir:   {}", sourcedir_str);
+        info!("   templatedir: {}", templatedir_str);
+
+        // create output directory if not present
+        let outdir: PathBuf = std::path::PathBuf::from(outdir_str);
+        if !outdir.exists() {
+            let _result = std::fs::create_dir_all(&outdir);
+            if _result.is_err() {
+                error!("could not create default output director '.dist'");
+            }
+        }
+
+        // create source directory if not present
+        let sourcedir = PathBuf::from(sourcedir_str);
+        let site_attr = match read_site_yaml(&sourcedir) {
+            Ok(h) => h,
+            Err(e) => {
+                error!("could not read _site.yaml from {}, {:?}", &sourcedir.display(), e);
+                HashMap::new()
+            }
+        };
+
+        // build dir and sub-directories not configurable
+        info!("   -- additional directories not user configurable -- ");
+        let build_str = ".build";
+        let builddir = std::path::PathBuf::from(build_str);
+        info!("   builddir: {}", builddir.display());
+        if !builddir.exists() {
+            let _result = std::fs::create_dir_all(&builddir);
+            if _result.is_err() {
+                error!("could not create default build director '.build'");
+            }
+        }
+
+        // create template directory if not present
+        let buildtemplatedir = builddir.join("template");
+        info!("   buildtemplatedir: {}", buildtemplatedir.display());
+        if !buildtemplatedir.exists() {
+            if let Err(e) = std::fs::create_dir_all(&builddir) {
+                error!("could not create build template directory: {}, error: {}", buildtemplatedir.display(), e)
+            };
+        }
+
+        Config {
+            outdir,
+            builddir,
+            sourcedir,
+            templatedir: PathBuf::from("template"),
+            site_attr,
+        }
+
+    }
+
 }
 
 fn read_site_yaml(sourcedir: &Path) -> anyhow::Result<HashMap<String, String>> {
@@ -38,48 +98,9 @@ fn read_site_yaml(sourcedir: &Path) -> anyhow::Result<HashMap<String, String>> {
 }
 
 impl Default for Config {
+
      fn default() -> Config {
         info!("default config");
-        let out_str = ".dist";
-        let build_str = ".build";
-        let outdir = std::path::PathBuf::from(out_str);
-        info!("   outdir: {}", outdir.display());
-        if !outdir.exists() {
-            let _result = std::fs::create_dir_all(&outdir);
-            if _result.is_err() {
-                error!("could not create default output director '.dist'");
-            }
-        }
-        let builddir = std::path::PathBuf::from(build_str);
-        info!("   builddir: {}", builddir.display());
-        if !builddir.exists() {
-            let _result = std::fs::create_dir_all(&builddir);
-            if _result.is_err() {
-                error!("could not create default build director '.build'");
-            }
-        }
-        let buildtemplatedir = builddir.join("template");
-        info!("   buildtemplatedir: {}", buildtemplatedir.display());
-        if !buildtemplatedir.exists() {
-            if let Err(e) = std::fs::create_dir_all(&builddir) {
-                error!("could not create build template directory: {}, error: {}", buildtemplatedir.display(), e)
-            };
-        }
-        let sourcedir = PathBuf::from("source");
-        let site_attr = match read_site_yaml(&sourcedir) {
-            Ok(h) => h,
-            Err(e) => {
-                error!("could not read _site.yaml from {}, {:?}", &sourcedir.display(), e);
-                HashMap::new()
-            }
-        };
-        Config {
-            outdir,
-            builddir,
-            sourcedir,
-            templatedir: PathBuf::from("template"),
-            site_attr,
-        }
-
+        Config::new(".dist", "source", "template")
     }
 }
