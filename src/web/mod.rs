@@ -1,12 +1,44 @@
-use crate::config::Config;
-use crate::util::read_file_to_string;
 use anyhow::Result;
 use handlebars::Handlebars;
 use std::{ffi::OsStr, path::Path};
 use std::collections::HashMap;
 use tracing::{info, trace};
+use walkdir::WalkDir;
+
 mod md;
 pub use md::Ref as Ref;
+
+use crate::{
+    config::Config,
+    util::*,
+};
+
+
+pub fn process_files(config: &Config, handlebars: &Handlebars) -> anyhow::Result<()> {
+    info!("Processing files...");
+    let walker = WalkDir::new(&config.sourcedir)
+        .follow_links(true)
+        .into_iter()
+        .filter_entry(|e| {
+            !e.is_hidden()
+        });
+
+    for entry_result in walker
+    {
+        trace!("  entry: {:?}", entry_result);
+        let entry = entry_result?;
+        let path = entry.path();
+        if path.is_dir() {
+            create_destdir(config, path)?;
+        } else {
+            render_file(config, &handlebars, path)?;
+        }
+    }
+
+   Ok(())
+}
+
+
 
 fn read_source<P: AsRef<Path>>(sourcepath: P) -> Result<(HashMap<String, String>, String)>
 {
@@ -29,7 +61,7 @@ fn read_source<P: AsRef<Path>>(sourcepath: P) -> Result<(HashMap<String, String>
     Ok((data, content))
 }
 
-pub fn render_file<P: AsRef<Path>>(
+fn render_file<P: AsRef<Path>>(
     config: &Config,
     hbs: &Handlebars,
     path: P,
