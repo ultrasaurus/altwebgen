@@ -1,8 +1,8 @@
 #! /bin/sh
 (
-cd gh-pages/files
+cd gh-pages/content
 
-INDEX_FILE="markdown/index.md"
+INDEX_FILE="source/index.md"
 echo $INDEX_FILE
 
 DATE_STRING=$(date +"%a, %b %d %Y - %I:%M %p")

@@ -47,9 +47,9 @@ jobs:
           pwd
           ls -R1 gh-pages
 
-          OUT_DIR="gh-pages/files/_website"
+          OUT_DIR="gh-pages/content/_website"
 
-          (cd ./samples/media; webgenr; mv .dist $OUT_DIR/media)
+          (cd ./samples/media; webgenr build; mv .dist $OUT_DIR/media)
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # A file, directory or wildcard pattern that describes what to upload
-          path: ./gh-pages/files/_website
+          path: ./gh-pages/content/_website
 
       - name: Deploy!
         id: deployment
