@@ -25,7 +25,7 @@ struct Cli {
     outdir: String,
 
     /// directory path for template files
-    #[clap(short, long, value_parser, default_value = "templates")]
+    #[clap(short, long, value_parser, default_value = "template")]
     templatedir: String,
 
     #[command(subcommand)]
