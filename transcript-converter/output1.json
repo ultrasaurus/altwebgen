@@ -1,0 +1,765 @@
+{
+    "version": "1.0.0",
+    "segments": [
+        {
+            "startTime": 5.501,
+            "endTime": 5.641,
+            "body": "What"
+        },
+        {
+            "startTime": 5.781,
+            "endTime": 5.881,
+            "body": "are"
+        },
+        {
+            "startTime": 5.942,
+            "endTime": 6.462,
+            "body": "you?"
+        },
+        {
+            "startTime": 6.662,
+            "endTime": 6.722,
+            "body": "Oh,"
+        },
+        {
+            "startTime": 6.742,
+            "endTime": 6.842,
+            "body": "I'm"
+        },
+        {
+            "startTime": 6.922,
+            "endTime": 7.643,
+            "body": "OK."
+        },
+        {
+            "startTime": 8.364,
+            "endTime": 8.444,
+            "body": "I"
+        },
+        {
+            "startTime": 8.484,
+            "endTime": 8.744,
+            "body": "will"
+        },
+        {
+            "startTime": 8.784,
+            "endTime": 8.944,
+            "body": "be."
+        },
+        {
+            "startTime": 8.964,
+            "endTime": 8.984,
+            "body": "I"
+        },
+        {
+            "startTime": 9.345,
+            "endTime": 9.505,
+            "body": "said"
+        },
+        {
+            "startTime": 9.525,
+            "endTime": 9.605,
+            "body": "she"
+        },
+        {
+            "startTime": 9.645,
+            "endTime": 9.765,
+            "body": "could"
+        },
+        {
+            "startTime": 9.785,
+            "endTime": 9.945,
+            "body": "stay"
+        },
+        {
+            "startTime": 9.965,
+            "endTime": 10.105,
+            "body": "with"
+        },
+        {
+            "startTime": 10.125,
+            "endTime": 10.166,
+            "body": "us,"
+        },
+        {
+            "startTime": 10.186,
+            "endTime": 10.266,
+            "body": "Mum."
+        },
+        {
+            "startTime": 10.286,
+            "endTime": 10.346,
+            "body": "I"
+        },
+        {
+            "startTime": 10.366,
+            "endTime": 10.526,
+            "body": "just"
+        },
+        {
+            "startTime": 10.546,
+            "endTime": 10.706,
+            "body": "thought"
+        },
+        {
+            "startTime": 10.726,
+            "endTime": 10.806,
+            "body": "she"
+        },
+        {
+            "startTime": 10.826,
+            "endTime": 11.046,
+            "body": "feels"
+        },
+        {
+            "startTime": 11.086,
+            "endTime": 11.327,
+            "body": "better."
+        },
+        {
+            "startTime": 11.347,
+            "endTime": 11.447,
+            "body": "Yeah."
+        },
+        {
+            "startTime": 11.987,
+            "endTime": 12.047,
+            "body": "Of"
+        },
+        {
+            "startTime": 12.087,
+            "endTime": 12.348,
+            "body": "course"
+        },
+        {
+            "startTime": 12.408,
+            "endTime": 12.688,
+            "body": "she"
+        },
+        {
+            "startTime": 12.748,
+            "endTime": 13.629,
+            "body": "can."
+        },
+        {
+            "startTime": 13.669,
+            "endTime": 13.729,
+            "body": "Oh,"
+        },
+        {
+            "startTime": 13.829,
+            "endTime": 14.129,
+            "body": "this"
+        },
+        {
+            "startTime": 14.189,
+            "endTime": 14.39,
+            "body": "won't"
+        },
+        {
+            "startTime": 14.41,
+            "endTime": 14.57,
+            "body": "be"
+        },
+        {
+            "startTime": 14.59,
+            "endTime": 14.75,
+            "body": "for"
+        },
+        {
+            "startTime": 14.79,
+            "endTime": 15.07,
+            "body": "long."
+        },
+        {
+            "startTime": 15.19,
+            "endTime": 15.41,
+            "body": "Well,"
+        },
+        {
+            "startTime": 15.431,
+            "endTime": 15.531,
+            "body": "you"
+        },
+        {
+            "startTime": 15.571,
+            "endTime": 15.711,
+            "body": "can"
+        },
+        {
+            "startTime": 15.771,
+            "endTime": 15.911,
+            "body": "stay"
+        },
+        {
+            "startTime": 15.951,
+            "endTime": 16.011,
+            "body": "as"
+        },
+        {
+            "startTime": 16.051,
+            "endTime": 16.211,
+            "body": "long"
+        },
+        {
+            "startTime": 16.231,
+            "endTime": 16.291,
+            "body": "as"
+        },
+        {
+            "startTime": 16.331,
+            "endTime": 16.431,
+            "body": "you"
+        },
+        {
+            "startTime": 16.471,
+            "endTime": 16.612,
+            "body": "want"
+        },
+        {
+            "startTime": 16.732,
+            "endTime": 16.912,
+            "body": "my"
+        },
+        {
+            "startTime": 17.012,
+            "endTime": 17.352,
+            "body": "love."
+        },
+        {
+            "startTime": 17.412,
+            "endTime": 17.733,
+            "body": "You"
+        },
+        {
+            "startTime": 17.853,
+            "endTime": 18.153,
+            "body": "really"
+        },
+        {
+            "startTime": 18.213,
+            "endTime": 18.634,
+            "body": "missed"
+        },
+        {
+            "startTime": 18.654,
+            "endTime": 18.914,
+            "body": "you."
+        },
+        {
+            "startTime": 19.494,
+            "endTime": 19.975,
+            "body": "Pops."
+        },
+        {
+            "startTime": 20.415,
+            "endTime": 20.635,
+            "body": "Great"
+        },
+        {
+            "startTime": 20.675,
+            "endTime": 20.776,
+            "body": "to"
+        },
+        {
+            "startTime": 20.816,
+            "endTime": 21.016,
+            "body": "see"
+        },
+        {
+            "startTime": 21.036,
+            "endTime": 21.196,
+            "body": "you,"
+        },
+        {
+            "startTime": 21.216,
+            "endTime": 22.177,
+            "body": "love."
+        },
+        {
+            "startTime": 22.197,
+            "endTime": 22.237,
+            "body": "Oh."
+        },
+        {
+            "startTime": 23.238,
+            "endTime": 23.298,
+            "body": "All"
+        },
+        {
+            "startTime": 23.318,
+            "endTime": 23.418,
+            "body": "right,"
+        },
+        {
+            "startTime": 23.438,
+            "endTime": 23.578,
+            "body": "shall"
+        },
+        {
+            "startTime": 23.618,
+            "endTime": 23.678,
+            "body": "we"
+        },
+        {
+            "startTime": 23.698,
+            "endTime": 23.798,
+            "body": "get"
+        },
+        {
+            "startTime": 23.818,
+            "endTime": 23.879,
+            "body": "you"
+        },
+        {
+            "startTime": 23.899,
+            "endTime": 23.959,
+            "body": "off"
+        },
+        {
+            "startTime": 23.979,
+            "endTime": 24.059,
+            "body": "to"
+        },
+        {
+            "startTime": 24.079,
+            "endTime": 24.219,
+            "body": "bed"
+        },
+        {
+            "startTime": 24.259,
+            "endTime": 24.419,
+            "body": "then?"
+        },
+        {
+            "startTime": 24.599,
+            "endTime": 24.759,
+            "body": "You"
+        },
+        {
+            "startTime": 24.779,
+            "endTime": 25.0,
+            "body": "should"
+        },
+        {
+            "startTime": 25.02,
+            "endTime": 25.1,
+            "body": "have"
+        },
+        {
+            "startTime": 25.16,
+            "endTime": 25.32,
+            "body": "given"
+        },
+        {
+            "startTime": 25.34,
+            "endTime": 25.44,
+            "body": "me"
+        },
+        {
+            "startTime": 25.5,
+            "endTime": 25.72,
+            "body": "some"
+        },
+        {
+            "startTime": 25.8,
+            "endTime": 26.021,
+            "body": "warm."
+        },
+        {
+            "startTime": 26.041,
+            "endTime": 26.121,
+            "body": "I'll"
+        },
+        {
+            "startTime": 26.141,
+            "endTime": 26.221,
+            "body": "have"
+        },
+        {
+            "startTime": 26.241,
+            "endTime": 26.421,
+            "body": "to"
+        },
+        {
+            "startTime": 26.461,
+            "endTime": 26.541,
+            "body": "put"
+        },
+        {
+            "startTime": 26.561,
+            "endTime": 26.621,
+            "body": "the"
+        },
+        {
+            "startTime": 26.661,
+            "endTime": 27.042,
+            "body": "electric"
+        },
+        {
+            "startTime": 27.082,
+            "endTime": 27.582,
+            "body": "blanket"
+        },
+        {
+            "startTime": 27.702,
+            "endTime": 27.742,
+            "body": "on."
+        },
+        {
+            "startTime": 27.802,
+            "endTime": 28.082,
+            "body": "Sorry."
+        },
+        {
+            "startTime": 28.103,
+            "endTime": 28.703,
+            "body": "All"
+        },
+        {
+            "startTime": 28.723,
+            "endTime": 28.843,
+            "body": "right,"
+        },
+        {
+            "startTime": 28.883,
+            "endTime": 29.123,
+            "body": "Della."
+        },
+        {
+            "startTime": 29.644,
+            "endTime": 30.044,
+            "body": "Freezing"
+        },
+        {
+            "startTime": 30.124,
+            "endTime": 30.265,
+            "body": "up"
+        },
+        {
+            "startTime": 30.285,
+            "endTime": 30.565,
+            "body": "there."
+        },
+        {
+            "startTime": 31.502,
+            "endTime": 31.582,
+            "body": "In"
+        },
+        {
+            "startTime": 31.622,
+            "endTime": 31.662,
+            "body": "a"
+        },
+        {
+            "startTime": 31.702,
+            "endTime": 32.142,
+            "body": "bedroom,"
+        },
+        {
+            "startTime": 32.222,
+            "endTime": 32.502,
+            "body": "Peter"
+        },
+        {
+            "startTime": 32.562,
+            "endTime": 32.982,
+            "body": "unpacks"
+        },
+        {
+            "startTime": 33.022,
+            "endTime": 33.143,
+            "body": "her"
+        },
+        {
+            "startTime": 33.163,
+            "endTime": 33.683,
+            "body": "suitcase."
+        },
+        {
+            "startTime": 34.283,
+            "endTime": 34.363,
+            "body": "The"
+        },
+        {
+            "startTime": 34.403,
+            "endTime": 34.923,
+            "body": "middle-aged"
+        },
+        {
+            "startTime": 34.983,
+            "endTime": 35.283,
+            "body": "woman"
+        },
+        {
+            "startTime": 35.403,
+            "endTime": 35.663,
+            "body": "opens"
+        },
+        {
+            "startTime": 35.723,
+            "endTime": 35.823,
+            "body": "her"
+        },
+        {
+            "startTime": 35.883,
+            "endTime": 36.183,
+            "body": "green"
+        },
+        {
+            "startTime": 36.244,
+            "endTime": 36.544,
+            "body": "case."
+        },
+        {
+            "startTime": 36.564,
+            "endTime": 36.604,
+            "body": "Do"
+        },
+        {
+            "startTime": 38.324,
+            "endTime": 38.384,
+            "body": "you"
+        },
+        {
+            "startTime": 38.404,
+            "endTime": 38.524,
+            "body": "want,"
+        },
+        {
+            "startTime": 38.564,
+            "endTime": 38.764,
+            "body": "yeah,"
+        },
+        {
+            "startTime": 38.924,
+            "endTime": 39.064,
+            "body": "PJs?"
+        },
+        {
+            "startTime": 39.084,
+            "endTime": 39.304,
+            "body": "Yeah."
+        },
+        {
+            "startTime": 39.885,
+            "endTime": 40.185,
+            "body": "Yeah."
+        },
+        {
+            "startTime": 42.385,
+            "endTime": 42.686,
+            "body": "Lifting"
+        },
+        {
+            "startTime": 42.726,
+            "endTime": 42.766,
+            "body": "a"
+        },
+        {
+            "startTime": 42.806,
+            "endTime": 43.106,
+            "body": "bundle"
+        },
+        {
+            "startTime": 43.126,
+            "endTime": 43.186,
+            "body": "of"
+        },
+        {
+            "startTime": 43.246,
+            "endTime": 43.806,
+            "body": "pajamas,"
+        },
+        {
+            "startTime": 44.086,
+            "endTime": 44.346,
+            "body": "Peter"
+        },
+        {
+            "startTime": 44.386,
+            "endTime": 44.646,
+            "body": "finds"
+        },
+        {
+            "startTime": 44.686,
+            "endTime": 44.726,
+            "body": "a"
+        },
+        {
+            "startTime": 44.766,
+            "endTime": 44.966,
+            "body": "sheet"
+        },
+        {
+            "startTime": 45.006,
+            "endTime": 45.066,
+            "body": "of"
+        },
+        {
+            "startTime": 45.126,
+            "endTime": 45.486,
+            "body": "paper"
+        },
+        {
+            "startTime": 45.526,
+            "endTime": 45.887,
+            "body": "labeled"
+        },
+        {
+            "startTime": 46.327,
+            "endTime": 47.067,
+            "body": "Lancaster"
+        },
+        {
+            "startTime": 47.127,
+            "endTime": 47.387,
+            "body": "North"
+        },
+        {
+            "startTime": 47.447,
+            "endTime": 47.967,
+            "body": "Hospital"
+        },
+        {
+            "startTime": 48.267,
+            "endTime": 48.928,
+            "body": "Discharged"
+        },
+        {
+            "startTime": 49.048,
+            "endTime": 49.328,
+            "body": "Sheet."
+        },
+        {
+            "startTime": 50.308,
+            "endTime": 50.388,
+            "body": "He"
+        },
+        {
+            "startTime": 50.428,
+            "endTime": 50.808,
+            "body": "closes"
+        },
+        {
+            "startTime": 50.828,
+            "endTime": 50.928,
+            "body": "the"
+        },
+        {
+            "startTime": 50.948,
+            "endTime": 51.408,
+            "body": "suitcase"
+        },
+        {
+            "startTime": 51.468,
+            "endTime": 51.528,
+            "body": "and"
+        },
+        {
+            "startTime": 51.568,
+            "endTime": 51.788,
+            "body": "brings"
+        },
+        {
+            "startTime": 51.848,
+            "endTime": 52.149,
+            "body": "glory"
+        },
+        {
+            "startTime": 52.169,
+            "endTime": 52.229,
+            "body": "to"
+        },
+        {
+            "startTime": 52.269,
+            "endTime": 52.329,
+            "body": "the"
+        },
+        {
+            "startTime": 52.369,
+            "endTime": 52.909,
+            "body": "pajamas."
+        },
+        {
+            "startTime": 52.949,
+            "endTime": 53.069,
+            "body": "There"
+        },
+        {
+            "startTime": 53.089,
+            "endTime": 53.209,
+            "body": "you"
+        },
+        {
+            "startTime": 53.229,
+            "endTime": 53.309,
+            "body": "go."
+        },
+        {
+            "startTime": 54.229,
+            "endTime": 54.509,
+            "body": "Thank"
+        },
+        {
+            "startTime": 54.549,
+            "endTime": 54.809,
+            "body": "you."
+        },
+        {
+            "startTime": 55.67,
+            "endTime": 55.77,
+            "body": "He"
+        },
+        {
+            "startTime": 55.81,
+            "endTime": 56.05,
+            "body": "picks"
+        },
+        {
+            "startTime": 56.13,
+            "endTime": 56.21,
+            "body": "up"
+        },
+        {
+            "startTime": 56.25,
+            "endTime": 56.33,
+            "body": "the"
+        },
+        {
+            "startTime": 56.39,
+            "endTime": 56.77,
+            "body": "locket."
+        },
+        {
+            "startTime": 57.15,
+            "endTime": 57.23,
+            "body": "He"
+        },
+        {
+            "startTime": 57.27,
+            "endTime": 57.47,
+            "body": "kept"
+        },
+        {
+            "startTime": 57.49,
+            "endTime": 57.55,
+            "body": "it."
+        },
+        {
+            "startTime": 57.57,
+            "endTime": 57.67,
+            "body": "Oh,"
+        },
+        {
+            "startTime": 58.891,
+            "endTime": 58.991,
+            "body": "of"
+        },
+        {
+            "startTime": 59.751,
+            "endTime": 59.991,
+            "body": "course."
+        }
+    ]
+}
