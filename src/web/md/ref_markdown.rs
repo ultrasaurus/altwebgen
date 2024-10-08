@@ -26,7 +26,7 @@ impl <'r>Ref<'r> {
     pub fn new(config: &'r Config) -> Self {
         Ref { config, md: None, audio: None, transcript: None }
     }
-    pub fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
+    fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
         if let Some(audio) = &self.audio {
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
