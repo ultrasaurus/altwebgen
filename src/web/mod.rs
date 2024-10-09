@@ -8,6 +8,8 @@ use walkdir::WalkDir;
 mod md;
 pub use md::Ref as Ref;
 
+mod audio;
+
 use crate::{
     config::Config,
     util::*,
