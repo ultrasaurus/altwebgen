@@ -8,7 +8,7 @@ use tracing::{info, trace};
 use walkdir::WalkDir;
 
 use crate::web::md;
-
+use crate::web;
 
 #[derive(Debug, Clone)]
 struct AudioFile {
@@ -57,6 +57,11 @@ impl Ref {
             //let dest_path = dest_dir.join(dest_relpath);
             trace!("copy from {:?} to {:?}", &source_path, &dest_path);
             std::fs::copy(source_path, dest_path)?;
+
+            if self.transcript == None {
+                let transcript_path = source_path.with_extension(".transcript.json");
+                web::audio::gen_transcript(source_path, &transcript_path)?;
+            }
         }
         if let Some(md) = &self.md {
             let relpath = md.strip_prefix(source_dir)?;
