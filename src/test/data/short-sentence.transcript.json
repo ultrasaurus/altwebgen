@@ -1,0 +1,40 @@
+{
+    "version": "1.0.0",
+    "segments": [
+        {
+            "startTime": 0.11,
+            "endTime": 0.17,
+            "body": "It"
+        },
+        {
+            "startTime": 0.211,
+            "endTime": 0.352,
+            "body": "may"
+        },
+        {
+            "startTime": 0.392,
+            "endTime": 0.755,
+            "body": "contain"
+        },
+        {
+            "startTime": 0.876,
+            "endTime": 1.622,
+            "body": "annotations,"
+        },
+        {
+            "startTime": 2.368,
+            "endTime": 2.832,
+            "body": "additions"
+        },
+        {
+            "startTime": 2.893,
+            "endTime": 2.973,
+            "body": "and"
+        },
+        {
+            "startTime": 3.034,
+            "endTime": 3.498,
+            "body": "footnotes"
+        }
+    ]
+}
