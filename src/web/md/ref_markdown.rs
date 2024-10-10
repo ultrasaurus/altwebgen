@@ -48,7 +48,7 @@ impl <'r>Ref<'r> {
         }
         Ok(())
     }
-    pub fn write_to_dest(&self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
+    pub fn write_to_dest(&mut self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
         info!("write_to_dest Ref: {:?}", self);
         if let Some(audio) = &self.audio {
             let source_path = &audio.path;
@@ -59,8 +59,10 @@ impl <'r>Ref<'r> {
             std::fs::copy(source_path, dest_path)?;
 
             if self.transcript == None {
-                let transcript_path = source_path.with_extension(".transcript.json");
+                info!("write_to_dest: no transcript found, attempting to generate one");
+                let transcript_path = source_path.with_extension("transcript.json");
                 web::audio::gen_transcript(source_path, &transcript_path)?;
+                self.transcript = Some(transcript_path);
             }
         }
         if let Some(md) = &self.md {
