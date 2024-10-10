@@ -16,17 +16,39 @@ permissions:
   id-token: write   # to verify the deployment originates from an appropriate source
 
 jobs:
-
-  # build webgenr and examples
-  build-and-deploy:
+  # build and run tests
+  build-and-test:
     name: Running tests...
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0} # for setup-miniconda, shell needs "login mode"
 
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: setup miniconda
+        uses: conda-incubator/setup-miniconda@v3
+
+      - name: Where are we?
+        run: |
+          pwd
+          ls -l
+
+      - name: setup conda and install whisperx
+        run: |
+          source ./setup.sh
+          echo "---- setup.sh complete ----"
+          echo "where is whisperx installed?"
+          echo `which whisperx`
+          echo "---- test calling whisper ----"
+          whisperx --help
+
       - name: Run tests
-        run: cargo test
+        run: conda activate whisperx && cargo test
 
 
