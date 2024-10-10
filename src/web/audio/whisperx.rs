@@ -7,6 +7,8 @@ pub fn gen_transcript(
         audio: impl AsRef<Path>,
         transcript: impl AsRef<Path>
 ) -> anyhow::Result<()> {
+    info!("gen_transcript in: {} out:{}",
+        audio.as_ref().display(), transcript.as_ref().display());
     println!("gen_transcript in: {} out:{}",
         audio.as_ref().display(), transcript.as_ref().display());
 
@@ -32,9 +34,14 @@ fn convert_to_transcript_json(
     println!("convert_to_transcript_json in: {} out:{}",
         whisper.as_ref().to_string_lossy(), podcast.as_ref().to_string_lossy());
 
+    let cmd_path = match std::env::home_dir() {
+        None => bail!("couldn't find $HOME directory - looking for transcript-converter path"),
+        Some(home) => home.join("transcript-converter/transcriptConverter.py")
+    };
+
     // python transcript-converter/transcriptConverter.py
     match Command::new("python")
-        .arg("transcript-converter/transcriptConverter.py")
+        .arg(cmd_path.as_os_str())
         .arg(whisper.as_ref().as_os_str())
         .arg(podcast.as_ref().as_os_str())
         .output() {
