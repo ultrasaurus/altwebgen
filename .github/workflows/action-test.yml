@@ -21,10 +21,26 @@ jobs:
   build-and-deploy:
     name: Running tests...
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0} # for setup-miniconda, shell needs "login mode"
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      - name: setup miniconda
+        uses: conda-incubator/setup-miniconda@v3
+
+      - name: Where are we?
+        run: |
+          pwd
+          ls -l
+
+      - name: setup conda and install whisperx
+        run: |
+          source ./setup.sh
+          which whisperx
 
       - name: Run tests
         run: cargo test
