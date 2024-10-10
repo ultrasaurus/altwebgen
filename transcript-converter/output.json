@@ -1,0 +1,30 @@
+{
+    "version": "1.0.0",
+    "segments": [
+        {
+            "startTime": 5.501,
+            "endTime": 5.641,
+            "body": "What"
+        },
+        {
+            "startTime": 5.781,
+            "endTime": 5.881,
+            "body": "are"
+        },
+        {
+            "startTime": 5.942,
+            "endTime": 6.462,
+            "body": "you?"
+        },
+        {
+            "startTime": 6.662,
+            "endTime": 6.722,
+            "body": "Oh,"
+        },
+        {
+            "startTime": 6.742,
+            "endTime": 6.842,
+            "body": "I'm"
+        }
+    ]
+}

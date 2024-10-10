@@ -8,7 +8,7 @@ use tracing::{info, trace};
 use walkdir::WalkDir;
 
 use crate::web::md;
-
+use crate::web;
 
 #[derive(Debug, Clone)]
 struct AudioFile {
@@ -25,7 +25,7 @@ impl Ref {
     pub fn new() -> Self {
         Ref { md: None, audio: None, transcript: None }
     }
-    pub fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
+    fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
         if let Some(audio) = &self.audio {
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
@@ -48,7 +48,7 @@ impl Ref {
         }
         Ok(())
     }
-    pub fn write_to_dest(&self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
+    pub fn write_to_dest(&mut self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
         info!("write_to_dest Ref: {:?}", self);
         if let Some(audio) = &self.audio {
             let source_path = &audio.path;
@@ -57,6 +57,12 @@ impl Ref {
             //let dest_path = dest_dir.join(dest_relpath);
             trace!("copy from {:?} to {:?}", &source_path, &dest_path);
             std::fs::copy(source_path, dest_path)?;
+
+            if self.transcript == None {
+                let transcript_path = source_path.with_extension("transcript.json");
+                web::audio::gen_transcript(source_path, &transcript_path)?;
+                self.transcript = Some(transcript_path);
+            }
         }
         if let Some(md) = &self.md {
             let relpath = md.strip_prefix(source_dir)?;
