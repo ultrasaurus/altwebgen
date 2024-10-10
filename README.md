@@ -14,11 +14,12 @@ cd samples/basic
 RUST_LOG=debug cargo run
 ```
 
-NOTE: everything will change, don't depend on this staying as is :)
+NOTE: everything will change, don't depend on this staying as is
 
 BEWARE:
 * live reload only works when JS code is manually included (see sidebar/templates/layout.hbs)
-
+* to use automatic transcript generations (and run the tests)...
+```ln -s $PWD/transcript-converter ~/transcript-converter```
 
 
 ## Code Credits
