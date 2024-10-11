@@ -42,6 +42,9 @@ jobs:
           source ./setup.sh
           which whisperx
 
+      - name: check whisperx
+        run: whisperx --help
+
       - name: Run tests
         run: cargo test
 
