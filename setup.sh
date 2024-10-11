@@ -8,7 +8,7 @@ python --version
 conda info
 
 echo "install whisperx dependencies"
-conda install pytorch==2.0.0 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia
+conda install pytorch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 cpuonly -c pytorch
 
 echo "install whisperx"
 pip install git+https://github.com/m-bain/whisperx.git
