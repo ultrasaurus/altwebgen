@@ -40,7 +40,12 @@ jobs:
       - name: setup conda and install whisperx
         run: |
           source ./setup.sh
-          which whisperx
+          echo "---- setup.sh complete ----"
+          echo "where is whisperx installed?"
+          echo `which whisperx`
+
+      - name: check conda
+        run: conda info
 
       - name: check whisperx
         run: whisperx --help
