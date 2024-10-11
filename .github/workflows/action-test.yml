@@ -43,15 +43,15 @@ jobs:
           echo "---- setup.sh complete ----"
           echo "where is whisperx installed?"
           echo `which whisperx`
+          echo "---- cann I call whisperx? ----"
+          whisperx --help
+
+      - name: check conda (is whisperx conda env active?)
+        run: conda info
 
       - name: check conda
         run: |
           conda activate whisperx
-          conda info
-          whisperx --help
-
-      - name: check conda (did it get reset?)
-        run: conda info
 
       - name: check whisperx
         run: whisperx --help
