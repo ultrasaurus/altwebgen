@@ -45,6 +45,12 @@ jobs:
           echo `which whisperx`
 
       - name: check conda
+        run: |
+          conda activate whisperx
+          conda info
+          whisperx --help
+
+      - name: check conda (did it get reset?)
         run: conda info
 
       - name: check whisperx
