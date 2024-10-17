@@ -34,7 +34,7 @@ impl Ref {
             let url = format!("/media/{}",file_name);
             let link_tag= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
                 &url, &file_name, &file_name);
-            let audio_tag= format!("<audio controls><source src=\"{}\" type=\"{}\">Your browser does not support the audio element. {}</audio>",
+            let audio_tag= format!("<audio id=\"audio\" controls><source src=\"{}\" type=\"{}\">Your browser does not support the audio element. {}</audio>",
                 url, audio.mime, &link_tag);
             writer.write(&audio_tag.as_bytes())?;
 

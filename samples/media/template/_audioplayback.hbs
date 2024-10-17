@@ -1,0 +1,23 @@
+<script>
+    document.addEventListener('mouseup', function() {
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            const range = selection.getRangeAt(0);
+            const startSpan = range.startContainer.parentElement;
+            const endSpan = range.endContainer.parentElement;
+
+            if (startSpan.hasAttribute('start') && endSpan.hasAttribute('end')) {
+                const audio = document.getElementById('audio');
+                const startTime = parseFloat(startSpan.getAttribute('start'));
+                const endTime = parseFloat(endSpan.getAttribute('end'));
+
+                audio.currentTime = startTime;
+                audio.play();
+
+                setTimeout(() => {
+                    audio.pause();
+                }, (endTime - startTime) * 1000);
+            }
+        }
+    });
+</script>
