@@ -19,7 +19,15 @@ NOTE: everything will change, don't depend on this staying as is :)
 BEWARE:
 * live reload only works when JS code is manually included (see sidebar/templates/layout.hbs)
 
+## Building with Docker
 
+```
+docker build -t altwebgen .
+docker run -it altwebgen
+```
+
+
+---
 
 ## Code Credits
 
