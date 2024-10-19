@@ -19,12 +19,51 @@ NOTE: everything will change, don't depend on this staying as is :)
 BEWARE:
 * live reload only works when JS code is manually included (see sidebar/templates/layout.hbs)
 
-## Building with Docker
+# SETUP for Development
+
+## Installing Whisper
+
+using [miniconda](https://docs.anaconda.com/miniconda/)...
+
+
+following [whisperx setup guide](https://github.com/m-bain/whisperX/blob/main/README.md#setup-%EF%B8%8F)
+```
+conda create --name whisperx python=3.10
+conda install --name whisperx \
+    pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 \
+    -c pytorch -c nvidia
+conda activate whisperx
+pip install git+https://github.com/m-bain/whisperx.git
+````
+
+### compute type error (on mac)
+
+*"ValueError: Requested float16 compute type,
+but the target device or backend do not support efficient float16 computation."*
 
 ```
-docker build -t altwebgen .
-docker run -it altwebgen
+whisperx data/sample01.wav   --compute_type float32
 ```
+
+
+## Building with Docker
+
+To simulate github actions environment:
+```
+docker build --platform=linux/amd64  -t altwebgen-amd64 .
+docker run --platform=linux/amd64 -it altwebgen
+```
+
+### Errors
+
+Using Docker, build initially failed with "no space left on device" error. To resolve this:
+```
+docker system prune
+docker system prune --volumes
+```
+Then I increased Virtual disk limit using Docker Desktop UI (Mine was 64MB I increased to 104 GB, though may have worked with less).
+
+
 
 
 ---
