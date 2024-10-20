@@ -45,6 +45,8 @@ jobs:
           echo "---- setup.sh complete ----"
           echo "where is whisperx installed?"
           echo `which whisperx`
+          echo "---- test calling whisper ----"
+          whisperx --help
 
       - name: Run tests
         run: conda activate whisperx && cargo test

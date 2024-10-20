@@ -23,11 +23,16 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 SHELL ["/bin/bash", "-c"]
 
 RUN conda create -y --name whisperx python=3.10
-RUN conda install -y --name whisperx \
-    pytorch==2.0.0 torchaudio==2.0.0 pytorch-cuda=11.8 -c pytorch -c nvidia
 
-RUN echo "source activate whisperx" > ~/.bashrc
-RUN source ~/.bashrc
+# Note: whisper instructions call for torchaudio==2.0.0
+#       pytorch==2.5.0 and torchaudio==2.5.0 resolved the following error
+# OSError: /opt/conda/envs/whisperx/lib/python3.10/site-packages/torchaudio/lib/libtorchaudio.so: undefined symbol: _ZN2at4_ops10zeros_like4callERKNS_6TensorEN3c108optionalINS5_10ScalarTypeEEENS6_INS5_6LayoutEEENS6_INS5_6DeviceEEENS6_IbEENS6_INS5_12MemoryFormatEEE
+RUN conda install -y --name whisperx \
+    pytorch==2.5.0 torchaudio==2.5.0 pytorch-cuda=11.8 -c pytorch -c nvidia
+
+RUN echo "source activate whisperx" > ~/.bashrc && source ~/.bashrc
+    # pip install -U torch torchaudio --no-cache-dir
+
 ENV PATH=/opt/conda/envs/whisperx/bin:$PATH
 
 ENV PIP_ROOT_USER_ACTION=ignore
@@ -35,7 +40,7 @@ RUN pip install git+https://github.com/m-bain/whisperx.git
 
 
 
-#----- install rust and cargo ------------------------
+----- install rust and cargo ------------------------
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh  -s -- -y
 
 WORKDIR /app
