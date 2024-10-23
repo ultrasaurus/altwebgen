@@ -7,7 +7,7 @@ use std::{
 use tracing::{info, trace};
 use walkdir::WalkDir;
 
-use crate::web::md;
+use crate::{config::Config, web::md};
 
 
 #[derive(Debug, Clone)]
@@ -16,14 +16,15 @@ struct AudioFile {
     pub mime: Mime
 }
 #[derive(Debug, Clone)]
-pub struct Ref {
+pub struct Ref<'a> {
+    config: &'a Config,
     md: Option<PathBuf>,
     audio: Option<AudioFile>,
     transcript: Option<PathBuf>,
 }
-impl Ref {
-    pub fn new() -> Self {
-        Ref { md: None, audio: None, transcript: None }
+impl <'r>Ref<'r> {
+    pub fn new(config: &'r Config) -> Self {
+        Ref { config, md: None, audio: None, transcript: None }
     }
     pub fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
@@ -31,7 +32,7 @@ impl Ref {
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
             let file_name = audio.path.file_name().unwrap().to_string_lossy();
             trace!("write_html audio file_name: {:?}", file_name);
-            let url = format!("/media/{}",file_name);
+            let url = format!("{}/media/{}", self.config.prefix, file_name);
             let link_tag= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
                 &url, &file_name, &file_name);
             let audio_tag= format!("<audio id=\"audio\" controls><source src=\"{}\" type=\"{}\">Your browser does not support the audio element. {}</audio>",
@@ -74,7 +75,7 @@ impl Ref {
         Ok(())
     }
 
-   pub fn process_markdown<P: AsRef<Path>>(source_dir: P, dest_dir:&Path) -> anyhow::Result<()> {
+   pub fn process_markdown<P: AsRef<Path>>(config: &Config, source_dir: P, dest_dir:&Path) -> anyhow::Result<()> {
     let src_dir_path = source_dir.as_ref();
     if !src_dir_path.exists() {
         info!("skipping process_ref_markdown, no ref source directory: '{}'", src_dir_path.display());
@@ -83,7 +84,7 @@ impl Ref {
     trace!("process_ref_markdown from '{}' to '{}'", src_dir_path.display(), dest_dir.display());
     // maybe first create a map of stem => Vec[file types]
     let mut prev_stem = None;
-    let mut current_ref = Ref::new();
+    let mut current_ref = Ref::new(&config);
     for e in WalkDir::new(src_dir_path)
         .sort_by(|a,b| a.file_name().cmp(b.file_name()))
         {
@@ -98,7 +99,7 @@ impl Ref {
                 if prev_stem.is_some() {
                     current_ref.write_to_dest(src_dir_path, &dest_dir)?;
                 }
-                current_ref = Ref::new();
+                current_ref = Ref::new(config);
                 prev_stem = Some(path_stem);
             }
             match (mime.type_(), mime.subtype()) {

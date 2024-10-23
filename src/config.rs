@@ -2,13 +2,14 @@ use std::collections::HashMap;
 use std::path::{Path,PathBuf};
 use tracing::{error, info};
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Config {
     pub outdir: PathBuf,
     pub builddir: PathBuf,
     pub sourcedir: PathBuf,
     pub templatedir: PathBuf,
-    pub site_attr: HashMap<String, String>
+    pub site_attr: HashMap<String, String>,
+    pub prefix: String
 }
 
 impl Config {
@@ -27,11 +28,13 @@ impl Config {
     pub fn new(outdir_str: &str,
            sourcedir_str: &str,
            templatedir_str: &str,
+           prefix: &str
     ) -> Config {
         info!("config...");
         info!("   outdir:      {}", outdir_str);
         info!("   sourcedir:   {}", sourcedir_str);
         info!("   templatedir: {}", templatedir_str);
+        info!("   prefix: {}",      prefix);
 
         // create output directory if not present
         let outdir: PathBuf = std::path::PathBuf::from(outdir_str);
@@ -79,6 +82,7 @@ impl Config {
             sourcedir,
             templatedir: PathBuf::from("template"),
             site_attr,
+            prefix: prefix.to_string()
         }
 
     }
@@ -101,6 +105,6 @@ impl Default for Config {
 
      fn default() -> Config {
         info!("default config");
-        Config::new(".dist", "source", "template")
+        Config::new(".dist", "source", "template", "")
     }
 }

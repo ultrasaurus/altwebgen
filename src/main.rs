@@ -28,8 +28,12 @@ struct Cli {
     #[clap(short, long, value_parser, default_value = "template")]
     templatedir: String,
 
+    /// path prefix: change if deploying somewhere that is not root path 
+    #[clap(short, long, value_parser, default_value = "")]
+    prefix: String,
+    
     #[command(subcommand)]
-    command: Option<Command>,
+    command: Option<Command>,    
 
 }
 
@@ -43,7 +47,8 @@ enum Command {
 fn cli_config(cli: &Cli) -> Config {
     Config::new(&*cli.outdir,
             &*cli.indir,
-            &*cli.templatedir)
+            &*cli.templatedir, 
+            &*cli.prefix)
 }
 
 #[tokio::main]
