@@ -19,7 +19,7 @@ pub fn init_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<(
         anyhow!(format!("failed to create directory: {}, error: {}", &buildrefdir.display(), e))
     })?;
 
-    web::Ref::process_markdown("ref", &buildtemplatedir.join("ref"))?;
+    web::Ref::process_markdown(config, "ref", &buildtemplatedir.join("ref"))?;
 
     let buildtemplatedir = config.buildtemplatedir();
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
