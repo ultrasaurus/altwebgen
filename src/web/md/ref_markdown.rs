@@ -32,7 +32,7 @@ impl <'r>Ref<'r> {
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
             let file_name = audio.path.file_name().unwrap().to_string_lossy();
             trace!("write_html audio file_name: {:?}", file_name);
-            let url = format!("{}/media/{}", self.config.prefix, file_name);
+            let url = format!("{}media/{}", self.config.prefix, file_name);
             let link_tag= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
                 &url, &file_name, &file_name);
             let audio_tag= format!("<audio id=\"audio\" controls><source src=\"{}\" type=\"{}\">Your browser does not support the audio element. {}</audio>",

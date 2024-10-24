@@ -12,6 +12,18 @@ pub struct Config {
     pub prefix: String
 }
 
+// ensure prefix starts and ends with '/'
+fn root_prefix_format(path_prefix: &str) -> String {
+    if path_prefix == "" {
+        String::from("/")
+    } else { 
+        let start = if path_prefix.starts_with('/') { "" } else { "/" };
+        let end = if path_prefix.ends_with('/') { "" } else { "/" };
+        format!("{}{}{}", start, path_prefix, end)
+    }
+}
+
+
 impl Config {
     // given sourcepath: some path inside sourcedir
     // return: new parallel path inside outdir
@@ -24,17 +36,17 @@ impl Config {
     pub fn buildtemplatedir(&self) -> PathBuf {
          self.builddir.join("template")
     }
-
+    
     pub fn new(outdir_str: &str,
            sourcedir_str: &str,
            templatedir_str: &str,
-           prefix: &str
+           path_prefix: &str
     ) -> Config {
         info!("config...");
         info!("   outdir:      {}", outdir_str);
         info!("   sourcedir:   {}", sourcedir_str);
         info!("   templatedir: {}", templatedir_str);
-        info!("   prefix: {}",      prefix);
+        info!("   prefix: {}",      path_prefix);
 
         // create output directory if not present
         let outdir: PathBuf = std::path::PathBuf::from(outdir_str);
@@ -76,6 +88,9 @@ impl Config {
             };
         }
 
+        // ensure prefix starts and ends with '/'
+        let prefix = root_prefix_format(path_prefix);
+
         Config {
             outdir,
             builddir,
@@ -107,4 +122,43 @@ impl Default for Config {
         info!("default config");
         Config::new(".dist", "source", "template", "")
     }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_prefix_format_empty() {
+        let result = root_prefix_format("");
+        assert_eq!(result, String::from("/"));
+    }
+
+    #[test]
+    fn test_prefix_format_correct() {
+        let given_prefix = "/whatever/";
+        let result = root_prefix_format(given_prefix);
+        assert_eq!(result, String::from(given_prefix));
+    }
+
+    #[test]
+    fn test_prefix_format_correct_internal_slash() {
+        let given_prefix = "/what/ever/";
+        let result = root_prefix_format(given_prefix);
+        assert_eq!(result, String::from(given_prefix));
+    }
+
+
+    #[test]
+    fn test_prefix_format_missing_end_slash() {
+        let result = root_prefix_format("/thing");
+        assert_eq!(result, String::from("/thing/"));
+    }
+
+    #[test]
+    fn test_prefix_format_missing_start_slash() {
+        let result = root_prefix_format("start/");
+        assert_eq!(result, String::from("/start/"));
+    }
+
 }
