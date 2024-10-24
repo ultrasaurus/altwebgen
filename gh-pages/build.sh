@@ -13,7 +13,7 @@ OUT_DIR="gh-pages/content/_website"
 mkdir -p $OUT_DIR
 
 
-(cd ./samples/media; webgenr -p $PREFIX build)
+(cd ./samples/media; webgenr -p $PREFIX/media-sample build)
 echo "pwd: " `pwd`
 mv ./samples/media/.dist $OUT_DIR/media-sample
 echo "ls $OUT_DIR"
