@@ -29,6 +29,8 @@ using [miniconda](https://docs.anaconda.com/miniconda/)...
 
 
 following [whisperx setup guide](https://github.com/m-bain/whisperX/blob/main/README.md#setup-%EF%B8%8F)
+
+steps for Mac below (for linux, see `setup.sh` used by Dockerfile and github actions)
 ```
 conda create --name whisperx python=3.10
 conda install --name whisperx \
@@ -37,6 +39,16 @@ conda install --name whisperx \
 conda activate whisperx
 pip install git+https://github.com/m-bain/whisperx.git
 ````
+
+### Error: could not run whisperx at all,
+
+even `whisperx --help` fails
+
+this worked (via https://github.com/pytorch/audio/issues/1573)
+```
+pip install -U torch torchaudio --no-cache-dir
+````
+> `Successfully installed torchaudio-2.5`
 
 ### compute type error (on mac)
 
