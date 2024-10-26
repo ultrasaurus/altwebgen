@@ -65,7 +65,7 @@ whisperx data/sample01.wav   --compute_type float32
 To simulate github actions environment:
 ```
 docker build --platform=linux/amd64  -t altwebgen-amd64 .
-docker run --platform=linux/amd64 -it altwebgen
+docker run --platform=linux/amd64 -it altwebgen-amd64
 ```
 
 ### Errors
