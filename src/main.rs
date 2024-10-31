@@ -5,7 +5,7 @@ use std::{
     io::BufReader,
     path::PathBuf
 };
-use words::{html_words, WordTime};
+use words::{html_words, HtmlWords, WordTime};
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -25,7 +25,7 @@ struct Cli {
 fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
-    let html_string = match cli.input {
+    let HtmlWords{html:html_string, word_index:_, last_timing_index:_} = match cli.input {
         None => html_words(&cli.text, None)?,
         Some(path_string) => {
             println!("Text input path: {}", path_string);
@@ -39,12 +39,12 @@ fn main() -> anyhow::Result<()> {
                         BufReader::new(file);
                     let timing =
                         WordTime::from_transcript(transcript_reader)?;
-                    html_words(text, Some(&timing))?
+                    html_words(&text, Some(&timing))?
                 },
                 Err(e) => {
                     if e.kind() == std::io::ErrorKind::NotFound {
                         println!("No transcript file found: rendering HTML without word timing");
-                        html_words(text, None)?
+                        html_words(&text, None)?
                     } else {
                         // Err(anyhow!(e)
                         // .context("transcript file could not be opened {}", txt_path))
