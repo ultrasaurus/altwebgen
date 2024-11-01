@@ -1,9 +1,11 @@
 use anyhow::Result;
 use handlebars::Handlebars;
-use std::{ffi::OsStr, path::Path};
+use std::path::Path;
 use std::collections::HashMap;
 use tracing::{info, trace};
 use walkdir::WalkDir;
+mod document;
+use document::Document;
 
 mod md;
 pub use md::Ref as Ref;
@@ -70,9 +72,9 @@ fn render_file<P: AsRef<Path>>(
 ) -> anyhow::Result<()> {
     let sourcepath = path.as_ref();
     trace!("rendering: {}", sourcepath.display());
-    let maybe_ext: Option<&str> = sourcepath.extension().and_then(OsStr::to_str);
-    match maybe_ext {
-        Some("hbs") => {
+    let document = Document::from_path(&path);
+    match document.mime.subtype().as_str() {
+        "x-handlebars-template" => {
             let (mut data, content) = read_source(sourcepath)?;
             let site_attr_ref = &config.site_attr;
             data.extend(site_attr_ref.into_iter().map(|(k, v)| (k.clone(), v.clone())));
@@ -89,7 +91,7 @@ fn render_file<P: AsRef<Path>>(
             hbs.render_to_write("default", &data, writer)?;
 
         }
-        Some("md") => {
+        "markdown" => {
             let html_body = md::file2html(sourcepath)?;
 
             // path for writing: html extension, rooted in output directory
