@@ -1,5 +1,6 @@
 use mime::Mime;
 use std::path::{Path, PathBuf};
+use crate::Config;
 use crate::util::PathExt;
 
 pub struct Document {
@@ -20,4 +21,14 @@ impl Document {
             }
         }
     }
+    pub fn outpath(&self, config: &Config) -> anyhow::Result<PathBuf> {
+        let stem = config.outpath(&self.path)?;
+        let path = match self.mime.subtype().as_str() {
+            "x-handlebars-template" => stem.with_extension(""),
+            _ => stem.with_extension("html")
+
+        };
+        Ok(path)
+    }
+
 }

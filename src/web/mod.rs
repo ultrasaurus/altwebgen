@@ -80,7 +80,7 @@ fn render_file<P: AsRef<Path>>(
             data.extend(site_attr_ref.into_iter().map(|(k, v)| (k.clone(), v.clone())));
 
             // path for writing: w/o .hbs, rooted in output directory
-            let writepath = config.outpath(sourcepath.with_extension(""))?;
+            let writepath = document.outpath(config)?;
             let writer = std::fs::File::options()
                 .create(true)
                 .write(true)
@@ -95,7 +95,7 @@ fn render_file<P: AsRef<Path>>(
             let html_body = md::file2html(sourcepath)?;
 
             // path for writing: html extension, rooted in output directory
-            let writepath = config.outpath(sourcepath.with_extension("html"))?;
+            let writepath = document.outpath(config)?;
             let writer = std::fs::File::options()
                 .create(true)
                 .write(true)
