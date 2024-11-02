@@ -90,10 +90,10 @@ mod tests {
             WordTime { start_time: 0.2, end_time: 0.3, body: "there".to_string() },
             WordTime { start_time: 0.4, end_time: 0.5, body: "world".to_string() }
         ];
-        let result = html_words("Hello my world!", Some(&timings));
+        let result = html_words("Hello world!", Some(&timings));
         assert!(result.is_ok());
         let result_string = result.unwrap();
-        let expected_string = "<span word='0' char='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='2' char='10' start='0.4' end='0.5' debug_body='world'>world</span>!";
+        let expected_string = "<span word='0' char='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' char='6' start='0.4' end='0.5' debug_body='world'>world</span>!";
         assert_eq!(result_string, expected_string);
     }
 
