@@ -1,6 +1,6 @@
-use new_mime_guess as mime_guess;
 use mime::Mime;
 use std::path::{Path, PathBuf};
+use crate::util::PathExt;
 
 pub struct Document {
     pub path: PathBuf,
@@ -12,7 +12,12 @@ impl Document {
         let path = document_path.as_ref();
         Document {
             path: PathBuf::from(path),
-            mime: mime_guess::from_path(path).first_or_octet_stream()
+            mime: {
+                match path.mimetype() {
+                    Some(mimetype) => mimetype,
+                    None => mime::APPLICATION_OCTET_STREAM
+                }
+            }
         }
     }
 }
