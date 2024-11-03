@@ -3,13 +3,13 @@ use handlebars::Handlebars;
 use tracing::info;
 
 use crate::{
-    config::Config,
+    config::{Config, Context},
     util::*,
     web,
 };
 
 
-pub fn init_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
+pub fn init_templates<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
     info!("init_templates");
     clean_and_recreate_dir(&config.builddir)?;
     let buildtemplatedir = config.buildtemplatedir();
@@ -22,13 +22,16 @@ pub fn init_templates(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<(
     web::Ref::process_markdown(config, "ref", &buildtemplatedir.join("ref"))?;
 
     let buildtemplatedir = config.buildtemplatedir();
+    let mut hbs = Handlebars::new();
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
         .map_err(|_| {
             anyhow!("failed to register template directory: {}", buildtemplatedir.display())
         })?;
     info!("Setup: template directory '{}' registered", &buildtemplatedir.display());
 
-    Ok(())
+    Ok(Context {
+        config, hbs
+    })
 }
 
 fn create_source_dirs(config: &Config) -> anyhow::Result<()> {
@@ -46,29 +49,28 @@ fn create_source_dirs(config: &Config) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub fn clean_build(config: &Config, hbs: &mut Handlebars) -> anyhow::Result<()> {
+pub fn clean_build(config: &Config) -> anyhow::Result<Context> {
     create_source_dirs(&config)?;
     clean_and_recreate_dir(&config.outdir)?;
 
-    if let Err(e) = init_templates(config, hbs) {
-        return Err(e.context("setting up templates failed"))
-    };
-
-    if let Err(e) = web::process_files(&config, &hbs) {
-        return Err(e.context("build failure"))
-    };
-
-    Ok(())
+    match init_templates(config) {
+        Err(e) => return Err(e.context("setting up templates failed")),
+        Ok(context) => {
+            if let Err(e) = web::process_files(&context) {
+                return Err(e.context("build failure"))
+            }
+            Ok(context)
+        }
+    }
 }
 
 // initial setup, called only once
-pub fn init(config: &Config) -> anyhow::Result<Handlebars<'static>> {
+pub fn init(config: &Config) -> anyhow::Result<Context> {
     info!("init: start");
     info!("      working directory {}", get_current_working_dir()?.display());
-    let mut hbs = Handlebars::new();
     create_source_dirs(&config)?;
 
-    clean_build(&config, &mut hbs)?;
+    let context = clean_build(&config)?;
     info!("init: complete");
-    Ok(hbs)
+    Ok(context)
 }

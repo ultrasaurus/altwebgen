@@ -15,7 +15,7 @@ mod watch_files;
 use watch_files::detect_changes;
 
 pub async fn run(config: &Config) -> anyhow::Result<()> {
-    let  mut hbs= setup::init(&config)?;
+    let mut context= setup::init(&config)?;
     let mut source_watch = Vec::new();
     source_watch.push(config.sourcedir.clone());
     let mut template_watch = Vec::new();
@@ -33,7 +33,7 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
             source_result = detect_changes(&source_watch) => {
                 info!("source watcher result {:?}", source_result);
                 clean_and_recreate_dir(&config.outdir)?;
-                if let Err(e) = web::process_files(&config, &hbs) {
+                if let Err(e) = web::process_files(&context) {
                         error!("process_files failed: {:?}", e);
                         break
                 } else {
@@ -42,12 +42,12 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
             },
             template_result = detect_changes(&template_watch) => {
                 info!("template watcher result {:?}", template_result);
-                hbs.clear_templates();
-                if let Err(e) = setup::clean_build(&config, &mut hbs) {
-                    error!("build failed: {:?}", e);
-                    break
-                } else {
-                    let _ = tx.send(Message::text("reload"));
+                match setup::clean_build(&config) {
+                    Err(e) => {error!("build failed: {:?}", e); break},
+                    Ok(new_context) => {
+                        context = new_context;
+                        let _ = tx.send(Message::text("reload"));
+                    }
                 }
             }
         }

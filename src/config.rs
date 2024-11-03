@@ -3,6 +3,12 @@ use std::path::{Path,PathBuf};
 use tracing::{error, info};
 
 #[derive(Clone, Debug)]
+pub struct Context<'a> {
+    pub config: &'a Config,
+    pub hbs: handlebars::Handlebars<'a>
+}
+
+#[derive(Clone, Debug)]
 pub struct Config {
     pub outdir: PathBuf,
     pub builddir: PathBuf,
@@ -16,7 +22,7 @@ pub struct Config {
 fn root_prefix_format(path_prefix: &str) -> String {
     if path_prefix == "" {
         String::from("/")
-    } else { 
+    } else {
         let start = if path_prefix.starts_with('/') { "" } else { "/" };
         let end = if path_prefix.ends_with('/') { "" } else { "/" };
         format!("{}{}{}", start, path_prefix, end)
@@ -36,7 +42,7 @@ impl Config {
     pub fn buildtemplatedir(&self) -> PathBuf {
          self.builddir.join("template")
     }
-    
+
     pub fn new(outdir_str: &str,
            sourcedir_str: &str,
            templatedir_str: &str,
