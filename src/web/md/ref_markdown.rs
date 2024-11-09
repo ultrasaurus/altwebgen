@@ -170,10 +170,11 @@ mod tests {
 
     #[test]
     fn test_write_md() {
-        let config = Config::default();
-        let mut reference = Ref::new(&config);
-        let md_path = PathBuf::from("src/test/data/short-sentence.md");
-        reference.md = Some(md_path);
+        let reference: Ref<'_> = Ref {config: &Config::default(),
+            md: Some("src/test/data/short-sentence.md".into()),
+            audio: None,
+            transcript: None
+        };
 
         //let write_buf = std::io::BufWriter::new(Vec::new());
         let mut write_buf = Vec::new();
@@ -185,15 +186,16 @@ mod tests {
     }
     #[test]
     fn test_write_md_audio() {
-        let config = Config::default();
-        let mut reference = Ref::new(&config);
-        let md_path = PathBuf::from("src/test/data/short-sentence.md");
-        reference.md = Some(md_path);
-
         // Create AudioFile
         let path = PathBuf::from("src/test/data/short-sentence.mp3");
         let mime = MP3_MIME_STR.parse::<mime::Mime>().unwrap();
-        reference.audio = Some(AudioFile { path, mime });
+        let audio = Some(AudioFile { path, mime });
+
+        let reference: Ref<'_> = Ref {config: &Config::default(),
+            md: Some("src/test/data/short-sentence.md".into()),
+            audio,
+            transcript: None
+        };
 
         //let write_buf = std::io::BufWriter::new(Vec::new());
         let mut write_buf = Vec::new();
