@@ -21,6 +21,14 @@ pub struct Ref<'a> {
     audio: Option<AudioFile>,
     transcript: Option<PathBuf>,
 }
+
+fn audio_tag(file_name: &str, audio_mime: &str, url:&str) -> String {
+    let link_tag: String= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
+        &url, &file_name, &file_name);
+    format!("<audio id=\"audio\" controls><source src=\"{}\" type=\"{}\">Your browser does not support the audio element. {}</audio>",
+        url, audio_mime, &link_tag)
+}
+
 impl<'r> Ref<'r> {
     pub fn new(config: &'r Config) -> Self {
         Ref {
@@ -34,14 +42,10 @@ impl<'r> Ref<'r> {
         trace!("write_html for ref: {:?}", self);
         if let Some(audio) = &self.audio {
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
-            let file_name = audio.path.file_name().unwrap().to_string_lossy();
-            trace!("write_html audio file_name: {:?}", file_name);
+            let file_name: &str = audio.path.file_name().unwrap().try_into()?;
             let url = format!("{}media/{}", self.config.prefix, file_name);
-            let link_tag= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
-                &url, &file_name, &file_name);
-            let audio_tag= format!("<audio id=\"audio\" controls><source src=\"{}\" type=\"{}\">Your browser does not support the audio element. {}</audio>",
-                url, audio.mime, &link_tag);
-            writer.write(&audio_tag.as_bytes())?;
+            let audio_html = audio_tag(file_name.into(), &audio.mime.to_string(), &url.to_string());
+            writer.write(&audio_html.as_bytes())?;
         }
         if let Some(md) = &self.md {
             let html_body = match &self.transcript {
@@ -156,6 +160,14 @@ impl<'r> Ref<'r> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    const MP3_MIME_STR:&str = "audio/mpeg";
+
+    #[test]
+    fn test_audio_tag() {
+        let output = audio_tag("hello.mp3", MP3_MIME_STR, "/audio/hello.mp3");
+        assert_eq!(output, "<audio id=\"audio\" controls><source src=\"/audio/hello.mp3\" type=\"audio/mpeg\">Your browser does not support the audio element. <a href=\"/audio/hello.mp3\" title=\"hello.mp3\" class=\"audio\"><span class=\"fa-solid fa-play\">hello.mp3</span></a></audio>")
+    }
+
     #[test]
     fn test_write_md() {
         let config = Config::default();
@@ -180,7 +192,7 @@ mod tests {
 
         // Create AudioFile
         let path = PathBuf::from("src/test/data/short-sentence.mp3");
-        let mime = "audio/mpeg".parse::<mime::Mime>().unwrap();
+        let mime = MP3_MIME_STR.parse::<mime::Mime>().unwrap();
         reference.audio = Some(AudioFile { path, mime });
 
         //let write_buf = std::io::BufWriter::new(Vec::new());
