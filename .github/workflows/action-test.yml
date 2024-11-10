@@ -33,6 +33,8 @@ jobs:
 
       - name: setup miniconda
         uses: conda-incubator/setup-miniconda@v3
+        with:
+          channels: defaults
 
       - name: Where are we?
         run: |
