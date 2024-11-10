@@ -12,4 +12,11 @@ conda activate whisperx
 echo "install whisperx"
 pip install git+https://github.com/m-bain/whisperx.git
 
+# prolly there's a better way to do this by modifying above commands
+# https://github.com/Vaibhavs10/insanely-fast-whisper/issues/233
+pip uninstall -y numpy
+pip install numpy==1.26.3
+
 which whisperx
+
+whisperx --help

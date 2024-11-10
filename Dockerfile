@@ -38,6 +38,10 @@ ENV PATH=/opt/conda/envs/whisperx/bin:$PATH
 ENV PIP_ROOT_USER_ACTION=ignore
 RUN pip install git+https://github.com/m-bain/whisperx.git
 
+# prolly there's a better way to do this by modifying above commands
+# https://github.com/Vaibhavs10/insanely-fast-whisper/issues/233
+RUN pip uninstall -y numpy
+RUN pip install numpy==1.26.3
 
 
 # ----- install rust and cargo ------------------------
