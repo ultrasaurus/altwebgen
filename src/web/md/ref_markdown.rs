@@ -239,4 +239,40 @@ mod tests {
         assert_eq!(output_string.trim(), expected);
     }
 
+
+        #[test]
+    fn test_write_multiline_md_audio_transcript() {
+        // Create AudioFile
+        let path = PathBuf::from("src/test/data/short-sentence.mp3");
+        let mime = MP3_MIME_STR.parse::<mime::Mime>().unwrap();
+        let audio = Some(AudioFile { path, mime });
+
+        let reference: Ref<'_> = Ref {config: &Config::default(),
+            md: Some("src/test/data/short-sentence-multiline.md".into()),
+            audio,
+            transcript: Some("src/test/data/short-sentence.transcript.json".into()),
+        };
+
+        let mut write_buf = Vec::new();
+        reference.write_html(&mut write_buf).unwrap();
+
+        let output_string = String::from_utf8(write_buf).unwrap();
+        let output_trimmed = output_string.trim();
+
+        let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
+        let expected_words: String = [
+            "<p><span word='0' char='0' start='0.11' end='0.17' debug_body='It'>it</span> ",
+            "<span word='1' char='3' start='0.211' end='0.352' debug_body='may'>may</span> ",
+            "<span word='2' char='7' start='0.392' end='0.755' debug_body='contain'>contain</span></p>\n",
+            // TODO: the following line is actually incorrect, there should be a space after the comma
+            "<p><span word='3' char='15' start='0.876' end='1.622' debug_body='annotations,'>annotations</span>,",
+            "<span word='4' char='28' start='2.368' end='2.832' debug_body='additions'>additions</span> ",
+            "<span word='5' char='38' start='2.893' end='2.973' debug_body='and'>and</span> ",
+            "<span word='6' char='42' start='3.034' end='3.498' debug_body='footnotes'>footnotes</span>",
+            "</p>\n"].join("");
+        let expected = format!("{}{}", audio_html, expected_words);
+        assert_eq!(output_trimmed, expected);
+    }
+
 }
+
