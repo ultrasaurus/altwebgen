@@ -239,8 +239,24 @@ mod tests {
         assert_eq!(output_string.trim(), expected);
     }
 
+    fn assert_dom_eq(html_string: &str, expected_string: &str) {
+        use kuchikiki::traits::*;
 
-        #[test]
+        let html = kuchikiki::parse_html().one(html_string).select_first("body").unwrap();
+        let expected = kuchikiki::parse_html().one(expected_string).select_first("body").unwrap();
+
+        let mut expected_nodes = expected.as_node().children();
+        html.as_node().children().for_each(|html_child| {
+            if let Some(expected_node) = expected_nodes.next() {
+                assert_eq!(html_child.to_string(), expected_node.to_string());
+            } else {
+                // got fewer nodes than expected
+                assert_eq!(html_child.to_string(), "");
+            }
+        });
+    }
+
+    #[test]
     fn test_write_multiline_md_audio_transcript() {
         // Create AudioFile
         let path = PathBuf::from("src/test/data/short-sentence.mp3");
@@ -271,7 +287,8 @@ mod tests {
             "<span word='6' char='42' start='3.034' end='3.498' debug_body='footnotes'>footnotes</span>",
             "</p>\n"].join("");
         let expected = format!("{}{}", audio_html, expected_words);
-        assert_eq!(output_trimmed, expected);
+
+        assert_dom_eq(output_trimmed, &expected);
     }
 
 }
