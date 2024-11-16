@@ -60,6 +60,8 @@ impl fmt::Display for NotHtmlSourceError {
         write!(f, "not an HTML source, based on path file extension") //: {}", self.path)
     }
 }
+
+#[derive(PartialEq, Debug, Clone)]
 pub enum HtmlGenerator {
     Markdown(MarkdownData),
     Template(HandlebarsTemplate)
@@ -83,7 +85,7 @@ impl HtmlGenerator {
                 }
             }
     }
-    pub fn render<W: Write>(&self, context: &Context, writer: W) -> anyhow::Result<()> {
+    pub fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
         match self {
             HtmlGenerator::Markdown(generator) => generator.render(context, writer),
             HtmlGenerator::Template(generator) => generator.render(context, writer)
@@ -114,17 +116,17 @@ fn read_source<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(HashMap<String,
     Ok((data, content))
 }
 
-
+#[derive(PartialEq, Debug, Clone)]
 pub struct MarkdownData {
     attr: HashMap<String, String>,
 }
 
 trait GenerateHtml {
-    fn render<W: Write>(&self, context: &Context, writer: W) -> anyhow::Result<()>;
+    fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()>;
 }
 
 impl GenerateHtml for MarkdownData {
-    fn render<W: Write>(&self, context: &Context, writer: W) -> anyhow::Result<()> {
+    fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
         context.hbs.render_to_write("default", &self.attr, writer)?;
         Ok(())
     }
@@ -147,12 +149,13 @@ impl MarkdownData {
     }
 }
 
+#[derive(PartialEq, Debug, Clone)]
 pub struct HandlebarsTemplate {
     attr: HashMap<String, String>
 }
 
 impl GenerateHtml for HandlebarsTemplate {
-    fn render<W: Write>(&self, context: &Context, writer: W) -> anyhow::Result<()> {
+    fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
         context.hbs.render_to_write("default", &self.attr, writer)?;
         Ok(())
     }
@@ -172,3 +175,32 @@ impl HandlebarsTemplate {
     }
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use handlebars::Handlebars;
+
+    #[test]
+    fn test_html_gen_markdown() {
+        let default_tpl = r#"<html><body>{{{ body }}}</body></html>"#;
+        let expected = "<html><body><p>it may contain annotations, additions and footnotes</p>\n</body></html>";
+        let mut hbs = Handlebars::new();
+        hbs.register_template_string("default", default_tpl).unwrap();
+        let config = Config::default();
+        let context = Context {
+            config: &config,
+            hbs
+        };
+        let doc = Document::from_path("src/test/data/short-sentence.md");
+        let maybe_html_source: Option<HtmlGenerator> = doc.html_generator(&context).unwrap();
+        assert!(maybe_html_source != None);
+        if let Some(html_source) = maybe_html_source {
+            let mut write_buf: Vec<u8> = Vec::new();
+            html_source.render(&context, &mut write_buf).unwrap();
+            let output_string: String = String::from_utf8(write_buf).unwrap();
+            assert_eq!(expected, &output_string)
+        }
+
+    }
+
+}

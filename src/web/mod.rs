@@ -53,11 +53,11 @@ fn render_file<P: AsRef<Path>>(
         None => { std::fs::copy(&path, config.outpath(&path)?)?;},
         Some(html_source) => {
             let writepath = document.outpath(config)?;
-            let writer = std::fs::File::options()
+            let mut writer = std::fs::File::options()
                 .create(true)
                 .write(true)
                 .open(writepath)?;
-            html_source.render(&context, writer)?;
+            html_source.render(&context, &mut writer)?;
         }
 
     }
