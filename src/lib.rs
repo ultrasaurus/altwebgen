@@ -28,9 +28,8 @@ pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result
         for timing in timings.iter() {
             if let Some((word_index, word, _)) = matched_tuples.iter().find(|(_, _, t)| t.body == timing.body) {
                 html_string.push_str(&format!(
-                    "<span word='{}' char='{}' start='{}' end='{}' debug_body='{}'>{}</span> ",
+                    "<span word='{}' start='{}' end='{}' debug_body='{}'>{}</span> ",
                     word_index,
-                    0, // Placeholder for character position if needed, which we don't for now
                     timing.start_time,
                     timing.end_time,
                     timing.body,
@@ -83,7 +82,7 @@ mod tests {
         let result = html_words("Hello world!", Some(&timings));
         assert!(result.is_ok());
         let result_string = result.unwrap();
-        let expected_string = "<span word='0' char='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' char='0' start='0.2' end='0.3' debug_body='world'>world</span>";
+        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' start='0.2' end='0.3' debug_body='world'>world</span>";
         assert_eq!(result_string, expected_string);
     }
     
@@ -105,7 +104,7 @@ mod tests {
         let result = html_words("Hello there world!", Some(&timings));
         assert!(result.is_ok());
         let result_string = result.unwrap();
-        let expected_string = "<span word='0' char='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='2' char='0' start='0.2' end='0.3' debug_body='world'>world</span>";
+        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='2' start='0.2' end='0.3' debug_body='world'>world</span>";
         assert_eq!(result_string, expected_string);
     }
 
@@ -119,7 +118,7 @@ mod tests {
         let result = html_words("Hello my world!", Some(&timings));
         assert!(result.is_ok());
         let result_string = result.unwrap();
-        let expected_string = "<span word='0' char='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='2' char='0' start='0.4' end='0.5' debug_body='world'>world</span>";
+        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='2' start='0.4' end='0.5' debug_body='world'>world</span>";
         assert_eq!(result_string, expected_string);
     }
 
