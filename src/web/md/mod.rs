@@ -1,5 +1,6 @@
 use pulldown_cmark as cmark;
 use cmark::Event;
+use regex::CaptureMatches;
 use crate::web::read_file_to_string;
 use std::path::Path;
 use words::WordTime;
@@ -32,12 +33,20 @@ pub fn file2html_with_timing<P: AsRef<Path>>(md_path: P, transcript_path: P) -> 
 fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result<Vec<u8>> {
     let mut html_body = Vec::new();
 
+    // TODO: remove once html_words returns count
+    use regex::Regex;
+    let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([[\s$][^a-zà-ýA-ZÀ-Ý0-9]]?)")?;
+
     let mut new_event_list: Vec<Event> = Vec::new();
     let mut parser = cmark::Parser::new(&source);
+    let mut word_timings = timings.clone();
     while let Some(event) = parser.next() {
         let next_event= match event {
             Event::Text(cow_str) => {
-                let html_buf = words::html_words(&cow_str, Some(timings))?;
+                let text: &str = cow_str.as_ref();
+                let html_buf = words::html_words(text, Some(&word_timings))?;
+                let count = regex.captures_iter(text).count();
+                word_timings.drain(0..count);
                 let html_string = String::from(html_buf);
                 Event::Html(html_string.into())
             },
