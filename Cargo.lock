@@ -1738,7 +1738,7 @@ checksum = "32b752e52a2da0ddfbdbcc6fceadfeede4c939ed16d13e648833a61dfb611ed8"
 [[package]]
 name = "words"
 version = "0.1.0"
-source = "git+https://github.com/ultrasaurus/words-rs.git?tag=0.1.0#30eb6e36c64977f0886e53f9086d7f3c83c22c29"
+source = "git+https://github.com/ultrasaurus/words-rs.git?branch=mismatch-fixes#f7268b73d13c68b65b13af05a1ce2351e1bc5af4"
 dependencies = [
  "anyhow",
  "clap",
