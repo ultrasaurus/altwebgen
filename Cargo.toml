@@ -32,8 +32,4 @@ tracing = "0.1"
 tracing-subscriber = "0.3"
 walkdir = "2.5.0"
 warp = "0.3.6"
-<<<<<<< HEAD
-words = {git = "https://github.com/ultrasaurus/words-rs.git", branch="mismatch-fixes"}
-=======
 words = {git = "https://github.com/ultrasaurus/words-rs.git", branch="clone"}
->>>>>>> 39c9461 (experiment to support  multiple text nodes)

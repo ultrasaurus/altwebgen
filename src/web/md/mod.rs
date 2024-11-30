@@ -1,10 +1,9 @@
 use pulldown_cmark as cmark;
 use cmark::Event;
-use regex::CaptureMatches;
 use crate::web::read_file_to_string;
+use tracing::warn;
 use std::path::Path;
 use words::WordTime;
-
 mod ref_markdown;
 pub use ref_markdown::Ref as Ref;
 
@@ -43,10 +42,17 @@ fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result
     while let Some(event) = parser.next() {
         let next_event= match event {
             Event::Text(cow_str) => {
+                println!("text: {} {} {}", cow_str, cow_str.len(), word_timings.len());
                 let text: &str = cow_str.as_ref();
                 let html_buf = words::html_words(text, Some(&word_timings))?;
                 let count = regex.captures_iter(text).count();
-                word_timings.drain(0..count);
+                println!("count: {}, word_timings.len(): {}", count, word_timings.len());
+                if (count > word_timings.len()) {
+                    warn!("count > word_timings.len()");
+                    word_timings.drain(0..word_timings.len());
+                } else {
+                    word_timings.drain(0..count);
+                }
                 let html_string = String::from(html_buf);
                 Event::Html(html_string.into())
             },
