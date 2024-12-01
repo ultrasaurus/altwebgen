@@ -40,6 +40,7 @@ impl<'r> Ref<'r> {
     }
     fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
+        writer.write("<div id='audiotext'>\n".as_bytes())?;
         if let Some(audio) = &self.audio {
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
             let file_name: &str = audio.path.file_name().unwrap().try_into()?;
@@ -54,6 +55,8 @@ impl<'r> Ref<'r> {
             };
             writer.write(&html_body)?;
         }
+        writer.write("</div>\n".as_bytes())?;
+
         Ok(())
     }
     pub fn write_to_dest(&mut self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
