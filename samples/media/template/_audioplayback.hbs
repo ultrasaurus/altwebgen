@@ -1,28 +1,28 @@
 <script>
+    currentSpan = null;
+    nextSpan = null;
     const audio = document.getElementById('audio');
     audio.removeAttribute('controls');
 
     function play() {
-        console.log("play");
-        console.log("audio.currentTime", audio.currentTime);
         audio.play();
         document.querySelector('#play img').setAttribute('src', "/icon/pause24.png");
     }
+
     function pause() {
-        console.log("pause");
-        console.log("audio.currentTime", audio.currentTime);
         audio.pause();
         document.querySelector('#play img').setAttribute('src', "/icon/play24.png");
     }
 
-    console.log("document.getElementById('play')", document.getElementById('play'));
     document.getElementById('play').addEventListener('click', (e) => {
         audio.paused ? window.play() : window.pause();
     });
+
     document.getElementById('rewind').addEventListener('click', (e) => {
         window.getSelection().removeAllRanges();    
         audio.currentTime = 0;
     });
+
     document.addEventListener('keydown', (e) => {
         if (e.key === " ") {
             audio.paused ? window.play() : window.pause() ;
@@ -30,10 +30,46 @@
         }
     });
 
+    function getNextAudioSpan(span) {
+        while (currentSpan.nextElementSibling != null) {
+            var nextSart = currentSpan.nextElementSibling.getAttribute('start');
+            if (nextSart != null) return currentSpan.nextElementSibling;
+        }
+        return null
+    }
+
+    function setCurrentSpan(span) {
+        if (currentSpan != null) currentSpan.classList.remove("current");
+        currentSpan = span;
+        if (span != null) {
+            currentSpan.classList.add("current");
+            nextSpan = getNextAudioSpan(span);
+        }
+    }
+
+    audio.addEventListener('timeupdate', function(e) {
+        var target = e.target;
+       if (target['endTime'] != undefined) {
+            if (target.currentTime > target.endTime) {
+                window.pause();
+                delete target.endTime
+                setCurrentSpan(null)
+            }
+       }
+       if (currentSpan && target.currentTime > currentSpan.getAttribute('end')) {
+            if (nextSpan != null) {
+                nextStart = nextSpan.getAttribute('start');
+                if (target.currentTime >= nextSpan.getAttribute('start')) {
+                    setCurrentSpan(nextSpan)
+                }
+            }
+       }
+    });
     document.addEventListener('mouseup', function() {
-        console.log("mouseup");
         const selection = window.getSelection();
+
         if (selection.rangeCount > 0) {
+            window.clearTimeout();  // clear prior pause directive, if any
             const range = selection.getRangeAt(0);
             const startSpan = range.startContainer.parentElement;
             const endSpan = range.endContainer.parentElement;
@@ -44,10 +80,8 @@
                 const endTime = parseFloat(endSpan.getAttribute('end'));
 
                 audio.currentTime = startTime;
-                console.log("audio.currentTime", audio.currentTime);
-                setTimeout(() => {
-                    audio.pause();
-                }, (endTime - startTime) * 1000);
+                audio.endTime = endTime;
+                setCurrentSpan(startSpan);
             }
         }
     });

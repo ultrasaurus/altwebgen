@@ -5,6 +5,9 @@ body {
 
 /* < !-- HTML !--><button class="button-14" role="button">Button 14</button> */
 
+.current {
+    background-color: lightsteelblue;
+}
 /* CSS */
 .button-14 {
     background-image: linear-gradient(#f7f8fa, #e7e9ec);
