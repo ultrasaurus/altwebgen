@@ -1,5 +1,29 @@
 <script>
+    const audio = document.getElementById('audio');
+    audio.removeAttribute('controls');
+
+    function play() {
+        console.log("play");
+        console.log("audio.currentTime", audio.currentTime);
+        audio.play();
+    }
+    console.log("document.getElementById('play')", document.getElementById('play'));
+    document.getElementById('play').addEventListener('click', (e) => {
+        window.play();
+    });
+    document.getElementById('rewind').addEventListener('click', (e) => {
+        window.getSelection().removeAllRanges();    
+        audio.currentTime = 0;
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === " ") {
+            audio.paused ? window.play() : audio.pause() ;
+            e.preventDefault();     // don't auto scroll the page
+        }
+    });
+
     document.addEventListener('mouseup', function() {
+        console.log("mouseup");
         const selection = window.getSelection();
         if (selection.rangeCount > 0) {
             const range = selection.getRangeAt(0);
@@ -12,8 +36,7 @@
                 const endTime = parseFloat(endSpan.getAttribute('end'));
 
                 audio.currentTime = startTime;
-                audio.play();
-
+                console.log("audio.currentTime", audio.currentTime);
                 setTimeout(() => {
                     audio.pause();
                 }, (endTime - startTime) * 1000);

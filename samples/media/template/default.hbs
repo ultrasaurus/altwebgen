@@ -5,11 +5,24 @@
     <meta charset="UTF-8">
     <title>{{ title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="audio.css">
 
 </head>
     {{> _livereload }}
 
 <body>
+    <div id="rewind" class="button-14">
+        <img src="/icon/rewind24.png" />
+    </div>
+    <div id="play" class="button-14">
+        <img src="/icon/play24.png"/>
+    </div>
+    {{!-- <button class="button-14" role="button">Button 14</button> --}}
+    {{!-- https://getcssscan.com/css-buttons-examples --}}
+    {{!-- <button id="rewind" tabindex="-1">
+    <img src="/icon/rewind24.png" />
+    </button> --}}
+
     {{{ body }}}
     {{> _audioplayback }}
 </body>

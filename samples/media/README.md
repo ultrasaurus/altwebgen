@@ -13,3 +13,8 @@
 * Creative Commons NonCommercial-ShareAlike
 https://creativecommons.org/licenses/by-nc-sa/3.0/
 
+
+----
+Icons
+* <a href="https://www.flaticon.com/free-icons/play-button" title="play button icons">Play button icon created by abdul allib - Flaticon</a>
+* <a href="https://www.flaticon.com/free-icons/rewind" title="rewind icons">Rewind icon created by abdul allib - Flaticon</a>
