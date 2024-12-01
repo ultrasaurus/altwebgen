@@ -6,10 +6,18 @@
         console.log("play");
         console.log("audio.currentTime", audio.currentTime);
         audio.play();
+        document.querySelector('#play img').setAttribute('src', "/icon/pause24.png");
     }
+    function pause() {
+        console.log("pause");
+        console.log("audio.currentTime", audio.currentTime);
+        audio.pause();
+        document.querySelector('#play img').setAttribute('src', "/icon/play24.png");
+    }
+
     console.log("document.getElementById('play')", document.getElementById('play'));
     document.getElementById('play').addEventListener('click', (e) => {
-        window.play();
+        audio.paused ? window.play() : window.pause();
     });
     document.getElementById('rewind').addEventListener('click', (e) => {
         window.getSelection().removeAllRanges();    
@@ -17,7 +25,7 @@
     });
     document.addEventListener('keydown', (e) => {
         if (e.key === " ") {
-            audio.paused ? window.play() : audio.pause() ;
+            audio.paused ? window.play() : window.pause() ;
             e.preventDefault();     // don't auto scroll the page
         }
     });
