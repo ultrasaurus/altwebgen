@@ -44,7 +44,7 @@ jobs:
         run: |
           export BRANCH_NAME=${{ github.ref_name }}
           echo "BRANCH_NAME=$BRANCH_NAME"
-          export PREFIX = "${{ github.event.repository.name }}/$BRANCH_NAME"
+          export PREFIX="${{ github.event.repository.name }}/$BRANCH_NAME"
           echo "PREFIX=$PREFIX"
           source gh-pages/build.sh $PREFIX
 
