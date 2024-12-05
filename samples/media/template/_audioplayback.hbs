@@ -5,6 +5,11 @@
     audio.removeAttribute('controls');
 
     function play() {
+        console.log("play, currentSpan:", currentSpan)
+        if (currentSpan == null) {
+            window.currentSpanFromSelection();
+            console.log("currentSpan:", currentSpan)
+        }
         audio.play();
         document.querySelector('#play img').setAttribute('src', "/icon/pause24.png");
     }
@@ -19,7 +24,7 @@
     });
 
     document.getElementById('rewind').addEventListener('click', (e) => {
-        window.getSelection().removeAllRanges();    
+        window.getSelection().removeAllRanges();
         audio.currentTime = 0;
     });
 
@@ -65,7 +70,7 @@
             }
        }
     });
-    document.addEventListener('mouseup', function() {
+    function currentSpanFromSelection() {
         const selection = window.getSelection();
 
         if (selection.rangeCount > 0) {
@@ -73,16 +78,29 @@
             const range = selection.getRangeAt(0);
             const startSpan = range.startContainer.parentElement;
             const endSpan = range.endContainer.parentElement;
-
-            if (startSpan.hasAttribute('start') && endSpan.hasAttribute('end')) {
+            console.log('currentSpanFromSelection startSpan', startSpan);
+            if (startSpan.hasAttribute('start')) {
                 const audio = document.getElementById('audio');
                 const startTime = parseFloat(startSpan.getAttribute('start'));
-                const endTime = parseFloat(endSpan.getAttribute('end'));
+                if (endSpan.hasAttribute('end')) {
+                    const endTime = parseFloat(endSpan.getAttribute('end'));
+                } else {
+                    console.log('endSpan has no end time, endSpan:', endSpan);
+                }
 
                 audio.currentTime = startTime;
                 audio.endTime = endTime;
                 setCurrentSpan(startSpan);
             }
+        } else {
+            const audio = document.getElementById('audio');
+            audio.currentTime = 0;
+            delete target.endTime
+            setCurrentSpan(audio.nextElementSibling.querySelector('span[start]'));
         }
+        console.log("currentSpanFromSelection currentSpan", currentSpan);
+    }
+    document.addEventListener('mouseup', function() {
+        window.currentSpanFromSelection();
     });
 </script>
