@@ -3,6 +3,9 @@
     nextSpan = null;
     const audio = document.getElementById('audio');
     audio.removeAttribute('controls');
+    audio.addEventListener('pause', function() {
+        document.querySelector('#play img').setAttribute('src', "/icon/play24.png");
+    });
 
     function play() {
         console.log("play, currentSpan:", currentSpan)
@@ -16,7 +19,6 @@
 
     function pause() {
         audio.pause();
-        document.querySelector('#play img').setAttribute('src', "/icon/play24.png");
     }
 
     document.getElementById('play').addEventListener('click', (e) => {
@@ -84,18 +86,19 @@
                 const startTime = parseFloat(startSpan.getAttribute('start'));
                 if (endSpan.hasAttribute('end')) {
                     const endTime = parseFloat(endSpan.getAttribute('end'));
+                    audio.endTime = endTime;
                 } else {
                     console.log('endSpan has no end time, endSpan:', endSpan);
                 }
 
                 audio.currentTime = startTime;
-                audio.endTime = endTime;
                 setCurrentSpan(startSpan);
             }
         } else {
+            console.log("no selection");
             const audio = document.getElementById('audio');
             audio.currentTime = 0;
-            delete target.endTime
+            delete audio.endTime
             setCurrentSpan(audio.nextElementSibling.querySelector('span[start]'));
         }
         console.log("currentSpanFromSelection currentSpan", currentSpan);
