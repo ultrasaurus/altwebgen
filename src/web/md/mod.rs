@@ -37,8 +37,8 @@ fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result
     while let Some(event) = parser.next() {
         let next_event= match event {
             Event::Text(cow_str) => {
-                let html_buf = words::html_words(&cow_str, Some(timings))?;
-                let html_string = String::from(html_buf);
+                let data = words::html_words(&cow_str, Some(timings))?;
+                let html_string = data.html;
                 Event::Html(html_string.into())
             },
             _ => event,
