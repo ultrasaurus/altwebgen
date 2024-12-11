@@ -37,9 +37,8 @@ fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result
     while let Some(event) = parser.next() {
         let next_event= match event {
             Event::Text(cow_str) => {
-                let html_buf = words::html_words(cow_str, Some(timings))?;
-                let html_string = String::from(html_buf);
-                Event::Html(html_string.into())
+                let data =  words::html_words(&cow_str, Some(timings))?;
+                Event::Html(data.html.into())
             },
             _ => event,
         };
@@ -77,7 +76,7 @@ mod tests {
         ];
        let result = str2html_with_timing("hello world", &timings).unwrap();
        let result_string = String::from_utf8(result).unwrap();
-        assert_eq!("<p><span word='0' char='0' start='0.9' end='0.1' debug_body='hello'>hello</span> <span word='1' char='6' start='0.2' end='0.3' debug_body='world'>world</span></p>\n", result_string);
+        assert_eq!("<p><span word='0' start='0.9' end='0.1' debug_body='hello'>hello</span> <span word='1' start='0.2' end='0.3' debug_body='world'>world</span></p>\n", result_string);
 
     }
 
