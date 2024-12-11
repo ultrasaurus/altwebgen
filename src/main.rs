@@ -25,7 +25,7 @@ struct Cli {
 fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
-    let html_string = match cli.input {
+    let (html_string, _word_index, _last_timing_index) = match cli.input {
         None => html_words(&cli.text, None)?,
         Some(path_string) => {
             println!("Text input path: {}", path_string);
@@ -39,12 +39,12 @@ fn main() -> anyhow::Result<()> {
                         BufReader::new(file);
                     let timing =
                         WordTime::from_transcript(transcript_reader)?;
-                    html_words(text, Some(&timing))?
+                    html_words(&text, Some(&timing))?
                 },
                 Err(e) => {
                     if e.kind() == std::io::ErrorKind::NotFound {
                         println!("No transcript file found: rendering HTML without word timing");
-                        html_words(text, None)?
+                        html_words(&text, None)?
                     } else {
                         // Err(anyhow!(e)
                         // .context("transcript file could not be opened {}", txt_path))

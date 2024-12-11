@@ -25,7 +25,7 @@ fn main() -> anyhow::Result<()> {
     "#.as_bytes();
     let timings = WordTime::from_transcript(timing_json)?;
     
-    let html_string = html_words(text, Some(&timings))?;
+    let (html_string, _word_index, _last_timing_index)  = html_words(text, Some(&timings))?;
 
     println!("-----");
     println!("{}", html_string);

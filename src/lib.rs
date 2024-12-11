@@ -1,16 +1,9 @@
 use regex::Regex;
 mod transcript;
-// pub use transcript::WordTime as WordTime;
+pub use transcript::WordTime as WordTime;
 use anyhow::Result;
 
-use std::error::Error;
-
-pub struct WordTime {
-    pub body: String,
-    pub start_time: f64,
-    pub end_time: f64,
-}
-fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<(String, usize, usize), Box<dyn Error>> {
+pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<(String, usize, usize)> {
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s$][^a-zà-ýA-ZÀ-Ý0-9]*)?")?;
     let mut html_string = String::new();
     let mut word_index = 0;
