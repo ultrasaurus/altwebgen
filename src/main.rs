@@ -5,7 +5,7 @@ use std::{
     io::BufReader,
     path::PathBuf
 };
-use words::{html_words, WordTime};
+use words::{html_words, HtmlWords, WordTime};
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -25,7 +25,7 @@ struct Cli {
 fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
 
-    let (html_string, _word_index, _last_timing_index) = match cli.input {
+    let HtmlWords{html:html_string, word_index:_, last_timing_index:_} = match cli.input {
         None => html_words(&cli.text, None)?,
         Some(path_string) => {
             println!("Text input path: {}", path_string);

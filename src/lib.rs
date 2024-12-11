@@ -3,7 +3,17 @@ mod transcript;
 pub use transcript::WordTime as WordTime;
 use anyhow::Result;
 
-pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<(String, usize, usize)> {
+pub struct HtmlWords {
+   pub html: String,
+   pub word_index: usize,
+   pub last_timing_index: usize
+}
+
+// Returns HtmlWords struct
+//   html:  as a trimmed string, 
+//   word_index: the number of words (index of next word), 
+//   last_timing_index: and the last timing index used
+pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<HtmlWords> {
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s$][^a-zà-ýA-ZÀ-Ý0-9]*)?")?;
     let mut html_string = String::new();
     let mut word_index = 0;
@@ -55,8 +65,11 @@ pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result
         word_index += 1;
     }
 
-    // Return the result as a trimmed string, the number of words, and the last timing index used
-    Ok((html_string.trim().to_string(), word_index, last_timing_index))
+    Ok(HtmlWords {
+        html: html_string.trim().to_string(),
+        word_index,
+        last_timing_index
+    })
 }
 
 
@@ -72,11 +85,11 @@ mod tests {
      fn html_words_empty_string() {
         let result = html_words("", None);
         assert!(result.is_ok());
-        let (result_string, word_count, last_timing_index) = result.unwrap();
+        let data = result.unwrap();
         let expected_string = "";
-        assert_eq!(result_string, expected_string);
-        assert_eq!(word_count, 0);
-        assert_eq!(last_timing_index, 0);
+        assert_eq!(data.html, expected_string);
+        assert_eq!(data.word_index, 0);
+        assert_eq!(data.last_timing_index, 0);
     }
 
     #[test] //commenting these out temporarily so we can just work with the timings
@@ -97,11 +110,11 @@ mod tests {
         ];
         let result = html_words("Hello world!", Some(&timings));
         assert!(result.is_ok());
-        let (result_string, word_count, last_timing_index) = result.unwrap();
+        let data = result.unwrap();
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' start='0.2' end='0.3' debug_body='world'>world</span>";
-        assert_eq!(result_string, expected_string);
-        assert_eq!(word_count, 2);
-        assert_eq!(last_timing_index, 2);
+        assert_eq!(data.html, expected_string);
+        assert_eq!(data.word_index, 2);
+        assert_eq!(data.last_timing_index, 2);
     }
     
     #[test]
@@ -121,11 +134,11 @@ mod tests {
         ];
         let result = html_words("Hello there world!", Some(&timings));
         assert!(result.is_ok());
-        let (result_string, word_count, last_timing_index) = result.unwrap();
+        let data= result.unwrap();
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH'>there</span> <span word='2' start='0.2' end='0.3' debug_body='world'>world</span>";
-        assert_eq!(result_string, expected_string);
-        assert_eq!(word_count, 3);
-        assert_eq!(last_timing_index, 2);
+        assert_eq!(data.html, expected_string);
+        assert_eq!(data.word_index, 3);
+        assert_eq!(data.last_timing_index, 2);
     }
 
     #[test]
@@ -137,11 +150,11 @@ mod tests {
         ];
         let result = html_words("Hello my world!", Some(&timings));
         assert!(result.is_ok());
-        let (result_string, word_count, last_timing_index) = result.unwrap();
+        let data = result.unwrap();
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH'>my</span> <span word='2' start='0.4' end='0.5' debug_body='world'>world</span>";
-        assert_eq!(result_string, expected_string);
-        assert_eq!(word_count, 3);
-        assert_eq!(last_timing_index, 3);
+        assert_eq!(data.html, expected_string);
+        assert_eq!(data.word_index, 3);
+        assert_eq!(data.last_timing_index, 3);
     }
 
 }
