@@ -1,51 +1,75 @@
 use regex::Regex;
 mod transcript;
-pub use transcript::WordTime as WordTime;
+// pub use transcript::WordTime as WordTime;
 use anyhow::Result;
 
-pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<String> {
-    let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s$][^a-zà-ýA-ZÀ-Ý0-9]*)?")?;
-    let mut matched_tuples = Vec::new();
-    let mut word_index = 0;
+use std::error::Error;
 
-    // iterate over the text and create tuples of matches with their WordTime if available
+pub struct WordTime {
+    pub body: String,
+    pub start_time: f64,
+    pub end_time: f64,
+}
+
+pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<(String, usize, usize), Box<dyn Error>> {
+
+    let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s$][^a-zà-ýA-ZÀ-Ý0-9]*)?")?;
+    let mut html_string = String::new();
+    let mut word_index = 0;
+    let mut last_timing_index = 0;
+
+    // Create a mutable iterator for the timings, if provided
+    let mut timing_iter = optional_timing.map(|timings| timings.iter().peekable());
+
+    // Iterate over each word in the text
     for capture in regex.captures_iter(text) {
         let word = &capture[1];
-        if let Some(timings) = optional_timing {
-            for timing in timings.iter() {
+        let mut matched = false;
+
+        // Only proceed if timings are provided
+        if let Some(timings) = &mut timing_iter {
+            // Try to find a matching timing for the current word
+            if let Some(timing) = timings.peek() {
                 if timing.body.to_lowercase() == word.to_lowercase() {
-                    matched_tuples.push((word_index, word.to_string(), timing.clone()));
-                    break; // next word in the text after finding a match
+                    // Matching word with timing, add span with timing info
+                    html_string.push_str(&format!(
+                        "<span word='{}' start='{}' end='{}' debug_body='{}'>{}</span> ",
+                        word_index,
+                        timing.start_time,
+                        timing.end_time,
+                        timing.body,
+                        word
+                    ));
+                    timings.next(); // Consume the timing once matched
+                    matched = true;
+                    last_timing_index = word_index;
                 }
             }
         }
-        word_index += 1; // keeps track of the word's index in the original text
-    }
 
-    // generate the HTML output using the matched tuples, order from the WordTime list
-    let mut html_string = String::new();
-    if let Some(timings) = optional_timing {
-        for timing in timings.iter() {
-            if let Some((word_index, word, _)) = matched_tuples.iter().find(|(_, _, t)| t.body == timing.body) {
-                html_string.push_str(&format!(
-                    "<span word='{}' start='{}' end='{}' debug_body='{}'>{}</span> ",
-                    word_index,
-                    timing.start_time,
-                    timing.end_time,
-                    timing.body,
-                    word
-                ));
+        // If no match was found, mark this word as an error
+        if !matched {
+            html_string.push_str(&format!(
+                "<span word='{}' error='NO_MATCH'>{}</span> ",
+                word_index,
+                word
+            ));
+        }
+
+        // Move to the next word
+        word_index += 1;
+
+        // Exit loop early if no more timings available
+        if let Some(timings) = &mut timing_iter {
+            if timings.peek().is_none() {
+                break;
             }
         }
     }
 
-    // trailing spaces begone!
-    html_string = html_string.trim().to_string();
-    Ok(html_string)
+    // Return the result as a trimmed string, the number of words, and the last timing index used
+    Ok((html_string.trim().to_string(), word_index, last_timing_index))
 }
-
-
-
 
 //at the end we need to know how many words in transcript and return the number of words
 //where in the timings vector we left off -- if 10 and only went through 9 wordtimes, return 9
@@ -56,11 +80,14 @@ mod tests {
     use super::*;
 
      #[test]
-    fn html_words_empty_string() {
+     fn html_words_empty_string() {
         let result = html_words("", None);
         assert!(result.is_ok());
-        let result_string = result.unwrap();
-        assert_eq!(result_string, "");
+        let (result_string, word_count, last_timing_index) = result.unwrap();
+        let expected_string = "";
+        assert_eq!(result_string, expected_string);
+        assert_eq!(word_count, 0);
+        assert_eq!(last_timing_index, 0);
     }
 
     #[test] //commenting these out temporarily so we can just work with the timings
@@ -76,14 +103,16 @@ mod tests {
     #[test]
     fn html_words_hello_world_with_timing() {
         let timings = vec![
-            WordTime { start_time: 0.0, end_time: 0.1, body: "hello".to_string()},
-            WordTime { start_time: 0.2, end_time: 0.3, body: "world".to_string()}
+            WordTime { start_time: 0.0, end_time: 0.1, body: "hello".to_string() },
+            WordTime { start_time: 0.2, end_time: 0.3, body: "world".to_string() }
         ];
         let result = html_words("Hello world!", Some(&timings));
         assert!(result.is_ok());
-        let result_string = result.unwrap();
+        let (result_string, word_count, last_timing_index) = result.unwrap();
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' start='0.2' end='0.3' debug_body='world'>world</span>";
         assert_eq!(result_string, expected_string);
+        assert_eq!(word_count, 2);
+        assert_eq!(last_timing_index, 1);
     }
     
     #[test]
@@ -103,9 +132,11 @@ mod tests {
         ];
         let result = html_words("Hello there world!", Some(&timings));
         assert!(result.is_ok());
-        let result_string = result.unwrap();
-        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='2' start='0.2' end='0.3' debug_body='world'>world</span>";
+        let (result_string, word_count, last_timing_index) = result.unwrap();
+        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH'>there</span> <span word='2' start='0.2' end='0.3' debug_body='world'>world</span>";
         assert_eq!(result_string, expected_string);
+        assert_eq!(word_count, 3);
+        assert_eq!(last_timing_index, 2);
     }
 
     #[test]
@@ -117,9 +148,11 @@ mod tests {
         ];
         let result = html_words("Hello my world!", Some(&timings));
         assert!(result.is_ok());
-        let result_string = result.unwrap();
-        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='2' start='0.4' end='0.5' debug_body='world'>world</span>";
+        let (result_string, word_count, last_timing_index) = result.unwrap();
+        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH'>my</span> <span word='2' start='0.4' end='0.5' debug_body='world'>world</span>";
         assert_eq!(result_string, expected_string);
+        assert_eq!(word_count, 3);
+        assert_eq!(last_timing_index, 2);
     }
 
 }
