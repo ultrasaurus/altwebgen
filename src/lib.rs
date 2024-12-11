@@ -10,9 +10,7 @@ pub struct WordTime {
     pub start_time: f64,
     pub end_time: f64,
 }
-
-pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<(String, usize, usize), Box<dyn Error>> {
-
+fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<(String, usize, usize), Box<dyn Error>> {
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s$][^a-zà-ýA-ZÀ-Ý0-9]*)?")?;
     let mut html_string = String::new();
     let mut word_index = 0;
@@ -28,7 +26,7 @@ pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result
 
         // Only proceed if timings are provided
         if let Some(timings) = &mut timing_iter {
-            // Try to find a matching timing for the current word
+            // If there's still a timing available, process it
             if let Some(timing) = timings.peek() {
                 if timing.body.to_lowercase() == word.to_lowercase() {
                     // Matching word with timing, add span with timing info
@@ -45,15 +43,15 @@ pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result
                     last_timing_index = word_index;
                 }
             }
-        }
 
-        // If no match was found, mark this word as an error
-        if !matched {
-            html_string.push_str(&format!(
-                "<span word='{}' error='NO_MATCH'>{}</span> ",
-                word_index,
-                word
-            ));
+            // If no match found at current index, mark it as an error
+            if !matched {
+                html_string.push_str(&format!(
+                    "<span word='{}' error='NO_MATCH'>{}</span> ",
+                    word_index,
+                    word
+                ));
+            }
         }
 
         // Move to the next word
@@ -70,8 +68,6 @@ pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result
     // Return the result as a trimmed string, the number of words, and the last timing index used
     Ok((html_string.trim().to_string(), word_index, last_timing_index))
 }
-
-//at the end we need to know how many words in transcript and return the number of words
 //where in the timings vector we left off -- if 10 and only went through 9 wordtimes, return 9
 // I forget why??
 
