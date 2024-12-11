@@ -16,58 +16,58 @@ fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<(St
     let mut word_index = 0;
     let mut last_timing_index = 0;
 
-    // Create a mutable iterator for the timings, if provided
-    let mut timing_iter = optional_timing.map(|timings| timings.iter().peekable());
+    // Extract timings if provided
+    let binding = vec![];
+    let timings = optional_timing.unwrap_or(&binding);
 
     // Iterate over each word in the text
     for capture in regex.captures_iter(text) {
         let word = &capture[1];
         let mut matched = false;
 
-        // Only proceed if timings are provided
-        if let Some(timings) = &mut timing_iter {
-            // If there's still a timing available, process it
-            if let Some(timing) = timings.peek() {
-                if timing.body.to_lowercase() == word.to_lowercase() {
-                    // Matching word with timing, add span with timing info
-                    html_string.push_str(&format!(
-                        "<span word='{}' start='{}' end='{}' debug_body='{}'>{}</span> ",
-                        word_index,
-                        timing.start_time,
-                        timing.end_time,
-                        timing.body,
-                        word
-                    ));
-                    timings.next(); // Consume the timing once matched
-                    matched = true;
-                    last_timing_index = word_index;
-                }
-            }
+        // Try to find a match with any remaining timing
+        for timing_index in last_timing_index..timings.len() {
+            let timing = &timings[timing_index];
+            println!(
+                "Comparing: timing body '{}' with word '{}'",
+                timing.body.to_lowercase(),
+                word.to_lowercase()
+            );
 
-            // If no match found at current index, mark it as an error
-            if !matched {
+            if timing.body.to_lowercase() == word.to_lowercase() {
+                // Match found
                 html_string.push_str(&format!(
-                    "<span word='{}' error='NO_MATCH'>{}</span> ",
+                    "<span word='{}' start='{}' end='{}' debug_body='{}'>{}</span> ",
                     word_index,
+                    timing.start_time,
+                    timing.end_time,
+                    timing.body,
                     word
                 ));
-            }
-        }
-
-        // Move to the next word
-        word_index += 1;
-
-        // Exit loop early if no more timings available
-        if let Some(timings) = &mut timing_iter {
-            if timings.peek().is_none() {
+                last_timing_index = timing_index + 1; // Advance timing index only on match
+                matched = true;
                 break;
             }
         }
+
+        // If no match was found, add error span
+        if !matched {
+            html_string.push_str(&format!(
+                "<span word='{}' error='NO_MATCH'>{}</span> ",
+                word_index,
+                word
+            ));
+        }
+
+        word_index += 1;
     }
 
     // Return the result as a trimmed string, the number of words, and the last timing index used
     Ok((html_string.trim().to_string(), word_index, last_timing_index))
 }
+
+
+
 //where in the timings vector we left off -- if 10 and only went through 9 wordtimes, return 9
 // I forget why??
 
@@ -108,7 +108,7 @@ mod tests {
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' start='0.2' end='0.3' debug_body='world'>world</span>";
         assert_eq!(result_string, expected_string);
         assert_eq!(word_count, 2);
-        assert_eq!(last_timing_index, 1);
+        assert_eq!(last_timing_index, 2);
     }
     
     #[test]
@@ -148,7 +148,7 @@ mod tests {
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH'>my</span> <span word='2' start='0.4' end='0.5' debug_body='world'>world</span>";
         assert_eq!(result_string, expected_string);
         assert_eq!(word_count, 3);
-        assert_eq!(last_timing_index, 2);
+        assert_eq!(last_timing_index, 3);
     }
 
 }
