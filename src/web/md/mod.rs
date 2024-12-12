@@ -1,8 +1,8 @@
 use pulldown_cmark as cmark;
 use cmark::Event;
 use crate::web::read_file_to_string;
+use crate::words::*;
 use std::path::Path;
-use words::WordTime;
 
 mod ref_markdown;
 pub use ref_markdown::Ref as Ref;
@@ -37,7 +37,7 @@ fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result
     while let Some(event) = parser.next() {
         let next_event= match event {
             Event::Text(cow_str) => {
-                let data = words::html_words(&cow_str, Some(timings))?;
+                let data = html_words(&cow_str, Some(timings))?;
                 let html_string = data.html;
                 Event::Html(html_string.into())
             },

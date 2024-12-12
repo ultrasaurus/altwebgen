@@ -10,6 +10,7 @@ mod setup;
 mod util;
 mod watch;
 mod web;
+mod words;
 
 use clap::{Parser, Subcommand};
 
