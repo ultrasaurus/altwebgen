@@ -1,4 +1,4 @@
-use words::html_words;
+use words::*;
 
 const TEXT:&str = r#"
 Sonnet 43
@@ -22,7 +22,7 @@ fn main(){
 
     TEXT.lines().for_each( |line| {
         match html_words(line, None) {
-            Ok(html) => println!("<p>{}</p>", html),
+            Ok(HtmlWords{html, word_index:_, last_timing_index:_}) => println!("<p>{}</p>", html),
             Err(e) => println!("***error with line {}\n   {:?}", line, e)
         }
     })

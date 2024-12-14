@@ -3,6 +3,7 @@ mod transcript;
 pub use transcript::WordTime as WordTime;
 use anyhow::Result;
 
+#[derive(Debug)]
 pub struct HtmlWords {
    pub html: String,
    pub word_index: usize,

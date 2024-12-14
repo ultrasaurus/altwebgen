@@ -5,7 +5,7 @@ use std::{
     io::BufReader,
     path::PathBuf
 };
-use words::{html_words, HtmlWords, WordTime};
+use words::*;
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
