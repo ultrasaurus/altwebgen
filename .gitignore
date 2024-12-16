@@ -1,2 +1,5 @@
-/target
+target/
 /out
+.dist/
+.build/
+ext
