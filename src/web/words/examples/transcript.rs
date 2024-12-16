@@ -1,5 +1,4 @@
-use words::html_words;
-use words::WordTime;
+use webgenr::words::*;
 
 fn main() -> anyhow::Result<()> {
     let text: &str = "Let me introduce";
@@ -24,7 +23,7 @@ fn main() -> anyhow::Result<()> {
     ]}
     "#.as_bytes();
     let timings = WordTime::from_transcript(timing_json)?;
-    
+
     let data = html_words(text, Some(&timings))?;
 
     println!("-----");

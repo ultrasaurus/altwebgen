@@ -3,7 +3,7 @@ use std::fmt;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use tracing::info;
-use crate::{Config, Context};
+use crate::config::{Config, Context};
 use crate::web::md;
 use crate::util::*;
 

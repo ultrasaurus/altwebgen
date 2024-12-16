@@ -3,7 +3,7 @@ use anyhow;
 use tracing::info;
 
 mod config;
-use config::{Config, Context};
+use config::Config;
 mod devserve;
 mod setup;
 

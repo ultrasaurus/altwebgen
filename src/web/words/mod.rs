@@ -11,8 +11,8 @@ pub struct HtmlWords {
 }
 
 // Returns HtmlWords struct
-//   html:  as a trimmed string, 
-//   word_index: the number of words (index of next word), 
+//   html:  as a trimmed string,
+//   word_index: the number of words (index of next word),
 //   last_timing_index: and the last timing index used
 pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<HtmlWords> {
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s$][^a-zà-ýA-ZÀ-Ý0-9]*)?")?;
@@ -117,7 +117,7 @@ mod tests {
         assert_eq!(data.word_index, 2);
         assert_eq!(data.last_timing_index, 2);
     }
-    
+
     #[test]
     fn html_words_phrase() {
         // let result = html_words("written or pictorial material", None);

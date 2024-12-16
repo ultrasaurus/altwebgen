@@ -8,6 +8,7 @@ pub mod md;
 pub use md::Ref as Ref;
 
 mod audio;
+pub mod words;
 
 use crate::{
     config::Context,

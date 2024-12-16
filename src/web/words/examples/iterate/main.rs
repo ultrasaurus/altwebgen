@@ -1,4 +1,4 @@
-use words::*;
+use webgenr::words::*;
 
 const TEXT:&str = r#"
 Sonnet 43

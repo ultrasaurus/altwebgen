@@ -41,7 +41,9 @@ dependencies = [
  "notify",
  "notify-debouncer-mini",
  "pulldown-cmark",
+ "regex",
  "serde",
+ "serde_json",
  "serde_yaml",
  "tokio",
  "tokio-util",
@@ -50,7 +52,6 @@ dependencies = [
  "tracing-subscriber",
  "walkdir",
  "warp",
- "words",
 ]
 
 [[package]]
@@ -1902,18 +1903,6 @@ name = "windows_x86_64_msvc"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "589f6da84c646204747d1270a2a5661ea66ed1cced2631d546fdfb155959f9ec"
-
-[[package]]
-name = "words"
-version = "0.3.0"
-source = "git+https://github.com/ultrasaurus/words-rs.git?tag=0.3.0#ba26d68aec3b05f995a47ee3cf486a45c1c9ac3e"
-dependencies = [
- "anyhow",
- "clap",
- "regex",
- "serde",
- "serde_json",
-]
 
 [[package]]
 name = "write16"
