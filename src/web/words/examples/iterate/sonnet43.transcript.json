@@ -1,0 +1,749 @@
+{
+    "version": "1.0.0",
+    "segments": [
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 0,
+            "endTime": 0.5699999999999932,
+            "body": "Sonnet"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 0.5699999999999932,
+            "endTime": 1.4699999999999989,
+            "body": "43"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 2.8499999999999943,
+            "endTime": 3.0900000000000034,
+            "body": "when"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 3.0900000000000034,
+            "endTime": 3.5999999999999943,
+            "body": "most"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 3.5999999999999943,
+            "endTime": 3.8400000000000034,
+            "body": "I"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 3.8400000000000034,
+            "endTime": 4.469999999999999,
+            "body": "wink"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 5.1299999999999955,
+            "endTime": 5.549999999999983,
+            "body": "then"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 5.549999999999983,
+            "endTime": 5.699999999999989,
+            "body": "do"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 5.699999999999989,
+            "endTime": 6.090000000000003,
+            "body": "mine"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 6.090000000000003,
+            "endTime": 6.6299999999999955,
+            "body": "eyes"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 6.6299999999999955,
+            "endTime": 7.019999999999982,
+            "body": "best."
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 7.019999999999982,
+            "endTime": 7.560000000000002,
+            "body": "See"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 7.829999999999984,
+            "endTime": 8.069999999999993,
+            "body": "for"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 8.069999999999993,
+            "endTime": 8.310000000000002,
+            "body": "all"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 8.310000000000002,
+            "endTime": 8.430000000000007,
+            "body": "the"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 8.430000000000007,
+            "endTime": 8.789999999999992,
+            "body": "day"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 8.789999999999992,
+            "endTime": 8.969999999999999,
+            "body": "they"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 8.969999999999999,
+            "endTime": 9.23999999999998,
+            "body": "view"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 9.23999999999998,
+            "endTime": 9.719999999999999,
+            "body": "things"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 9.719999999999999,
+            "endTime": 10.829999999999984,
+            "body": "unrespected."
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 12,
+            "endTime": 12.20999999999998,
+            "body": "But"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 12.20999999999998,
+            "endTime": 12.47999999999999,
+            "body": "when"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 12.47999999999999,
+            "endTime": 12.659999999999997,
+            "body": "I"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 12.659999999999997,
+            "endTime": 13.319999999999993,
+            "body": "sleep"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 13.829999999999984,
+            "endTime": 14.069999999999993,
+            "body": "in"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 14.069999999999993,
+            "endTime": 14.669999999999987,
+            "body": "dreams,"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 14.669999999999987,
+            "endTime": 14.909999999999997,
+            "body": "they"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 14.909999999999997,
+            "endTime": 15.180000000000007,
+            "body": "look"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 15.180000000000007,
+            "endTime": 15.47999999999999,
+            "body": "on"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 15.47999999999999,
+            "endTime": 15.899999999999977,
+            "body": "the"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 16.73999999999998,
+            "endTime": 17.039999999999992,
+            "body": "And"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 17.039999999999992,
+            "endTime": 17.69999999999999,
+            "body": "darkly"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 17.69999999999999,
+            "endTime": 18.269999999999982,
+            "body": "bright,"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 18.72,
+            "endTime": 18.95999999999998,
+            "body": "are"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 18.95999999999998,
+            "endTime": 19.53,
+            "body": "bright"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 19.620000000000005,
+            "endTime": 19.889999999999986,
+            "body": "in"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 19.889999999999986,
+            "endTime": 20.430000000000007,
+            "body": "dark,"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 20.48999999999998,
+            "endTime": 21.329999999999984,
+            "body": "directed."
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 21.95999999999998,
+            "endTime": 22.409999999999997,
+            "body": "Then"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 22.409999999999997,
+            "endTime": 22.94999999999999,
+            "body": "thou"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 23.25,
+            "endTime": 23.519999999999982,
+            "body": "whose"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 23.519999999999982,
+            "endTime": 24.299999999999983,
+            "body": "shadow"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 24.47999999999999,
+            "endTime": 25.19999999999999,
+            "body": "shadows"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 25.19999999999999,
+            "endTime": 25.649999999999977,
+            "body": "doth"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 25.649999999999977,
+            "endTime": 26.069999999999993,
+            "body": "make"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 26.069999999999993,
+            "endTime": 26.579999999999984,
+            "body": "bright."
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 26.849999999999994,
+            "endTime": 27.299999999999983,
+            "body": "How"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 27.299999999999983,
+            "endTime": 27.539999999999992,
+            "body": "would"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 27.539999999999992,
+            "endTime": 27.809999999999974,
+            "body": "thy"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 27.809999999999974,
+            "endTime": 28.649999999999977,
+            "body": "shadows"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 28.649999999999977,
+            "endTime": 29.369999999999976,
+            "body": "form?"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 29.72999999999999,
+            "endTime": 30.20999999999998,
+            "body": "Form?"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 30.20999999999998,
+            "endTime": 30.75,
+            "body": "Happy"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 30.75,
+            "endTime": 31.379999999999995,
+            "body": "show"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 31.859999999999985,
+            "endTime": 32.129999999999995,
+            "body": "to"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 32.129999999999995,
+            "endTime": 32.31,
+            "body": "the"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 32.31,
+            "endTime": 32.849999999999994,
+            "body": "clear"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 32.849999999999994,
+            "endTime": 33.26999999999998,
+            "body": "day"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 33.26999999999998,
+            "endTime": 33.50999999999999,
+            "body": "with"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 33.50999999999999,
+            "endTime": 33.77999999999997,
+            "body": "thy"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 33.77999999999997,
+            "endTime": 34.28999999999999,
+            "body": "much"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 34.31999999999999,
+            "endTime": 34.91999999999999,
+            "body": "clearer"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 34.91999999999999,
+            "endTime": 35.42999999999998,
+            "body": "light"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 35.72999999999999,
+            "endTime": 36.089999999999975,
+            "body": "when"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 36.089999999999975,
+            "endTime": 36.29999999999998,
+            "body": "to"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 36.29999999999998,
+            "endTime": 37.139999999999986,
+            "body": "unseeing"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 37.139999999999986,
+            "endTime": 37.859999999999985,
+            "body": "eyes"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 38.03999999999999,
+            "endTime": 38.27999999999997,
+            "body": "thy"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 38.27999999999997,
+            "endTime": 38.879999999999995,
+            "body": "shade"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 38.879999999999995,
+            "endTime": 39.389999999999986,
+            "body": "shine."
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 39.389999999999986,
+            "endTime": 39.98999999999998,
+            "body": "So"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 40.79999999999998,
+            "endTime": 41.06999999999999,
+            "body": "how"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 41.06999999999999,
+            "endTime": 41.31,
+            "body": "would"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 41.31,
+            "endTime": 41.48999999999998,
+            "body": "I"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 41.48999999999998,
+            "endTime": 41.97,
+            "body": "say"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 41.97,
+            "endTime": 42.389999999999986,
+            "body": "my"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 42.44999999999999,
+            "endTime": 42.92999999999998,
+            "body": "eyes"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 42.92999999999998,
+            "endTime": 43.109999999999985,
+            "body": "be"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 43.109999999999985,
+            "endTime": 43.67999999999998,
+            "body": "blessed"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 43.67999999999998,
+            "endTime": 44.19,
+            "body": "made"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 44.339999999999975,
+            "endTime": 44.54999999999998,
+            "body": "by"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 44.54999999999998,
+            "endTime": 45,
+            "body": "looking"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 45,
+            "endTime": 45.29999999999998,
+            "body": "on"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 45.29999999999998,
+            "endTime": 45.66,
+            "body": "thee"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 45.66,
+            "endTime": 45.81,
+            "body": "in"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 45.81,
+            "endTime": 45.92999999999998,
+            "body": "the"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 45.92999999999998,
+            "endTime": 46.31999999999999,
+            "body": "living"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 46.31999999999999,
+            "endTime": 46.79999999999998,
+            "body": "day"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 47.00999999999999,
+            "endTime": 47.27999999999997,
+            "body": "when"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 47.27999999999997,
+            "endTime": 47.609999999999985,
+            "body": "in"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 47.609999999999985,
+            "endTime": 47.97,
+            "body": "dead"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 47.97,
+            "endTime": 48.50999999999999,
+            "body": "night"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 48.869999999999976,
+            "endTime": 49.139999999999986,
+            "body": "thy"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 49.139999999999986,
+            "endTime": 49.589999999999975,
+            "body": "fair,"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 49.589999999999975,
+            "endTime": 50.39999999999998,
+            "body": "imperfect"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 50.39999999999998,
+            "endTime": 50.97,
+            "body": "shade."
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 51.61499999999998,
+            "endTime": 51.82499999999999,
+            "body": "Through"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 51.82499999999999,
+            "endTime": 52.27499999999998,
+            "body": "heavy"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 52.27499999999998,
+            "endTime": 52.934999999999974,
+            "body": "sleep"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 53.234999999999985,
+            "endTime": 53.474999999999994,
+            "body": "on"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 53.474999999999994,
+            "endTime": 54.13499999999999,
+            "body": "sightless"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 54.19499999999999,
+            "endTime": 54.704999999999984,
+            "body": "eyes,"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 54.704999999999984,
+            "endTime": 55.065,
+            "body": "doth"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 55.065,
+            "endTime": 55.66499999999999,
+            "body": "stay"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 56.38499999999999,
+            "endTime": 56.77499999999998,
+            "body": "all"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 56.77499999999998,
+            "endTime": 57.315,
+            "body": "days"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 57.315,
+            "endTime": 57.494999999999976,
+            "body": "are"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 57.494999999999976,
+            "endTime": 58.065,
+            "body": "nights"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 58.065,
+            "endTime": 58.27499999999998,
+            "body": "to"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 58.27499999999998,
+            "endTime": 58.875,
+            "body": "see"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 58.934999999999974,
+            "endTime": 59.17499999999998,
+            "body": "till"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 59.17499999999998,
+            "endTime": 59.474999999999994,
+            "body": "I"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 59.474999999999994,
+            "endTime": 59.80499999999998,
+            "body": "see"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 59.80499999999998,
+            "endTime": 60.254999999999995,
+            "body": "the"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 60.91499999999999,
+            "endTime": 61.184999999999974,
+            "body": "and"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 61.184999999999974,
+            "endTime": 61.845,
+            "body": "nights"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 61.845,
+            "endTime": 62.38499999999999,
+            "body": "bright"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 62.38499999999999,
+            "endTime": 63.04499999999999,
+            "body": "days"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 63.224999999999994,
+            "endTime": 63.434999999999974,
+            "body": "when"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 63.434999999999974,
+            "endTime": 63.91499999999999,
+            "body": "dreams"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 63.91499999999999,
+            "endTime": 64.095,
+            "body": "do"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 64.095,
+            "endTime": 64.42499999999998,
+            "body": "show"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 64.42499999999998,
+            "endTime": 64.63499999999999,
+            "body": "the"
+        },
+        {
+            "speaker": "Nikolle Doolin",
+            "startTime": 64.63499999999999,
+            "endTime": 65.05499999999998,
+            "body": "me"
+        }
+    ]
+}
