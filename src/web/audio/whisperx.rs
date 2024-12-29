@@ -1,7 +1,7 @@
 use anyhow::bail;
 use std::{fs, path::Path};
 use std::process::Command;
-use tracing::{error, info, trace, warn};
+use tracing::info;
 
 pub fn gen_transcript(
         audio: impl AsRef<Path>,
@@ -34,6 +34,10 @@ fn convert_to_transcript_json(
     println!("convert_to_transcript_json in: {} out:{}",
         whisper.as_ref().to_string_lossy(), podcast.as_ref().to_string_lossy());
 
+    // expect deprecated home_dir to not be needed when we finalize library choice
+    // if this is the library we choose we can integrate directly
+    // final library could be in rust ¯\_(ツ)_/¯
+    #[allow(deprecated)]
     let cmd_path = match std::env::home_dir() {
         None => bail!("couldn't find $HOME directory - looking for transcript-converter path"),
         Some(home) => home.join("transcript-converter/transcriptConverter.py")

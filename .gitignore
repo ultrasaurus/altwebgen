@@ -1,4 +1,5 @@
-/target
-.dist
-.build
+target/
+/out
+.dist/
+.build/
 ext
