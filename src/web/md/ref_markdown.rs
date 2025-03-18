@@ -40,8 +40,8 @@ impl<'r> Ref<'r> {
     }
     fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
-        writer.write("<div id='audiotext'>\n".as_bytes())?;
         if let Some(audio) = &self.audio {
+            writer.write("<div id='audiotext'>\n".as_bytes())?;
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
             let file_name: &str = audio.path.file_name().unwrap().try_into()?;
             let url = format!("{}media/{}", self.config.prefix, file_name);
@@ -55,7 +55,9 @@ impl<'r> Ref<'r> {
             };
             writer.write(&html_body)?;
         }
-        writer.write("</div>\n".as_bytes())?;
+        if self.audio.is_some() {
+            writer.write("</div>\n".as_bytes())?;
+        }
 
         Ok(())
     }
@@ -205,7 +207,7 @@ mod tests {
 
         let output_string = String::from_utf8(write_buf).unwrap();
         let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
-        let expected = format!("{}<p>it may contain annotations, additions and footnotes</p>", audio_html);
+        let expected = format!("<div id='audiotext'>\n{}<p>it may contain annotations, additions and footnotes</p>\n</div>", audio_html);
         assert_eq!(output_string.trim(), expected);
     }
 
@@ -229,7 +231,7 @@ mod tests {
 
         let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
         let expected_words =   "<p><span word='0' start='0.11' end='0.17' debug_body='It'>it</span> <span word='1' start='0.211' end='0.352' debug_body='may'>may</span> <span word='2' start='0.392' end='0.755' debug_body='contain'>contain</span> <span word='3' start='0.876' end='1.622' debug_body='annotations'>annotations</span> <span word='4' start='2.368' end='2.832' debug_body='additions'>additions</span> <span word='5' start='2.893' end='2.973' debug_body='and'>and</span> <span word='6' start='3.034' end='3.498' debug_body='footnotes'>footnotes</span></p>";
-        let expected = format!("{}{}", audio_html, expected_words);
+        let expected = format!("<div id='audiotext'>\n{}{}\n</div>", audio_html, expected_words);
         assert_eq!(output_string.trim(), expected);
     }
 
