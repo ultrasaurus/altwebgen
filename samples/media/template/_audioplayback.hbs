@@ -1,23 +1,123 @@
 <script>
-    document.addEventListener('mouseup', function() {
+    currentSpan = null;
+    nextSpan = null;
+    const audio = document.getElementById('audio');
+    audio.removeAttribute('controls');
+
+    function play() {
+        // console.log("play");
+        var selection = window.getSelection();
+        if (selection.rangeCount == 0) {
+            var firstTextSpan = document.querySelector('#audiotext p span')
+            setCurrentSpan(firstTextSpan);
+        } else {
+            setCurrentSpanFromSelection();
+        }
+        audio.play();
+        document.querySelector('#play img').setAttribute('src', "/icon/pause24.png");
+    }
+
+    function pause() {
+        // console.log("pause");
+        audio.pause();
+        document.querySelector('#play img').setAttribute('src', "/icon/play24.png");
+    }
+
+    document.getElementById('play').addEventListener('click', (e) => {
+        // console.log("click play button");
+        audio.paused ? window.play() : window.pause();
+    });
+
+    document.getElementById('rewind').addEventListener('click', (e) => {
+        // console.log("rewind");
+        window.getSelection().removeAllRanges();
+        audio.currentTime = 0;
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === " ") {
+            // console.log("keydown, key='" + e.key + "'");
+            audio.paused ? window.play() : window.pause() ;
+            e.preventDefault();     // don't auto scroll the page
+        }
+    });
+
+    function getNextAudioSpan(span) {
+        // console.log("getNextAudioSpan, span =",span);
+        var nextSpan = currentSpan.nextElementSibling;
+        while (nextSpan != null) {
+            // console.log("nextSpan.nextElementSibling", nextSpan.nextElementSibling);
+            nextSpan = nextSpan.nextElementSibling;
+            if (nextSpan != null) {
+               if (nextSpan.getAttribute('start') != null) {
+                   return nextSpan;
+               }
+            }
+        }
+        return null
+    }
+
+    function setCurrentSpan(span) {
+        // console.log("setCurrentSpan, span=", span);
+        if (currentSpan != null) currentSpan.classList.remove("current");
+        currentSpan = span;
+        if (span != null) {
+            currentSpan.classList.add("current");
+            nextSpan = getNextAudioSpan(span);
+        }
+        // console.log("nextSpan=", span);
+    }
+
+    audio.addEventListener('timeupdate', function(e) {
+        var target = e.target;
+        // console.log("timeupdate");
+        // console.log("    endTime=", target['endTime']);
+        // console.log("    currentTime=", target.currentTime);
+
+       if (target['endTime'] != undefined) {
+            if (target.currentTime > target.endTime) {
+                window.pause();
+                delete target.endTime
+                setCurrentSpan(null)
+            }
+       }
+       if (currentSpan && target.currentTime > currentSpan.getAttribute('end')) {
+           // console.log("    currentTime > currentSpan end time", currentSpan.getAttribute('end'))
+           // console.log("    nextSpan", nextSpan);
+            if (nextSpan != null) {
+                nextStart = nextSpan.getAttribute('start');
+                if (target.currentTime >= nextSpan.getAttribute('start')) {
+                    setCurrentSpan(nextSpan)
+                }
+            }
+       }
+    });
+    function setCurrentSpanFromSelection() {
         const selection = window.getSelection();
+        const audio = document.getElementById('audio');
+
         if (selection.rangeCount > 0) {
+            window.clearTimeout();  // clear prior pause directive, if any
             const range = selection.getRangeAt(0);
             const startSpan = range.startContainer.parentElement;
             const endSpan = range.endContainer.parentElement;
 
             if (startSpan.hasAttribute('start') && endSpan.hasAttribute('end')) {
-                const audio = document.getElementById('audio');
                 const startTime = parseFloat(startSpan.getAttribute('start'));
                 const endTime = parseFloat(endSpan.getAttribute('end'));
 
                 audio.currentTime = startTime;
-                audio.play();
-
-                setTimeout(() => {
-                    audio.pause();
-                }, (endTime - startTime) * 1000);
+                audio.endTime = endTime;
+                setCurrentSpan(startSpan);
             }
+        }
+    }
+    document.addEventListener('mouseup', function(e) {
+        // console.log('mouseup, target=', e.target);
+        // TODO: consider better logic, so easier to add new controls
+        if (e.target != document.querySelector('#play img') &&
+            e.target != document.querySelector('#rewind img')) {
+            setCurrentSpanFromSelection();
         }
     });
 </script>
