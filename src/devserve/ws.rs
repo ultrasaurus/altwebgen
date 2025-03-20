@@ -5,6 +5,24 @@ use tracing::info;
 use warp::ws::Message;
 use warp::Filter;
 
+pub const LIVE_RELOAD_JS: &str = r##"
+    const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    //TODO: make variable for endpoint
+    //const wsAddress = wsProtocol + "//" + location.host + "/" + "{{{live_reload_endpoint}}}";
+    const wsAddress = wsProtocol + "//" + location.host + "/__livereload";
+    const socket = new WebSocket(wsAddress);
+    socket.onmessage = function (event) {
+        if (event.data === "reload") {
+            socket.close();
+            location.reload();
+        }
+    };
+
+    window.onbeforeunload = function () {
+        socket.close();
+    }
+"##;
+
 pub fn ws_receiver(endpoint: &str, from_server_tx: broadcast::Sender<Message>)
 -> impl Filter<Extract = (impl warp::Reply + '_,), Error = warp::Rejection> + Clone  + '_ {
 
