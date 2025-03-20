@@ -3,7 +3,7 @@ use anyhow;
 use tracing::info;
 
 mod config;
-use config::Config;
+use config::*;
 mod devserve;
 mod setup;
 
@@ -11,7 +11,7 @@ mod util;
 mod watch;
 mod web;
 
-use clap::{Parser, Subcommand};
+use clap::Parser;
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -37,18 +37,13 @@ struct Cli {
 
 }
 
-#[derive(Subcommand, Debug)]
-enum Command {
-    Dev,
-    Build
-}
-
-
 fn cli_config(cli: &Cli) -> Config {
+    assert!(cli.command.is_some()); // programmer error, UI should enforce
     Config::new(&*cli.outdir,
-            &*cli.indir,
-            &*cli.templatedir,
-            &*cli.prefix)
+                &*cli.indir,
+                &*cli.templatedir,
+                &*cli.prefix,
+                cli.command.unwrap())
 }
 
 #[tokio::main]

@@ -1,13 +1,16 @@
 use std::path::Path;
 use tracing::{info, trace};
 use walkdir::WalkDir;
+
+mod audio;
 mod document;
 use document::Document;
+mod framework;
+use framework::render_html;
 
 pub mod md;
 pub use md::Ref as Ref;
 
-mod audio;
 pub mod words;
 
 use crate::{
@@ -42,13 +45,14 @@ pub fn process_files(context: &Context) -> anyhow::Result<()> {
 }
 
 
+
 fn render_file<P: AsRef<Path>>(
     context: &Context,
     path: P,
 ) -> anyhow::Result<()> {
     let config = context.config;
     let sourcepath = path.as_ref();
-    trace!("rendering: {}", sourcepath.display());
+    trace!("render_file: {}", sourcepath.display());
     let document = Document::from_path(&path);
     match document.html_generator(&context)? {
         None => { std::fs::copy(&path, config.outpath(&path)?)?;},
@@ -58,7 +62,7 @@ fn render_file<P: AsRef<Path>>(
                 .create(true)
                 .write(true)
                 .open(writepath)?;
-            html_source.render(&context, &mut writer)?;
+            render_html(&context, html_source, &mut writer)?;
         }
 
     }
