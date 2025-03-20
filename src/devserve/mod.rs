@@ -7,6 +7,7 @@ use crate::config::Config;
 
 mod ws;
 use ws::ws_receiver;
+pub use ws::LIVE_RELOAD_JS as LIVE_RELOAD_JS;
 
 /// The HTTP endpoint for the websocket used to trigger reloads when a file changes.
 const LIVE_RELOAD_ENDPOINT: &str = "__livereload";
