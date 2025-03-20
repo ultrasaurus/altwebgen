@@ -1,6 +1,23 @@
 use std::collections::HashMap;
+use std::fmt;
 use std::path::{Path,PathBuf};
 use tracing::{error, info};
+
+use clap::Subcommand;
+
+#[derive(Clone, Copy, Subcommand, Debug)]
+pub enum Command {
+    Dev,
+    Build
+}
+
+impl fmt::Display for Command {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}", self.to_string())
+    }
+}
+
+
 
 #[derive(Clone, Debug)]
 pub struct Context<'a> {
@@ -15,7 +32,8 @@ pub struct Config {
     pub sourcedir: PathBuf,
     pub templatedir: PathBuf,
     pub site_attr: HashMap<String, String>,
-    pub prefix: String
+    pub prefix: String,
+    pub cmd: Command
 }
 
 // ensure prefix starts and ends with '/'
@@ -46,13 +64,15 @@ impl Config {
     pub fn new(outdir_str: &str,
            sourcedir_str: &str,
            templatedir_str: &str,
-           path_prefix: &str
+           path_prefix: &str,
+           cmd: Command
     ) -> Config {
         info!("config...");
         info!("   outdir:      {}", outdir_str);
         info!("   sourcedir:   {}", sourcedir_str);
         info!("   templatedir: {}", templatedir_str);
         info!("   prefix: {}",      path_prefix);
+        info!("   cmd: {}",      cmd);
 
         // create output directory if not present
         let outdir: PathBuf = std::path::PathBuf::from(outdir_str);
@@ -103,7 +123,8 @@ impl Config {
             sourcedir,
             templatedir: PathBuf::from("template"),
             site_attr,
-            prefix: prefix.to_string()
+            prefix: prefix.to_string(),
+            cmd,
         }
 
     }
@@ -126,7 +147,7 @@ impl Default for Config {
 
      fn default() -> Config {
         info!("default config");
-        Config::new(".dist", "source", "template", "")
+        Config::new(".dist", "source", "template", "", Command::Build)
     }
 }
 
