@@ -64,7 +64,8 @@ impl fmt::Display for NotHtmlSourceError {
 #[derive(PartialEq, Debug, Clone)]
 pub enum HtmlGenerator {
     Markdown(MarkdownData),
-    Template(HandlebarsTemplate)
+    Template(HandlebarsTemplate),
+    Html(String)
 }
 
 impl HtmlGenerator {
@@ -79,6 +80,10 @@ impl HtmlGenerator {
                     let data = MarkdownData::from_path(context, &document.path)?;
                     Ok(HtmlGenerator::Markdown(data))
                 },
+                "html" => {
+                    let html_string = crate::util::read_file_to_string(&document.path)?;
+                    Ok(HtmlGenerator::Html(html_string))
+                }
                 _ => {
                     //anyhow::bail!(NotHtmlSourceError(document.path.display().to_string()))
                     anyhow::bail!(NotHtmlSourceError {})
@@ -87,14 +92,20 @@ impl HtmlGenerator {
     }
     pub fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
         match self {
-            HtmlGenerator::Markdown(generator) => generator.render(context, writer),
-            HtmlGenerator::Template(generator) => generator.render(context, writer)
+            HtmlGenerator::Markdown(md) => md.render(context, writer)?,
+            HtmlGenerator::Template(template) => template.render(context, writer)?,
+            HtmlGenerator::Html(html_string) => { writer.write(html_string.as_bytes())?; }
          }
+        Ok(())
     }
 }
 //---------------
 use std::collections::HashMap;
 
+// private function
+//   reads markdown source file
+//   parses yaml front matter into Hashmap of (key, value) pairs
+//   returns Hashmap + rest of file
 fn read_source<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(HashMap<String, String>, String)>
 {
     let source = read_file_to_string(sourcepath)?;
