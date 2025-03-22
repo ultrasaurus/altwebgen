@@ -65,7 +65,7 @@ pub fn clean_build(config: &Config) -> anyhow::Result<Context> {
 }
 
 // initial setup, called only once
-pub fn init(config: &Config) -> anyhow::Result<Context> {
+pub fn init_and_build(config: &Config) -> anyhow::Result<Context> {
     info!("init: start");
     info!("      working directory {}", get_current_working_dir()?.display());
     create_source_dirs(&config)?;

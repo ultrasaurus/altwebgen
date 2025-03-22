@@ -71,7 +71,7 @@ async fn main() -> anyhow::Result<()> {
             match cmd {
                 Command::Dev => watch::run(&config).await?,
                 Command::Build => {
-                    let _hbs = setup::init(&config)?;
+                    let _hbs = setup::init_and_build(&config)?;
                 }
             }
         }
