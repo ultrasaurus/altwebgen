@@ -22,6 +22,7 @@ pub fn init_templates<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
     web::Ref::process_markdown(config, "ref", &buildtemplatedir.join("ref"))?;
 
     let buildtemplatedir = config.buildtemplatedir();
+    info!("buildtemplatedir: {}", buildtemplatedir.display());
     let mut hbs = Handlebars::new();
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
         .map_err(|_| {

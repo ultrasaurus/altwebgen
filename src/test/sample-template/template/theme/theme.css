@@ -1,4 +1,6 @@
 .footer {
-    height: 200px;
-    background-image: url('theme/pixeltrue-web-design.svg');
+    height: 260px;
+    background-image: url('pixeltrue-web-design.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }

@@ -39,6 +39,8 @@ pub fn get_current_working_dir() -> std::io::Result<PathBuf> {
 pub fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
     let dst_path: &Path = dst.as_ref();
     let dst_dir = dst_path.to_path_buf();
+    info!("copy_dir_all from: {} to: {}", src.as_ref().display(), dst_path.display());
+
     for entry_result in WalkDir::new(&src) {
         let entry = entry_result.map_err(|_| {
             anyhow!("invalid DirEntry, failed to copy directory, from {} to {}",
@@ -76,16 +78,16 @@ pub fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
 }
 
 
-pub fn create_destdir(config: &Config, sourcepath: &Path) -> anyhow::Result<()> {
+pub fn create_destdir(sourcedir: &Path, outdir: &Path, sourcepath: &Path) -> anyhow::Result<()> {
     let rel_path = sourcepath
-        .strip_prefix(&config.sourcedir);
+        .strip_prefix(sourcedir);
     if rel_path.is_err() {
         let err_report = format!("expected strip prefix match for soucepath {} and sourcedir {}",
-            sourcepath.display(), config.sourcedir.display());
+            sourcepath.display(), sourcedir.display());
         error!(err_report);
         anyhow::bail!(err_report);
     } else {
-        let dest_path = config.outdir.join(rel_path?);
+        let dest_path = outdir.join(rel_path?);
         let result = std::fs::create_dir_all(&dest_path);
         if result.is_err() {
             anyhow::bail!("failed to create {}", &dest_path.display())
