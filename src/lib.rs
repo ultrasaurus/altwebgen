@@ -29,7 +29,7 @@ fn test_sample_template() {
 
     // test that static files were copied
     assert!(Path::new("src/test/sample-template/.dist/theme/theme.css").exists());
-    assert!(Path::new("src/test/sample-template/.dist/theme/pixeltrue-web-design.svg").exists());
+    assert!(Path::new("src/test/sample-template/.dist/theme/pixeltrue-web-design.png").exists());
     assert!(Path::new("src/test/sample-template/.dist/theme/icons8-favicon-pulsar-color.ico").exists());
 
 }
