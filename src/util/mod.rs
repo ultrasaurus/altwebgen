@@ -14,8 +14,6 @@ pub mod node_ref;
 pub mod path;
 pub use self::path::PathExt as PathExt;
 
-use crate::config::Config;
-
 pub fn read_file_to_string<P: AsRef<Path>>(filepath: P) -> anyhow::Result<String> {
     let path = std::fs::canonicalize(filepath)?;
     trace!("read_file #{}", path.display());
