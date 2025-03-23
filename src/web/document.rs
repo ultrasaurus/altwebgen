@@ -145,13 +145,13 @@ impl GenerateHtml for MarkdownData {
 
 impl MarkdownData {
     fn from_path<P:AsRef<Path>>(context: &Context, path: P) -> anyhow::Result<Self> {
-        let html_body= md::file2html(path)?;
-
-        let mut template_vars = HashMap::new();
+        let (mut template_vars, content) = read_source(path)?;
         let site_attr = context.config.site_attr.clone();
         template_vars.extend(site_attr);
 
+        let html_body= md::str2html(&content)?;
         let body_string = String::from_utf8(html_body)?;
+
         template_vars.insert("body".into(), body_string);
 
         Ok(MarkdownData {
