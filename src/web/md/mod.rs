@@ -12,7 +12,7 @@ pub fn file2html<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<Vec<u8>> {
     str2html(&source)
 }
 
-fn str2html(source: &str) -> anyhow::Result<Vec<u8>> {
+pub fn str2html(source: &str) -> anyhow::Result<Vec<u8>> {
     let mut html_body: Vec<u8> = Vec::new();
 
     let parser = cmark::Parser::new(&source);
