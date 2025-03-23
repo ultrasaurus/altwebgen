@@ -2,4 +2,4 @@ target/
 /out
 .dist/
 .build/
-ext
+/ext
