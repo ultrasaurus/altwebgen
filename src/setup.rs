@@ -22,6 +22,7 @@ pub fn init_templates<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
     web::Ref::process_markdown(config, "ref", &buildtemplatedir.join("ref"))?;
 
     let buildtemplatedir = config.buildtemplatedir();
+    info!("buildtemplatedir: {}", buildtemplatedir.display());
     let mut hbs = Handlebars::new();
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
         .map_err(|_| {
@@ -65,7 +66,7 @@ pub fn clean_build(config: &Config) -> anyhow::Result<Context> {
 }
 
 // initial setup, called only once
-pub fn init(config: &Config) -> anyhow::Result<Context> {
+pub fn init_and_build(config: &Config) -> anyhow::Result<Context> {
     info!("init: start");
     info!("      working directory {}", get_current_working_dir()?.display());
     create_source_dirs(&config)?;

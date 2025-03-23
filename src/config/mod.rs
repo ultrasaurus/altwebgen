@@ -41,9 +41,20 @@ impl Config {
     pub fn outpath<P: AsRef<Path>>(&self, sourcepath: P) -> std::io::Result<PathBuf> {
         let rel_path = sourcepath.as_ref()
             .strip_prefix(&self.sourcedir)
-            .expect("strip prefix match");
+            .expect("sourcedir strip prefix match");
         Ok(self.outdir.join(rel_path))
     }
+
+    // used for when templates have associated media files or css
+    // so they can be kept in the template directory
+    // when building, they are automatically copied to the outdir
+    pub fn templatedir_outpath<P: AsRef<Path>>(&self, sourcepath: P) -> std::io::Result<PathBuf> {
+        let rel_path = sourcepath.as_ref()
+            .strip_prefix(&self.templatedir)
+            .expect("templatedir strip prefix match");
+        Ok(self.outdir.join(rel_path))
+    }
+
     pub fn buildtemplatedir(&self) -> PathBuf {
          self.builddir.join("template")
     }
@@ -81,10 +92,21 @@ impl Config {
             }
         };
 
+        // create template directory if not present
+        let templatedir: PathBuf = std::path::PathBuf::from(templatedir_str);
+        if !templatedir.exists() {
+            let _result = std::fs::create_dir_all(&templatedir);
+            if _result.is_err() {
+                error!("could not create templatedir directory");
+            }
+        }
+
+
         // build dir and sub-directories not configurable
         info!("   -- additional directories not user configurable -- ");
+        info!("   -- builddir will be created as sibling of sourcedir -- ");
         let build_str = ".build";
-        let builddir = std::path::PathBuf::from(build_str);
+        let builddir = sourcedir.parent().unwrap().join(build_str);
         info!("   builddir: {}", builddir.display());
         if !builddir.exists() {
             let _result = std::fs::create_dir_all(&builddir);
@@ -93,7 +115,7 @@ impl Config {
             }
         }
 
-        // create template directory if not present
+        // create build template directory if not present
         let buildtemplatedir = builddir.join("template");
         info!("   buildtemplatedir: {}", buildtemplatedir.display());
         if !buildtemplatedir.exists() {
@@ -109,7 +131,7 @@ impl Config {
             outdir,
             builddir,
             sourcedir,
-            templatedir: PathBuf::from("template"),
+            templatedir,
             site_attr,
             prefix: prefix.to_string(),
             mode,

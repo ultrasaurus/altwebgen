@@ -15,7 +15,7 @@ mod watch_files;
 use watch_files::detect_changes;
 
 pub async fn run(config: &Config) -> anyhow::Result<()> {
-    let mut context= setup::init(&config)?;
+    let mut context= setup::init_and_build(&config)?;
     let mut source_watch = Vec::new();
     source_watch.push(config.sourcedir.clone());
     let mut template_watch = Vec::new();

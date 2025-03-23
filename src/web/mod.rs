@@ -19,9 +19,10 @@ use crate::{
 };
 
 
-pub fn process_files(context: &Context) -> anyhow::Result<()> {
-    let config = context.config;
-    info!("Processing files...");
+
+fn build_source_files(context: &Context) -> anyhow::Result<()> {
+    let config: &crate::config::Config = context.config;
+    info!("Bulding source files...");
     let walker = WalkDir::new(&config.sourcedir)
         .follow_links(true)
         .into_iter()
@@ -35,12 +36,47 @@ pub fn process_files(context: &Context) -> anyhow::Result<()> {
         let entry = entry_result?;
         let path = entry.path();
         if path.is_dir() {
-            create_destdir(config, path)?;
+            create_destdir(&config.sourcedir, &config.outdir, path)?;
         } else {
             render_file(context, path)?;
         }
     }
+    Ok(())
+}
 
+fn copy_template_assets(context: &Context) -> anyhow::Result<()> {
+    let config: &crate::config::Config = context.config;
+    info!("Copying template assets...");
+    let walker = WalkDir::new(&config.templatedir)
+        .follow_links(true)
+        .into_iter()
+        .filter_entry(|e| {
+            !e.is_hidden()
+        });
+
+    for entry_result in walker
+    {
+        // should be declared somewhere central web::template_extension ?
+        let template_extension =std::ffi::OsStr::new("hbs");
+
+        trace!("  entry: {:?}", entry_result);
+        let entry = entry_result?;
+        let path = entry.path();
+        if path.is_dir() {
+            create_destdir(&config.templatedir, &config.outdir, path)?;
+        } else if path.extension() != Some(template_extension) {
+            std::fs::copy(&path, config.templatedir_outpath(&path)?)?;
+        }
+    }
+
+    Ok(())
+}
+
+
+
+pub fn process_files(context: &Context) -> anyhow::Result<()> {
+   build_source_files(&context)?;
+   copy_template_assets(&context)?;
    Ok(())
 }
 
