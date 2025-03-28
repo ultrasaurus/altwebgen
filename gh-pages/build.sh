@@ -1,6 +1,6 @@
 #! /bin/sh
 echo $1
-PREFIX=${1:-"/"}    
+PREFIX=${1:-"/"}
 
 echo "pwd: " `pwd`
 (
@@ -13,7 +13,7 @@ OUT_DIR="gh-pages/content/_website"
 mkdir -p $OUT_DIR
 
 
-(cd ./samples/media; webgenr -p $PREFIX/media-sample build)
+(cd ./samples/media; altwebgen -p $PREFIX/media-sample build)
 echo "pwd: " `pwd`
 mv ./samples/media/.dist $OUT_DIR/media-sample
 echo "ls $OUT_DIR"
@@ -43,7 +43,7 @@ $GITHUB_SHA
 \`\`\`
 EOT
 
-webgenr -p $PREFIX build
+altwebgen -p $PREFIX build
 mv .dist/index.html _website/.
 
 echo "---> files that will be deployed <---"
