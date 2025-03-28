@@ -24,7 +24,7 @@ permissions:
 
 jobs:
 
-  # build webgenr and examples
+  # build altwebgen binary and examples
   build-and-deploy:
     name: Running build...
     # Deploy to the github-pages environment
@@ -54,7 +54,7 @@ jobs:
           ls -l
 
       - name: Upload to pages artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           # A file, directory or wildcard pattern that describes what to upload
           path: ./gh-pages/content/_website
