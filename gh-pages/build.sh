@@ -1,6 +1,6 @@
 #! /bin/sh
 echo $1
-PREFIX=${1:-"/"}    
+PREFIX=${1:-"/"}
 
 echo "pwd: " `pwd`
 (
@@ -43,7 +43,7 @@ $GITHUB_SHA
 \`\`\`
 EOT
 
-webgenr -p $PREFIX build
+altwebgen -p $PREFIX build
 mv .dist/index.html _website/.
 
 echo "---> files that will be deployed <---"
