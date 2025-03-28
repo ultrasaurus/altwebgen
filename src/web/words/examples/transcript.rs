@@ -1,4 +1,4 @@
-use webgenr::words::*;
+use altwebgen::words::*;
 
 fn main() -> anyhow::Result<()> {
     let text: &str = "Let me introduce";
