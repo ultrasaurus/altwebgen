@@ -12,7 +12,9 @@ pub trait NodeRefExt {
     /// find or create head node, error if html node not found
     fn find_or_create_head(&self) -> anyhow::Result<NodeDataRef<ElementData>>;
 
+    #[allow(dead_code)]
     fn inject_style(&self, sheet: &str)-> anyhow::Result<()>;
+
     fn inject_script(&self, script: &str)-> anyhow::Result<()>;
 
     /// finds first match

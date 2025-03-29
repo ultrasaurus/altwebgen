@@ -5,6 +5,7 @@ use mime::Mime;
 use std::{borrow::Cow, path::Path};
 use tracing::info;
 
+#[allow(dead_code)]
 pub trait PathExt {
     // given a path, ensure that all parent directories of that path exist
     // and create any that don't exist
