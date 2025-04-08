@@ -4,9 +4,11 @@
 )
 
 Supports
-* handlebar templates (.hbs)
+* handlebar templates
+  * for raw html (`.html.hbs`)
+  * markdown (`.md.html`)
 * directly serves all other files
-* live reload: watches file system every second, reloads page on changes
+* dev mode for live reload: watches file system every second, reloads page on changes
 
 Run with debug logging on:
 ```
