@@ -1,1 +1,4345 @@
-{"version":"1.0.0","segments":[{"startTime":0,"endTime":0.5099999999999909,"body":"chapter"},{"startTime":0.5099999999999909,"endTime":1.050000000000182,"body":"six."},{"startTime":1.634999999999991,"endTime":1.7850000000000819,"body":"The"},{"startTime":1.7850000000000819,"endTime":2.0850000000000364,"body":"real"},{"startTime":2.0850000000000364,"endTime":2.4750000000001364,"body":"heart"},{"startTime":2.4750000000001364,"endTime":2.5650000000000546,"body":"of"},{"startTime":2.5650000000000546,"endTime":2.6549999999999727,"body":"the"},{"startTime":2.6549999999999727,"endTime":3.0150000000001,"body":"matter"},{"startTime":3.0150000000001,"endTime":3.105000000000018,"body":"of"},{"startTime":3.105000000000018,"endTime":3.7650000000001,"body":"selection,"},{"startTime":3.7650000000001,"endTime":4.4249999999999545,"body":"however"},{"startTime":4.605000000000018,"endTime":4.875,"body":"goes"},{"startTime":4.875,"endTime":5.205000000000155,"body":"deeper"},{"startTime":5.205000000000155,"endTime":5.355000000000018,"body":"than"},{"startTime":5.355000000000018,"endTime":5.445000000000164,"body":"a"},{"startTime":5.445000000000164,"endTime":5.9249999999999545,"body":"lag"},{"startTime":5.9249999999999545,"endTime":6.0750000000000455,"body":"in"},{"startTime":6.0750000000000455,"endTime":6.644999999999982,"body":"adoption"},{"startTime":6.644999999999982,"endTime":6.735000000000127,"body":"of"},{"startTime":6.735000000000127,"endTime":7.455000000000155,"body":"mechanisms"},{"startTime":7.455000000000155,"endTime":7.605000000000018,"body":"by"},{"startTime":7.605000000000018,"endTime":8.475000000000136,"body":"libraries"},{"startTime":8.654999999999973,"endTime":8.835000000000036,"body":"or"},{"startTime":8.835000000000036,"endTime":8.924999999999955,"body":"a"},{"startTime":8.924999999999955,"endTime":9.225000000000136,"body":"lack"},{"startTime":9.225000000000136,"endTime":9.345000000000027,"body":"of"},{"startTime":9.345000000000027,"endTime":9.884999999999991,"body":"development"},{"startTime":9.884999999999991,"endTime":9.975000000000136,"body":"of"},{"startTime":9.975000000000136,"endTime":10.634999999999991,"body":"devices"},{"startTime":10.634999999999991,"endTime":10.845000000000027,"body":"for"},{"startTime":10.845000000000027,"endTime":11.025000000000091,"body":"their"},{"startTime":11.025000000000091,"endTime":11.445000000000164,"body":"use."},{"startTime":12.240000000000236,"endTime":12.450000000000273,"body":"Our"},{"startTime":12.450000000000273,"endTime":13.140000000000327,"body":"Neptune"},{"startTime":13.140000000000327,"endTime":13.260000000000218,"body":"in"},{"startTime":13.260000000000218,"endTime":13.620000000000346,"body":"getting"},{"startTime":13.620000000000346,"endTime":13.860000000000355,"body":"at"},{"startTime":13.860000000000355,"endTime":13.980000000000246,"body":"the"},{"startTime":13.980000000000246,"endTime":14.640000000000327,"body":"record"},{"startTime":14.820000000000164,"endTime":15.000000000000227,"body":"is"},{"startTime":15.000000000000227,"endTime":15.510000000000218,"body":"largely"},{"startTime":15.510000000000218,"endTime":16.080000000000155,"body":"caused"},{"startTime":16.080000000000155,"endTime":16.1700000000003,"body":"by"},{"startTime":16.1700000000003,"endTime":16.29000000000019,"body":"the"},{"startTime":16.29000000000019,"endTime":17.190000000000282,"body":"artificiality"},{"startTime":17.190000000000282,"endTime":17.340000000000373,"body":"of"},{"startTime":17.340000000000373,"endTime":17.970000000000255,"body":"systems"},{"startTime":17.970000000000255,"endTime":18.090000000000373,"body":"of"},{"startTime":18.090000000000373,"endTime":18.990000000000236,"body":"indexing."},{"startTime":19.440000000000282,"endTime":19.68000000000029,"body":"When"},{"startTime":19.68000000000029,"endTime":20.100000000000364,"body":"data"},{"startTime":20.100000000000364,"endTime":20.250000000000227,"body":"of"},{"startTime":20.250000000000227,"endTime":20.550000000000182,"body":"any"},{"startTime":20.550000000000182,"endTime":21.0300000000002,"body":"sort"},{"startTime":21.0300000000002,"endTime":21.210000000000264,"body":"are"},{"startTime":21.210000000000264,"endTime":21.66000000000031,"body":"placed"},{"startTime":21.66000000000031,"endTime":21.750000000000227,"body":"in"},{"startTime":21.750000000000227,"endTime":22.5300000000002,"body":"storage,"},{"startTime":22.800000000000182,"endTime":23.130000000000337,"body":"they're"},{"startTime":23.130000000000337,"endTime":23.79000000000019,"body":"filed"},{"startTime":23.79000000000019,"endTime":24.750000000000227,"body":"alphabetically"},{"startTime":24.750000000000227,"endTime":24.93000000000029,"body":"or"},{"startTime":24.93000000000029,"endTime":25.860000000000355,"body":"numerically,"},{"startTime":26.16000000000031,"endTime":26.370000000000346,"body":"and"},{"startTime":26.370000000000346,"endTime":27.060000000000173,"body":"information"},{"startTime":27.060000000000173,"endTime":27.240000000000236,"body":"is"},{"startTime":27.240000000000236,"endTime":27.93000000000029,"body":"found"},{"startTime":28.02000000000021,"endTime":28.230000000000246,"body":"when"},{"startTime":28.230000000000246,"endTime":28.350000000000364,"body":"it"},{"startTime":28.350000000000364,"endTime":28.950000000000273,"body":"is"},{"startTime":29.190000000000282,"endTime":29.370000000000346,"body":"by"},{"startTime":29.370000000000346,"endTime":29.820000000000164,"body":"tracing"},{"startTime":29.820000000000164,"endTime":29.940000000000282,"body":"it"},{"startTime":29.940000000000282,"endTime":30.390000000000327,"body":"down"},{"startTime":30.390000000000327,"endTime":30.630000000000337,"body":"from"},{"startTime":30.630000000000337,"endTime":31.29000000000019,"body":"subclass"},{"startTime":31.29000000000019,"endTime":31.440000000000282,"body":"to"},{"startTime":31.440000000000282,"endTime":32.43000000000029,"body":"subclass."},{"startTime":32.88500000000022,"endTime":33.105000000000246,"body":"It"},{"startTime":33.105000000000246,"endTime":33.26500000000033,"body":"can"},{"startTime":33.26500000000033,"endTime":33.42500000000018,"body":"be"},{"startTime":33.43000000000029,"endTime":33.51000000000022,"body":"in"},{"startTime":33.51000000000022,"endTime":33.90000000000032,"body":"one"},{"startTime":33.90000000000032,"endTime":34.470000000000255,"body":"place"},{"startTime":34.50000000000023,"endTime":35.16000000000031,"body":"only"},{"startTime":35.40000000000032,"endTime":35.76000000000022,"body":"unless"},{"startTime":35.76000000000022,"endTime":36.39000000000033,"body":"duplicates"},{"startTime":36.39000000000033,"endTime":36.480000000000246,"body":"are"},{"startTime":36.480000000000246,"endTime":37.26000000000022,"body":"used."},{"startTime":37.980000000000246,"endTime":38.220000000000255,"body":"One"},{"startTime":38.220000000000255,"endTime":38.460000000000264,"body":"has"},{"startTime":38.460000000000264,"endTime":38.55000000000018,"body":"to"},{"startTime":38.55000000000018,"endTime":38.730000000000246,"body":"have"},{"startTime":38.730000000000246,"endTime":39.27000000000021,"body":"rules"},{"startTime":39.27000000000021,"endTime":39.4200000000003,"body":"as"},{"startTime":39.4200000000003,"endTime":39.54000000000019,"body":"to"},{"startTime":39.54000000000019,"endTime":39.75000000000023,"body":"which"},{"startTime":39.75000000000023,"endTime":40.1400000000001,"body":"path"},{"startTime":40.1400000000001,"endTime":40.320000000000164,"body":"will"},{"startTime":40.320000000000164,"endTime":40.710000000000264,"body":"locate"},{"startTime":40.710000000000264,"endTime":41.01000000000022,"body":"it,"},{"startTime":41.25000000000023,"endTime":41.43000000000029,"body":"and"},{"startTime":41.43000000000029,"endTime":41.52000000000021,"body":"the"},{"startTime":41.52000000000021,"endTime":41.91000000000008,"body":"rules"},{"startTime":41.91000000000008,"endTime":42.12000000000012,"body":"are"},{"startTime":42.12000000000012,"endTime":42.99000000000024,"body":"cumbersome,"},{"startTime":43.38000000000011,"endTime":43.74000000000024,"body":"having"},{"startTime":43.74000000000024,"endTime":44.04000000000019,"body":"found"},{"startTime":44.04000000000019,"endTime":44.2800000000002,"body":"one"},{"startTime":44.2800000000002,"endTime":44.70000000000027,"body":"item."},{"startTime":44.70000000000027,"endTime":45.51000000000022,"body":"Moreover,"},{"startTime":45.720000000000255,"endTime":45.93000000000029,"body":"one"},{"startTime":45.93000000000029,"endTime":46.1700000000003,"body":"has"},{"startTime":46.1700000000003,"endTime":46.320000000000164,"body":"to"},{"startTime":46.320000000000164,"endTime":46.86000000000013,"body":"emerge"},{"startTime":46.86000000000013,"endTime":47.04000000000019,"body":"from"},{"startTime":47.04000000000019,"endTime":47.13000000000011,"body":"the"},{"startTime":47.13000000000011,"endTime":47.79000000000019,"body":"system"},{"startTime":47.850000000000136,"endTime":48.0300000000002,"body":"and"},{"startTime":48.0300000000002,"endTime":48.840000000000146,"body":"reenter"},{"startTime":48.87000000000012,"endTime":49.02000000000021,"body":"on"},{"startTime":49.02000000000021,"endTime":49.080000000000155,"body":"a"},{"startTime":49.080000000000155,"endTime":49.29000000000019,"body":"new"},{"startTime":49.29000000000019,"endTime":49.95000000000027,"body":"path."},{"startTime":50.730000000000246,"endTime":50.850000000000136,"body":"The"},{"startTime":50.850000000000136,"endTime":51.18000000000029,"body":"human"},{"startTime":51.18000000000029,"endTime":51.600000000000136,"body":"mind"},{"startTime":51.600000000000136,"endTime":51.75000000000023,"body":"does"},{"startTime":51.75000000000023,"endTime":52.02000000000021,"body":"not"},{"startTime":52.02000000000021,"endTime":52.38000000000011,"body":"work"},{"startTime":52.38000000000011,"endTime":52.62000000000012,"body":"that"},{"startTime":52.62000000000012,"endTime":53.13000000000011,"body":"way."},{"startTime":53.52000000000021,"endTime":53.70000000000027,"body":"It"},{"startTime":53.70000000000027,"endTime":54.36000000000013,"body":"operates"},{"startTime":54.36000000000013,"endTime":54.570000000000164,"body":"by"},{"startTime":54.570000000000164,"endTime":55.710000000000264,"body":"association."},{"startTime":56.055000000000064,"endTime":56.325000000000045,"body":"With"},{"startTime":56.325000000000045,"endTime":56.68500000000017,"body":"one"},{"startTime":56.68500000000017,"endTime":57.04500000000007,"body":"item"},{"startTime":57.04500000000007,"endTime":57.16500000000019,"body":"in"},{"startTime":57.16500000000019,"endTime":57.34500000000003,"body":"its"},{"startTime":57.34500000000003,"endTime":57.975000000000136,"body":"grasp,"},{"startTime":58.18500000000017,"endTime":58.39500000000021,"body":"it"},{"startTime":58.39500000000021,"endTime":58.99500000000012,"body":"snaps"},{"startTime":59.055000000000064,"endTime":59.59500000000003,"body":"instantly"},{"startTime":59.59500000000003,"endTime":59.715000000000146,"body":"to"},{"startTime":59.715000000000146,"endTime":59.805000000000064,"body":"the"},{"startTime":59.805000000000064,"endTime":60.465000000000146,"body":"next."},{"startTime":60.64500000000021,"endTime":60.825000000000045,"body":"That"},{"startTime":60.825000000000045,"endTime":60.88500000000022,"body":"is"},{"startTime":60.88500000000022,"endTime":61.54500000000007,"body":"suggested"},{"startTime":61.54500000000007,"endTime":61.66500000000019,"body":"by"},{"startTime":61.66500000000019,"endTime":61.78500000000008,"body":"the"},{"startTime":61.78500000000008,"endTime":62.625,"body":"Association"},{"startTime":62.625,"endTime":62.74500000000012,"body":"of"},{"startTime":62.74500000000012,"endTime":63.43500000000017,"body":"Thoughts"},{"startTime":63.705000000000155,"endTime":63.88500000000022,"body":"in"},{"startTime":63.88500000000022,"endTime":64.54500000000007,"body":"accordance"},{"startTime":64.54500000000007,"endTime":64.72500000000014,"body":"with"},{"startTime":64.72500000000014,"endTime":64.96500000000015,"body":"some"},{"startTime":64.96500000000015,"endTime":65.47500000000014,"body":"intricate"},{"startTime":65.47500000000014,"endTime":65.71500000000015,"body":"web"},{"startTime":65.71500000000015,"endTime":65.83500000000004,"body":"of"},{"startTime":65.83500000000004,"endTime":66.55500000000006,"body":"trails"},{"startTime":66.85500000000002,"endTime":67.24500000000012,"body":"carried"},{"startTime":67.24500000000012,"endTime":67.39500000000021,"body":"by"},{"startTime":67.39500000000021,"endTime":67.5150000000001,"body":"the"},{"startTime":67.5150000000001,"endTime":67.99500000000012,"body":"cells"},{"startTime":67.99500000000012,"endTime":68.11500000000001,"body":"of"},{"startTime":68.11500000000001,"endTime":68.23500000000013,"body":"the"},{"startTime":68.23500000000013,"endTime":68.86500000000001,"body":"brain."},{"startTime":69.58500000000026,"endTime":69.79500000000007,"body":"It"},{"startTime":69.79500000000007,"endTime":70.06500000000005,"body":"has"},{"startTime":70.06500000000005,"endTime":70.39500000000021,"body":"other"},{"startTime":70.39500000000021,"endTime":71.41500000000019,"body":"characteristics."},{"startTime":71.41500000000019,"endTime":71.56500000000005,"body":"Of"},{"startTime":71.56500000000005,"endTime":72.25500000000011,"body":"course,"},{"startTime":72.64500000000021,"endTime":73.18500000000017,"body":"trails"},{"startTime":73.18500000000017,"endTime":73.30500000000006,"body":"that"},{"startTime":73.30500000000006,"endTime":73.39500000000021,"body":"are"},{"startTime":73.39500000000021,"endTime":73.66500000000019,"body":"not"},{"startTime":73.66500000000019,"endTime":74.14500000000021,"body":"frequently"},{"startTime":74.14500000000021,"endTime":74.68500000000017,"body":"followed"},{"startTime":74.68500000000017,"endTime":74.86500000000024,"body":"are"},{"startTime":74.86500000000024,"endTime":75.16500000000019,"body":"prone"},{"startTime":75.16500000000019,"endTime":75.28500000000008,"body":"to"},{"startTime":75.28500000000008,"endTime":75.97500000000014,"body":"fade."},{"startTime":76.36500000000024,"endTime":76.81500000000005,"body":"Items"},{"startTime":76.81500000000005,"endTime":76.93500000000017,"body":"are"},{"startTime":76.93500000000017,"endTime":77.2650000000001,"body":"not"},{"startTime":77.2650000000001,"endTime":77.68500000000017,"body":"fully"},{"startTime":77.68500000000017,"endTime":78.37500000000023,"body":"permanent."},{"startTime":78.70500000000015,"endTime":79.21500000000015,"body":"Memory"},{"startTime":79.21500000000015,"endTime":79.42500000000018,"body":"is"},{"startTime":79.42500000000018,"endTime":80.38500000000022,"body":"transitory"},{"startTime":80.89500000000021,"endTime":81.07500000000005,"body":"yet."},{"startTime":81.07500000000005,"endTime":81.16500000000019,"body":"The"},{"startTime":81.16500000000019,"endTime":81.55500000000006,"body":"speed"},{"startTime":81.55500000000006,"endTime":81.64500000000021,"body":"of"},{"startTime":81.64500000000021,"endTime":82.45500000000015,"body":"action,"},{"startTime":82.72500000000014,"endTime":82.84500000000025,"body":"the"},{"startTime":82.84500000000025,"endTime":83.47500000000014,"body":"intricacy"},{"startTime":83.47500000000014,"endTime":83.68500000000017,"body":"of"},{"startTime":83.68500000000017,"endTime":84.34500000000025,"body":"trails,"},{"startTime":84.34500000000025,"endTime":84.46500000000015,"body":"the"},{"startTime":84.46500000000015,"endTime":84.88500000000022,"body":"detail"},{"startTime":84.88500000000022,"endTime":85.00500000000011,"body":"of"},{"startTime":85.00500000000011,"endTime":85.27500000000009,"body":"mental"},{"startTime":85.27500000000009,"endTime":85.93500000000017,"body":"pictures"},{"startTime":85.93500000000017,"endTime":86.17500000000018,"body":"is"},{"startTime":86.23500000000013,"endTime":86.53500000000008,"body":"awe"},{"startTime":86.53500000000008,"endTime":87.28500000000008,"body":"inspiring"},{"startTime":87.64500000000021,"endTime":88.09500000000025,"body":"beyond"},{"startTime":88.09500000000025,"endTime":88.30500000000006,"body":"all"},{"startTime":88.30500000000006,"endTime":88.78500000000008,"body":"else"},{"startTime":88.78500000000008,"endTime":88.93500000000017,"body":"in"},{"startTime":88.93500000000017,"endTime":89.62500000000023,"body":"nature."},{"startTime":89.62500000000023,"endTime":90.01500000000033,"body":"Man"},{"startTime":90.01500000000033,"endTime":90.34500000000025,"body":"cannot"},{"startTime":90.34500000000025,"endTime":90.73500000000013,"body":"hope"},{"startTime":90.73500000000013,"endTime":90.88500000000022,"body":"to"},{"startTime":90.88500000000022,"endTime":91.18500000000017,"body":"fully"},{"startTime":91.18500000000017,"endTime":91.9050000000002,"body":"duplicate"},{"startTime":91.9050000000002,"endTime":92.08500000000026,"body":"this"},{"startTime":92.08500000000026,"endTime":92.38500000000022,"body":"mental"},{"startTime":92.38500000000022,"endTime":93.07500000000027,"body":"process"},{"startTime":93.07500000000027,"endTime":94.06500000000028,"body":"artificially,"},{"startTime":94.42500000000018,"endTime":94.60500000000025,"body":"but"},{"startTime":94.60500000000025,"endTime":94.81500000000028,"body":"he"},{"startTime":94.81500000000028,"endTime":95.44500000000016,"body":"certainly"},{"startTime":95.44500000000016,"endTime":95.80500000000029,"body":"ought"},{"startTime":95.80500000000029,"endTime":95.89500000000021,"body":"to"},{"startTime":95.89500000000021,"endTime":95.98500000000013,"body":"be"},{"startTime":95.98500000000013,"endTime":96.13500000000022,"body":"able"},{"startTime":96.13500000000022,"endTime":96.25500000000011,"body":"to"},{"startTime":96.25500000000011,"endTime":96.55500000000029,"body":"learn"},{"startTime":96.55500000000029,"endTime":96.76500000000033,"body":"from"},{"startTime":96.76500000000033,"endTime":97.12500000000023,"body":"it"},{"startTime":97.60500000000025,"endTime":97.69500000000016,"body":"in"},{"startTime":97.69500000000016,"endTime":98.02500000000032,"body":"minor"},{"startTime":98.02500000000032,"endTime":98.38500000000022,"body":"ways."},{"startTime":98.38500000000022,"endTime":98.47500000000014,"body":"He"},{"startTime":98.47500000000014,"endTime":98.6550000000002,"body":"may"},{"startTime":98.6550000000002,"endTime":98.95500000000015,"body":"even"},{"startTime":98.95500000000015,"endTime":99.91500000000019,"body":"improve"},{"startTime":100.1550000000002,"endTime":100.30500000000029,"body":"for"},{"startTime":100.30500000000029,"endTime":100.42500000000018,"body":"his"},{"startTime":100.42500000000018,"endTime":100.9050000000002,"body":"records,"},{"startTime":100.9050000000002,"endTime":101.2950000000003,"body":"have"},{"startTime":101.2950000000003,"endTime":101.80500000000029,"body":"relative"},{"startTime":101.80500000000029,"endTime":102.67500000000018,"body":"permanency."},{"startTime":102.73500000000013,"endTime":102.7650000000001,"body":"Okay."},{"startTime":103.36500000000024,"endTime":103.5150000000001,"body":"The"},{"startTime":103.5150000000001,"endTime":103.9050000000002,"body":"first"},{"startTime":103.9050000000002,"endTime":104.38500000000022,"body":"idea,"},{"startTime":104.38500000000022,"endTime":105.0150000000001,"body":"however,"},{"startTime":105.0150000000001,"endTime":105.13500000000022,"body":"to"},{"startTime":105.13500000000022,"endTime":105.25500000000011,"body":"be"},{"startTime":105.25500000000011,"endTime":105.64500000000021,"body":"drawn"},{"startTime":105.64500000000021,"endTime":105.79500000000007,"body":"from"},{"startTime":105.79500000000007,"endTime":105.91500000000019,"body":"the"},{"startTime":105.91500000000019,"endTime":106.81500000000005,"body":"analogy"},{"startTime":106.96500000000015,"endTime":107.77500000000009,"body":"concerns"},{"startTime":107.83500000000026,"endTime":108.7650000000001,"body":"selection."},{"startTime":108.94500000000016,"endTime":109.72500000000014,"body":"Selection"},{"startTime":109.72500000000014,"endTime":109.9050000000002,"body":"by"},{"startTime":109.9050000000002,"endTime":111.0150000000001,"body":"association"},{"startTime":111.19500000000016,"endTime":111.55500000000006,"body":"rather"},{"startTime":111.55500000000006,"endTime":111.79500000000007,"body":"than"},{"startTime":111.79500000000007,"endTime":112.69500000000016,"body":"indexing"},{"startTime":112.96500000000015,"endTime":113.20500000000015,"body":"may"},{"startTime":113.20500000000015,"endTime":113.62500000000023,"body":"yet"},{"startTime":113.62500000000023,"endTime":113.77500000000009,"body":"be"},{"startTime":113.77500000000009,"endTime":114.7650000000001,"body":"mechanized."},{"startTime":115.18500000000017,"endTime":115.42500000000018,"body":"One"},{"startTime":115.42500000000018,"endTime":115.75500000000011,"body":"cannot"},{"startTime":115.75500000000011,"endTime":116.20500000000015,"body":"hope"},{"startTime":116.20500000000015,"endTime":116.74500000000012,"body":"thus"},{"startTime":116.95500000000015,"endTime":117.07500000000005,"body":"to"},{"startTime":117.07500000000005,"endTime":117.4050000000002,"body":"equal"},{"startTime":117.4050000000002,"endTime":117.49500000000012,"body":"the"},{"startTime":117.49500000000012,"endTime":117.94500000000016,"body":"speed"},{"startTime":117.94500000000016,"endTime":118.09500000000025,"body":"and"},{"startTime":118.09500000000025,"endTime":119.20500000000015,"body":"flexibility"},{"startTime":119.35500000000025,"endTime":119.56500000000005,"body":"with"},{"startTime":119.56500000000005,"endTime":119.86500000000024,"body":"which"},{"startTime":119.86500000000024,"endTime":119.98500000000013,"body":"the"},{"startTime":119.98500000000013,"endTime":120.28500000000008,"body":"mind"},{"startTime":120.28500000000008,"endTime":120.97500000000014,"body":"follows"},{"startTime":120.97500000000014,"endTime":121.1550000000002,"body":"an"},{"startTime":121.1550000000002,"endTime":121.84500000000025,"body":"associative"},{"startTime":121.87500000000023,"endTime":122.59500000000025,"body":"trail."},{"startTime":122.92500000000018,"endTime":123.07500000000005,"body":"But"},{"startTime":123.07500000000005,"endTime":123.16500000000019,"body":"it"},{"startTime":123.16500000000019,"endTime":123.46500000000015,"body":"should"},{"startTime":123.46500000000015,"endTime":123.61500000000024,"body":"be"},{"startTime":123.61500000000024,"endTime":124.24500000000012,"body":"possible"},{"startTime":124.24500000000012,"endTime":124.42500000000018,"body":"to"},{"startTime":124.42500000000018,"endTime":124.63500000000022,"body":"beat"},{"startTime":124.63500000000022,"endTime":124.72500000000014,"body":"the"},{"startTime":124.72500000000014,"endTime":124.99500000000012,"body":"mind"},{"startTime":124.99500000000012,"endTime":125.95500000000015,"body":"decisively"},{"startTime":125.98500000000013,"endTime":126.16500000000019,"body":"in"},{"startTime":126.16500000000019,"endTime":126.55500000000006,"body":"regard"},{"startTime":126.55500000000006,"endTime":126.61500000000024,"body":"to"},{"startTime":126.61500000000024,"endTime":126.73500000000013,"body":"the"},{"startTime":126.73500000000013,"endTime":127.45500000000015,"body":"permanence"},{"startTime":127.5150000000001,"endTime":127.69500000000016,"body":"and"},{"startTime":127.69500000000016,"endTime":128.35500000000025,"body":"clarity"},{"startTime":128.35500000000025,"endTime":128.5050000000001,"body":"of"},{"startTime":128.5050000000001,"endTime":128.62500000000023,"body":"the"},{"startTime":128.62500000000023,"endTime":129.28500000000008,"body":"items"},{"startTime":129.67500000000018,"endTime":130.54500000000007,"body":"resurrected"},{"startTime":130.60500000000025,"endTime":130.81500000000005,"body":"from"},{"startTime":130.81500000000005,"endTime":131.6550000000002,"body":"storage."},{"startTime":132.46500000000015,"endTime":133.09500000000025,"body":"Consider"},{"startTime":133.09500000000025,"endTime":133.12500000000023,"body":"a"},{"startTime":133.12500000000023,"endTime":133.5150000000001,"body":"future"},{"startTime":133.5150000000001,"endTime":133.99500000000012,"body":"device"},{"startTime":133.99500000000012,"endTime":134.1450000000002,"body":"for"},{"startTime":134.1450000000002,"endTime":134.71500000000015,"body":"individual"},{"startTime":134.71500000000015,"endTime":135.34500000000025,"body":"use,"},{"startTime":135.6450000000002,"endTime":136.09500000000025,"body":"which"},{"startTime":136.12500000000023,"endTime":136.24500000000012,"body":"is"},{"startTime":136.24500000000012,"endTime":136.33500000000004,"body":"a"},{"startTime":136.33500000000004,"endTime":136.69500000000016,"body":"sort"},{"startTime":136.69500000000016,"endTime":136.84500000000025,"body":"of"},{"startTime":136.84500000000025,"endTime":137.5050000000001,"body":"mechanized"},{"startTime":137.5050000000001,"endTime":137.98500000000013,"body":"private"},{"startTime":137.98500000000013,"endTime":138.58500000000004,"body":"file"},{"startTime":138.6450000000002,"endTime":138.82500000000005,"body":"and"},{"startTime":138.82500000000005,"endTime":139.60500000000025,"body":"library."},{"startTime":140.23500000000013,"endTime":140.38500000000022,"body":"It"},{"startTime":140.38500000000022,"endTime":140.6550000000002,"body":"needs"},{"startTime":140.6550000000002,"endTime":140.71500000000015,"body":"a"},{"startTime":140.71500000000015,"endTime":141.43500000000017,"body":"name"},{"startTime":141.46500000000015,"endTime":141.61500000000024,"body":"and"},{"startTime":141.61500000000024,"endTime":141.73500000000013,"body":"to"},{"startTime":141.73500000000013,"endTime":142.03500000000008,"body":"coin"},{"startTime":142.03500000000008,"endTime":142.1550000000002,"body":"one"},{"startTime":142.1550000000002,"endTime":142.30500000000006,"body":"at"},{"startTime":142.30500000000006,"endTime":143.05500000000006,"body":"random."},{"startTime":143.43000000000006,"endTime":144.24000000000024,"body":"MIMICS"},{"startTime":144.30000000000018,"endTime":144.51000000000022,"body":"will"},{"startTime":144.51000000000022,"endTime":145.0200000000002,"body":"do."},{"startTime":145.56000000000017,"endTime":145.68000000000006,"body":"A"},{"startTime":145.68000000000006,"endTime":146.1300000000001,"body":"mimics"},{"startTime":146.1300000000001,"endTime":146.2800000000002,"body":"is"},{"startTime":146.2800000000002,"endTime":146.37000000000012,"body":"a"},{"startTime":146.37000000000012,"endTime":147.0300000000002,"body":"device"},{"startTime":147.0300000000002,"endTime":147.18000000000006,"body":"in"},{"startTime":147.18000000000006,"endTime":147.42000000000007,"body":"which"},{"startTime":147.42000000000007,"endTime":147.5400000000002,"body":"an"},{"startTime":147.5400000000002,"endTime":148.20000000000005,"body":"individual"},{"startTime":148.20000000000005,"endTime":148.83000000000015,"body":"stores"},{"startTime":148.83000000000015,"endTime":149.1300000000001,"body":"all"},{"startTime":149.1300000000001,"endTime":149.31000000000017,"body":"its"},{"startTime":149.31000000000017,"endTime":149.85000000000014,"body":"books,"},{"startTime":150.09000000000015,"endTime":150.7800000000002,"body":"records"},{"startTime":150.7800000000002,"endTime":150.93000000000006,"body":"and"},{"startTime":150.93000000000006,"endTime":152.16000000000008,"body":"communications,"},{"startTime":152.22000000000003,"endTime":152.6400000000001,"body":"and"},{"startTime":152.6400000000001,"endTime":152.7900000000002,"body":"which"},{"startTime":152.7900000000002,"endTime":152.91000000000008,"body":"is"},{"startTime":152.91000000000008,"endTime":153.60000000000014,"body":"mechanized."},{"startTime":153.60000000000014,"endTime":153.9000000000001,"body":"So"},{"startTime":153.9000000000001,"endTime":154.0200000000002,"body":"it"},{"startTime":154.0200000000002,"endTime":154.20000000000005,"body":"may"},{"startTime":154.20000000000005,"endTime":154.35000000000014,"body":"be"},{"startTime":154.35000000000014,"endTime":155.25000000000023,"body":"consulted"},{"startTime":155.43000000000006,"endTime":155.61000000000013,"body":"with"},{"startTime":155.61000000000013,"endTime":156.1500000000001,"body":"exceeding"},{"startTime":156.1500000000001,"endTime":156.72000000000003,"body":"speed"},{"startTime":156.72000000000003,"endTime":156.93000000000006,"body":"and"},{"startTime":156.93000000000006,"endTime":157.95000000000005,"body":"flexibility."},{"startTime":158.55000000000018,"endTime":158.76000000000022,"body":"It"},{"startTime":158.76000000000022,"endTime":158.97000000000003,"body":"is"},{"startTime":158.97000000000003,"endTime":159.09000000000015,"body":"an"},{"startTime":159.09000000000015,"endTime":159.87000000000012,"body":"enlarged,"},{"startTime":159.87000000000012,"endTime":160.3800000000001,"body":"intimate"},{"startTime":160.3800000000001,"endTime":161.07000000000016,"body":"supplement"},{"startTime":161.10000000000014,"endTime":161.25000000000023,"body":"to"},{"startTime":161.25000000000023,"endTime":161.4000000000001,"body":"its"},{"startTime":161.4000000000001,"endTime":162.06000000000017,"body":"memory."},{"startTime":162.96000000000004,"endTime":163.17000000000007,"body":"It"},{"startTime":163.17000000000007,"endTime":163.83000000000015,"body":"consists"},{"startTime":163.83000000000015,"endTime":163.98000000000025,"body":"of"},{"startTime":163.98000000000025,"endTime":164.0400000000002,"body":"a"},{"startTime":164.0400000000002,"endTime":164.73000000000025,"body":"desk,"},{"startTime":164.94000000000005,"endTime":165.09000000000015,"body":"and"},{"startTime":165.09000000000015,"endTime":165.30000000000018,"body":"while"},{"startTime":165.30000000000018,"endTime":165.3900000000001,"body":"it"},{"startTime":165.3900000000001,"endTime":165.5400000000002,"body":"can"},{"startTime":165.5400000000002,"endTime":166.2900000000002,"body":"presumably"},{"startTime":166.2900000000002,"endTime":166.47000000000003,"body":"be"},{"startTime":166.47000000000003,"endTime":166.95000000000005,"body":"operated"},{"startTime":166.95000000000005,"endTime":167.10000000000014,"body":"from"},{"startTime":167.10000000000014,"endTime":167.16000000000008,"body":"a"},{"startTime":167.16000000000008,"endTime":167.94000000000005,"body":"distance,"},{"startTime":168.30000000000018,"endTime":168.5400000000002,"body":"it's"},{"startTime":168.5400000000002,"endTime":169.2900000000002,"body":"primarily"},{"startTime":169.2900000000002,"endTime":169.44000000000005,"body":"the"},{"startTime":169.44000000000005,"endTime":169.80000000000018,"body":"piece"},{"startTime":169.80000000000018,"endTime":169.8900000000001,"body":"of"},{"startTime":169.8900000000001,"endTime":170.5200000000002,"body":"furniture"},{"startTime":170.5200000000002,"endTime":170.73000000000025,"body":"at"},{"startTime":170.73000000000025,"endTime":171.00000000000023,"body":"which"},{"startTime":171.00000000000023,"endTime":171.18000000000006,"body":"he"},{"startTime":171.18000000000006,"endTime":171.75000000000023,"body":"works."},{"startTime":172.51500000000033,"endTime":172.63500000000022,"body":"On"},{"startTime":172.63500000000022,"endTime":172.72500000000036,"body":"the"},{"startTime":172.72500000000036,"endTime":173.11500000000024,"body":"top"},{"startTime":173.11500000000024,"endTime":173.23500000000035,"body":"are"},{"startTime":173.23500000000035,"endTime":173.83500000000026,"body":"slanting,"},{"startTime":173.83500000000026,"endTime":174.7950000000003,"body":"translucent"},{"startTime":174.7950000000003,"endTime":175.72500000000036,"body":"screens"},{"startTime":175.96500000000037,"endTime":176.11500000000024,"body":"on"},{"startTime":176.11500000000024,"endTime":176.2950000000003,"body":"which"},{"startTime":176.2950000000003,"endTime":176.83500000000026,"body":"material"},{"startTime":176.83500000000026,"endTime":177.01500000000033,"body":"can"},{"startTime":177.01500000000033,"endTime":177.07500000000027,"body":"be"},{"startTime":177.07500000000027,"endTime":177.82500000000027,"body":"projected"},{"startTime":177.82500000000027,"endTime":178.00500000000034,"body":"for"},{"startTime":178.00500000000034,"endTime":178.6950000000004,"body":"convenient"},{"startTime":178.6950000000004,"endTime":179.23500000000035,"body":"reading."},{"startTime":179.95500000000038,"endTime":180.25500000000034,"body":"There's"},{"startTime":180.25500000000034,"endTime":180.31500000000028,"body":"a"},{"startTime":180.31500000000028,"endTime":181.27500000000032,"body":"keyboard"},{"startTime":181.36500000000024,"endTime":181.48500000000035,"body":"and"},{"startTime":181.48500000000035,"endTime":181.5450000000003,"body":"a"},{"startTime":181.5450000000003,"endTime":181.75500000000034,"body":"set"},{"startTime":181.75500000000034,"endTime":181.87500000000023,"body":"of"},{"startTime":181.87500000000023,"endTime":182.32500000000027,"body":"buttons"},{"startTime":182.32500000000027,"endTime":182.4450000000004,"body":"and"},{"startTime":182.4450000000004,"endTime":183.16500000000042,"body":"levers."},{"startTime":183.61500000000024,"endTime":184.21500000000037,"body":"Otherwise,"},{"startTime":184.21500000000037,"endTime":184.3050000000003,"body":"it"},{"startTime":184.3050000000003,"endTime":184.72500000000036,"body":"looks"},{"startTime":184.72500000000036,"endTime":184.90500000000043,"body":"like"},{"startTime":184.90500000000043,"endTime":185.02500000000032,"body":"an"},{"startTime":185.02500000000032,"endTime":185.65500000000043,"body":"ordinary"},{"startTime":185.65500000000043,"endTime":186.31500000000028,"body":"desk."},{"startTime":187.08000000000015,"endTime":187.26000000000022,"body":"In"},{"startTime":187.26000000000022,"endTime":187.50000000000023,"body":"one"},{"startTime":187.50000000000023,"endTime":188.0400000000002,"body":"end"},{"startTime":188.0400000000002,"endTime":188.22000000000025,"body":"is"},{"startTime":188.22000000000025,"endTime":188.2800000000002,"body":"a"},{"startTime":188.2800000000002,"endTime":188.94000000000005,"body":"stored"},{"startTime":188.94000000000005,"endTime":189.84000000000015,"body":"material."},{"startTime":190.08000000000015,"endTime":190.17000000000007,"body":"The"},{"startTime":190.17000000000007,"endTime":190.62000000000012,"body":"material"},{"startTime":190.62000000000012,"endTime":190.7700000000002,"body":"of"},{"startTime":190.7700000000002,"endTime":191.19000000000005,"body":"bulk"},{"startTime":191.19000000000005,"endTime":191.34000000000015,"body":"is"},{"startTime":191.34000000000015,"endTime":191.61000000000013,"body":"well"},{"startTime":191.61000000000013,"endTime":191.97000000000025,"body":"taken"},{"startTime":191.97000000000025,"endTime":192.33000000000015,"body":"care"},{"startTime":192.33000000000015,"endTime":192.48000000000025,"body":"of"},{"startTime":192.48000000000025,"endTime":192.6300000000001,"body":"by"},{"startTime":192.6300000000001,"endTime":193.23000000000025,"body":"improved"},{"startTime":193.23000000000025,"endTime":194.16000000000008,"body":"microfilm."},{"startTime":194.58000000000015,"endTime":194.8800000000001,"body":"Only"},{"startTime":194.8800000000001,"endTime":194.94000000000005,"body":"a"},{"startTime":194.94000000000005,"endTime":195.30000000000018,"body":"small"},{"startTime":195.30000000000018,"endTime":195.69000000000005,"body":"part"},{"startTime":195.69000000000005,"endTime":195.81000000000017,"body":"of"},{"startTime":195.81000000000017,"endTime":195.93000000000006,"body":"the"},{"startTime":195.93000000000006,"endTime":196.56000000000017,"body":"interior"},{"startTime":196.56000000000017,"endTime":196.68000000000006,"body":"of"},{"startTime":196.68000000000006,"endTime":196.83000000000015,"body":"the"},{"startTime":196.83000000000015,"endTime":197.2800000000002,"body":"memex"},{"startTime":197.2800000000002,"endTime":197.43000000000006,"body":"is"},{"startTime":197.43000000000006,"endTime":197.82000000000016,"body":"devoted"},{"startTime":197.82000000000016,"endTime":197.91000000000008,"body":"to"},{"startTime":197.91000000000008,"endTime":198.69000000000005,"body":"storage,"},{"startTime":198.96000000000026,"endTime":199.11000000000013,"body":"the"},{"startTime":199.11000000000013,"endTime":199.47000000000025,"body":"rest"},{"startTime":199.47000000000025,"endTime":199.59000000000015,"body":"to"},{"startTime":199.59000000000015,"endTime":200.49000000000024,"body":"mechanism."},{"startTime":200.91000000000008,"endTime":201.1500000000001,"body":"Yet,"},{"startTime":201.1500000000001,"endTime":201.2700000000002,"body":"if"},{"startTime":201.2700000000002,"endTime":201.36000000000013,"body":"the"},{"startTime":201.36000000000013,"endTime":201.7800000000002,"body":"user"},{"startTime":201.7800000000002,"endTime":202.35000000000014,"body":"inserted"},{"startTime":202.35000000000014,"endTime":203.07000000000016,"body":"5,000"},{"startTime":203.07000000000016,"endTime":203.61000000000013,"body":"pages"},{"startTime":203.61000000000013,"endTime":203.70000000000005,"body":"of"},{"startTime":203.70000000000005,"endTime":204.45000000000005,"body":"material"},{"startTime":204.45000000000005,"endTime":204.57000000000016,"body":"a"},{"startTime":204.57000000000016,"endTime":205.1400000000001,"body":"day,"},{"startTime":205.3800000000001,"endTime":205.50000000000023,"body":"it"},{"startTime":205.50000000000023,"endTime":205.59000000000015,"body":"would"},{"startTime":205.62000000000012,"endTime":205.80000000000018,"body":"take"},{"startTime":205.80000000000018,"endTime":205.92000000000007,"body":"him"},{"startTime":205.92000000000007,"endTime":206.43000000000006,"body":"hundreds"},{"startTime":206.43000000000006,"endTime":206.5200000000002,"body":"of"},{"startTime":206.5200000000002,"endTime":206.91000000000008,"body":"years"},{"startTime":206.91000000000008,"endTime":207.0300000000002,"body":"to"},{"startTime":207.0300000000002,"endTime":207.30000000000018,"body":"fill"},{"startTime":207.30000000000018,"endTime":207.3900000000001,"body":"the"},{"startTime":207.3900000000001,"endTime":208.44000000000005,"body":"repository"},{"startTime":208.7700000000002,"endTime":208.98000000000025,"body":"so"},{"startTime":208.98000000000025,"endTime":209.07000000000016,"body":"it"},{"startTime":209.07000000000016,"endTime":209.2800000000002,"body":"can"},{"startTime":209.2800000000002,"endTime":210.12000000000012,"body":"propagate"},{"startTime":210.1500000000001,"endTime":210.30000000000018,"body":"and"},{"startTime":210.30000000000018,"endTime":210.69000000000005,"body":"enter"},{"startTime":210.69000000000005,"endTime":211.41000000000008,"body":"material"},{"startTime":211.44000000000005,"endTime":212.0400000000002,"body":"freely."},{"startTime":212.91000000000008,"endTime":213.21000000000004,"body":"Most"},{"startTime":213.21000000000004,"endTime":213.2700000000002,"body":"of"},{"startTime":213.2700000000002,"endTime":213.36000000000013,"body":"the"},{"startTime":213.36000000000013,"endTime":213.99000000000024,"body":"mimics"},{"startTime":214.0200000000002,"endTime":214.83000000000015,"body":"contents"},{"startTime":214.8900000000001,"endTime":215.01000000000022,"body":"are"},{"startTime":215.01000000000022,"endTime":215.61000000000013,"body":"purchased"},{"startTime":215.61000000000013,"endTime":215.76000000000022,"body":"on"},{"startTime":215.76000000000022,"endTime":216.51000000000022,"body":"microfilm,"},{"startTime":216.57000000000016,"endTime":216.87000000000012,"body":"ready"},{"startTime":216.87000000000012,"endTime":217.05000000000018,"body":"for"},{"startTime":217.05000000000018,"endTime":217.86000000000013,"body":"insertion,"},{"startTime":218.31000000000017,"endTime":218.61000000000013,"body":"books"},{"startTime":218.61000000000013,"endTime":218.70000000000005,"body":"of"},{"startTime":218.70000000000005,"endTime":218.85000000000014,"body":"all"},{"startTime":218.85000000000014,"endTime":219.3900000000001,"body":"sorts,"},{"startTime":219.3900000000001,"endTime":220.20000000000005,"body":"pictures,"},{"startTime":220.20000000000005,"endTime":220.56000000000017,"body":"current"},{"startTime":220.56000000000017,"endTime":221.4000000000001,"body":"periodicals,"},{"startTime":221.4000000000001,"endTime":222.24000000000024,"body":"newspapers"},{"startTime":222.48000000000025,"endTime":222.6300000000001,"body":"are"},{"startTime":222.6300000000001,"endTime":222.84000000000015,"body":"this"},{"startTime":222.84000000000015,"endTime":223.50000000000023,"body":"obtained"},{"startTime":223.50000000000023,"endTime":223.68000000000006,"body":"and"},{"startTime":223.68000000000006,"endTime":224.10000000000014,"body":"dropped"},{"startTime":224.10000000000014,"endTime":224.31000000000017,"body":"into"},{"startTime":224.31000000000017,"endTime":224.7900000000002,"body":"place."},{"startTime":225.6300000000001,"endTime":226.1400000000001,"body":"Business"},{"startTime":226.1400000000001,"endTime":227.0400000000002,"body":"correspondence"},{"startTime":227.0400000000002,"endTime":227.4000000000001,"body":"takes"},{"startTime":227.4000000000001,"endTime":227.49000000000024,"body":"the"},{"startTime":227.49000000000024,"endTime":227.85000000000014,"body":"same"},{"startTime":227.85000000000014,"endTime":228.4200000000003,"body":"path,"},{"startTime":228.75000000000023,"endTime":228.9300000000003,"body":"and"},{"startTime":228.9300000000003,"endTime":229.11000000000013,"body":"there"},{"startTime":229.11000000000013,"endTime":229.20000000000027,"body":"is"},{"startTime":229.20000000000027,"endTime":229.2900000000002,"body":"a"},{"startTime":229.2900000000002,"endTime":229.86000000000013,"body":"provision"},{"startTime":229.86000000000013,"endTime":230.01000000000022,"body":"for"},{"startTime":230.01000000000022,"endTime":230.46000000000026,"body":"direct"},{"startTime":230.46000000000026,"endTime":231.1800000000003,"body":"entry."},{"startTime":231.5400000000002,"endTime":231.69000000000028,"body":"On"},{"startTime":231.69000000000028,"endTime":231.7800000000002,"body":"the"},{"startTime":231.7800000000002,"endTime":232.08000000000015,"body":"top"},{"startTime":232.08000000000015,"endTime":232.1400000000001,"body":"of"},{"startTime":232.1400000000001,"endTime":232.26000000000022,"body":"the"},{"startTime":232.26000000000022,"endTime":232.74000000000024,"body":"mimics"},{"startTime":232.74000000000024,"endTime":232.9200000000003,"body":"is"},{"startTime":232.9200000000003,"endTime":232.98000000000025,"body":"a"},{"startTime":232.98000000000025,"endTime":233.8800000000001,"body":"transparent"},{"startTime":233.91000000000008,"endTime":234.5400000000002,"body":"plan."},{"startTime":235.05000000000018,"endTime":235.32000000000016,"body":"On"},{"startTime":235.32000000000016,"endTime":235.6500000000001,"body":"this"},{"startTime":235.6500000000001,"endTime":235.83000000000015,"body":"are"},{"startTime":235.83000000000015,"endTime":236.25000000000023,"body":"placed"},{"startTime":236.25000000000023,"endTime":236.7900000000002,"body":"longhand,"},{"startTime":236.7900000000002,"endTime":237.36000000000013,"body":"notes,"},{"startTime":237.4200000000003,"endTime":238.08000000000015,"body":"photographs,"},{"startTime":238.11000000000013,"endTime":238.8900000000001,"body":"memoranda,"},{"startTime":239.1300000000001,"endTime":239.34000000000015,"body":"all"},{"startTime":239.34000000000015,"endTime":239.6700000000003,"body":"sorts"},{"startTime":239.6700000000003,"endTime":239.76000000000022,"body":"of"},{"startTime":239.76000000000022,"endTime":240.3900000000001,"body":"things."},{"startTime":240.72000000000025,"endTime":240.9300000000003,"body":"When"},{"startTime":240.9300000000003,"endTime":241.1400000000001,"body":"one"},{"startTime":241.1400000000001,"endTime":241.26000000000022,"body":"is"},{"startTime":241.26000000000022,"endTime":241.3800000000001,"body":"in"},{"startTime":241.3800000000001,"endTime":241.80000000000018,"body":"place,"},{"startTime":241.80000000000018,"endTime":241.8900000000001,"body":"the"},{"startTime":241.8900000000001,"endTime":242.4000000000001,"body":"depression"},{"startTime":242.4000000000001,"endTime":242.49000000000024,"body":"of"},{"startTime":242.49000000000024,"endTime":242.55000000000018,"body":"a"},{"startTime":242.55000000000018,"endTime":242.94000000000028,"body":"lever"},{"startTime":242.94000000000028,"endTime":243.4200000000003,"body":"causes"},{"startTime":243.4200000000003,"endTime":243.57000000000016,"body":"it"},{"startTime":243.57000000000016,"endTime":243.6300000000001,"body":"to"},{"startTime":243.6300000000001,"endTime":243.7800000000002,"body":"be"},{"startTime":243.7800000000002,"endTime":244.47000000000025,"body":"photographed"},{"startTime":244.47500000000014,"endTime":244.59500000000025,"body":"in"},{"startTime":244.60000000000014,"endTime":244.6500000000001,"body":"the"},{"startTime":244.6500000000001,"endTime":245.01000000000022,"body":"next"},{"startTime":245.01000000000022,"endTime":245.31000000000017,"body":"blank"},{"startTime":245.31000000000017,"endTime":245.97000000000025,"body":"space"},{"startTime":246.30000000000018,"endTime":246.4200000000003,"body":"in"},{"startTime":246.4200000000003,"endTime":246.48000000000025,"body":"a"},{"startTime":246.48000000000025,"endTime":246.9000000000001,"body":"section"},{"startTime":246.9000000000001,"endTime":246.99000000000024,"body":"of"},{"startTime":246.99000000000024,"endTime":247.08000000000015,"body":"the"},{"startTime":247.08000000000015,"endTime":247.47000000000025,"body":"mimics"},{"startTime":247.47000000000025,"endTime":248.01000000000022,"body":"film,"},{"startTime":248.34000000000015,"endTime":248.70000000000027,"body":"dry"},{"startTime":248.70000000000027,"endTime":249.4200000000003,"body":"photography"},{"startTime":249.4200000000003,"endTime":249.66000000000008,"body":"being"},{"startTime":249.66000000000008,"endTime":250.41000000000008,"body":"employed."},{"startTime":251.08000000000015,"endTime":251.2900000000002,"body":"There"},{"startTime":251.2900000000002,"endTime":251.4100000000003,"body":"is"},{"startTime":251.4100000000003,"endTime":251.5300000000002,"body":"of"},{"startTime":251.5300000000002,"endTime":251.9200000000003,"body":"course"},{"startTime":251.9200000000003,"endTime":252.37000000000012,"body":"provision"},{"startTime":252.37000000000012,"endTime":252.5200000000002,"body":"for"},{"startTime":252.5200000000002,"endTime":253.36000000000013,"body":"consultation"},{"startTime":253.36000000000013,"endTime":253.4200000000003,"body":"of"},{"startTime":253.4200000000003,"endTime":253.5400000000002,"body":"the"},{"startTime":253.5400000000002,"endTime":254.11000000000013,"body":"record"},{"startTime":254.35000000000014,"endTime":254.50000000000023,"body":"by"},{"startTime":254.50000000000023,"endTime":254.62000000000012,"body":"the"},{"startTime":254.62000000000012,"endTime":254.98000000000025,"body":"usual"},{"startTime":254.98000000000025,"endTime":255.37000000000012,"body":"scheme"},{"startTime":255.37000000000012,"endTime":255.49000000000024,"body":"of"},{"startTime":255.49000000000024,"endTime":256.1800000000003,"body":"indexing."},{"startTime":256.8100000000002,"endTime":256.99000000000024,"body":"If"},{"startTime":256.99000000000024,"endTime":257.1100000000001,"body":"the"},{"startTime":257.1100000000001,"endTime":257.59000000000015,"body":"user"},{"startTime":257.59000000000015,"endTime":258.0100000000002,"body":"wishes"},{"startTime":258.0100000000002,"endTime":258.1300000000001,"body":"to"},{"startTime":258.1300000000001,"endTime":258.6400000000003,"body":"consult"},{"startTime":258.6400000000003,"endTime":258.7000000000003,"body":"a"},{"startTime":258.7000000000003,"endTime":259.1200000000001,"body":"certain"},{"startTime":259.1200000000001,"endTime":259.57000000000016,"body":"book,"},{"startTime":259.60000000000014,"endTime":259.96000000000026,"body":"he"},{"startTime":259.96000000000026,"endTime":260.32000000000016,"body":"taps"},{"startTime":260.32000000000016,"endTime":260.5000000000002,"body":"its"},{"startTime":260.5000000000002,"endTime":260.8900000000003,"body":"code"},{"startTime":260.8900000000003,"endTime":261.0100000000002,"body":"on"},{"startTime":261.0100000000002,"endTime":261.07000000000016,"body":"the"},{"startTime":261.07000000000016,"endTime":261.85000000000014,"body":"keyboard"},{"startTime":261.9100000000003,"endTime":262.2700000000002,"body":"and"},{"startTime":262.2700000000002,"endTime":262.33000000000015,"body":"the"},{"startTime":262.33000000000015,"endTime":262.6600000000003,"body":"title"},{"startTime":262.6600000000003,"endTime":262.9300000000003,"body":"page"},{"startTime":262.9300000000003,"endTime":262.99000000000024,"body":"of"},{"startTime":262.99000000000024,"endTime":263.1100000000001,"body":"the"},{"startTime":263.1100000000001,"endTime":263.47000000000025,"body":"book"},{"startTime":263.47000000000025,"endTime":264.07000000000016,"body":"promptly"},{"startTime":264.07000000000016,"endTime":264.5500000000002,"body":"appears"},{"startTime":264.5500000000002,"endTime":264.9400000000003,"body":"before"},{"startTime":264.9400000000003,"endTime":265.3600000000001,"body":"him"},{"startTime":265.96000000000026,"endTime":266.59000000000015,"body":"projected"},{"startTime":266.59000000000015,"endTime":266.8000000000002,"body":"onto"},{"startTime":266.8000000000002,"endTime":266.98000000000025,"body":"one"},{"startTime":266.98000000000025,"endTime":267.10000000000014,"body":"of"},{"startTime":267.10000000000014,"endTime":267.2500000000002,"body":"his"},{"startTime":267.2500000000002,"endTime":267.5500000000002,"body":"viewing"},{"startTime":267.5500000000002,"endTime":268.21000000000026,"body":"positions."},{"startTime":268.9350000000002,"endTime":269.44500000000016,"body":"Frequently"},{"startTime":269.44500000000016,"endTime":269.80500000000006,"body":"used"},{"startTime":269.80500000000006,"endTime":270.2550000000001,"body":"codes"},{"startTime":270.2850000000001,"endTime":270.4050000000002,"body":"are"},{"startTime":270.4050000000002,"endTime":271.09500000000025,"body":"mnemonic"},{"startTime":271.33500000000004,"endTime":271.4850000000001,"body":"so"},{"startTime":271.4850000000001,"endTime":271.6350000000002,"body":"that"},{"startTime":271.6350000000002,"endTime":271.7850000000001,"body":"he"},{"startTime":271.7850000000001,"endTime":272.3850000000002,"body":"seldom"},{"startTime":272.3850000000002,"endTime":272.9250000000002,"body":"consults"},{"startTime":272.9250000000002,"endTime":273.10500000000025,"body":"his"},{"startTime":273.10500000000025,"endTime":273.3750000000002,"body":"code"},{"startTime":273.3750000000002,"endTime":273.7650000000001,"body":"book,"},{"startTime":274.2450000000001,"endTime":274.3950000000002,"body":"but"},{"startTime":274.3950000000002,"endTime":274.5150000000001,"body":"when"},{"startTime":274.5150000000001,"endTime":274.60500000000025,"body":"he"},{"startTime":274.60500000000025,"endTime":275.0250000000001,"body":"does"},{"startTime":275.0250000000001,"endTime":275.1450000000002,"body":"a"},{"startTime":275.1450000000002,"endTime":275.44500000000016,"body":"single"},{"startTime":275.44500000000016,"endTime":275.6850000000002,"body":"tap"},{"startTime":275.6850000000002,"endTime":275.80500000000006,"body":"of"},{"startTime":275.80500000000006,"endTime":275.86500000000024,"body":"a"},{"startTime":275.86500000000024,"endTime":276.2850000000001,"body":"key,"},{"startTime":276.2850000000001,"endTime":276.85500000000025,"body":"projects"},{"startTime":276.85500000000025,"endTime":276.97500000000014,"body":"it"},{"startTime":276.97500000000014,"endTime":277.1550000000002,"body":"for"},{"startTime":277.1550000000002,"endTime":277.30500000000006,"body":"his"},{"startTime":277.30500000000006,"endTime":277.84500000000025,"body":"use."},{"startTime":278.08500000000004,"endTime":278.6550000000002,"body":"Moreover,"},{"startTime":278.6550000000002,"endTime":278.83500000000004,"body":"he"},{"startTime":278.83500000000004,"endTime":278.9250000000002,"body":"has"},{"startTime":278.9250000000002,"endTime":279.5250000000001,"body":"supplemental"},{"startTime":279.5250000000001,"endTime":280.1850000000002,"body":"levers"},{"startTime":280.5150000000001,"endTime":280.6650000000002,"body":"on"},{"startTime":280.6650000000002,"endTime":281.5350000000001,"body":"deflecting"},{"startTime":281.56500000000005,"endTime":281.80500000000006,"body":"one"},{"startTime":281.80500000000006,"endTime":281.95500000000015,"body":"of"},{"startTime":281.95500000000015,"endTime":282.2850000000001,"body":"these"},{"startTime":282.2850000000001,"endTime":282.7950000000001,"body":"levers"},{"startTime":282.7950000000001,"endTime":282.85500000000025,"body":"to"},{"startTime":282.85500000000025,"endTime":282.97500000000014,"body":"the"},{"startTime":282.97500000000014,"endTime":283.4250000000002,"body":"right."},{"startTime":283.4250000000002,"endTime":283.6650000000002,"body":"He"},{"startTime":283.6650000000002,"endTime":284.0250000000001,"body":"runs"},{"startTime":284.0250000000001,"endTime":284.1750000000002,"body":"through"},{"startTime":284.1750000000002,"endTime":284.2950000000001,"body":"the"},{"startTime":284.2950000000001,"endTime":284.56500000000005,"body":"book"},{"startTime":284.56500000000005,"endTime":284.9850000000001,"body":"before"},{"startTime":284.9850000000001,"endTime":285.19500000000016,"body":"him,"},{"startTime":285.19500000000016,"endTime":285.22500000000014,"body":"he."},{"startTime":285.6200000000001,"endTime":285.98,"body":"Each"},{"startTime":285.98,"endTime":286.58000000000015,"body":"page"},{"startTime":286.6100000000001,"endTime":286.7900000000002,"body":"in"},{"startTime":286.7900000000002,"endTime":287.18000000000006,"body":"turn"},{"startTime":287.18000000000006,"endTime":287.3600000000001,"body":"being"},{"startTime":287.3600000000001,"endTime":288.08000000000015,"body":"projected"},{"startTime":288.32000000000016,"endTime":288.5000000000002,"body":"at"},{"startTime":288.5000000000002,"endTime":288.5300000000002,"body":"a"},{"startTime":288.5300000000002,"endTime":289.2500000000002,"body":"speed,"},{"startTime":289.43000000000006,"endTime":289.70000000000005,"body":"which"},{"startTime":289.70000000000005,"endTime":289.97,"body":"just"},{"startTime":289.97,"endTime":290.48,"body":"allows"},{"startTime":290.48,"endTime":290.60000000000014,"body":"a"},{"startTime":290.60000000000014,"endTime":291.2900000000002,"body":"recognizing"},{"startTime":291.2900000000002,"endTime":291.71000000000004,"body":"glance"},{"startTime":291.71000000000004,"endTime":291.8600000000001,"body":"at"},{"startTime":291.8600000000001,"endTime":292.46000000000004,"body":"each."},{"startTime":292.73,"endTime":292.8800000000001,"body":"If"},{"startTime":292.8800000000001,"endTime":292.97,"body":"he"},{"startTime":292.97,"endTime":293.48,"body":"deflects"},{"startTime":293.48,"endTime":293.6600000000001,"body":"it"},{"startTime":293.6600000000001,"endTime":294.1100000000001,"body":"further"},{"startTime":294.1100000000001,"endTime":294.20000000000005,"body":"to"},{"startTime":294.20000000000005,"endTime":294.32000000000016,"body":"the"},{"startTime":294.32000000000016,"endTime":294.7700000000002,"body":"right,"},{"startTime":294.8000000000002,"endTime":295.1300000000001,"body":"he"},{"startTime":295.1300000000001,"endTime":295.5200000000002,"body":"steps"},{"startTime":295.5200000000002,"endTime":295.6700000000001,"body":"through"},{"startTime":295.6700000000001,"endTime":295.82000000000016,"body":"the"},{"startTime":295.82000000000016,"endTime":296.18000000000006,"body":"book"},{"startTime":296.3600000000001,"endTime":296.60000000000014,"body":"10"},{"startTime":296.60000000000014,"endTime":296.96000000000004,"body":"pages"},{"startTime":296.96000000000004,"endTime":297.08000000000015,"body":"at"},{"startTime":297.08000000000015,"endTime":297.1400000000001,"body":"a"},{"startTime":297.1400000000001,"endTime":297.74,"body":"time,"},{"startTime":298.0400000000002,"endTime":298.3700000000001,"body":"still"},{"startTime":298.3700000000001,"endTime":299.0300000000002,"body":"further"},{"startTime":299.09000000000015,"endTime":299.1500000000001,"body":"a"},{"startTime":299.1500000000001,"endTime":299.69000000000005,"body":"hundred"},{"startTime":299.69000000000005,"endTime":300.1400000000001,"body":"pages"},{"startTime":300.1400000000001,"endTime":300.2600000000002,"body":"at"},{"startTime":300.2600000000002,"endTime":300.2900000000002,"body":"a"},{"startTime":300.2900000000002,"endTime":300.8000000000002,"body":"time."},{"startTime":301.10000000000014,"endTime":301.70000000000005,"body":"Deflection"},{"startTime":301.70000000000005,"endTime":301.7900000000002,"body":"to"},{"startTime":301.7900000000002,"endTime":301.94000000000005,"body":"the"},{"startTime":301.94000000000005,"endTime":302.45000000000005,"body":"left"},{"startTime":302.6300000000001,"endTime":302.93000000000006,"body":"gives"},{"startTime":302.93000000000006,"endTime":303.0500000000002,"body":"him"},{"startTime":303.0500000000002,"endTime":303.1700000000001,"body":"the"},{"startTime":303.1700000000001,"endTime":303.5300000000002,"body":"same"},{"startTime":303.5300000000002,"endTime":304.2800000000002,"body":"control"},{"startTime":304.2800000000002,"endTime":305.18000000000006,"body":"backwards."},{"startTime":305.97000000000025,"endTime":306.0600000000002,"body":"A"},{"startTime":306.0600000000002,"endTime":306.5400000000002,"body":"special"},{"startTime":306.5400000000002,"endTime":306.9300000000003,"body":"button"},{"startTime":306.9300000000003,"endTime":307.6200000000001,"body":"transfers"},{"startTime":307.6200000000001,"endTime":307.8600000000001,"body":"him"},{"startTime":307.8600000000001,"endTime":308.46000000000026,"body":"immediately"},{"startTime":308.46000000000026,"endTime":308.58000000000015,"body":"to"},{"startTime":308.58000000000015,"endTime":308.7000000000003,"body":"the"},{"startTime":308.7000000000003,"endTime":309.0600000000002,"body":"first"},{"startTime":309.0600000000002,"endTime":309.3600000000001,"body":"page"},{"startTime":309.3600000000001,"endTime":309.4500000000003,"body":"of"},{"startTime":309.4500000000003,"endTime":309.57000000000016,"body":"the"},{"startTime":309.57000000000016,"endTime":310.2900000000002,"body":"index."},{"startTime":310.7700000000002,"endTime":311.0100000000002,"body":"Any"},{"startTime":311.0100000000002,"endTime":311.34000000000015,"body":"given"},{"startTime":311.34000000000015,"endTime":311.6100000000001,"body":"book"},{"startTime":311.6100000000001,"endTime":311.7000000000003,"body":"of"},{"startTime":311.7000000000003,"endTime":311.85000000000014,"body":"his"},{"startTime":311.85000000000014,"endTime":312.63000000000034,"body":"library"},{"startTime":312.8100000000002,"endTime":313.0200000000002,"body":"can"},{"startTime":313.0200000000002,"endTime":313.2600000000002,"body":"thus"},{"startTime":313.2600000000002,"endTime":313.38000000000034,"body":"be"},{"startTime":313.38000000000034,"endTime":313.6800000000003,"body":"called"},{"startTime":313.6800000000003,"endTime":314.0400000000002,"body":"upon"},{"startTime":314.0400000000002,"endTime":314.13000000000034,"body":"and"},{"startTime":314.13000000000034,"endTime":314.85000000000014,"body":"consulted"},{"startTime":314.85000000000014,"endTime":315.09000000000015,"body":"with"},{"startTime":315.09000000000015,"endTime":315.4500000000003,"body":"far"},{"startTime":315.4500000000003,"endTime":315.8100000000002,"body":"greater"},{"startTime":315.8100000000002,"endTime":316.59000000000015,"body":"facility"},{"startTime":316.8600000000001,"endTime":317.07000000000016,"body":"than"},{"startTime":317.07000000000016,"endTime":317.2500000000002,"body":"if"},{"startTime":317.2500000000002,"endTime":317.3700000000001,"body":"it"},{"startTime":317.3700000000001,"endTime":317.5200000000002,"body":"were"},{"startTime":317.5200000000002,"endTime":318.1200000000001,"body":"taken"},{"startTime":318.3000000000002,"endTime":318.5100000000002,"body":"from"},{"startTime":318.5100000000002,"endTime":318.57000000000016,"body":"a"},{"startTime":318.57000000000016,"endTime":319.1700000000003,"body":"shelf."},{"startTime":319.8000000000002,"endTime":320.0100000000002,"body":"As"},{"startTime":320.0100000000002,"endTime":320.10000000000014,"body":"he"},{"startTime":320.10000000000014,"endTime":320.22000000000025,"body":"has"},{"startTime":320.22000000000025,"endTime":320.58000000000015,"body":"several"},{"startTime":320.58000000000015,"endTime":321.33000000000015,"body":"projection"},{"startTime":321.33000000000015,"endTime":322.1400000000003,"body":"positions,"},{"startTime":322.1700000000003,"endTime":322.5300000000002,"body":"he"},{"startTime":322.5300000000002,"endTime":322.74000000000024,"body":"can"},{"startTime":322.74000000000024,"endTime":323.07000000000016,"body":"leave"},{"startTime":323.07000000000016,"endTime":323.3700000000001,"body":"one"},{"startTime":323.3700000000001,"endTime":323.73000000000025,"body":"item"},{"startTime":323.73000000000025,"endTime":323.88000000000034,"body":"in"},{"startTime":323.88000000000034,"endTime":324.6600000000003,"body":"position,"},{"startTime":324.6650000000002,"endTime":324.85500000000025,"body":"which"},{"startTime":324.96000000000026,"endTime":325.0500000000002,"body":"he"},{"startTime":325.0500000000002,"endTime":325.38000000000034,"body":"calls"},{"startTime":325.38000000000034,"endTime":325.59000000000015,"body":"up"},{"startTime":325.59000000000015,"endTime":325.7700000000002,"body":"for"},{"startTime":325.7700000000002,"endTime":326.3700000000001,"body":"another."},{"startTime":326.46000000000026,"endTime":326.6100000000001,"body":"He"},{"startTime":326.6100000000001,"endTime":326.7600000000002,"body":"can"},{"startTime":326.7600000000002,"endTime":326.97000000000025,"body":"add"},{"startTime":326.97000000000025,"endTime":327.5100000000002,"body":"marginal"},{"startTime":327.5100000000002,"endTime":327.9000000000003,"body":"notes"},{"startTime":327.9000000000003,"endTime":328.0200000000002,"body":"and"},{"startTime":328.0200000000002,"endTime":328.8000000000002,"body":"comments."},{"startTime":329.2800000000002,"endTime":329.73000000000025,"body":"Taking"},{"startTime":329.73000000000025,"endTime":330.3600000000001,"body":"advantage"},{"startTime":330.3600000000001,"endTime":330.5100000000002,"body":"of"},{"startTime":330.5100000000002,"endTime":330.7800000000002,"body":"one"},{"startTime":330.7800000000002,"endTime":331.2900000000002,"body":"possible"},{"startTime":331.2900000000002,"endTime":331.6800000000003,"body":"type"},{"startTime":331.6800000000003,"endTime":331.83000000000015,"body":"of"},{"startTime":331.83000000000015,"endTime":332.1300000000001,"body":"dry"},{"startTime":332.1300000000001,"endTime":333.0600000000002,"body":"photography,"},{"startTime":333.1500000000003,"endTime":333.60000000000014,"body":"and"},{"startTime":333.60000000000014,"endTime":333.6600000000003,"body":"it"},{"startTime":333.6600000000003,"endTime":333.8100000000002,"body":"could"},{"startTime":333.8100000000002,"endTime":334.1400000000003,"body":"even"},{"startTime":334.1400000000003,"endTime":334.2900000000002,"body":"be"},{"startTime":334.2900000000002,"endTime":335.10000000000014,"body":"arranged."},{"startTime":335.2800000000002,"endTime":335.4300000000003,"body":"So"},{"startTime":335.4300000000003,"endTime":335.5500000000002,"body":"they"},{"startTime":335.5500000000002,"endTime":335.7600000000002,"body":"can"},{"startTime":335.7600000000002,"endTime":335.9100000000003,"body":"do"},{"startTime":335.9100000000003,"endTime":336.1800000000003,"body":"this"},{"startTime":336.1800000000003,"endTime":336.3600000000001,"body":"by"},{"startTime":336.3600000000001,"endTime":336.4200000000003,"body":"a"},{"startTime":336.4200000000003,"endTime":336.99000000000024,"body":"stylist"},{"startTime":336.99000000000024,"endTime":337.6200000000001,"body":"scheme"},{"startTime":338.0100000000002,"endTime":338.3700000000001,"body":"such"},{"startTime":338.3700000000001,"endTime":338.7000000000003,"body":"as"},{"startTime":338.73000000000025,"endTime":339.0600000000002,"body":"is"},{"startTime":339.0600000000002,"endTime":339.3900000000003,"body":"now"},{"startTime":339.3900000000003,"endTime":340.0200000000002,"body":"employed"},{"startTime":340.0500000000002,"endTime":340.2000000000003,"body":"in"},{"startTime":340.2000000000003,"endTime":340.2900000000002,"body":"the"},{"startTime":340.2900000000002,"endTime":340.6800000000003,"body":"tele"},{"startTime":340.6800000000003,"endTime":341.46000000000026,"body":"autograph"},{"startTime":341.46000000000026,"endTime":342.0300000000002,"body":"scene"},{"startTime":342.0600000000002,"endTime":342.21000000000026,"body":"in"},{"startTime":342.21000000000026,"endTime":342.7500000000002,"body":"railroad"},{"startTime":342.7500000000002,"endTime":343.1100000000001,"body":"waiting"},{"startTime":343.1100000000001,"endTime":343.71000000000026,"body":"rooms,"},{"startTime":344.10000000000014,"endTime":344.5500000000002,"body":"just"},{"startTime":344.5500000000002,"endTime":344.7000000000003,"body":"as"},{"startTime":344.7000000000003,"endTime":344.97000000000025,"body":"though"},{"startTime":344.97000000000025,"endTime":345.1500000000003,"body":"he"},{"startTime":345.1500000000003,"endTime":345.3900000000003,"body":"had"},{"startTime":345.3900000000003,"endTime":345.5100000000002,"body":"the"},{"startTime":345.5100000000002,"endTime":345.96000000000026,"body":"fiscal"},{"startTime":345.96000000000026,"endTime":346.59000000000015,"body":"page"},{"startTime":346.59500000000025,"endTime":346.8950000000002,"body":"before"},{"startTime":346.95500000000015,"endTime":347.1750000000002,"body":"him."}]}
+{
+    "version": "1.0.0",
+    "segments": [
+        {
+            "startTime": 0,
+            "endTime": 0.5099999999999909,
+            "body": "chapter"
+        },
+        {
+            "startTime": 0.5099999999999909,
+            "endTime": 1.050000000000182,
+            "body": "six."
+        },
+        {
+            "startTime": 1.634999999999991,
+            "endTime": 1.7850000000000819,
+            "body": "The"
+        },
+        {
+            "startTime": 1.7850000000000819,
+            "endTime": 2.0850000000000364,
+            "body": "real"
+        },
+        {
+            "startTime": 2.0850000000000364,
+            "endTime": 2.4750000000001364,
+            "body": "heart"
+        },
+        {
+            "startTime": 2.4750000000001364,
+            "endTime": 2.5650000000000546,
+            "body": "of"
+        },
+        {
+            "startTime": 2.5650000000000546,
+            "endTime": 2.6549999999999727,
+            "body": "the"
+        },
+        {
+            "startTime": 2.6549999999999727,
+            "endTime": 3.0150000000001,
+            "body": "matter"
+        },
+        {
+            "startTime": 3.0150000000001,
+            "endTime": 3.105000000000018,
+            "body": "of"
+        },
+        {
+            "startTime": 3.105000000000018,
+            "endTime": 3.7650000000001,
+            "body": "selection,"
+        },
+        {
+            "startTime": 3.7650000000001,
+            "endTime": 4.4249999999999545,
+            "body": "however"
+        },
+        {
+            "startTime": 4.605000000000018,
+            "endTime": 4.875,
+            "body": "goes"
+        },
+        {
+            "startTime": 4.875,
+            "endTime": 5.205000000000155,
+            "body": "deeper"
+        },
+        {
+            "startTime": 5.205000000000155,
+            "endTime": 5.355000000000018,
+            "body": "than"
+        },
+        {
+            "startTime": 5.355000000000018,
+            "endTime": 5.445000000000164,
+            "body": "a"
+        },
+        {
+            "startTime": 5.445000000000164,
+            "endTime": 5.9249999999999545,
+            "body": "lag"
+        },
+        {
+            "startTime": 5.9249999999999545,
+            "endTime": 6.0750000000000455,
+            "body": "in"
+        },
+        {
+            "startTime": 6.0750000000000455,
+            "endTime": 6.644999999999982,
+            "body": "adoption"
+        },
+        {
+            "startTime": 6.644999999999982,
+            "endTime": 6.735000000000127,
+            "body": "of"
+        },
+        {
+            "startTime": 6.735000000000127,
+            "endTime": 7.455000000000155,
+            "body": "mechanisms"
+        },
+        {
+            "startTime": 7.455000000000155,
+            "endTime": 7.605000000000018,
+            "body": "by"
+        },
+        {
+            "startTime": 7.605000000000018,
+            "endTime": 8.475000000000136,
+            "body": "libraries"
+        },
+        {
+            "startTime": 8.654999999999973,
+            "endTime": 8.835000000000036,
+            "body": "or"
+        },
+        {
+            "startTime": 8.835000000000036,
+            "endTime": 8.924999999999955,
+            "body": "a"
+        },
+        {
+            "startTime": 8.924999999999955,
+            "endTime": 9.225000000000136,
+            "body": "lack"
+        },
+        {
+            "startTime": 9.225000000000136,
+            "endTime": 9.345000000000027,
+            "body": "of"
+        },
+        {
+            "startTime": 9.345000000000027,
+            "endTime": 9.884999999999991,
+            "body": "development"
+        },
+        {
+            "startTime": 9.884999999999991,
+            "endTime": 9.975000000000136,
+            "body": "of"
+        },
+        {
+            "startTime": 9.975000000000136,
+            "endTime": 10.634999999999991,
+            "body": "devices"
+        },
+        {
+            "startTime": 10.634999999999991,
+            "endTime": 10.845000000000027,
+            "body": "for"
+        },
+        {
+            "startTime": 10.845000000000027,
+            "endTime": 11.025000000000091,
+            "body": "their"
+        },
+        {
+            "startTime": 11.025000000000091,
+            "endTime": 11.445000000000164,
+            "body": "use."
+        },
+        {
+            "startTime": 12.240000000000236,
+            "endTime": 12.450000000000273,
+            "body": "Our"
+        },
+        {
+            "startTime": 12.450000000000273,
+            "endTime": 13.140000000000327,
+            "body": "Neptune"
+        },
+        {
+            "startTime": 13.140000000000327,
+            "endTime": 13.260000000000218,
+            "body": "in"
+        },
+        {
+            "startTime": 13.260000000000218,
+            "endTime": 13.620000000000346,
+            "body": "getting"
+        },
+        {
+            "startTime": 13.620000000000346,
+            "endTime": 13.860000000000355,
+            "body": "at"
+        },
+        {
+            "startTime": 13.860000000000355,
+            "endTime": 13.980000000000246,
+            "body": "the"
+        },
+        {
+            "startTime": 13.980000000000246,
+            "endTime": 14.640000000000327,
+            "body": "record"
+        },
+        {
+            "startTime": 14.820000000000164,
+            "endTime": 15.000000000000227,
+            "body": "is"
+        },
+        {
+            "startTime": 15.000000000000227,
+            "endTime": 15.510000000000218,
+            "body": "largely"
+        },
+        {
+            "startTime": 15.510000000000218,
+            "endTime": 16.080000000000155,
+            "body": "caused"
+        },
+        {
+            "startTime": 16.080000000000155,
+            "endTime": 16.1700000000003,
+            "body": "by"
+        },
+        {
+            "startTime": 16.1700000000003,
+            "endTime": 16.29000000000019,
+            "body": "the"
+        },
+        {
+            "startTime": 16.29000000000019,
+            "endTime": 17.190000000000282,
+            "body": "artificiality"
+        },
+        {
+            "startTime": 17.190000000000282,
+            "endTime": 17.340000000000373,
+            "body": "of"
+        },
+        {
+            "startTime": 17.340000000000373,
+            "endTime": 17.970000000000255,
+            "body": "systems"
+        },
+        {
+            "startTime": 17.970000000000255,
+            "endTime": 18.090000000000373,
+            "body": "of"
+        },
+        {
+            "startTime": 18.090000000000373,
+            "endTime": 18.990000000000236,
+            "body": "indexing."
+        },
+        {
+            "startTime": 19.440000000000282,
+            "endTime": 19.68000000000029,
+            "body": "When"
+        },
+        {
+            "startTime": 19.68000000000029,
+            "endTime": 20.100000000000364,
+            "body": "data"
+        },
+        {
+            "startTime": 20.100000000000364,
+            "endTime": 20.250000000000227,
+            "body": "of"
+        },
+        {
+            "startTime": 20.250000000000227,
+            "endTime": 20.550000000000182,
+            "body": "any"
+        },
+        {
+            "startTime": 20.550000000000182,
+            "endTime": 21.0300000000002,
+            "body": "sort"
+        },
+        {
+            "startTime": 21.0300000000002,
+            "endTime": 21.210000000000264,
+            "body": "are"
+        },
+        {
+            "startTime": 21.210000000000264,
+            "endTime": 21.66000000000031,
+            "body": "placed"
+        },
+        {
+            "startTime": 21.66000000000031,
+            "endTime": 21.750000000000227,
+            "body": "in"
+        },
+        {
+            "startTime": 21.750000000000227,
+            "endTime": 22.5300000000002,
+            "body": "storage,"
+        },
+        {
+            "startTime": 22.800000000000182,
+            "endTime": 23.130000000000337,
+            "body": "they're"
+        },
+        {
+            "startTime": 23.130000000000337,
+            "endTime": 23.79000000000019,
+            "body": "filed"
+        },
+        {
+            "startTime": 23.79000000000019,
+            "endTime": 24.750000000000227,
+            "body": "alphabetically"
+        },
+        {
+            "startTime": 24.750000000000227,
+            "endTime": 24.93000000000029,
+            "body": "or"
+        },
+        {
+            "startTime": 24.93000000000029,
+            "endTime": 25.860000000000355,
+            "body": "numerically,"
+        },
+        {
+            "startTime": 26.16000000000031,
+            "endTime": 26.370000000000346,
+            "body": "and"
+        },
+        {
+            "startTime": 26.370000000000346,
+            "endTime": 27.060000000000173,
+            "body": "information"
+        },
+        {
+            "startTime": 27.060000000000173,
+            "endTime": 27.240000000000236,
+            "body": "is"
+        },
+        {
+            "startTime": 27.240000000000236,
+            "endTime": 27.93000000000029,
+            "body": "found"
+        },
+        {
+            "startTime": 28.02000000000021,
+            "endTime": 28.230000000000246,
+            "body": "when"
+        },
+        {
+            "startTime": 28.230000000000246,
+            "endTime": 28.350000000000364,
+            "body": "it"
+        },
+        {
+            "startTime": 28.350000000000364,
+            "endTime": 28.950000000000273,
+            "body": "is"
+        },
+        {
+            "startTime": 29.190000000000282,
+            "endTime": 29.370000000000346,
+            "body": "by"
+        },
+        {
+            "startTime": 29.370000000000346,
+            "endTime": 29.820000000000164,
+            "body": "tracing"
+        },
+        {
+            "startTime": 29.820000000000164,
+            "endTime": 29.940000000000282,
+            "body": "it"
+        },
+        {
+            "startTime": 29.940000000000282,
+            "endTime": 30.390000000000327,
+            "body": "down"
+        },
+        {
+            "startTime": 30.390000000000327,
+            "endTime": 30.630000000000337,
+            "body": "from"
+        },
+        {
+            "startTime": 30.630000000000337,
+            "endTime": 31.29000000000019,
+            "body": "subclass"
+        },
+        {
+            "startTime": 31.29000000000019,
+            "endTime": 31.440000000000282,
+            "body": "to"
+        },
+        {
+            "startTime": 31.440000000000282,
+            "endTime": 32.43000000000029,
+            "body": "subclass."
+        },
+        {
+            "startTime": 32.88500000000022,
+            "endTime": 33.105000000000246,
+            "body": "It"
+        },
+        {
+            "startTime": 33.105000000000246,
+            "endTime": 33.26500000000033,
+            "body": "can"
+        },
+        {
+            "startTime": 33.26500000000033,
+            "endTime": 33.42500000000018,
+            "body": "be"
+        },
+        {
+            "startTime": 33.43000000000029,
+            "endTime": 33.51000000000022,
+            "body": "in"
+        },
+        {
+            "startTime": 33.51000000000022,
+            "endTime": 33.90000000000032,
+            "body": "one"
+        },
+        {
+            "startTime": 33.90000000000032,
+            "endTime": 34.470000000000255,
+            "body": "place"
+        },
+        {
+            "startTime": 34.50000000000023,
+            "endTime": 35.16000000000031,
+            "body": "only"
+        },
+        {
+            "startTime": 35.40000000000032,
+            "endTime": 35.76000000000022,
+            "body": "unless"
+        },
+        {
+            "startTime": 35.76000000000022,
+            "endTime": 36.39000000000033,
+            "body": "duplicates"
+        },
+        {
+            "startTime": 36.39000000000033,
+            "endTime": 36.480000000000246,
+            "body": "are"
+        },
+        {
+            "startTime": 36.480000000000246,
+            "endTime": 37.26000000000022,
+            "body": "used."
+        },
+        {
+            "startTime": 37.980000000000246,
+            "endTime": 38.220000000000255,
+            "body": "One"
+        },
+        {
+            "startTime": 38.220000000000255,
+            "endTime": 38.460000000000264,
+            "body": "has"
+        },
+        {
+            "startTime": 38.460000000000264,
+            "endTime": 38.55000000000018,
+            "body": "to"
+        },
+        {
+            "startTime": 38.55000000000018,
+            "endTime": 38.730000000000246,
+            "body": "have"
+        },
+        {
+            "startTime": 38.730000000000246,
+            "endTime": 39.27000000000021,
+            "body": "rules"
+        },
+        {
+            "startTime": 39.27000000000021,
+            "endTime": 39.4200000000003,
+            "body": "as"
+        },
+        {
+            "startTime": 39.4200000000003,
+            "endTime": 39.54000000000019,
+            "body": "to"
+        },
+        {
+            "startTime": 39.54000000000019,
+            "endTime": 39.75000000000023,
+            "body": "which"
+        },
+        {
+            "startTime": 39.75000000000023,
+            "endTime": 40.1400000000001,
+            "body": "path"
+        },
+        {
+            "startTime": 40.1400000000001,
+            "endTime": 40.320000000000164,
+            "body": "will"
+        },
+        {
+            "startTime": 40.320000000000164,
+            "endTime": 40.710000000000264,
+            "body": "locate"
+        },
+        {
+            "startTime": 40.710000000000264,
+            "endTime": 41.01000000000022,
+            "body": "it,"
+        },
+        {
+            "startTime": 41.25000000000023,
+            "endTime": 41.43000000000029,
+            "body": "and"
+        },
+        {
+            "startTime": 41.43000000000029,
+            "endTime": 41.52000000000021,
+            "body": "the"
+        },
+        {
+            "startTime": 41.52000000000021,
+            "endTime": 41.91000000000008,
+            "body": "rules"
+        },
+        {
+            "startTime": 41.91000000000008,
+            "endTime": 42.12000000000012,
+            "body": "are"
+        },
+        {
+            "startTime": 42.12000000000012,
+            "endTime": 42.99000000000024,
+            "body": "cumbersome,"
+        },
+        {
+            "startTime": 43.38000000000011,
+            "endTime": 43.74000000000024,
+            "body": "having"
+        },
+        {
+            "startTime": 43.74000000000024,
+            "endTime": 44.04000000000019,
+            "body": "found"
+        },
+        {
+            "startTime": 44.04000000000019,
+            "endTime": 44.2800000000002,
+            "body": "one"
+        },
+        {
+            "startTime": 44.2800000000002,
+            "endTime": 44.70000000000027,
+            "body": "item."
+        },
+        {
+            "startTime": 44.70000000000027,
+            "endTime": 45.51000000000022,
+            "body": "Moreover,"
+        },
+        {
+            "startTime": 45.720000000000255,
+            "endTime": 45.93000000000029,
+            "body": "one"
+        },
+        {
+            "startTime": 45.93000000000029,
+            "endTime": 46.1700000000003,
+            "body": "has"
+        },
+        {
+            "startTime": 46.1700000000003,
+            "endTime": 46.320000000000164,
+            "body": "to"
+        },
+        {
+            "startTime": 46.320000000000164,
+            "endTime": 46.86000000000013,
+            "body": "emerge"
+        },
+        {
+            "startTime": 46.86000000000013,
+            "endTime": 47.04000000000019,
+            "body": "from"
+        },
+        {
+            "startTime": 47.04000000000019,
+            "endTime": 47.13000000000011,
+            "body": "the"
+        },
+        {
+            "startTime": 47.13000000000011,
+            "endTime": 47.79000000000019,
+            "body": "system"
+        },
+        {
+            "startTime": 47.850000000000136,
+            "endTime": 48.0300000000002,
+            "body": "and"
+        },
+        {
+            "startTime": 48.0300000000002,
+            "endTime": 48.840000000000146,
+            "body": "reenter"
+        },
+        {
+            "startTime": 48.87000000000012,
+            "endTime": 49.02000000000021,
+            "body": "on"
+        },
+        {
+            "startTime": 49.02000000000021,
+            "endTime": 49.080000000000155,
+            "body": "a"
+        },
+        {
+            "startTime": 49.080000000000155,
+            "endTime": 49.29000000000019,
+            "body": "new"
+        },
+        {
+            "startTime": 49.29000000000019,
+            "endTime": 49.95000000000027,
+            "body": "path."
+        },
+        {
+            "startTime": 50.730000000000246,
+            "endTime": 50.850000000000136,
+            "body": "The"
+        },
+        {
+            "startTime": 50.850000000000136,
+            "endTime": 51.18000000000029,
+            "body": "human"
+        },
+        {
+            "startTime": 51.18000000000029,
+            "endTime": 51.600000000000136,
+            "body": "mind"
+        },
+        {
+            "startTime": 51.600000000000136,
+            "endTime": 51.75000000000023,
+            "body": "does"
+        },
+        {
+            "startTime": 51.75000000000023,
+            "endTime": 52.02000000000021,
+            "body": "not"
+        },
+        {
+            "startTime": 52.02000000000021,
+            "endTime": 52.38000000000011,
+            "body": "work"
+        },
+        {
+            "startTime": 52.38000000000011,
+            "endTime": 52.62000000000012,
+            "body": "that"
+        },
+        {
+            "startTime": 52.62000000000012,
+            "endTime": 53.13000000000011,
+            "body": "way."
+        },
+        {
+            "startTime": 53.52000000000021,
+            "endTime": 53.70000000000027,
+            "body": "It"
+        },
+        {
+            "startTime": 53.70000000000027,
+            "endTime": 54.36000000000013,
+            "body": "operates"
+        },
+        {
+            "startTime": 54.36000000000013,
+            "endTime": 54.570000000000164,
+            "body": "by"
+        },
+        {
+            "startTime": 54.570000000000164,
+            "endTime": 55.710000000000264,
+            "body": "association."
+        },
+        {
+            "startTime": 56.055000000000064,
+            "endTime": 56.325000000000045,
+            "body": "With"
+        },
+        {
+            "startTime": 56.325000000000045,
+            "endTime": 56.68500000000017,
+            "body": "one"
+        },
+        {
+            "startTime": 56.68500000000017,
+            "endTime": 57.04500000000007,
+            "body": "item"
+        },
+        {
+            "startTime": 57.04500000000007,
+            "endTime": 57.16500000000019,
+            "body": "in"
+        },
+        {
+            "startTime": 57.16500000000019,
+            "endTime": 57.34500000000003,
+            "body": "its"
+        },
+        {
+            "startTime": 57.34500000000003,
+            "endTime": 57.975000000000136,
+            "body": "grasp,"
+        },
+        {
+            "startTime": 58.18500000000017,
+            "endTime": 58.39500000000021,
+            "body": "it"
+        },
+        {
+            "startTime": 58.39500000000021,
+            "endTime": 58.99500000000012,
+            "body": "snaps"
+        },
+        {
+            "startTime": 59.055000000000064,
+            "endTime": 59.59500000000003,
+            "body": "instantly"
+        },
+        {
+            "startTime": 59.59500000000003,
+            "endTime": 59.715000000000146,
+            "body": "to"
+        },
+        {
+            "startTime": 59.715000000000146,
+            "endTime": 59.805000000000064,
+            "body": "the"
+        },
+        {
+            "startTime": 59.805000000000064,
+            "endTime": 60.465000000000146,
+            "body": "next."
+        },
+        {
+            "startTime": 60.64500000000021,
+            "endTime": 60.825000000000045,
+            "body": "That"
+        },
+        {
+            "startTime": 60.825000000000045,
+            "endTime": 60.88500000000022,
+            "body": "is"
+        },
+        {
+            "startTime": 60.88500000000022,
+            "endTime": 61.54500000000007,
+            "body": "suggested"
+        },
+        {
+            "startTime": 61.54500000000007,
+            "endTime": 61.66500000000019,
+            "body": "by"
+        },
+        {
+            "startTime": 61.66500000000019,
+            "endTime": 61.78500000000008,
+            "body": "the"
+        },
+        {
+            "startTime": 61.78500000000008,
+            "endTime": 62.625,
+            "body": "Association"
+        },
+        {
+            "startTime": 62.625,
+            "endTime": 62.74500000000012,
+            "body": "of"
+        },
+        {
+            "startTime": 62.74500000000012,
+            "endTime": 63.43500000000017,
+            "body": "Thoughts"
+        },
+        {
+            "startTime": 63.705000000000155,
+            "endTime": 63.88500000000022,
+            "body": "in"
+        },
+        {
+            "startTime": 63.88500000000022,
+            "endTime": 64.54500000000007,
+            "body": "accordance"
+        },
+        {
+            "startTime": 64.54500000000007,
+            "endTime": 64.72500000000014,
+            "body": "with"
+        },
+        {
+            "startTime": 64.72500000000014,
+            "endTime": 64.96500000000015,
+            "body": "some"
+        },
+        {
+            "startTime": 64.96500000000015,
+            "endTime": 65.47500000000014,
+            "body": "intricate"
+        },
+        {
+            "startTime": 65.47500000000014,
+            "endTime": 65.71500000000015,
+            "body": "web"
+        },
+        {
+            "startTime": 65.71500000000015,
+            "endTime": 65.83500000000004,
+            "body": "of"
+        },
+        {
+            "startTime": 65.83500000000004,
+            "endTime": 66.55500000000006,
+            "body": "trails"
+        },
+        {
+            "startTime": 66.85500000000002,
+            "endTime": 67.24500000000012,
+            "body": "carried"
+        },
+        {
+            "startTime": 67.24500000000012,
+            "endTime": 67.39500000000021,
+            "body": "by"
+        },
+        {
+            "startTime": 67.39500000000021,
+            "endTime": 67.5150000000001,
+            "body": "the"
+        },
+        {
+            "startTime": 67.5150000000001,
+            "endTime": 67.99500000000012,
+            "body": "cells"
+        },
+        {
+            "startTime": 67.99500000000012,
+            "endTime": 68.11500000000001,
+            "body": "of"
+        },
+        {
+            "startTime": 68.11500000000001,
+            "endTime": 68.23500000000013,
+            "body": "the"
+        },
+        {
+            "startTime": 68.23500000000013,
+            "endTime": 68.86500000000001,
+            "body": "brain."
+        },
+        {
+            "startTime": 69.58500000000026,
+            "endTime": 69.79500000000007,
+            "body": "It"
+        },
+        {
+            "startTime": 69.79500000000007,
+            "endTime": 70.06500000000005,
+            "body": "has"
+        },
+        {
+            "startTime": 70.06500000000005,
+            "endTime": 70.39500000000021,
+            "body": "other"
+        },
+        {
+            "startTime": 70.39500000000021,
+            "endTime": 71.41500000000019,
+            "body": "characteristics."
+        },
+        {
+            "startTime": 71.41500000000019,
+            "endTime": 71.56500000000005,
+            "body": "Of"
+        },
+        {
+            "startTime": 71.56500000000005,
+            "endTime": 72.25500000000011,
+            "body": "course,"
+        },
+        {
+            "startTime": 72.64500000000021,
+            "endTime": 73.18500000000017,
+            "body": "trails"
+        },
+        {
+            "startTime": 73.18500000000017,
+            "endTime": 73.30500000000006,
+            "body": "that"
+        },
+        {
+            "startTime": 73.30500000000006,
+            "endTime": 73.39500000000021,
+            "body": "are"
+        },
+        {
+            "startTime": 73.39500000000021,
+            "endTime": 73.66500000000019,
+            "body": "not"
+        },
+        {
+            "startTime": 73.66500000000019,
+            "endTime": 74.14500000000021,
+            "body": "frequently"
+        },
+        {
+            "startTime": 74.14500000000021,
+            "endTime": 74.68500000000017,
+            "body": "followed"
+        },
+        {
+            "startTime": 74.68500000000017,
+            "endTime": 74.86500000000024,
+            "body": "are"
+        },
+        {
+            "startTime": 74.86500000000024,
+            "endTime": 75.16500000000019,
+            "body": "prone"
+        },
+        {
+            "startTime": 75.16500000000019,
+            "endTime": 75.28500000000008,
+            "body": "to"
+        },
+        {
+            "startTime": 75.28500000000008,
+            "endTime": 75.97500000000014,
+            "body": "fade."
+        },
+        {
+            "startTime": 76.36500000000024,
+            "endTime": 76.81500000000005,
+            "body": "Items"
+        },
+        {
+            "startTime": 76.81500000000005,
+            "endTime": 76.93500000000017,
+            "body": "are"
+        },
+        {
+            "startTime": 76.93500000000017,
+            "endTime": 77.2650000000001,
+            "body": "not"
+        },
+        {
+            "startTime": 77.2650000000001,
+            "endTime": 77.68500000000017,
+            "body": "fully"
+        },
+        {
+            "startTime": 77.68500000000017,
+            "endTime": 78.37500000000023,
+            "body": "permanent."
+        },
+        {
+            "startTime": 78.70500000000015,
+            "endTime": 79.21500000000015,
+            "body": "Memory"
+        },
+        {
+            "startTime": 79.21500000000015,
+            "endTime": 79.42500000000018,
+            "body": "is"
+        },
+        {
+            "startTime": 79.42500000000018,
+            "endTime": 80.38500000000022,
+            "body": "transitory"
+        },
+        {
+            "startTime": 80.89500000000021,
+            "endTime": 81.07500000000005,
+            "body": "yet."
+        },
+        {
+            "startTime": 81.07500000000005,
+            "endTime": 81.16500000000019,
+            "body": "The"
+        },
+        {
+            "startTime": 81.16500000000019,
+            "endTime": 81.55500000000006,
+            "body": "speed"
+        },
+        {
+            "startTime": 81.55500000000006,
+            "endTime": 81.64500000000021,
+            "body": "of"
+        },
+        {
+            "startTime": 81.64500000000021,
+            "endTime": 82.45500000000015,
+            "body": "action,"
+        },
+        {
+            "startTime": 82.72500000000014,
+            "endTime": 82.84500000000025,
+            "body": "the"
+        },
+        {
+            "startTime": 82.84500000000025,
+            "endTime": 83.47500000000014,
+            "body": "intricacy"
+        },
+        {
+            "startTime": 83.47500000000014,
+            "endTime": 83.68500000000017,
+            "body": "of"
+        },
+        {
+            "startTime": 83.68500000000017,
+            "endTime": 84.34500000000025,
+            "body": "trails,"
+        },
+        {
+            "startTime": 84.34500000000025,
+            "endTime": 84.46500000000015,
+            "body": "the"
+        },
+        {
+            "startTime": 84.46500000000015,
+            "endTime": 84.88500000000022,
+            "body": "detail"
+        },
+        {
+            "startTime": 84.88500000000022,
+            "endTime": 85.00500000000011,
+            "body": "of"
+        },
+        {
+            "startTime": 85.00500000000011,
+            "endTime": 85.27500000000009,
+            "body": "mental"
+        },
+        {
+            "startTime": 85.27500000000009,
+            "endTime": 85.93500000000017,
+            "body": "pictures"
+        },
+        {
+            "startTime": 85.93500000000017,
+            "endTime": 86.17500000000018,
+            "body": "is"
+        },
+        {
+            "startTime": 86.23500000000013,
+            "endTime": 86.53500000000008,
+            "body": "awe"
+        },
+        {
+            "startTime": 86.53500000000008,
+            "endTime": 87.28500000000008,
+            "body": "inspiring"
+        },
+        {
+            "startTime": 87.64500000000021,
+            "endTime": 88.09500000000025,
+            "body": "beyond"
+        },
+        {
+            "startTime": 88.09500000000025,
+            "endTime": 88.30500000000006,
+            "body": "all"
+        },
+        {
+            "startTime": 88.30500000000006,
+            "endTime": 88.78500000000008,
+            "body": "else"
+        },
+        {
+            "startTime": 88.78500000000008,
+            "endTime": 88.93500000000017,
+            "body": "in"
+        },
+        {
+            "startTime": 88.93500000000017,
+            "endTime": 89.62500000000023,
+            "body": "nature."
+        },
+        {
+            "startTime": 89.62500000000023,
+            "endTime": 90.01500000000033,
+            "body": "Man"
+        },
+        {
+            "startTime": 90.01500000000033,
+            "endTime": 90.34500000000025,
+            "body": "cannot"
+        },
+        {
+            "startTime": 90.34500000000025,
+            "endTime": 90.73500000000013,
+            "body": "hope"
+        },
+        {
+            "startTime": 90.73500000000013,
+            "endTime": 90.88500000000022,
+            "body": "to"
+        },
+        {
+            "startTime": 90.88500000000022,
+            "endTime": 91.18500000000017,
+            "body": "fully"
+        },
+        {
+            "startTime": 91.18500000000017,
+            "endTime": 91.9050000000002,
+            "body": "duplicate"
+        },
+        {
+            "startTime": 91.9050000000002,
+            "endTime": 92.08500000000026,
+            "body": "this"
+        },
+        {
+            "startTime": 92.08500000000026,
+            "endTime": 92.38500000000022,
+            "body": "mental"
+        },
+        {
+            "startTime": 92.38500000000022,
+            "endTime": 93.07500000000027,
+            "body": "process"
+        },
+        {
+            "startTime": 93.07500000000027,
+            "endTime": 94.06500000000028,
+            "body": "artificially,"
+        },
+        {
+            "startTime": 94.42500000000018,
+            "endTime": 94.60500000000025,
+            "body": "but"
+        },
+        {
+            "startTime": 94.60500000000025,
+            "endTime": 94.81500000000028,
+            "body": "he"
+        },
+        {
+            "startTime": 94.81500000000028,
+            "endTime": 95.44500000000016,
+            "body": "certainly"
+        },
+        {
+            "startTime": 95.44500000000016,
+            "endTime": 95.80500000000029,
+            "body": "ought"
+        },
+        {
+            "startTime": 95.80500000000029,
+            "endTime": 95.89500000000021,
+            "body": "to"
+        },
+        {
+            "startTime": 95.89500000000021,
+            "endTime": 95.98500000000013,
+            "body": "be"
+        },
+        {
+            "startTime": 95.98500000000013,
+            "endTime": 96.13500000000022,
+            "body": "able"
+        },
+        {
+            "startTime": 96.13500000000022,
+            "endTime": 96.25500000000011,
+            "body": "to"
+        },
+        {
+            "startTime": 96.25500000000011,
+            "endTime": 96.55500000000029,
+            "body": "learn"
+        },
+        {
+            "startTime": 96.55500000000029,
+            "endTime": 96.76500000000033,
+            "body": "from"
+        },
+        {
+            "startTime": 96.76500000000033,
+            "endTime": 97.12500000000023,
+            "body": "it"
+        },
+        {
+            "startTime": 97.60500000000025,
+            "endTime": 97.69500000000016,
+            "body": "in"
+        },
+        {
+            "startTime": 97.69500000000016,
+            "endTime": 98.02500000000032,
+            "body": "minor"
+        },
+        {
+            "startTime": 98.02500000000032,
+            "endTime": 98.38500000000022,
+            "body": "ways."
+        },
+        {
+            "startTime": 98.38500000000022,
+            "endTime": 98.47500000000014,
+            "body": "He"
+        },
+        {
+            "startTime": 98.47500000000014,
+            "endTime": 98.6550000000002,
+            "body": "may"
+        },
+        {
+            "startTime": 98.6550000000002,
+            "endTime": 98.95500000000015,
+            "body": "even"
+        },
+        {
+            "startTime": 98.95500000000015,
+            "endTime": 99.91500000000019,
+            "body": "improve"
+        },
+        {
+            "startTime": 100.1550000000002,
+            "endTime": 100.30500000000029,
+            "body": "for"
+        },
+        {
+            "startTime": 100.30500000000029,
+            "endTime": 100.42500000000018,
+            "body": "his"
+        },
+        {
+            "startTime": 100.42500000000018,
+            "endTime": 100.9050000000002,
+            "body": "records,"
+        },
+        {
+            "startTime": 100.9050000000002,
+            "endTime": 101.2950000000003,
+            "body": "have"
+        },
+        {
+            "startTime": 101.2950000000003,
+            "endTime": 101.80500000000029,
+            "body": "relative"
+        },
+        {
+            "startTime": 101.80500000000029,
+            "endTime": 102.67500000000018,
+            "body": "permanency."
+        },
+        {
+            "startTime": 102.73500000000013,
+            "endTime": 102.7650000000001,
+            "body": "Okay."
+        },
+        {
+            "startTime": 103.36500000000024,
+            "endTime": 103.5150000000001,
+            "body": "The"
+        },
+        {
+            "startTime": 103.5150000000001,
+            "endTime": 103.9050000000002,
+            "body": "first"
+        },
+        {
+            "startTime": 103.9050000000002,
+            "endTime": 104.38500000000022,
+            "body": "idea,"
+        },
+        {
+            "startTime": 104.38500000000022,
+            "endTime": 105.0150000000001,
+            "body": "however,"
+        },
+        {
+            "startTime": 105.0150000000001,
+            "endTime": 105.13500000000022,
+            "body": "to"
+        },
+        {
+            "startTime": 105.13500000000022,
+            "endTime": 105.25500000000011,
+            "body": "be"
+        },
+        {
+            "startTime": 105.25500000000011,
+            "endTime": 105.64500000000021,
+            "body": "drawn"
+        },
+        {
+            "startTime": 105.64500000000021,
+            "endTime": 105.79500000000007,
+            "body": "from"
+        },
+        {
+            "startTime": 105.79500000000007,
+            "endTime": 105.91500000000019,
+            "body": "the"
+        },
+        {
+            "startTime": 105.91500000000019,
+            "endTime": 106.81500000000005,
+            "body": "analogy"
+        },
+        {
+            "startTime": 106.96500000000015,
+            "endTime": 107.77500000000009,
+            "body": "concerns"
+        },
+        {
+            "startTime": 107.83500000000026,
+            "endTime": 108.7650000000001,
+            "body": "selection."
+        },
+        {
+            "startTime": 108.94500000000016,
+            "endTime": 109.72500000000014,
+            "body": "Selection"
+        },
+        {
+            "startTime": 109.72500000000014,
+            "endTime": 109.9050000000002,
+            "body": "by"
+        },
+        {
+            "startTime": 109.9050000000002,
+            "endTime": 111.0150000000001,
+            "body": "association"
+        },
+        {
+            "startTime": 111.19500000000016,
+            "endTime": 111.55500000000006,
+            "body": "rather"
+        },
+        {
+            "startTime": 111.55500000000006,
+            "endTime": 111.79500000000007,
+            "body": "than"
+        },
+        {
+            "startTime": 111.79500000000007,
+            "endTime": 112.69500000000016,
+            "body": "indexing"
+        },
+        {
+            "startTime": 112.96500000000015,
+            "endTime": 113.20500000000015,
+            "body": "may"
+        },
+        {
+            "startTime": 113.20500000000015,
+            "endTime": 113.62500000000023,
+            "body": "yet"
+        },
+        {
+            "startTime": 113.62500000000023,
+            "endTime": 113.77500000000009,
+            "body": "be"
+        },
+        {
+            "startTime": 113.77500000000009,
+            "endTime": 114.7650000000001,
+            "body": "mechanized."
+        },
+        {
+            "startTime": 115.18500000000017,
+            "endTime": 115.42500000000018,
+            "body": "One"
+        },
+        {
+            "startTime": 115.42500000000018,
+            "endTime": 115.75500000000011,
+            "body": "cannot"
+        },
+        {
+            "startTime": 115.75500000000011,
+            "endTime": 116.20500000000015,
+            "body": "hope"
+        },
+        {
+            "startTime": 116.20500000000015,
+            "endTime": 116.74500000000012,
+            "body": "thus"
+        },
+        {
+            "startTime": 116.95500000000015,
+            "endTime": 117.07500000000005,
+            "body": "to"
+        },
+        {
+            "startTime": 117.07500000000005,
+            "endTime": 117.4050000000002,
+            "body": "equal"
+        },
+        {
+            "startTime": 117.4050000000002,
+            "endTime": 117.49500000000012,
+            "body": "the"
+        },
+        {
+            "startTime": 117.49500000000012,
+            "endTime": 117.94500000000016,
+            "body": "speed"
+        },
+        {
+            "startTime": 117.94500000000016,
+            "endTime": 118.09500000000025,
+            "body": "and"
+        },
+        {
+            "startTime": 118.09500000000025,
+            "endTime": 119.20500000000015,
+            "body": "flexibility"
+        },
+        {
+            "startTime": 119.35500000000025,
+            "endTime": 119.56500000000005,
+            "body": "with"
+        },
+        {
+            "startTime": 119.56500000000005,
+            "endTime": 119.86500000000024,
+            "body": "which"
+        },
+        {
+            "startTime": 119.86500000000024,
+            "endTime": 119.98500000000013,
+            "body": "the"
+        },
+        {
+            "startTime": 119.98500000000013,
+            "endTime": 120.28500000000008,
+            "body": "mind"
+        },
+        {
+            "startTime": 120.28500000000008,
+            "endTime": 120.97500000000014,
+            "body": "follows"
+        },
+        {
+            "startTime": 120.97500000000014,
+            "endTime": 121.1550000000002,
+            "body": "an"
+        },
+        {
+            "startTime": 121.1550000000002,
+            "endTime": 121.84500000000025,
+            "body": "associative"
+        },
+        {
+            "startTime": 121.87500000000023,
+            "endTime": 122.59500000000025,
+            "body": "trail."
+        },
+        {
+            "startTime": 122.92500000000018,
+            "endTime": 123.07500000000005,
+            "body": "But"
+        },
+        {
+            "startTime": 123.07500000000005,
+            "endTime": 123.16500000000019,
+            "body": "it"
+        },
+        {
+            "startTime": 123.16500000000019,
+            "endTime": 123.46500000000015,
+            "body": "should"
+        },
+        {
+            "startTime": 123.46500000000015,
+            "endTime": 123.61500000000024,
+            "body": "be"
+        },
+        {
+            "startTime": 123.61500000000024,
+            "endTime": 124.24500000000012,
+            "body": "possible"
+        },
+        {
+            "startTime": 124.24500000000012,
+            "endTime": 124.42500000000018,
+            "body": "to"
+        },
+        {
+            "startTime": 124.42500000000018,
+            "endTime": 124.63500000000022,
+            "body": "beat"
+        },
+        {
+            "startTime": 124.63500000000022,
+            "endTime": 124.72500000000014,
+            "body": "the"
+        },
+        {
+            "startTime": 124.72500000000014,
+            "endTime": 124.99500000000012,
+            "body": "mind"
+        },
+        {
+            "startTime": 124.99500000000012,
+            "endTime": 125.95500000000015,
+            "body": "decisively"
+        },
+        {
+            "startTime": 125.98500000000013,
+            "endTime": 126.16500000000019,
+            "body": "in"
+        },
+        {
+            "startTime": 126.16500000000019,
+            "endTime": 126.55500000000006,
+            "body": "regard"
+        },
+        {
+            "startTime": 126.55500000000006,
+            "endTime": 126.61500000000024,
+            "body": "to"
+        },
+        {
+            "startTime": 126.61500000000024,
+            "endTime": 126.73500000000013,
+            "body": "the"
+        },
+        {
+            "startTime": 126.73500000000013,
+            "endTime": 127.45500000000015,
+            "body": "permanence"
+        },
+        {
+            "startTime": 127.5150000000001,
+            "endTime": 127.69500000000016,
+            "body": "and"
+        },
+        {
+            "startTime": 127.69500000000016,
+            "endTime": 128.35500000000025,
+            "body": "clarity"
+        },
+        {
+            "startTime": 128.35500000000025,
+            "endTime": 128.5050000000001,
+            "body": "of"
+        },
+        {
+            "startTime": 128.5050000000001,
+            "endTime": 128.62500000000023,
+            "body": "the"
+        },
+        {
+            "startTime": 128.62500000000023,
+            "endTime": 129.28500000000008,
+            "body": "items"
+        },
+        {
+            "startTime": 129.67500000000018,
+            "endTime": 130.54500000000007,
+            "body": "resurrected"
+        },
+        {
+            "startTime": 130.60500000000025,
+            "endTime": 130.81500000000005,
+            "body": "from"
+        },
+        {
+            "startTime": 130.81500000000005,
+            "endTime": 131.6550000000002,
+            "body": "storage."
+        },
+        {
+            "startTime": 132.46500000000015,
+            "endTime": 133.09500000000025,
+            "body": "Consider"
+        },
+        {
+            "startTime": 133.09500000000025,
+            "endTime": 133.12500000000023,
+            "body": "a"
+        },
+        {
+            "startTime": 133.12500000000023,
+            "endTime": 133.5150000000001,
+            "body": "future"
+        },
+        {
+            "startTime": 133.5150000000001,
+            "endTime": 133.99500000000012,
+            "body": "device"
+        },
+        {
+            "startTime": 133.99500000000012,
+            "endTime": 134.1450000000002,
+            "body": "for"
+        },
+        {
+            "startTime": 134.1450000000002,
+            "endTime": 134.71500000000015,
+            "body": "individual"
+        },
+        {
+            "startTime": 134.71500000000015,
+            "endTime": 135.34500000000025,
+            "body": "use,"
+        },
+        {
+            "startTime": 135.6450000000002,
+            "endTime": 136.09500000000025,
+            "body": "which"
+        },
+        {
+            "startTime": 136.12500000000023,
+            "endTime": 136.24500000000012,
+            "body": "is"
+        },
+        {
+            "startTime": 136.24500000000012,
+            "endTime": 136.33500000000004,
+            "body": "a"
+        },
+        {
+            "startTime": 136.33500000000004,
+            "endTime": 136.69500000000016,
+            "body": "sort"
+        },
+        {
+            "startTime": 136.69500000000016,
+            "endTime": 136.84500000000025,
+            "body": "of"
+        },
+        {
+            "startTime": 136.84500000000025,
+            "endTime": 137.5050000000001,
+            "body": "mechanized"
+        },
+        {
+            "startTime": 137.5050000000001,
+            "endTime": 137.98500000000013,
+            "body": "private"
+        },
+        {
+            "startTime": 137.98500000000013,
+            "endTime": 138.58500000000004,
+            "body": "file"
+        },
+        {
+            "startTime": 138.6450000000002,
+            "endTime": 138.82500000000005,
+            "body": "and"
+        },
+        {
+            "startTime": 138.82500000000005,
+            "endTime": 139.60500000000025,
+            "body": "library."
+        },
+        {
+            "startTime": 140.23500000000013,
+            "endTime": 140.38500000000022,
+            "body": "It"
+        },
+        {
+            "startTime": 140.38500000000022,
+            "endTime": 140.6550000000002,
+            "body": "needs"
+        },
+        {
+            "startTime": 140.6550000000002,
+            "endTime": 140.71500000000015,
+            "body": "a"
+        },
+        {
+            "startTime": 140.71500000000015,
+            "endTime": 141.43500000000017,
+            "body": "name"
+        },
+        {
+            "startTime": 141.46500000000015,
+            "endTime": 141.61500000000024,
+            "body": "and"
+        },
+        {
+            "startTime": 141.61500000000024,
+            "endTime": 141.73500000000013,
+            "body": "to"
+        },
+        {
+            "startTime": 141.73500000000013,
+            "endTime": 142.03500000000008,
+            "body": "coin"
+        },
+        {
+            "startTime": 142.03500000000008,
+            "endTime": 142.1550000000002,
+            "body": "one"
+        },
+        {
+            "startTime": 142.1550000000002,
+            "endTime": 142.30500000000006,
+            "body": "at"
+        },
+        {
+            "startTime": 142.30500000000006,
+            "endTime": 143.05500000000006,
+            "body": "random."
+        },
+        {
+            "startTime": 143.43000000000006,
+            "endTime": 144.24000000000024,
+            "body": "MIMICS"
+        },
+        {
+            "startTime": 144.30000000000018,
+            "endTime": 144.51000000000022,
+            "body": "will"
+        },
+        {
+            "startTime": 144.51000000000022,
+            "endTime": 145.0200000000002,
+            "body": "do."
+        },
+        {
+            "startTime": 145.56000000000017,
+            "endTime": 145.68000000000006,
+            "body": "A"
+        },
+        {
+            "startTime": 145.68000000000006,
+            "endTime": 146.1300000000001,
+            "body": "mimics"
+        },
+        {
+            "startTime": 146.1300000000001,
+            "endTime": 146.2800000000002,
+            "body": "is"
+        },
+        {
+            "startTime": 146.2800000000002,
+            "endTime": 146.37000000000012,
+            "body": "a"
+        },
+        {
+            "startTime": 146.37000000000012,
+            "endTime": 147.0300000000002,
+            "body": "device"
+        },
+        {
+            "startTime": 147.0300000000002,
+            "endTime": 147.18000000000006,
+            "body": "in"
+        },
+        {
+            "startTime": 147.18000000000006,
+            "endTime": 147.42000000000007,
+            "body": "which"
+        },
+        {
+            "startTime": 147.42000000000007,
+            "endTime": 147.5400000000002,
+            "body": "an"
+        },
+        {
+            "startTime": 147.5400000000002,
+            "endTime": 148.20000000000005,
+            "body": "individual"
+        },
+        {
+            "startTime": 148.20000000000005,
+            "endTime": 148.83000000000015,
+            "body": "stores"
+        },
+        {
+            "startTime": 148.83000000000015,
+            "endTime": 149.1300000000001,
+            "body": "all"
+        },
+        {
+            "startTime": 149.1300000000001,
+            "endTime": 149.31000000000017,
+            "body": "its"
+        },
+        {
+            "startTime": 149.31000000000017,
+            "endTime": 149.85000000000014,
+            "body": "books,"
+        },
+        {
+            "startTime": 150.09000000000015,
+            "endTime": 150.7800000000002,
+            "body": "records"
+        },
+        {
+            "startTime": 150.7800000000002,
+            "endTime": 150.93000000000006,
+            "body": "and"
+        },
+        {
+            "startTime": 150.93000000000006,
+            "endTime": 152.16000000000008,
+            "body": "communications,"
+        },
+        {
+            "startTime": 152.22000000000003,
+            "endTime": 152.6400000000001,
+            "body": "and"
+        },
+        {
+            "startTime": 152.6400000000001,
+            "endTime": 152.7900000000002,
+            "body": "which"
+        },
+        {
+            "startTime": 152.7900000000002,
+            "endTime": 152.91000000000008,
+            "body": "is"
+        },
+        {
+            "startTime": 152.91000000000008,
+            "endTime": 153.60000000000014,
+            "body": "mechanized."
+        },
+        {
+            "startTime": 153.60000000000014,
+            "endTime": 153.9000000000001,
+            "body": "So"
+        },
+        {
+            "startTime": 153.9000000000001,
+            "endTime": 154.0200000000002,
+            "body": "it"
+        },
+        {
+            "startTime": 154.0200000000002,
+            "endTime": 154.20000000000005,
+            "body": "may"
+        },
+        {
+            "startTime": 154.20000000000005,
+            "endTime": 154.35000000000014,
+            "body": "be"
+        },
+        {
+            "startTime": 154.35000000000014,
+            "endTime": 155.25000000000023,
+            "body": "consulted"
+        },
+        {
+            "startTime": 155.43000000000006,
+            "endTime": 155.61000000000013,
+            "body": "with"
+        },
+        {
+            "startTime": 155.61000000000013,
+            "endTime": 156.1500000000001,
+            "body": "exceeding"
+        },
+        {
+            "startTime": 156.1500000000001,
+            "endTime": 156.72000000000003,
+            "body": "speed"
+        },
+        {
+            "startTime": 156.72000000000003,
+            "endTime": 156.93000000000006,
+            "body": "and"
+        },
+        {
+            "startTime": 156.93000000000006,
+            "endTime": 157.95000000000005,
+            "body": "flexibility."
+        },
+        {
+            "startTime": 158.55000000000018,
+            "endTime": 158.76000000000022,
+            "body": "It"
+        },
+        {
+            "startTime": 158.76000000000022,
+            "endTime": 158.97000000000003,
+            "body": "is"
+        },
+        {
+            "startTime": 158.97000000000003,
+            "endTime": 159.09000000000015,
+            "body": "an"
+        },
+        {
+            "startTime": 159.09000000000015,
+            "endTime": 159.87000000000012,
+            "body": "enlarged,"
+        },
+        {
+            "startTime": 159.87000000000012,
+            "endTime": 160.3800000000001,
+            "body": "intimate"
+        },
+        {
+            "startTime": 160.3800000000001,
+            "endTime": 161.07000000000016,
+            "body": "supplement"
+        },
+        {
+            "startTime": 161.10000000000014,
+            "endTime": 161.25000000000023,
+            "body": "to"
+        },
+        {
+            "startTime": 161.25000000000023,
+            "endTime": 161.4000000000001,
+            "body": "its"
+        },
+        {
+            "startTime": 161.4000000000001,
+            "endTime": 162.06000000000017,
+            "body": "memory."
+        },
+        {
+            "startTime": 162.96000000000004,
+            "endTime": 163.17000000000007,
+            "body": "It"
+        },
+        {
+            "startTime": 163.17000000000007,
+            "endTime": 163.83000000000015,
+            "body": "consists"
+        },
+        {
+            "startTime": 163.83000000000015,
+            "endTime": 163.98000000000025,
+            "body": "of"
+        },
+        {
+            "startTime": 163.98000000000025,
+            "endTime": 164.0400000000002,
+            "body": "a"
+        },
+        {
+            "startTime": 164.0400000000002,
+            "endTime": 164.73000000000025,
+            "body": "desk,"
+        },
+        {
+            "startTime": 164.94000000000005,
+            "endTime": 165.09000000000015,
+            "body": "and"
+        },
+        {
+            "startTime": 165.09000000000015,
+            "endTime": 165.30000000000018,
+            "body": "while"
+        },
+        {
+            "startTime": 165.30000000000018,
+            "endTime": 165.3900000000001,
+            "body": "it"
+        },
+        {
+            "startTime": 165.3900000000001,
+            "endTime": 165.5400000000002,
+            "body": "can"
+        },
+        {
+            "startTime": 165.5400000000002,
+            "endTime": 166.2900000000002,
+            "body": "presumably"
+        },
+        {
+            "startTime": 166.2900000000002,
+            "endTime": 166.47000000000003,
+            "body": "be"
+        },
+        {
+            "startTime": 166.47000000000003,
+            "endTime": 166.95000000000005,
+            "body": "operated"
+        },
+        {
+            "startTime": 166.95000000000005,
+            "endTime": 167.10000000000014,
+            "body": "from"
+        },
+        {
+            "startTime": 167.10000000000014,
+            "endTime": 167.16000000000008,
+            "body": "a"
+        },
+        {
+            "startTime": 167.16000000000008,
+            "endTime": 167.94000000000005,
+            "body": "distance,"
+        },
+        {
+            "startTime": 168.30000000000018,
+            "endTime": 168.5400000000002,
+            "body": "it's"
+        },
+        {
+            "startTime": 168.5400000000002,
+            "endTime": 169.2900000000002,
+            "body": "primarily"
+        },
+        {
+            "startTime": 169.2900000000002,
+            "endTime": 169.44000000000005,
+            "body": "the"
+        },
+        {
+            "startTime": 169.44000000000005,
+            "endTime": 169.80000000000018,
+            "body": "piece"
+        },
+        {
+            "startTime": 169.80000000000018,
+            "endTime": 169.8900000000001,
+            "body": "of"
+        },
+        {
+            "startTime": 169.8900000000001,
+            "endTime": 170.5200000000002,
+            "body": "furniture"
+        },
+        {
+            "startTime": 170.5200000000002,
+            "endTime": 170.73000000000025,
+            "body": "at"
+        },
+        {
+            "startTime": 170.73000000000025,
+            "endTime": 171.00000000000023,
+            "body": "which"
+        },
+        {
+            "startTime": 171.00000000000023,
+            "endTime": 171.18000000000006,
+            "body": "he"
+        },
+        {
+            "startTime": 171.18000000000006,
+            "endTime": 171.75000000000023,
+            "body": "works."
+        },
+        {
+            "startTime": 172.51500000000033,
+            "endTime": 172.63500000000022,
+            "body": "On"
+        },
+        {
+            "startTime": 172.63500000000022,
+            "endTime": 172.72500000000036,
+            "body": "the"
+        },
+        {
+            "startTime": 172.72500000000036,
+            "endTime": 173.11500000000024,
+            "body": "top"
+        },
+        {
+            "startTime": 173.11500000000024,
+            "endTime": 173.23500000000035,
+            "body": "are"
+        },
+        {
+            "startTime": 173.23500000000035,
+            "endTime": 173.83500000000026,
+            "body": "slanting,"
+        },
+        {
+            "startTime": 173.83500000000026,
+            "endTime": 174.7950000000003,
+            "body": "translucent"
+        },
+        {
+            "startTime": 174.7950000000003,
+            "endTime": 175.72500000000036,
+            "body": "screens"
+        },
+        {
+            "startTime": 175.96500000000037,
+            "endTime": 176.11500000000024,
+            "body": "on"
+        },
+        {
+            "startTime": 176.11500000000024,
+            "endTime": 176.2950000000003,
+            "body": "which"
+        },
+        {
+            "startTime": 176.2950000000003,
+            "endTime": 176.83500000000026,
+            "body": "material"
+        },
+        {
+            "startTime": 176.83500000000026,
+            "endTime": 177.01500000000033,
+            "body": "can"
+        },
+        {
+            "startTime": 177.01500000000033,
+            "endTime": 177.07500000000027,
+            "body": "be"
+        },
+        {
+            "startTime": 177.07500000000027,
+            "endTime": 177.82500000000027,
+            "body": "projected"
+        },
+        {
+            "startTime": 177.82500000000027,
+            "endTime": 178.00500000000034,
+            "body": "for"
+        },
+        {
+            "startTime": 178.00500000000034,
+            "endTime": 178.6950000000004,
+            "body": "convenient"
+        },
+        {
+            "startTime": 178.6950000000004,
+            "endTime": 179.23500000000035,
+            "body": "reading."
+        },
+        {
+            "startTime": 179.95500000000038,
+            "endTime": 180.25500000000034,
+            "body": "There's"
+        },
+        {
+            "startTime": 180.25500000000034,
+            "endTime": 180.31500000000028,
+            "body": "a"
+        },
+        {
+            "startTime": 180.31500000000028,
+            "endTime": 181.27500000000032,
+            "body": "keyboard"
+        },
+        {
+            "startTime": 181.36500000000024,
+            "endTime": 181.48500000000035,
+            "body": "and"
+        },
+        {
+            "startTime": 181.48500000000035,
+            "endTime": 181.5450000000003,
+            "body": "a"
+        },
+        {
+            "startTime": 181.5450000000003,
+            "endTime": 181.75500000000034,
+            "body": "set"
+        },
+        {
+            "startTime": 181.75500000000034,
+            "endTime": 181.87500000000023,
+            "body": "of"
+        },
+        {
+            "startTime": 181.87500000000023,
+            "endTime": 182.32500000000027,
+            "body": "buttons"
+        },
+        {
+            "startTime": 182.32500000000027,
+            "endTime": 182.4450000000004,
+            "body": "and"
+        },
+        {
+            "startTime": 182.4450000000004,
+            "endTime": 183.16500000000042,
+            "body": "levers."
+        },
+        {
+            "startTime": 183.61500000000024,
+            "endTime": 184.21500000000037,
+            "body": "Otherwise,"
+        },
+        {
+            "startTime": 184.21500000000037,
+            "endTime": 184.3050000000003,
+            "body": "it"
+        },
+        {
+            "startTime": 184.3050000000003,
+            "endTime": 184.72500000000036,
+            "body": "looks"
+        },
+        {
+            "startTime": 184.72500000000036,
+            "endTime": 184.90500000000043,
+            "body": "like"
+        },
+        {
+            "startTime": 184.90500000000043,
+            "endTime": 185.02500000000032,
+            "body": "an"
+        },
+        {
+            "startTime": 185.02500000000032,
+            "endTime": 185.65500000000043,
+            "body": "ordinary"
+        },
+        {
+            "startTime": 185.65500000000043,
+            "endTime": 186.31500000000028,
+            "body": "desk."
+        },
+        {
+            "startTime": 187.08000000000015,
+            "endTime": 187.26000000000022,
+            "body": "In"
+        },
+        {
+            "startTime": 187.26000000000022,
+            "endTime": 187.50000000000023,
+            "body": "one"
+        },
+        {
+            "startTime": 187.50000000000023,
+            "endTime": 188.0400000000002,
+            "body": "end"
+        },
+        {
+            "startTime": 188.0400000000002,
+            "endTime": 188.22000000000025,
+            "body": "is"
+        },
+        {
+            "startTime": 188.22000000000025,
+            "endTime": 188.2800000000002,
+            "body": "a"
+        },
+        {
+            "startTime": 188.2800000000002,
+            "endTime": 188.94000000000005,
+            "body": "stored"
+        },
+        {
+            "startTime": 188.94000000000005,
+            "endTime": 189.84000000000015,
+            "body": "material."
+        },
+        {
+            "startTime": 190.08000000000015,
+            "endTime": 190.17000000000007,
+            "body": "The"
+        },
+        {
+            "startTime": 190.17000000000007,
+            "endTime": 190.62000000000012,
+            "body": "material"
+        },
+        {
+            "startTime": 190.62000000000012,
+            "endTime": 190.7700000000002,
+            "body": "of"
+        },
+        {
+            "startTime": 190.7700000000002,
+            "endTime": 191.19000000000005,
+            "body": "bulk"
+        },
+        {
+            "startTime": 191.19000000000005,
+            "endTime": 191.34000000000015,
+            "body": "is"
+        },
+        {
+            "startTime": 191.34000000000015,
+            "endTime": 191.61000000000013,
+            "body": "well"
+        },
+        {
+            "startTime": 191.61000000000013,
+            "endTime": 191.97000000000025,
+            "body": "taken"
+        },
+        {
+            "startTime": 191.97000000000025,
+            "endTime": 192.33000000000015,
+            "body": "care"
+        },
+        {
+            "startTime": 192.33000000000015,
+            "endTime": 192.48000000000025,
+            "body": "of"
+        },
+        {
+            "startTime": 192.48000000000025,
+            "endTime": 192.6300000000001,
+            "body": "by"
+        },
+        {
+            "startTime": 192.6300000000001,
+            "endTime": 193.23000000000025,
+            "body": "improved"
+        },
+        {
+            "startTime": 193.23000000000025,
+            "endTime": 194.16000000000008,
+            "body": "microfilm."
+        },
+        {
+            "startTime": 194.58000000000015,
+            "endTime": 194.8800000000001,
+            "body": "Only"
+        },
+        {
+            "startTime": 194.8800000000001,
+            "endTime": 194.94000000000005,
+            "body": "a"
+        },
+        {
+            "startTime": 194.94000000000005,
+            "endTime": 195.30000000000018,
+            "body": "small"
+        },
+        {
+            "startTime": 195.30000000000018,
+            "endTime": 195.69000000000005,
+            "body": "part"
+        },
+        {
+            "startTime": 195.69000000000005,
+            "endTime": 195.81000000000017,
+            "body": "of"
+        },
+        {
+            "startTime": 195.81000000000017,
+            "endTime": 195.93000000000006,
+            "body": "the"
+        },
+        {
+            "startTime": 195.93000000000006,
+            "endTime": 196.56000000000017,
+            "body": "interior"
+        },
+        {
+            "startTime": 196.56000000000017,
+            "endTime": 196.68000000000006,
+            "body": "of"
+        },
+        {
+            "startTime": 196.68000000000006,
+            "endTime": 196.83000000000015,
+            "body": "the"
+        },
+        {
+            "startTime": 196.83000000000015,
+            "endTime": 197.2800000000002,
+            "body": "memex"
+        },
+        {
+            "startTime": 197.2800000000002,
+            "endTime": 197.43000000000006,
+            "body": "is"
+        },
+        {
+            "startTime": 197.43000000000006,
+            "endTime": 197.82000000000016,
+            "body": "devoted"
+        },
+        {
+            "startTime": 197.82000000000016,
+            "endTime": 197.91000000000008,
+            "body": "to"
+        },
+        {
+            "startTime": 197.91000000000008,
+            "endTime": 198.69000000000005,
+            "body": "storage,"
+        },
+        {
+            "startTime": 198.96000000000026,
+            "endTime": 199.11000000000013,
+            "body": "the"
+        },
+        {
+            "startTime": 199.11000000000013,
+            "endTime": 199.47000000000025,
+            "body": "rest"
+        },
+        {
+            "startTime": 199.47000000000025,
+            "endTime": 199.59000000000015,
+            "body": "to"
+        },
+        {
+            "startTime": 199.59000000000015,
+            "endTime": 200.49000000000024,
+            "body": "mechanism."
+        },
+        {
+            "startTime": 200.91000000000008,
+            "endTime": 201.1500000000001,
+            "body": "Yet,"
+        },
+        {
+            "startTime": 201.1500000000001,
+            "endTime": 201.2700000000002,
+            "body": "if"
+        },
+        {
+            "startTime": 201.2700000000002,
+            "endTime": 201.36000000000013,
+            "body": "the"
+        },
+        {
+            "startTime": 201.36000000000013,
+            "endTime": 201.7800000000002,
+            "body": "user"
+        },
+        {
+            "startTime": 201.7800000000002,
+            "endTime": 202.35000000000014,
+            "body": "inserted"
+        },
+        {
+            "startTime": 202.35000000000014,
+            "endTime": 203.07000000000016,
+            "body": "5,000"
+        },
+        {
+            "startTime": 203.07000000000016,
+            "endTime": 203.61000000000013,
+            "body": "pages"
+        },
+        {
+            "startTime": 203.61000000000013,
+            "endTime": 203.70000000000005,
+            "body": "of"
+        },
+        {
+            "startTime": 203.70000000000005,
+            "endTime": 204.45000000000005,
+            "body": "material"
+        },
+        {
+            "startTime": 204.45000000000005,
+            "endTime": 204.57000000000016,
+            "body": "a"
+        },
+        {
+            "startTime": 204.57000000000016,
+            "endTime": 205.1400000000001,
+            "body": "day,"
+        },
+        {
+            "startTime": 205.3800000000001,
+            "endTime": 205.50000000000023,
+            "body": "it"
+        },
+        {
+            "startTime": 205.50000000000023,
+            "endTime": 205.59000000000015,
+            "body": "would"
+        },
+        {
+            "startTime": 205.62000000000012,
+            "endTime": 205.80000000000018,
+            "body": "take"
+        },
+        {
+            "startTime": 205.80000000000018,
+            "endTime": 205.92000000000007,
+            "body": "him"
+        },
+        {
+            "startTime": 205.92000000000007,
+            "endTime": 206.43000000000006,
+            "body": "hundreds"
+        },
+        {
+            "startTime": 206.43000000000006,
+            "endTime": 206.5200000000002,
+            "body": "of"
+        },
+        {
+            "startTime": 206.5200000000002,
+            "endTime": 206.91000000000008,
+            "body": "years"
+        },
+        {
+            "startTime": 206.91000000000008,
+            "endTime": 207.0300000000002,
+            "body": "to"
+        },
+        {
+            "startTime": 207.0300000000002,
+            "endTime": 207.30000000000018,
+            "body": "fill"
+        },
+        {
+            "startTime": 207.30000000000018,
+            "endTime": 207.3900000000001,
+            "body": "the"
+        },
+        {
+            "startTime": 207.3900000000001,
+            "endTime": 208.44000000000005,
+            "body": "repository"
+        },
+        {
+            "startTime": 208.7700000000002,
+            "endTime": 208.98000000000025,
+            "body": "so"
+        },
+        {
+            "startTime": 208.98000000000025,
+            "endTime": 209.07000000000016,
+            "body": "it"
+        },
+        {
+            "startTime": 209.07000000000016,
+            "endTime": 209.2800000000002,
+            "body": "can"
+        },
+        {
+            "startTime": 209.2800000000002,
+            "endTime": 210.12000000000012,
+            "body": "propagate"
+        },
+        {
+            "startTime": 210.1500000000001,
+            "endTime": 210.30000000000018,
+            "body": "and"
+        },
+        {
+            "startTime": 210.30000000000018,
+            "endTime": 210.69000000000005,
+            "body": "enter"
+        },
+        {
+            "startTime": 210.69000000000005,
+            "endTime": 211.41000000000008,
+            "body": "material"
+        },
+        {
+            "startTime": 211.44000000000005,
+            "endTime": 212.0400000000002,
+            "body": "freely."
+        },
+        {
+            "startTime": 212.91000000000008,
+            "endTime": 213.21000000000004,
+            "body": "Most"
+        },
+        {
+            "startTime": 213.21000000000004,
+            "endTime": 213.2700000000002,
+            "body": "of"
+        },
+        {
+            "startTime": 213.2700000000002,
+            "endTime": 213.36000000000013,
+            "body": "the"
+        },
+        {
+            "startTime": 213.36000000000013,
+            "endTime": 213.99000000000024,
+            "body": "mimics"
+        },
+        {
+            "startTime": 214.0200000000002,
+            "endTime": 214.83000000000015,
+            "body": "contents"
+        },
+        {
+            "startTime": 214.8900000000001,
+            "endTime": 215.01000000000022,
+            "body": "are"
+        },
+        {
+            "startTime": 215.01000000000022,
+            "endTime": 215.61000000000013,
+            "body": "purchased"
+        },
+        {
+            "startTime": 215.61000000000013,
+            "endTime": 215.76000000000022,
+            "body": "on"
+        },
+        {
+            "startTime": 215.76000000000022,
+            "endTime": 216.51000000000022,
+            "body": "microfilm,"
+        },
+        {
+            "startTime": 216.57000000000016,
+            "endTime": 216.87000000000012,
+            "body": "ready"
+        },
+        {
+            "startTime": 216.87000000000012,
+            "endTime": 217.05000000000018,
+            "body": "for"
+        },
+        {
+            "startTime": 217.05000000000018,
+            "endTime": 217.86000000000013,
+            "body": "insertion,"
+        },
+        {
+            "startTime": 218.31000000000017,
+            "endTime": 218.61000000000013,
+            "body": "books"
+        },
+        {
+            "startTime": 218.61000000000013,
+            "endTime": 218.70000000000005,
+            "body": "of"
+        },
+        {
+            "startTime": 218.70000000000005,
+            "endTime": 218.85000000000014,
+            "body": "all"
+        },
+        {
+            "startTime": 218.85000000000014,
+            "endTime": 219.3900000000001,
+            "body": "sorts,"
+        },
+        {
+            "startTime": 219.3900000000001,
+            "endTime": 220.20000000000005,
+            "body": "pictures,"
+        },
+        {
+            "startTime": 220.20000000000005,
+            "endTime": 220.56000000000017,
+            "body": "current"
+        },
+        {
+            "startTime": 220.56000000000017,
+            "endTime": 221.4000000000001,
+            "body": "periodicals,"
+        },
+        {
+            "startTime": 221.4000000000001,
+            "endTime": 222.24000000000024,
+            "body": "newspapers"
+        },
+        {
+            "startTime": 222.48000000000025,
+            "endTime": 222.6300000000001,
+            "body": "are"
+        },
+        {
+            "startTime": 222.6300000000001,
+            "endTime": 222.84000000000015,
+            "body": "this"
+        },
+        {
+            "startTime": 222.84000000000015,
+            "endTime": 223.50000000000023,
+            "body": "obtained"
+        },
+        {
+            "startTime": 223.50000000000023,
+            "endTime": 223.68000000000006,
+            "body": "and"
+        },
+        {
+            "startTime": 223.68000000000006,
+            "endTime": 224.10000000000014,
+            "body": "dropped"
+        },
+        {
+            "startTime": 224.10000000000014,
+            "endTime": 224.31000000000017,
+            "body": "into"
+        },
+        {
+            "startTime": 224.31000000000017,
+            "endTime": 224.7900000000002,
+            "body": "place."
+        },
+        {
+            "startTime": 225.6300000000001,
+            "endTime": 226.1400000000001,
+            "body": "Business"
+        },
+        {
+            "startTime": 226.1400000000001,
+            "endTime": 227.0400000000002,
+            "body": "correspondence"
+        },
+        {
+            "startTime": 227.0400000000002,
+            "endTime": 227.4000000000001,
+            "body": "takes"
+        },
+        {
+            "startTime": 227.4000000000001,
+            "endTime": 227.49000000000024,
+            "body": "the"
+        },
+        {
+            "startTime": 227.49000000000024,
+            "endTime": 227.85000000000014,
+            "body": "same"
+        },
+        {
+            "startTime": 227.85000000000014,
+            "endTime": 228.4200000000003,
+            "body": "path,"
+        },
+        {
+            "startTime": 228.75000000000023,
+            "endTime": 228.9300000000003,
+            "body": "and"
+        },
+        {
+            "startTime": 228.9300000000003,
+            "endTime": 229.11000000000013,
+            "body": "there"
+        },
+        {
+            "startTime": 229.11000000000013,
+            "endTime": 229.20000000000027,
+            "body": "is"
+        },
+        {
+            "startTime": 229.20000000000027,
+            "endTime": 229.2900000000002,
+            "body": "a"
+        },
+        {
+            "startTime": 229.2900000000002,
+            "endTime": 229.86000000000013,
+            "body": "provision"
+        },
+        {
+            "startTime": 229.86000000000013,
+            "endTime": 230.01000000000022,
+            "body": "for"
+        },
+        {
+            "startTime": 230.01000000000022,
+            "endTime": 230.46000000000026,
+            "body": "direct"
+        },
+        {
+            "startTime": 230.46000000000026,
+            "endTime": 231.1800000000003,
+            "body": "entry."
+        },
+        {
+            "startTime": 231.5400000000002,
+            "endTime": 231.69000000000028,
+            "body": "On"
+        },
+        {
+            "startTime": 231.69000000000028,
+            "endTime": 231.7800000000002,
+            "body": "the"
+        },
+        {
+            "startTime": 231.7800000000002,
+            "endTime": 232.08000000000015,
+            "body": "top"
+        },
+        {
+            "startTime": 232.08000000000015,
+            "endTime": 232.1400000000001,
+            "body": "of"
+        },
+        {
+            "startTime": 232.1400000000001,
+            "endTime": 232.26000000000022,
+            "body": "the"
+        },
+        {
+            "startTime": 232.26000000000022,
+            "endTime": 232.74000000000024,
+            "body": "mimics"
+        },
+        {
+            "startTime": 232.74000000000024,
+            "endTime": 232.9200000000003,
+            "body": "is"
+        },
+        {
+            "startTime": 232.9200000000003,
+            "endTime": 232.98000000000025,
+            "body": "a"
+        },
+        {
+            "startTime": 232.98000000000025,
+            "endTime": 233.8800000000001,
+            "body": "transparent"
+        },
+        {
+            "startTime": 233.91000000000008,
+            "endTime": 234.5400000000002,
+            "body": "plan."
+        },
+        {
+            "startTime": 235.05000000000018,
+            "endTime": 235.32000000000016,
+            "body": "On"
+        },
+        {
+            "startTime": 235.32000000000016,
+            "endTime": 235.6500000000001,
+            "body": "this"
+        },
+        {
+            "startTime": 235.6500000000001,
+            "endTime": 235.83000000000015,
+            "body": "are"
+        },
+        {
+            "startTime": 235.83000000000015,
+            "endTime": 236.25000000000023,
+            "body": "placed"
+        },
+        {
+            "startTime": 236.25000000000023,
+            "endTime": 236.7900000000002,
+            "body": "longhand,"
+        },
+        {
+            "startTime": 236.7900000000002,
+            "endTime": 237.36000000000013,
+            "body": "notes,"
+        },
+        {
+            "startTime": 237.4200000000003,
+            "endTime": 238.08000000000015,
+            "body": "photographs,"
+        },
+        {
+            "startTime": 238.11000000000013,
+            "endTime": 238.8900000000001,
+            "body": "memoranda,"
+        },
+        {
+            "startTime": 239.1300000000001,
+            "endTime": 239.34000000000015,
+            "body": "all"
+        },
+        {
+            "startTime": 239.34000000000015,
+            "endTime": 239.6700000000003,
+            "body": "sorts"
+        },
+        {
+            "startTime": 239.6700000000003,
+            "endTime": 239.76000000000022,
+            "body": "of"
+        },
+        {
+            "startTime": 239.76000000000022,
+            "endTime": 240.3900000000001,
+            "body": "things."
+        },
+        {
+            "startTime": 240.72000000000025,
+            "endTime": 240.9300000000003,
+            "body": "When"
+        },
+        {
+            "startTime": 240.9300000000003,
+            "endTime": 241.1400000000001,
+            "body": "one"
+        },
+        {
+            "startTime": 241.1400000000001,
+            "endTime": 241.26000000000022,
+            "body": "is"
+        },
+        {
+            "startTime": 241.26000000000022,
+            "endTime": 241.3800000000001,
+            "body": "in"
+        },
+        {
+            "startTime": 241.3800000000001,
+            "endTime": 241.80000000000018,
+            "body": "place,"
+        },
+        {
+            "startTime": 241.80000000000018,
+            "endTime": 241.8900000000001,
+            "body": "the"
+        },
+        {
+            "startTime": 241.8900000000001,
+            "endTime": 242.4000000000001,
+            "body": "depression"
+        },
+        {
+            "startTime": 242.4000000000001,
+            "endTime": 242.49000000000024,
+            "body": "of"
+        },
+        {
+            "startTime": 242.49000000000024,
+            "endTime": 242.55000000000018,
+            "body": "a"
+        },
+        {
+            "startTime": 242.55000000000018,
+            "endTime": 242.94000000000028,
+            "body": "lever"
+        },
+        {
+            "startTime": 242.94000000000028,
+            "endTime": 243.4200000000003,
+            "body": "causes"
+        },
+        {
+            "startTime": 243.4200000000003,
+            "endTime": 243.57000000000016,
+            "body": "it"
+        },
+        {
+            "startTime": 243.57000000000016,
+            "endTime": 243.6300000000001,
+            "body": "to"
+        },
+        {
+            "startTime": 243.6300000000001,
+            "endTime": 243.7800000000002,
+            "body": "be"
+        },
+        {
+            "startTime": 243.7800000000002,
+            "endTime": 244.47000000000025,
+            "body": "photographed"
+        },
+        {
+            "startTime": 244.47500000000014,
+            "endTime": 244.59500000000025,
+            "body": "in"
+        },
+        {
+            "startTime": 244.60000000000014,
+            "endTime": 244.6500000000001,
+            "body": "the"
+        },
+        {
+            "startTime": 244.6500000000001,
+            "endTime": 245.01000000000022,
+            "body": "next"
+        },
+        {
+            "startTime": 245.01000000000022,
+            "endTime": 245.31000000000017,
+            "body": "blank"
+        },
+        {
+            "startTime": 245.31000000000017,
+            "endTime": 245.97000000000025,
+            "body": "space"
+        },
+        {
+            "startTime": 246.30000000000018,
+            "endTime": 246.4200000000003,
+            "body": "in"
+        },
+        {
+            "startTime": 246.4200000000003,
+            "endTime": 246.48000000000025,
+            "body": "a"
+        },
+        {
+            "startTime": 246.48000000000025,
+            "endTime": 246.9000000000001,
+            "body": "section"
+        },
+        {
+            "startTime": 246.9000000000001,
+            "endTime": 246.99000000000024,
+            "body": "of"
+        },
+        {
+            "startTime": 246.99000000000024,
+            "endTime": 247.08000000000015,
+            "body": "the"
+        },
+        {
+            "startTime": 247.08000000000015,
+            "endTime": 247.47000000000025,
+            "body": "mimics"
+        },
+        {
+            "startTime": 247.47000000000025,
+            "endTime": 248.01000000000022,
+            "body": "film,"
+        },
+        {
+            "startTime": 248.34000000000015,
+            "endTime": 248.70000000000027,
+            "body": "dry"
+        },
+        {
+            "startTime": 248.70000000000027,
+            "endTime": 249.4200000000003,
+            "body": "photography"
+        },
+        {
+            "startTime": 249.4200000000003,
+            "endTime": 249.66000000000008,
+            "body": "being"
+        },
+        {
+            "startTime": 249.66000000000008,
+            "endTime": 250.41000000000008,
+            "body": "employed."
+        },
+        {
+            "startTime": 251.08000000000015,
+            "endTime": 251.2900000000002,
+            "body": "There"
+        },
+        {
+            "startTime": 251.2900000000002,
+            "endTime": 251.4100000000003,
+            "body": "is"
+        },
+        {
+            "startTime": 251.4100000000003,
+            "endTime": 251.5300000000002,
+            "body": "of"
+        },
+        {
+            "startTime": 251.5300000000002,
+            "endTime": 251.9200000000003,
+            "body": "course"
+        },
+        {
+            "startTime": 251.9200000000003,
+            "endTime": 252.37000000000012,
+            "body": "provision"
+        },
+        {
+            "startTime": 252.37000000000012,
+            "endTime": 252.5200000000002,
+            "body": "for"
+        },
+        {
+            "startTime": 252.5200000000002,
+            "endTime": 253.36000000000013,
+            "body": "consultation"
+        },
+        {
+            "startTime": 253.36000000000013,
+            "endTime": 253.4200000000003,
+            "body": "of"
+        },
+        {
+            "startTime": 253.4200000000003,
+            "endTime": 253.5400000000002,
+            "body": "the"
+        },
+        {
+            "startTime": 253.5400000000002,
+            "endTime": 254.11000000000013,
+            "body": "record"
+        },
+        {
+            "startTime": 254.35000000000014,
+            "endTime": 254.50000000000023,
+            "body": "by"
+        },
+        {
+            "startTime": 254.50000000000023,
+            "endTime": 254.62000000000012,
+            "body": "the"
+        },
+        {
+            "startTime": 254.62000000000012,
+            "endTime": 254.98000000000025,
+            "body": "usual"
+        },
+        {
+            "startTime": 254.98000000000025,
+            "endTime": 255.37000000000012,
+            "body": "scheme"
+        },
+        {
+            "startTime": 255.37000000000012,
+            "endTime": 255.49000000000024,
+            "body": "of"
+        },
+        {
+            "startTime": 255.49000000000024,
+            "endTime": 256.1800000000003,
+            "body": "indexing."
+        },
+        {
+            "startTime": 256.8100000000002,
+            "endTime": 256.99000000000024,
+            "body": "If"
+        },
+        {
+            "startTime": 256.99000000000024,
+            "endTime": 257.1100000000001,
+            "body": "the"
+        },
+        {
+            "startTime": 257.1100000000001,
+            "endTime": 257.59000000000015,
+            "body": "user"
+        },
+        {
+            "startTime": 257.59000000000015,
+            "endTime": 258.0100000000002,
+            "body": "wishes"
+        },
+        {
+            "startTime": 258.0100000000002,
+            "endTime": 258.1300000000001,
+            "body": "to"
+        },
+        {
+            "startTime": 258.1300000000001,
+            "endTime": 258.6400000000003,
+            "body": "consult"
+        },
+        {
+            "startTime": 258.6400000000003,
+            "endTime": 258.7000000000003,
+            "body": "a"
+        },
+        {
+            "startTime": 258.7000000000003,
+            "endTime": 259.1200000000001,
+            "body": "certain"
+        },
+        {
+            "startTime": 259.1200000000001,
+            "endTime": 259.57000000000016,
+            "body": "book,"
+        },
+        {
+            "startTime": 259.60000000000014,
+            "endTime": 259.96000000000026,
+            "body": "he"
+        },
+        {
+            "startTime": 259.96000000000026,
+            "endTime": 260.32000000000016,
+            "body": "taps"
+        },
+        {
+            "startTime": 260.32000000000016,
+            "endTime": 260.5000000000002,
+            "body": "its"
+        },
+        {
+            "startTime": 260.5000000000002,
+            "endTime": 260.8900000000003,
+            "body": "code"
+        },
+        {
+            "startTime": 260.8900000000003,
+            "endTime": 261.0100000000002,
+            "body": "on"
+        },
+        {
+            "startTime": 261.0100000000002,
+            "endTime": 261.07000000000016,
+            "body": "the"
+        },
+        {
+            "startTime": 261.07000000000016,
+            "endTime": 261.85000000000014,
+            "body": "keyboard"
+        },
+        {
+            "startTime": 261.9100000000003,
+            "endTime": 262.2700000000002,
+            "body": "and"
+        },
+        {
+            "startTime": 262.2700000000002,
+            "endTime": 262.33000000000015,
+            "body": "the"
+        },
+        {
+            "startTime": 262.33000000000015,
+            "endTime": 262.6600000000003,
+            "body": "title"
+        },
+        {
+            "startTime": 262.6600000000003,
+            "endTime": 262.9300000000003,
+            "body": "page"
+        },
+        {
+            "startTime": 262.9300000000003,
+            "endTime": 262.99000000000024,
+            "body": "of"
+        },
+        {
+            "startTime": 262.99000000000024,
+            "endTime": 263.1100000000001,
+            "body": "the"
+        },
+        {
+            "startTime": 263.1100000000001,
+            "endTime": 263.47000000000025,
+            "body": "book"
+        },
+        {
+            "startTime": 263.47000000000025,
+            "endTime": 264.07000000000016,
+            "body": "promptly"
+        },
+        {
+            "startTime": 264.07000000000016,
+            "endTime": 264.5500000000002,
+            "body": "appears"
+        },
+        {
+            "startTime": 264.5500000000002,
+            "endTime": 264.9400000000003,
+            "body": "before"
+        },
+        {
+            "startTime": 264.9400000000003,
+            "endTime": 265.3600000000001,
+            "body": "him"
+        },
+        {
+            "startTime": 265.96000000000026,
+            "endTime": 266.59000000000015,
+            "body": "projected"
+        },
+        {
+            "startTime": 266.59000000000015,
+            "endTime": 266.8000000000002,
+            "body": "onto"
+        },
+        {
+            "startTime": 266.8000000000002,
+            "endTime": 266.98000000000025,
+            "body": "one"
+        },
+        {
+            "startTime": 266.98000000000025,
+            "endTime": 267.10000000000014,
+            "body": "of"
+        },
+        {
+            "startTime": 267.10000000000014,
+            "endTime": 267.2500000000002,
+            "body": "his"
+        },
+        {
+            "startTime": 267.2500000000002,
+            "endTime": 267.5500000000002,
+            "body": "viewing"
+        },
+        {
+            "startTime": 267.5500000000002,
+            "endTime": 268.21000000000026,
+            "body": "positions."
+        },
+        {
+            "startTime": 268.9350000000002,
+            "endTime": 269.44500000000016,
+            "body": "Frequently"
+        },
+        {
+            "startTime": 269.44500000000016,
+            "endTime": 269.80500000000006,
+            "body": "used"
+        },
+        {
+            "startTime": 269.80500000000006,
+            "endTime": 270.2550000000001,
+            "body": "codes"
+        },
+        {
+            "startTime": 270.2850000000001,
+            "endTime": 270.4050000000002,
+            "body": "are"
+        },
+        {
+            "startTime": 270.4050000000002,
+            "endTime": 271.09500000000025,
+            "body": "mnemonic"
+        },
+        {
+            "startTime": 271.33500000000004,
+            "endTime": 271.4850000000001,
+            "body": "so"
+        },
+        {
+            "startTime": 271.4850000000001,
+            "endTime": 271.6350000000002,
+            "body": "that"
+        },
+        {
+            "startTime": 271.6350000000002,
+            "endTime": 271.7850000000001,
+            "body": "he"
+        },
+        {
+            "startTime": 271.7850000000001,
+            "endTime": 272.3850000000002,
+            "body": "seldom"
+        },
+        {
+            "startTime": 272.3850000000002,
+            "endTime": 272.9250000000002,
+            "body": "consults"
+        },
+        {
+            "startTime": 272.9250000000002,
+            "endTime": 273.10500000000025,
+            "body": "his"
+        },
+        {
+            "startTime": 273.10500000000025,
+            "endTime": 273.3750000000002,
+            "body": "code"
+        },
+        {
+            "startTime": 273.3750000000002,
+            "endTime": 273.7650000000001,
+            "body": "book,"
+        },
+        {
+            "startTime": 274.2450000000001,
+            "endTime": 274.3950000000002,
+            "body": "but"
+        },
+        {
+            "startTime": 274.3950000000002,
+            "endTime": 274.5150000000001,
+            "body": "when"
+        },
+        {
+            "startTime": 274.5150000000001,
+            "endTime": 274.60500000000025,
+            "body": "he"
+        },
+        {
+            "startTime": 274.60500000000025,
+            "endTime": 275.0250000000001,
+            "body": "does"
+        },
+        {
+            "startTime": 275.0250000000001,
+            "endTime": 275.1450000000002,
+            "body": "a"
+        },
+        {
+            "startTime": 275.1450000000002,
+            "endTime": 275.44500000000016,
+            "body": "single"
+        },
+        {
+            "startTime": 275.44500000000016,
+            "endTime": 275.6850000000002,
+            "body": "tap"
+        },
+        {
+            "startTime": 275.6850000000002,
+            "endTime": 275.80500000000006,
+            "body": "of"
+        },
+        {
+            "startTime": 275.80500000000006,
+            "endTime": 275.86500000000024,
+            "body": "a"
+        },
+        {
+            "startTime": 275.86500000000024,
+            "endTime": 276.2850000000001,
+            "body": "key,"
+        },
+        {
+            "startTime": 276.2850000000001,
+            "endTime": 276.85500000000025,
+            "body": "projects"
+        },
+        {
+            "startTime": 276.85500000000025,
+            "endTime": 276.97500000000014,
+            "body": "it"
+        },
+        {
+            "startTime": 276.97500000000014,
+            "endTime": 277.1550000000002,
+            "body": "for"
+        },
+        {
+            "startTime": 277.1550000000002,
+            "endTime": 277.30500000000006,
+            "body": "his"
+        },
+        {
+            "startTime": 277.30500000000006,
+            "endTime": 277.84500000000025,
+            "body": "use."
+        },
+        {
+            "startTime": 278.08500000000004,
+            "endTime": 278.6550000000002,
+            "body": "Moreover,"
+        },
+        {
+            "startTime": 278.6550000000002,
+            "endTime": 278.83500000000004,
+            "body": "he"
+        },
+        {
+            "startTime": 278.83500000000004,
+            "endTime": 278.9250000000002,
+            "body": "has"
+        },
+        {
+            "startTime": 278.9250000000002,
+            "endTime": 279.5250000000001,
+            "body": "supplemental"
+        },
+        {
+            "startTime": 279.5250000000001,
+            "endTime": 280.1850000000002,
+            "body": "levers"
+        },
+        {
+            "startTime": 280.5150000000001,
+            "endTime": 280.6650000000002,
+            "body": "on"
+        },
+        {
+            "startTime": 280.6650000000002,
+            "endTime": 281.5350000000001,
+            "body": "deflecting"
+        },
+        {
+            "startTime": 281.56500000000005,
+            "endTime": 281.80500000000006,
+            "body": "one"
+        },
+        {
+            "startTime": 281.80500000000006,
+            "endTime": 281.95500000000015,
+            "body": "of"
+        },
+        {
+            "startTime": 281.95500000000015,
+            "endTime": 282.2850000000001,
+            "body": "these"
+        },
+        {
+            "startTime": 282.2850000000001,
+            "endTime": 282.7950000000001,
+            "body": "levers"
+        },
+        {
+            "startTime": 282.7950000000001,
+            "endTime": 282.85500000000025,
+            "body": "to"
+        },
+        {
+            "startTime": 282.85500000000025,
+            "endTime": 282.97500000000014,
+            "body": "the"
+        },
+        {
+            "startTime": 282.97500000000014,
+            "endTime": 283.4250000000002,
+            "body": "right."
+        },
+        {
+            "startTime": 283.4250000000002,
+            "endTime": 283.6650000000002,
+            "body": "He"
+        },
+        {
+            "startTime": 283.6650000000002,
+            "endTime": 284.0250000000001,
+            "body": "runs"
+        },
+        {
+            "startTime": 284.0250000000001,
+            "endTime": 284.1750000000002,
+            "body": "through"
+        },
+        {
+            "startTime": 284.1750000000002,
+            "endTime": 284.2950000000001,
+            "body": "the"
+        },
+        {
+            "startTime": 284.2950000000001,
+            "endTime": 284.56500000000005,
+            "body": "book"
+        },
+        {
+            "startTime": 284.56500000000005,
+            "endTime": 284.9850000000001,
+            "body": "before"
+        },
+        {
+            "startTime": 284.9850000000001,
+            "endTime": 285.19500000000016,
+            "body": "him,"
+        },
+        {
+            "startTime": 285.19500000000016,
+            "endTime": 285.22500000000014,
+            "body": "he."
+        },
+        {
+            "startTime": 285.6200000000001,
+            "endTime": 285.98,
+            "body": "Each"
+        },
+        {
+            "startTime": 285.98,
+            "endTime": 286.58000000000015,
+            "body": "page"
+        },
+        {
+            "startTime": 286.6100000000001,
+            "endTime": 286.7900000000002,
+            "body": "in"
+        },
+        {
+            "startTime": 286.7900000000002,
+            "endTime": 287.18000000000006,
+            "body": "turn"
+        },
+        {
+            "startTime": 287.18000000000006,
+            "endTime": 287.3600000000001,
+            "body": "being"
+        },
+        {
+            "startTime": 287.3600000000001,
+            "endTime": 288.08000000000015,
+            "body": "projected"
+        },
+        {
+            "startTime": 288.32000000000016,
+            "endTime": 288.5000000000002,
+            "body": "at"
+        },
+        {
+            "startTime": 288.5000000000002,
+            "endTime": 288.5300000000002,
+            "body": "a"
+        },
+        {
+            "startTime": 288.5300000000002,
+            "endTime": 289.2500000000002,
+            "body": "speed,"
+        },
+        {
+            "startTime": 289.43000000000006,
+            "endTime": 289.70000000000005,
+            "body": "which"
+        },
+        {
+            "startTime": 289.70000000000005,
+            "endTime": 289.97,
+            "body": "just"
+        },
+        {
+            "startTime": 289.97,
+            "endTime": 290.48,
+            "body": "allows"
+        },
+        {
+            "startTime": 290.48,
+            "endTime": 290.60000000000014,
+            "body": "a"
+        },
+        {
+            "startTime": 290.60000000000014,
+            "endTime": 291.2900000000002,
+            "body": "recognizing"
+        },
+        {
+            "startTime": 291.2900000000002,
+            "endTime": 291.71000000000004,
+            "body": "glance"
+        },
+        {
+            "startTime": 291.71000000000004,
+            "endTime": 291.8600000000001,
+            "body": "at"
+        },
+        {
+            "startTime": 291.8600000000001,
+            "endTime": 292.46000000000004,
+            "body": "each."
+        },
+        {
+            "startTime": 292.73,
+            "endTime": 292.8800000000001,
+            "body": "If"
+        },
+        {
+            "startTime": 292.8800000000001,
+            "endTime": 292.97,
+            "body": "he"
+        },
+        {
+            "startTime": 292.97,
+            "endTime": 293.48,
+            "body": "deflects"
+        },
+        {
+            "startTime": 293.48,
+            "endTime": 293.6600000000001,
+            "body": "it"
+        },
+        {
+            "startTime": 293.6600000000001,
+            "endTime": 294.1100000000001,
+            "body": "further"
+        },
+        {
+            "startTime": 294.1100000000001,
+            "endTime": 294.20000000000005,
+            "body": "to"
+        },
+        {
+            "startTime": 294.20000000000005,
+            "endTime": 294.32000000000016,
+            "body": "the"
+        },
+        {
+            "startTime": 294.32000000000016,
+            "endTime": 294.7700000000002,
+            "body": "right,"
+        },
+        {
+            "startTime": 294.8000000000002,
+            "endTime": 295.1300000000001,
+            "body": "he"
+        },
+        {
+            "startTime": 295.1300000000001,
+            "endTime": 295.5200000000002,
+            "body": "steps"
+        },
+        {
+            "startTime": 295.5200000000002,
+            "endTime": 295.6700000000001,
+            "body": "through"
+        },
+        {
+            "startTime": 295.6700000000001,
+            "endTime": 295.82000000000016,
+            "body": "the"
+        },
+        {
+            "startTime": 295.82000000000016,
+            "endTime": 296.18000000000006,
+            "body": "book"
+        },
+        {
+            "startTime": 296.3600000000001,
+            "endTime": 296.60000000000014,
+            "body": "10"
+        },
+        {
+            "startTime": 296.60000000000014,
+            "endTime": 296.96000000000004,
+            "body": "pages"
+        },
+        {
+            "startTime": 296.96000000000004,
+            "endTime": 297.08000000000015,
+            "body": "at"
+        },
+        {
+            "startTime": 297.08000000000015,
+            "endTime": 297.1400000000001,
+            "body": "a"
+        },
+        {
+            "startTime": 297.1400000000001,
+            "endTime": 297.74,
+            "body": "time,"
+        },
+        {
+            "startTime": 298.0400000000002,
+            "endTime": 298.3700000000001,
+            "body": "still"
+        },
+        {
+            "startTime": 298.3700000000001,
+            "endTime": 299.0300000000002,
+            "body": "further"
+        },
+        {
+            "startTime": 299.09000000000015,
+            "endTime": 299.1500000000001,
+            "body": "a"
+        },
+        {
+            "startTime": 299.1500000000001,
+            "endTime": 299.69000000000005,
+            "body": "hundred"
+        },
+        {
+            "startTime": 299.69000000000005,
+            "endTime": 300.1400000000001,
+            "body": "pages"
+        },
+        {
+            "startTime": 300.1400000000001,
+            "endTime": 300.2600000000002,
+            "body": "at"
+        },
+        {
+            "startTime": 300.2600000000002,
+            "endTime": 300.2900000000002,
+            "body": "a"
+        },
+        {
+            "startTime": 300.2900000000002,
+            "endTime": 300.8000000000002,
+            "body": "time."
+        },
+        {
+            "startTime": 301.10000000000014,
+            "endTime": 301.70000000000005,
+            "body": "Deflection"
+        },
+        {
+            "startTime": 301.70000000000005,
+            "endTime": 301.7900000000002,
+            "body": "to"
+        },
+        {
+            "startTime": 301.7900000000002,
+            "endTime": 301.94000000000005,
+            "body": "the"
+        },
+        {
+            "startTime": 301.94000000000005,
+            "endTime": 302.45000000000005,
+            "body": "left"
+        },
+        {
+            "startTime": 302.6300000000001,
+            "endTime": 302.93000000000006,
+            "body": "gives"
+        },
+        {
+            "startTime": 302.93000000000006,
+            "endTime": 303.0500000000002,
+            "body": "him"
+        },
+        {
+            "startTime": 303.0500000000002,
+            "endTime": 303.1700000000001,
+            "body": "the"
+        },
+        {
+            "startTime": 303.1700000000001,
+            "endTime": 303.5300000000002,
+            "body": "same"
+        },
+        {
+            "startTime": 303.5300000000002,
+            "endTime": 304.2800000000002,
+            "body": "control"
+        },
+        {
+            "startTime": 304.2800000000002,
+            "endTime": 305.18000000000006,
+            "body": "backwards."
+        },
+        {
+            "startTime": 305.97000000000025,
+            "endTime": 306.0600000000002,
+            "body": "A"
+        },
+        {
+            "startTime": 306.0600000000002,
+            "endTime": 306.5400000000002,
+            "body": "special"
+        },
+        {
+            "startTime": 306.5400000000002,
+            "endTime": 306.9300000000003,
+            "body": "button"
+        },
+        {
+            "startTime": 306.9300000000003,
+            "endTime": 307.6200000000001,
+            "body": "transfers"
+        },
+        {
+            "startTime": 307.6200000000001,
+            "endTime": 307.8600000000001,
+            "body": "him"
+        },
+        {
+            "startTime": 307.8600000000001,
+            "endTime": 308.46000000000026,
+            "body": "immediately"
+        },
+        {
+            "startTime": 308.46000000000026,
+            "endTime": 308.58000000000015,
+            "body": "to"
+        },
+        {
+            "startTime": 308.58000000000015,
+            "endTime": 308.7000000000003,
+            "body": "the"
+        },
+        {
+            "startTime": 308.7000000000003,
+            "endTime": 309.0600000000002,
+            "body": "first"
+        },
+        {
+            "startTime": 309.0600000000002,
+            "endTime": 309.3600000000001,
+            "body": "page"
+        },
+        {
+            "startTime": 309.3600000000001,
+            "endTime": 309.4500000000003,
+            "body": "of"
+        },
+        {
+            "startTime": 309.4500000000003,
+            "endTime": 309.57000000000016,
+            "body": "the"
+        },
+        {
+            "startTime": 309.57000000000016,
+            "endTime": 310.2900000000002,
+            "body": "index."
+        },
+        {
+            "startTime": 310.7700000000002,
+            "endTime": 311.0100000000002,
+            "body": "Any"
+        },
+        {
+            "startTime": 311.0100000000002,
+            "endTime": 311.34000000000015,
+            "body": "given"
+        },
+        {
+            "startTime": 311.34000000000015,
+            "endTime": 311.6100000000001,
+            "body": "book"
+        },
+        {
+            "startTime": 311.6100000000001,
+            "endTime": 311.7000000000003,
+            "body": "of"
+        },
+        {
+            "startTime": 311.7000000000003,
+            "endTime": 311.85000000000014,
+            "body": "his"
+        },
+        {
+            "startTime": 311.85000000000014,
+            "endTime": 312.63000000000034,
+            "body": "library"
+        },
+        {
+            "startTime": 312.8100000000002,
+            "endTime": 313.0200000000002,
+            "body": "can"
+        },
+        {
+            "startTime": 313.0200000000002,
+            "endTime": 313.2600000000002,
+            "body": "thus"
+        },
+        {
+            "startTime": 313.2600000000002,
+            "endTime": 313.38000000000034,
+            "body": "be"
+        },
+        {
+            "startTime": 313.38000000000034,
+            "endTime": 313.6800000000003,
+            "body": "called"
+        },
+        {
+            "startTime": 313.6800000000003,
+            "endTime": 314.0400000000002,
+            "body": "upon"
+        },
+        {
+            "startTime": 314.0400000000002,
+            "endTime": 314.13000000000034,
+            "body": "and"
+        },
+        {
+            "startTime": 314.13000000000034,
+            "endTime": 314.85000000000014,
+            "body": "consulted"
+        },
+        {
+            "startTime": 314.85000000000014,
+            "endTime": 315.09000000000015,
+            "body": "with"
+        },
+        {
+            "startTime": 315.09000000000015,
+            "endTime": 315.4500000000003,
+            "body": "far"
+        },
+        {
+            "startTime": 315.4500000000003,
+            "endTime": 315.8100000000002,
+            "body": "greater"
+        },
+        {
+            "startTime": 315.8100000000002,
+            "endTime": 316.59000000000015,
+            "body": "facility"
+        },
+        {
+            "startTime": 316.8600000000001,
+            "endTime": 317.07000000000016,
+            "body": "than"
+        },
+        {
+            "startTime": 317.07000000000016,
+            "endTime": 317.2500000000002,
+            "body": "if"
+        },
+        {
+            "startTime": 317.2500000000002,
+            "endTime": 317.3700000000001,
+            "body": "it"
+        },
+        {
+            "startTime": 317.3700000000001,
+            "endTime": 317.5200000000002,
+            "body": "were"
+        },
+        {
+            "startTime": 317.5200000000002,
+            "endTime": 318.1200000000001,
+            "body": "taken"
+        },
+        {
+            "startTime": 318.3000000000002,
+            "endTime": 318.5100000000002,
+            "body": "from"
+        },
+        {
+            "startTime": 318.5100000000002,
+            "endTime": 318.57000000000016,
+            "body": "a"
+        },
+        {
+            "startTime": 318.57000000000016,
+            "endTime": 319.1700000000003,
+            "body": "shelf."
+        },
+        {
+            "startTime": 319.8000000000002,
+            "endTime": 320.0100000000002,
+            "body": "As"
+        },
+        {
+            "startTime": 320.0100000000002,
+            "endTime": 320.10000000000014,
+            "body": "he"
+        },
+        {
+            "startTime": 320.10000000000014,
+            "endTime": 320.22000000000025,
+            "body": "has"
+        },
+        {
+            "startTime": 320.22000000000025,
+            "endTime": 320.58000000000015,
+            "body": "several"
+        },
+        {
+            "startTime": 320.58000000000015,
+            "endTime": 321.33000000000015,
+            "body": "projection"
+        },
+        {
+            "startTime": 321.33000000000015,
+            "endTime": 322.1400000000003,
+            "body": "positions,"
+        },
+        {
+            "startTime": 322.1700000000003,
+            "endTime": 322.5300000000002,
+            "body": "he"
+        },
+        {
+            "startTime": 322.5300000000002,
+            "endTime": 322.74000000000024,
+            "body": "can"
+        },
+        {
+            "startTime": 322.74000000000024,
+            "endTime": 323.07000000000016,
+            "body": "leave"
+        },
+        {
+            "startTime": 323.07000000000016,
+            "endTime": 323.3700000000001,
+            "body": "one"
+        },
+        {
+            "startTime": 323.3700000000001,
+            "endTime": 323.73000000000025,
+            "body": "item"
+        },
+        {
+            "startTime": 323.73000000000025,
+            "endTime": 323.88000000000034,
+            "body": "in"
+        },
+        {
+            "startTime": 323.88000000000034,
+            "endTime": 324.6600000000003,
+            "body": "position,"
+        },
+        {
+            "startTime": 324.6650000000002,
+            "endTime": 324.85500000000025,
+            "body": "which"
+        },
+        {
+            "startTime": 324.96000000000026,
+            "endTime": 325.0500000000002,
+            "body": "he"
+        },
+        {
+            "startTime": 325.0500000000002,
+            "endTime": 325.38000000000034,
+            "body": "calls"
+        },
+        {
+            "startTime": 325.38000000000034,
+            "endTime": 325.59000000000015,
+            "body": "up"
+        },
+        {
+            "startTime": 325.59000000000015,
+            "endTime": 325.7700000000002,
+            "body": "for"
+        },
+        {
+            "startTime": 325.7700000000002,
+            "endTime": 326.3700000000001,
+            "body": "another."
+        },
+        {
+            "startTime": 326.46000000000026,
+            "endTime": 326.6100000000001,
+            "body": "He"
+        },
+        {
+            "startTime": 326.6100000000001,
+            "endTime": 326.7600000000002,
+            "body": "can"
+        },
+        {
+            "startTime": 326.7600000000002,
+            "endTime": 326.97000000000025,
+            "body": "add"
+        },
+        {
+            "startTime": 326.97000000000025,
+            "endTime": 327.5100000000002,
+            "body": "marginal"
+        },
+        {
+            "startTime": 327.5100000000002,
+            "endTime": 327.9000000000003,
+            "body": "notes"
+        },
+        {
+            "startTime": 327.9000000000003,
+            "endTime": 328.0200000000002,
+            "body": "and"
+        },
+        {
+            "startTime": 328.0200000000002,
+            "endTime": 328.8000000000002,
+            "body": "comments."
+        },
+        {
+            "startTime": 329.2800000000002,
+            "endTime": 329.73000000000025,
+            "body": "Taking"
+        },
+        {
+            "startTime": 329.73000000000025,
+            "endTime": 330.3600000000001,
+            "body": "advantage"
+        },
+        {
+            "startTime": 330.3600000000001,
+            "endTime": 330.5100000000002,
+            "body": "of"
+        },
+        {
+            "startTime": 330.5100000000002,
+            "endTime": 330.7800000000002,
+            "body": "one"
+        },
+        {
+            "startTime": 330.7800000000002,
+            "endTime": 331.2900000000002,
+            "body": "possible"
+        },
+        {
+            "startTime": 331.2900000000002,
+            "endTime": 331.6800000000003,
+            "body": "type"
+        },
+        {
+            "startTime": 331.6800000000003,
+            "endTime": 331.83000000000015,
+            "body": "of"
+        },
+        {
+            "startTime": 331.83000000000015,
+            "endTime": 332.1300000000001,
+            "body": "dry"
+        },
+        {
+            "startTime": 332.1300000000001,
+            "endTime": 333.0600000000002,
+            "body": "photography,"
+        },
+        {
+            "startTime": 333.1500000000003,
+            "endTime": 333.60000000000014,
+            "body": "and"
+        },
+        {
+            "startTime": 333.60000000000014,
+            "endTime": 333.6600000000003,
+            "body": "it"
+        },
+        {
+            "startTime": 333.6600000000003,
+            "endTime": 333.8100000000002,
+            "body": "could"
+        },
+        {
+            "startTime": 333.8100000000002,
+            "endTime": 334.1400000000003,
+            "body": "even"
+        },
+        {
+            "startTime": 334.1400000000003,
+            "endTime": 334.2900000000002,
+            "body": "be"
+        },
+        {
+            "startTime": 334.2900000000002,
+            "endTime": 335.10000000000014,
+            "body": "arranged."
+        },
+        {
+            "startTime": 335.2800000000002,
+            "endTime": 335.4300000000003,
+            "body": "So"
+        },
+        {
+            "startTime": 335.4300000000003,
+            "endTime": 335.5500000000002,
+            "body": "they"
+        },
+        {
+            "startTime": 335.5500000000002,
+            "endTime": 335.7600000000002,
+            "body": "can"
+        },
+        {
+            "startTime": 335.7600000000002,
+            "endTime": 335.9100000000003,
+            "body": "do"
+        },
+        {
+            "startTime": 335.9100000000003,
+            "endTime": 336.1800000000003,
+            "body": "this"
+        },
+        {
+            "startTime": 336.1800000000003,
+            "endTime": 336.3600000000001,
+            "body": "by"
+        },
+        {
+            "startTime": 336.3600000000001,
+            "endTime": 336.4200000000003,
+            "body": "a"
+        },
+        {
+            "startTime": 336.4200000000003,
+            "endTime": 336.99000000000024,
+            "body": "stylist"
+        },
+        {
+            "startTime": 336.99000000000024,
+            "endTime": 337.6200000000001,
+            "body": "scheme"
+        },
+        {
+            "startTime": 338.0100000000002,
+            "endTime": 338.3700000000001,
+            "body": "such"
+        },
+        {
+            "startTime": 338.3700000000001,
+            "endTime": 338.7000000000003,
+            "body": "as"
+        },
+        {
+            "startTime": 338.73000000000025,
+            "endTime": 339.0600000000002,
+            "body": "is"
+        },
+        {
+            "startTime": 339.0600000000002,
+            "endTime": 339.3900000000003,
+            "body": "now"
+        },
+        {
+            "startTime": 339.3900000000003,
+            "endTime": 340.0200000000002,
+            "body": "employed"
+        },
+        {
+            "startTime": 340.0500000000002,
+            "endTime": 340.2000000000003,
+            "body": "in"
+        },
+        {
+            "startTime": 340.2000000000003,
+            "endTime": 340.2900000000002,
+            "body": "the"
+        },
+        {
+            "startTime": 340.2900000000002,
+            "endTime": 340.6800000000003,
+            "body": "tele"
+        },
+        {
+            "startTime": 340.6800000000003,
+            "endTime": 341.46000000000026,
+            "body": "autograph"
+        },
+        {
+            "startTime": 341.46000000000026,
+            "endTime": 342.0300000000002,
+            "body": "scene"
+        },
+        {
+            "startTime": 342.0600000000002,
+            "endTime": 342.21000000000026,
+            "body": "in"
+        },
+        {
+            "startTime": 342.21000000000026,
+            "endTime": 342.7500000000002,
+            "body": "railroad"
+        },
+        {
+            "startTime": 342.7500000000002,
+            "endTime": 343.1100000000001,
+            "body": "waiting"
+        },
+        {
+            "startTime": 343.1100000000001,
+            "endTime": 343.71000000000026,
+            "body": "rooms,"
+        },
+        {
+            "startTime": 344.10000000000014,
+            "endTime": 344.5500000000002,
+            "body": "just"
+        },
+        {
+            "startTime": 344.5500000000002,
+            "endTime": 344.7000000000003,
+            "body": "as"
+        },
+        {
+            "startTime": 344.7000000000003,
+            "endTime": 344.97000000000025,
+            "body": "though"
+        },
+        {
+            "startTime": 344.97000000000025,
+            "endTime": 345.1500000000003,
+            "body": "he"
+        },
+        {
+            "startTime": 345.1500000000003,
+            "endTime": 345.3900000000003,
+            "body": "had"
+        },
+        {
+            "startTime": 345.3900000000003,
+            "endTime": 345.5100000000002,
+            "body": "the"
+        },
+        {
+            "startTime": 345.5100000000002,
+            "endTime": 345.96000000000026,
+            "body": "fiscal"
+        },
+        {
+            "startTime": 345.96000000000026,
+            "endTime": 346.59000000000015,
+            "body": "page"
+        },
+        {
+            "startTime": 346.59500000000025,
+            "endTime": 346.8950000000002,
+            "body": "before"
+        },
+        {
+            "startTime": 346.95500000000015,
+            "endTime": 347.1750000000002,
+            "body": "him."
+        }
+    ]
+}
