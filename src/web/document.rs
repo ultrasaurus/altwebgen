@@ -27,9 +27,17 @@ impl Document {
         }
     }
     pub fn outpath(&self, config: &Config) -> anyhow::Result<PathBuf> {
+        use std::ffi::OsStr;
         let stem = config.outpath(&self.path)?;
         let path = match self.mime.subtype().as_str() {
-            "x-handlebars-template" => stem.with_extension(""),
+            "x-handlebars-template" => {
+                let new_path = stem.with_extension("");
+                if new_path.extension() == Some(OsStr::new("md")) {
+                    new_path.with_extension("html")
+                } else {
+                    new_path
+                }
+            },
             _ => stem.with_extension("html")
 
         };
@@ -215,6 +223,25 @@ impl HandlebarsTemplate {
 mod tests {
     use super::*;
     use handlebars::Handlebars;
+
+    #[test]
+    fn test_outpath_from_md() {
+        let config = Config::default();
+        let doc = Document::from_path("source/foo.md");
+        let outpath = doc.outpath(&config).unwrap();
+        let outpath_str = outpath.to_str().unwrap();
+        assert_eq!(outpath_str, ".dist/foo.html");
+    }
+
+        #[test]
+    fn test_outpath_from_md_hbs() {
+        let config = Config::default();
+        let doc = Document::from_path("source/foo.md.hbs");
+        let outpath = doc.outpath(&config).unwrap();
+        let outpath_str = outpath.to_str().unwrap();
+        assert_eq!(outpath_str, ".dist/foo.html");
+    }
+
 
     #[test]
     fn test_html_gen_markdown() {
