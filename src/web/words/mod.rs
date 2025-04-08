@@ -14,7 +14,7 @@ pub struct HtmlWords {
 //   html:  as a trimmed string,
 //   word_index: the number of words (index of next word),
 //   last_timing_index: and the last timing index used
-pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result<HtmlWords> {
+pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<HtmlWords> {
     let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s$][^a-zà-ýA-ZÀ-Ý0-9]*)?")?;
     let mut html_string = String::new();
     let mut word_index = 0;
@@ -57,8 +57,9 @@ pub fn html_words(text: &str, optional_timing: Option<&Vec<WordTime>>) -> Result
         // If no match was found, add error span
         if !matched {
             html_string.push_str(&format!(
-                "<span word='{}' error='NO_MATCH'>{}</span> ",
+                "<span word='{}' error='NO_MATCH' debug_body='{}'>{}</span> ",
                 word_index,
+                timings[last_timing_index].body,
                 word
             ));
         }
@@ -136,7 +137,7 @@ mod tests {
         let result = html_words("Hello there world!", Some(&timings));
         assert!(result.is_ok());
         let data= result.unwrap();
-        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH'>there</span> <span word='2' start='0.2' end='0.3' debug_body='world'>world</span>";
+        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH' debug_body='world'>there</span> <span word='2' start='0.2' end='0.3' debug_body='world'>world</span>";
         assert_eq!(data.html, expected_string);
         assert_eq!(data.word_index, 3);
         assert_eq!(data.last_timing_index, 2);
@@ -152,7 +153,7 @@ mod tests {
         let result = html_words("Hello my world!", Some(&timings));
         assert!(result.is_ok());
         let data = result.unwrap();
-        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH'>my</span> <span word='2' start='0.4' end='0.5' debug_body='world'>world</span>";
+        let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH' debug_body='there'>my</span> <span word='2' start='0.4' end='0.5' debug_body='world'>world</span>";
         assert_eq!(data.html, expected_string);
         assert_eq!(data.word_index, 3);
         assert_eq!(data.last_timing_index, 3);

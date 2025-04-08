@@ -31,13 +31,14 @@ pub fn file2html_with_timing<P: AsRef<Path>>(md_path: P, transcript_path: P) -> 
 
 fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result<Vec<u8>> {
     let mut html_body = Vec::new();
-
+    let mut next_timings: &[WordTime] = timings;
     let mut new_event_list: Vec<Event> = Vec::new();
     let mut parser = cmark::Parser::new(&source);
     while let Some(event) = parser.next() {
         let next_event= match event {
             Event::Text(cow_str) => {
-                let data =  html_words(&cow_str, Some(timings))?;
+                let data =  html_words(&cow_str, Some(next_timings))?;
+                next_timings = &timings[data.last_timing_index..timings.len()];
                 Event::Html(data.html.into())
             },
             _ => event,
