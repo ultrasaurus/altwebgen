@@ -62,7 +62,11 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
             html_string.push_str(&format!(
                 "<span word='{}' error='NO_MATCH' debug_body='{}'>{}</span> ",
                 word_index,
-                timings[last_timing_index].body,
+                if last_timing_index < timings.len() {
+                    timings[last_timing_index].body.clone()
+                } else {
+                    "NOT FOUND".to_string()
+                },
                 word
             ));
         }
@@ -161,6 +165,28 @@ mod tests {
         assert_eq!(data.word_index, 3);
         assert_eq!(data.last_timing_index, 3);
     }
+
+        #[test]
+    fn html_words_mismatch_repeat() {
+        let timings = vec![
+            WordTime { start_time: 0.0, end_time: 0.01, body: "in".to_string() },
+            WordTime { start_time: 0.02, end_time: 0.03, body: "the".to_string() },
+            WordTime { start_time: 0.04, end_time: 0.1, body: "in".to_string() },
+            WordTime { start_time: 0.2, end_time: 0.3, body: "the".to_string() },
+            WordTime { start_time: 0.4, end_time: 0.5, body: "city".to_string() },
+            WordTime { start_time: 0.6, end_time: 0.7, body: "in".to_string() },
+            WordTime { start_time: 0.8, end_time: 0.9, body: "the".to_string() },
+            WordTime { start_time: 1.0, end_time: 1.1, body: "world".to_string() },
+        ];
+        let result = html_words("in the city in the world", Some(&timings));
+        assert!(result.is_ok());
+        let data = result.unwrap();
+        let expected_string = "<span word='0' start='0' end='0.01' debug_body='in'>in</span> <span word='1' start='0.02' end='0.03' debug_body='the'>the</span> <span word='2' start='0.4' end='0.5' debug_body='city'>city</span> <span word='3' start='0.6' end='0.7' debug_body='in'>in</span> <span word='4' start='0.8' end='0.9' debug_body='the'>the</span> <span word='5' start='1' end='1.1' debug_body='world'>world</span>";
+        assert_eq!(data.html, expected_string);
+        // assert_eq!(data.word_index, 6);
+        // assert_eq!(data.last_timing_index, 8);
+    }
+
 
     const SENTENCE_JSON: &str = r#"
 [
