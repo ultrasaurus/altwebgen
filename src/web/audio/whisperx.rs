@@ -37,6 +37,7 @@ fn convert_to_transcript_json(
     // expect deprecated home_dir to not be needed when we finalize library choice
     // if this is the library we choose we can integrate directly
     // final library could be in rust ¯\_(ツ)_/¯
+
     #[allow(deprecated)]
     let cmd_path = match std::env::home_dir() {
         None => bail!("couldn't find $HOME directory - looking for transcript-converter path"),
@@ -79,10 +80,11 @@ let output: std::process::Output = Command::new("pwd")
     .output()
     .expect("Failed to execute pwd command");
 println!("pwd: {}", String::from_utf8_lossy(&output.stdout));
-println!("calling: whisperx {} --language en", inpath.to_string_lossy());
+let audio_path = inpath.canonicalize()?;
+println!("calling: whisperx {} --language en", audio_path.to_string_lossy());
 
     match Command::new("whisperx")
-    .arg(inpath.as_os_str())
+    .arg(audio_path.as_os_str())
     .arg("--output_format")
     .arg("json")
     .arg("--compute_type")

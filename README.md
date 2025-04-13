@@ -25,15 +25,23 @@ BEWARE:
 
 # SETUP for Development
 
+to use automatic whisper-generated transcript, we depend on some python code
+which (for now) needs to be symlinked from your $HOME directory
+
+```sh
+ln -s $PWD/transcript-converter $HOME/transcript-converter
+```
+
 ## Installing Whisper
 
 using [miniconda](https://docs.anaconda.com/miniconda/)...
 
-
 following [whisperx setup guide](https://github.com/m-bain/whisperX/blob/main/README.md#setup-%EF%B8%8F)
 
-steps for Mac below (for linux, see `setup.sh` used by Dockerfile and github actions)
-```
+steps for Mac below
+(for linux, see `setup.sh` used by Dockerfile and github actions)
+
+```sh
 conda create --name whisperx python=3.10
 conda install --name whisperx \
     pytorch==2.0.0 torchvision==0.15.0 torchaudio==2.0.0 \
@@ -47,17 +55,18 @@ pip install git+https://github.com/m-bain/whisperx.git
 even `whisperx --help` fails
 
 this worked (via https://github.com/pytorch/audio/issues/1573)
-```
+
+```sh
 pip install -U torch torchaudio --no-cache-dir
-````
 > `Successfully installed torchaudio-2.5`
+```
 
 ### compute type error (on mac)
 
 *"ValueError: Requested float16 compute type,
 but the target device or backend do not support efficient float16 computation."*
 
-```
+```sh
 whisperx data/sample01.wav   --compute_type float32
 ```
 
@@ -65,7 +74,7 @@ whisperx data/sample01.wav   --compute_type float32
 ## Building with Docker
 
 To simulate github actions environment:
-```
+```sh
 docker build --platform=linux/amd64  -t altwebgen-amd64 .
 docker run --platform=linux/amd64 -it altwebgen-amd64
 ```
@@ -73,7 +82,7 @@ docker run --platform=linux/amd64 -it altwebgen-amd64
 ### Errors
 
 Using Docker, build initially failed with "no space left on device" error. To resolve this:
-```
+```sh
 docker system prune
 docker system prune --volumes
 ```

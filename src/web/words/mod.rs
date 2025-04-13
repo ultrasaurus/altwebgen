@@ -6,6 +6,7 @@ use anyhow::Result;
 #[derive(Debug)]
 pub struct HtmlWords {
    pub html: String,
+   #[allow(dead_code)] // TODO remove?
    pub word_index: usize,
    pub last_timing_index: usize
 }
