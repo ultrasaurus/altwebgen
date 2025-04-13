@@ -22,7 +22,6 @@ pub fn gen_transcript(
 
     generate_whisperx_json(&audio, out_dir)?;
     let audio_outpath = out_dir.join(audio_filename);
-    println!("audio_outpath = {}", audio_outpath.display());
     let whisper_json_path = audio_outpath.with_extension("json");
     convert_to_transcript_json(&whisper_json_path, transcript )
 }
@@ -51,13 +50,14 @@ fn convert_to_transcript_json(
         .arg(podcast.as_ref().as_os_str())
         .output() {
         Ok(cmd_output) => {
-            println!("status: {:?}", cmd_output.status);
             let stdout = String::from_utf8(cmd_output.stdout).unwrap();
             println!("transcriptConverter stdout:\n{}\n\n", stdout);
 
             let stderr = String::from_utf8(cmd_output.stderr).unwrap();
             println!("transcriptConverter stderr:\n{}\n\n", stderr);
-            Ok(())
+
+            let code: Option<i32> = cmd_output.status.code();
+            code2result("transcriptConverter", code)
         },
         Err(e) => {
             Err(anyhow::Error::new(e).context("failed to execute transcriptConverter command"))
@@ -66,6 +66,24 @@ fn convert_to_transcript_json(
     }
 }
 
+fn code2result(cmd: &str, code: std::option::Option<i32> ) -> anyhow::Result<()>
+{
+    match code {
+        Some(0) => {
+            println!("{cmd} successfully exited with status code (0)");
+            Ok(())
+        }
+        Some(code) => {
+            println!("{cmd} exited with status code: {code}");
+            Err(anyhow::anyhow!("{cmd} failed with status code:{}", code))
+        }
+        None => {
+            println!("{cmd} process terminated by signal");
+            Err(anyhow::anyhow!("{cmd} terminated by signal"))
+        }
+    }
+
+}
 
 fn generate_whisperx_json(
     audio: impl AsRef<Path>,
@@ -96,13 +114,15 @@ println!("calling: whisperx {} --language en", audio_path.to_string_lossy());
     .output()
     {
         Ok(cmd_output) => {
-            println!("status: {:?}", cmd_output.status);
             let stdout = String::from_utf8(cmd_output.stdout).unwrap();
             println!("whisperx stdout:\n{}\n\n", stdout);
 
             let stderr = String::from_utf8(cmd_output.stderr).unwrap();
             println!("whisperx stderr:\n{}\n\n", stderr);
-            Ok(())
+
+            let code: Option<i32> = cmd_output.status.code();
+            code2result("whisperx", code)
+
         },
         Err(e) => {
             Err(anyhow::Error::new(e).context("failed to execute whisperx command"))
