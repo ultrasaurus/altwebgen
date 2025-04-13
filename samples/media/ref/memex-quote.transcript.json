@@ -1,0 +1,350 @@
+{
+    "version": "1.0.0",
+    "segments": [
+        {
+            "startTime": 0.089,
+            "endTime": 0.589,
+            "body": "Consider"
+        },
+        {
+            "startTime": 0.629,
+            "endTime": 0.669,
+            "body": "a"
+        },
+        {
+            "startTime": 0.729,
+            "endTime": 1.05,
+            "body": "future"
+        },
+        {
+            "startTime": 1.09,
+            "endTime": 1.49,
+            "body": "device"
+        },
+        {
+            "startTime": 1.57,
+            "endTime": 1.69,
+            "body": "for"
+        },
+        {
+            "startTime": 1.73,
+            "endTime": 2.27,
+            "body": "individual"
+        },
+        {
+            "startTime": 2.471,
+            "endTime": 2.671,
+            "body": "use,"
+        },
+        {
+            "startTime": 3.251,
+            "endTime": 3.511,
+            "body": "which"
+        },
+        {
+            "startTime": 3.711,
+            "endTime": 3.791,
+            "body": "is"
+        },
+        {
+            "startTime": 3.831,
+            "endTime": 3.871,
+            "body": "a"
+        },
+        {
+            "startTime": 3.952,
+            "endTime": 4.232,
+            "body": "sort"
+        },
+        {
+            "startTime": 4.292,
+            "endTime": 4.352,
+            "body": "of"
+        },
+        {
+            "startTime": 4.432,
+            "endTime": 4.972,
+            "body": "mechanized"
+        },
+        {
+            "startTime": 5.072,
+            "endTime": 5.473,
+            "body": "private"
+        },
+        {
+            "startTime": 5.573,
+            "endTime": 6.013,
+            "body": "file"
+        },
+        {
+            "startTime": 6.233,
+            "endTime": 6.353,
+            "body": "and"
+        },
+        {
+            "startTime": 6.413,
+            "endTime": 6.993,
+            "body": "library."
+        },
+        {
+            "startTime": 7.854,
+            "endTime": 7.914,
+            "body": "It"
+        },
+        {
+            "startTime": 7.954,
+            "endTime": 8.174,
+            "body": "needs"
+        },
+        {
+            "startTime": 8.234,
+            "endTime": 8.254,
+            "body": "a"
+        },
+        {
+            "startTime": 8.314,
+            "endTime": 8.715,
+            "body": "name"
+        },
+        {
+            "startTime": 9.055,
+            "endTime": 9.155,
+            "body": "and"
+        },
+        {
+            "startTime": 9.175,
+            "endTime": 9.255,
+            "body": "to"
+        },
+        {
+            "startTime": 9.315,
+            "endTime": 9.555,
+            "body": "coin"
+        },
+        {
+            "startTime": 9.615,
+            "endTime": 9.715,
+            "body": "one"
+        },
+        {
+            "startTime": 9.735,
+            "endTime": 9.835,
+            "body": "at"
+        },
+        {
+            "startTime": 9.915,
+            "endTime": 10.396,
+            "body": "random,"
+        },
+        {
+            "startTime": 11.116,
+            "endTime": 11.556,
+            "body": "Memex"
+        },
+        {
+            "startTime": 11.857,
+            "endTime": 12.037,
+            "body": "will"
+        },
+        {
+            "startTime": 12.077,
+            "endTime": 12.297,
+            "body": "do."
+        },
+        {
+            "startTime": 12.317,
+            "endTime": 12.337,
+            "body": "A"
+        },
+        {
+            "startTime": 13.298,
+            "endTime": 13.658,
+            "body": "Memex"
+        },
+        {
+            "startTime": 13.718,
+            "endTime": 13.838,
+            "body": "is"
+        },
+        {
+            "startTime": 13.878,
+            "endTime": 13.898,
+            "body": "a"
+        },
+        {
+            "startTime": 13.938,
+            "endTime": 14.438,
+            "body": "device"
+        },
+        {
+            "startTime": 14.638,
+            "endTime": 14.698,
+            "body": "in"
+        },
+        {
+            "startTime": 14.758,
+            "endTime": 14.959,
+            "body": "which"
+        },
+        {
+            "startTime": 14.999,
+            "endTime": 15.059,
+            "body": "an"
+        },
+        {
+            "startTime": 15.139,
+            "endTime": 15.759,
+            "body": "individual"
+        },
+        {
+            "startTime": 15.859,
+            "endTime": 16.319,
+            "body": "stores"
+        },
+        {
+            "startTime": 16.52,
+            "endTime": 16.64,
+            "body": "all"
+        },
+        {
+            "startTime": 16.68,
+            "endTime": 16.82,
+            "body": "his"
+        },
+        {
+            "startTime": 16.88,
+            "endTime": 17.2,
+            "body": "books,"
+        },
+        {
+            "startTime": 17.74,
+            "endTime": 18.261,
+            "body": "records,"
+        },
+        {
+            "startTime": 18.381,
+            "endTime": 18.461,
+            "body": "and"
+        },
+        {
+            "startTime": 18.521,
+            "endTime": 19.462,
+            "body": "communications,"
+        },
+        {
+            "startTime": 20.082,
+            "endTime": 20.162,
+            "body": "and"
+        },
+        {
+            "startTime": 20.182,
+            "endTime": 20.322,
+            "body": "which"
+        },
+        {
+            "startTime": 20.382,
+            "endTime": 20.462,
+            "body": "is"
+        },
+        {
+            "startTime": 20.522,
+            "endTime": 21.103,
+            "body": "mechanized"
+        },
+        {
+            "startTime": 21.203,
+            "endTime": 21.423,
+            "body": "so"
+        },
+        {
+            "startTime": 21.503,
+            "endTime": 21.563,
+            "body": "it"
+        },
+        {
+            "startTime": 21.603,
+            "endTime": 21.763,
+            "body": "may"
+        },
+        {
+            "startTime": 21.803,
+            "endTime": 21.903,
+            "body": "be"
+        },
+        {
+            "startTime": 21.943,
+            "endTime": 22.664,
+            "body": "consulted"
+        },
+        {
+            "startTime": 23.024,
+            "endTime": 23.144,
+            "body": "with"
+        },
+        {
+            "startTime": 23.224,
+            "endTime": 23.704,
+            "body": "exceeding"
+        },
+        {
+            "startTime": 23.804,
+            "endTime": 24.205,
+            "body": "speed"
+        },
+        {
+            "startTime": 24.325,
+            "endTime": 24.385,
+            "body": "and"
+        },
+        {
+            "startTime": 24.485,
+            "endTime": 25.305,
+            "body": "flexibility."
+        },
+        {
+            "startTime": 26.226,
+            "endTime": 26.306,
+            "body": "It"
+        },
+        {
+            "startTime": 26.426,
+            "endTime": 26.526,
+            "body": "is"
+        },
+        {
+            "startTime": 26.566,
+            "endTime": 26.626,
+            "body": "an"
+        },
+        {
+            "startTime": 26.706,
+            "endTime": 27.347,
+            "body": "enlarged,"
+        },
+        {
+            "startTime": 27.487,
+            "endTime": 27.927,
+            "body": "intimate"
+        },
+        {
+            "startTime": 28.027,
+            "endTime": 28.547,
+            "body": "supplement"
+        },
+        {
+            "startTime": 28.687,
+            "endTime": 28.788,
+            "body": "to"
+        },
+        {
+            "startTime": 28.808,
+            "endTime": 28.948,
+            "body": "his"
+        },
+        {
+            "startTime": 29.028,
+            "endTime": 29.388,
+            "body": "memory."
+        }
+    ]
+}
