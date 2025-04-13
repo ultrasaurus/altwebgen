@@ -221,7 +221,7 @@ mod tests {
         let reference: Ref<'_> = Ref {config: &Config::default(),
             md: Some("src/test/data/short-sentence-no-punctuation.md".into()),
             audio,
-            transcript: Some("src/test/data/short-sentence.transcript.json".into()),
+            transcript: Some("src/test/data/short-sentence-no-punctuation.transcript.json".into()),
         };
 
         let mut write_buf = Vec::new();
