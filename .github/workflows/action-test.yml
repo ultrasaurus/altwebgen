@@ -31,6 +31,16 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Setup ffmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        id: setup-ffmpeg
+        with:
+          ffmpeg-version: release
+          # As of version 3 of this action, builds are no longer downloaded from GitHub
+          # except on Windows: https://github.com/GyanD/codexffmpeg/releases.
+          github-token: ${{ github.server_url == 'https://github.com' && github.token || '' }}
+
+
       - name: setup miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
