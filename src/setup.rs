@@ -1,5 +1,5 @@
 use anyhow::anyhow;
-use handlebars::Handlebars;
+use handlebars::{Handlebars,handlebars_helper};
 use tracing::info;
 
 use crate::{
@@ -7,6 +7,11 @@ use crate::{
     util::*,
     web,
 };
+
+
+handlebars_helper!(split: |input:String, {sep:str="\n"}|
+        input.split(sep).collect::<Vec<&str>>()
+);
 
 
 pub fn init_templates<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
@@ -24,6 +29,7 @@ pub fn init_templates<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
     let buildtemplatedir = config.buildtemplatedir();
     info!("buildtemplatedir: {}", buildtemplatedir.display());
     let mut hbs = Handlebars::new();
+    hbs.register_helper("split", Box::new(split));
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
         .map_err(|_| {
             anyhow!("failed to register template directory: {}", buildtemplatedir.display())
