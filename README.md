@@ -7,6 +7,8 @@ Supports
 * handlebar templates
   * for raw html (`.html.hbs`)
   * markdown (`.md.html`)
+  * in addition to built-in templates:
+    * split string (optional separator, default: '\n')
 * directly serves all other files
 * dev mode for live reload: watches file system every second, reloads page on changes
 
@@ -19,7 +21,6 @@ RUST_LOG=debug cargo run
 NOTE: everything will change, don't depend on this staying as is
 
 BEWARE:
-* live reload only works when JS code is manually included (see sidebar/templates/layout.hbs)
 * to use automatic transcript generations (and run the tests)...
 ```ln -s $PWD/transcript-converter ~/transcript-converter```
 
