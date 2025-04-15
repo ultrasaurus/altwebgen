@@ -33,15 +33,15 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
         // Try to find a match with any remaining timing
         for timing_index in last_timing_index..timings.len() {
             let timing = &timings[timing_index];
-            print!(
-                "Comparing: timing body '{}' with word '{}'",
-                timing.body.to_lowercase(),
-                word.to_lowercase()
-            );
+            // print!(
+            //     "Comparing: timing body '{}' with word '{}'",
+            //     timing.body.to_lowercase(),
+            //     word.to_lowercase()
+            // );
 
             if timing.body.to_lowercase() == word.to_lowercase() {
                 // Match found
-                println!(" -- match");
+                // println!(" -- match");
                 html_string.push_str(&format!(
                     "<span word='{}' start='{}' end='{}' debug_body='{}'>{}</span> ",
                     word_index,
@@ -54,7 +54,7 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
                 matched = true;
                 break;
             } else {
-                println!(" -- NO MATCH");
+                // println!(" -- NO MATCH");
             }
         }
 
