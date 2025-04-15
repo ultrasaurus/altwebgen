@@ -20,3 +20,6 @@ pip install numpy==1.26.3
 which whisperx
 
 whisperx --help
+
+# make it so we can easily find transcript-converter python script
+ln -s $PWD/transcript-converter $HOME/transcript-converter
