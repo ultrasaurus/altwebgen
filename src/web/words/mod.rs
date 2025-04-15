@@ -120,7 +120,7 @@ mod tests {
             WordTime { start_time: 0.0, end_time: 0.1, body: "hello".to_string() },
             WordTime { start_time: 0.2, end_time: 0.3, body: "world".to_string() }
         ];
-        let result = html_words("Hello world!", Some(&timings));
+        let result = html_words("Hello world", Some(&timings));
         assert!(result.is_ok());
         let data = result.unwrap();
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' start='0.2' end='0.3' debug_body='world'>world</span>";
@@ -144,7 +144,7 @@ mod tests {
             WordTime { start_time: 0.0, end_time: 0.1, body: "hello".to_string() },
             WordTime { start_time: 0.2, end_time: 0.3, body: "world".to_string() }
         ];
-        let result = html_words("Hello there world!", Some(&timings));
+        let result = html_words("Hello there world", Some(&timings));
         assert!(result.is_ok());
         let data= result.unwrap();
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH' debug_body='world'>there</span> <span word='2' start='0.2' end='0.3' debug_body='world'>world</span>";
@@ -160,7 +160,7 @@ mod tests {
             WordTime { start_time: 0.2, end_time: 0.3, body: "there".to_string() },
             WordTime { start_time: 0.4, end_time: 0.5, body: "world".to_string() }
         ];
-        let result = html_words("Hello my world!", Some(&timings));
+        let result = html_words("Hello my world", Some(&timings));
         assert!(result.is_ok());
         let data = result.unwrap();
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH' debug_body='there'>my</span> <span word='2' start='0.4' end='0.5' debug_body='world'>world</span>";
@@ -354,7 +354,7 @@ mod tests {
         let result = html_words(text, Some(&timings));
         assert!(result.is_ok());
         let data = result.unwrap();
-        let expected_string = "<span word='0' start='1.635' end='1.785' debug_body='The'>The</span> <span word='1' start='1.785' end='2.085' debug_body='real'>real</span> <span word='2' start='2.085' end='2.475' debug_body='heart'>heart</span> <span word='3' start='2.475' end='2.565' debug_body='of'>of</span> <span word='4' start='2.565' end='2.655' debug_body='the'>the</span> <span word='5' start='2.655' end='3.015' debug_body='matter'>matter</span> <span word='6' start='3.015' end='3.105' debug_body='of'>of</span> <span word='7' error='NO_MATCH' debug_body='selection,'>selection</span> <span word='8' start='3.765' end='4.425' debug_body='however'>however</span> <span word='9' start='4.605' end='4.875' debug_body='goes'>goes</span> <span word='10' start='4.875' end='5.205' debug_body='deeper'>deeper</span> <span word='11' start='5.205' end='5.355' debug_body='than'>than</span> <span word='12' start='5.355' end='5.445' debug_body='a'>a</span> <span word='13' start='5.445' end='5.925' debug_body='lag'>lag</span> <span word='14' start='5.925' end='6.075' debug_body='in'>in</span> <span word='15' error='NO_MATCH' debug_body='adoption'>the</span> <span word='16' start='6.075' end='6.645' debug_body='adoption'>adoption</span> <span word='17' start='6.645' end='6.735' debug_body='of'>of</span> <span word='18' start='6.735' end='7.455' debug_body='mechanisms'>mechanisms</span> <span word='19' start='7.455' end='7.605' debug_body='by'>by</span> <span word='20' start='7.605' end='8.475' debug_body='libraries'>libraries</span> <span word='21' start='8.655' end='8.835' debug_body='or'>or</span> <span word='22' start='8.835' end='8.925' debug_body='a'>a</span> <span word='23' start='8.925' end='9.225' debug_body='lack'>lack</span> <span word='24' start='9.225' end='9.345' debug_body='of'>of</span> <span word='25' start='9.345' end='9.885' debug_body='development'>development</span> <span word='26' start='9.885' end='9.975' debug_body='of'>of</span> <span word='27' start='9.975' end='10.635' debug_body='devices'>devices</span> <span word='28' start='10.635' end='10.845' debug_body='for'>for</span> <span word='29' start='10.845' end='11.025' debug_body='their'>their</span> <span word='30' error='NO_MATCH' debug_body='use.'>use</span>";
+        let expected_string = "<span word='0' start='1.635' end='1.785' debug_body='The'>The</span> <span word='1' start='1.785' end='2.085' debug_body='real'>real</span> <span word='2' start='2.085' end='2.475' debug_body='heart'>heart</span> <span word='3' start='2.475' end='2.565' debug_body='of'>of</span> <span word='4' start='2.565' end='2.655' debug_body='the'>the</span> <span word='5' start='2.655' end='3.015' debug_body='matter'>matter</span> <span word='6' start='3.015' end='3.105' debug_body='of'>of</span> <span word='7' error='NO_MATCH' debug_body='selection,'>selection</span>, <span word='8' start='3.765' end='4.425' debug_body='however'>however</span>, <span word='9' start='4.605' end='4.875' debug_body='goes'>goes</span> <span word='10' start='4.875' end='5.205' debug_body='deeper'>deeper</span> <span word='11' start='5.205' end='5.355' debug_body='than'>than</span> <span word='12' start='5.355' end='5.445' debug_body='a'>a</span> <span word='13' start='5.445' end='5.925' debug_body='lag'>lag</span> <span word='14' start='5.925' end='6.075' debug_body='in'>in</span> <span word='15' error='NO_MATCH' debug_body='adoption'>the</span> <span word='16' start='6.075' end='6.645' debug_body='adoption'>adoption</span> <span word='17' start='6.645' end='6.735' debug_body='of'>of</span> <span word='18' start='6.735' end='7.455' debug_body='mechanisms'>mechanisms</span> <span word='19' start='7.455' end='7.605' debug_body='by'>by</span> <span word='20' start='7.605' end='8.475' debug_body='libraries'>libraries</span>, <span word='21' start='8.655' end='8.835' debug_body='or'>or</span> <span word='22' start='8.835' end='8.925' debug_body='a'>a</span> <span word='23' start='8.925' end='9.225' debug_body='lack'>lack</span> <span word='24' start='9.225' end='9.345' debug_body='of'>of</span> <span word='25' start='9.345' end='9.885' debug_body='development'>development</span> <span word='26' start='9.885' end='9.975' debug_body='of'>of</span> <span word='27' start='9.975' end='10.635' debug_body='devices'>devices</span> <span word='28' start='10.635' end='10.845' debug_body='for'>for</span> <span word='29' start='10.845' end='11.025' debug_body='their'>their</span> <span word='30' error='NO_MATCH' debug_body='use.'>use</span>.";
         assert_eq!(data.html, expected_string);
         assert_eq!(data.word_index, 31);
         assert_eq!(data.last_timing_index, 29); // will be timings.len() when punctuation is ignored
