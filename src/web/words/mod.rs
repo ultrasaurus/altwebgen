@@ -16,7 +16,7 @@ pub struct HtmlWords {
 //   word_index: the number of words (index of next word),
 //   last_timing_index: and the last timing index used
 pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<HtmlWords> {
-    let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s$][^a-zà-ýA-ZÀ-Ý0-9]*)?")?;
+    let regex = Regex::new(r"([a-zà-ýA-ZÀ-Ý0-9]+)([\s\p{P}\p{S}]+)?")?;
     let mut html_string = String::new();
     let mut word_index = 0;
     let mut last_timing_index = 0;
@@ -28,6 +28,8 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
     // Iterate over each word in the text
     for capture in regex.captures_iter(text) {
         let word = &capture[1];
+        let between_words = if capture.get(2) == None {""} else { &capture[2] } ;
+        println!("capture: {:?} -- [2]: '{}'", &capture, between_words);
         let mut matched = false;
 
         // Try to find a match with any remaining timing
@@ -43,12 +45,12 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
                 // Match found
                 // println!(" -- match");
                 html_string.push_str(&format!(
-                    "<span word='{}' start='{}' end='{}' debug_body='{}'>{}</span> ",
+                    "<span word='{}' start='{}' end='{}' debug_body='{}'>{}</span>{}",
                     word_index,
                     timing.start_time,
                     timing.end_time,
                     timing.body,
-                    word
+                    word, between_words
                 ));
                 last_timing_index = timing_index + 1; // Advance timing index only on match
                 matched = true;
@@ -61,14 +63,14 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
         // If no match was found, add error span
         if !matched {
             html_string.push_str(&format!(
-                "<span word='{}' error='NO_MATCH' debug_body='{}'>{}</span> ",
+                "<span word='{}' error='NO_MATCH' debug_body='{}'>{}</span>{}",
                 word_index,
                 if last_timing_index < timings.len() {
                     timings[last_timing_index].body.clone()
                 } else {
                     "NOT FOUND".to_string()
                 },
-                word
+                word, between_words
             ));
         }
 
