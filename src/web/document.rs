@@ -153,6 +153,7 @@ impl GenerateHtml for MarkdownData {
         } else {
             "default"
         };
+        info!("MarkdownData::render with layout: {layout_name}");
         context.hbs.render_to_write(layout_name, &self.attr, writer)?;
         Ok(())
     }
@@ -183,7 +184,14 @@ pub struct HandlebarsTemplate {
 
 impl GenerateHtml for HandlebarsTemplate {
     fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
-        context.hbs.render_to_write("default", &self.attr, writer)?;
+        let layout_key = "layout".to_string();
+        let layout_name = if let Some(layout) = self.attr.get(&layout_key) {
+            layout.as_str()
+        } else {
+            "default"
+        };
+        info!("HandlebarsTemplate::render with layout: {layout_name}");
+        context.hbs.render_to_write(layout_name, &self.attr, writer)?;
         Ok(())
     }
 }
