@@ -225,6 +225,8 @@ mod tests {
             transcript: Some("src/test/data/short-sentence-no-punctuation.transcript.json".into()),
         }
     }
+    const EXPECTED_ANNOTATION: &str = "<p><span word='0' start='0.11' end='0.17' debug_body='It'>it</span> <span word='1' start='0.211' end='0.352' debug_body='may'>may</span> <span word='2' start='0.392' end='0.755' debug_body='contain'>contain</span> <span word='3' start='0.876' end='1.622' debug_body='annotations'>annotations</span> <span word='4' start='2.368' end='2.832' debug_body='additions'>additions</span> <span word='5' start='2.893' end='2.973' debug_body='and'>and</span> <span word='6' start='3.034' end='3.498' debug_body='footnotes'>footnotes</span></p>";
+    const EXPECTED_TRANSCRIPT_OFF: &str = "<p>it may contain annotations additions and footnotes</p>";
     #[test]
     fn test_write_md_audio_transcript() {
         let config = Config::default();
@@ -235,9 +237,26 @@ mod tests {
         let output_string = String::from_utf8(write_buf).unwrap();
 
         let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
-        let expected_words =   "<p><span word='0' start='0.11' end='0.17' debug_body='It'>it</span> <span word='1' start='0.211' end='0.352' debug_body='may'>may</span> <span word='2' start='0.392' end='0.755' debug_body='contain'>contain</span> <span word='3' start='0.876' end='1.622' debug_body='annotations'>annotations</span> <span word='4' start='2.368' end='2.832' debug_body='additions'>additions</span> <span word='5' start='2.893' end='2.973' debug_body='and'>and</span> <span word='6' start='3.034' end='3.498' debug_body='footnotes'>footnotes</span></p>";
+        let expected_words = EXPECTED_ANNOTATION;
         let expected = format!("<div id='audiotext'>\n{}{}\n</div>", audio_html, expected_words);
         assert_eq!(output_string.trim(), expected);
     }
+
+        #[test]
+    fn test_write_md_audio_transcript_off() {
+        let mut config = Config::default();
+        config.transcript = Transcript::Off;
+        let reference = create_ref_full(&config);
+        let mut write_buf = Vec::new();
+        reference.write_html(&mut write_buf).unwrap();
+
+        let output_string = String::from_utf8(write_buf).unwrap();
+
+        let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
+        let expected_words = EXPECTED_TRANSCRIPT_OFF;
+        let expected = format!("<div id='audiotext'>\n{}{}\n</div>", audio_html, expected_words);
+        assert_eq!(output_string.trim(), expected);
+    }
+
 
 }
