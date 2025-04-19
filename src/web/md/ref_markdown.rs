@@ -7,7 +7,7 @@ use std::{
 use tracing::{info, trace};
 use walkdir::WalkDir;
 
-use crate::{config::Config, web, web::md};
+use crate::{config::{Config, Transcript}, web::{self, md}};
 
 #[derive(Debug, Clone)]
 struct AudioFile {
@@ -49,9 +49,13 @@ impl<'r> Ref<'r> {
             writer.write(&audio_html.as_bytes())?;
         }
         if let Some(md) = &self.md {
-            let html_body = match &self.transcript {
-                None => md::file2html(&md)?,
-                Some(transcript_path) => md::file2html_with_timing(&md, &transcript_path)?,
+            let html_body = if (self.transcript == None) || (self.config.transcript == Transcript::Off) {
+                info!("md::file2html");
+                md::file2html(&md)?
+            } else {
+                info!("md::file2html_with_timing");
+                let transcript_path = self.transcript.clone().unwrap();
+                md::file2html_with_timing(&md, &&transcript_path)?
             };
             writer.write(&html_body)?;
         }
@@ -63,17 +67,15 @@ impl<'r> Ref<'r> {
     }
     pub fn write_to_dest(&mut self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
         info!("write_to_dest Ref: {:?}", self);
+        info!("write_to_dest source_dir: {}, dest_dir: {}", source_dir.display(), dest_dir.display());
         if let Some(audio) = &self.audio {
             let source_path = &audio.path;
-            let dest_path = PathBuf::from(format!(
-                ".dist/media/{}",
-                source_path.file_name().unwrap().to_string_lossy()
-            ));
-            //let dest_path = dest_dir.join(dest_relpath);
+            let outdir = &self.config.outdir;
+            let dest_path = outdir.join("media").join(source_path.file_name().unwrap());
             trace!("copy from {:?} to {:?}", &source_path, &dest_path);
             std::fs::copy(source_path, dest_path)?;
 
-            if self.transcript == None {
+            if self.transcript == None && self.config.transcript == Transcript::On {
                 info!("write_to_dest: no transcript found, attempting to generate one");
                 let transcript_path = source_path.with_extension("transcript.json");
                 web::audio::gen_transcript(source_path, &transcript_path)?;

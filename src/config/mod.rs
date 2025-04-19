@@ -1,10 +1,12 @@
 use std::collections::HashMap;
 use std::path::{Path,PathBuf};
 use tracing::{error, info};
-pub mod mode;
-pub use mode::Mode as Mode;
 
-        use std::mem::size_of;
+// export types for config fields
+mod mode;
+pub use mode::Mode as Mode;
+mod transcript;
+pub use transcript::Transcript as Transcript;
 
 #[derive(Clone, Debug)]
 pub struct Context<'a> {
@@ -20,7 +22,8 @@ pub struct Config {
     pub templatedir: PathBuf,
     pub site_attr: HashMap<String, String>,
     pub prefix: String,
-    pub mode: Mode
+    pub mode: Mode,
+    pub transcript: Transcript
 }
 
 // ensure prefix starts and ends with '/'
@@ -63,15 +66,16 @@ impl Config {
            sourcedir_str: &str,
            templatedir_str: &str,
            path_prefix: &str,
-           mode: Mode
+           mode: Mode,
+           transcript: Transcript
     ) -> Config {
         info!("config...");
         info!("   outdir:      {}", outdir_str);
         info!("   sourcedir:   {}", sourcedir_str);
         info!("   templatedir: {}", templatedir_str);
         info!("   prefix: {}",      path_prefix);
-        info!("   sizeof mode: {}",      size_of::<Mode>());
-        //info!("   mode: {}",      mode);
+        info!("   mode: {}",      mode);
+        info!("   transcript: {}",   transcript);
 
         // create output directory if not present
         let outdir: PathBuf = std::path::PathBuf::from(outdir_str);
@@ -135,6 +139,7 @@ impl Config {
             site_attr,
             prefix: prefix.to_string(),
             mode,
+            transcript
         }
 
     }
@@ -157,7 +162,11 @@ impl Default for Config {
 
      fn default() -> Config {
         info!("default config");
-        Config::new(".dist", "source", "template", "", Mode::Build)
+        Config::new(".dist",
+            "source",
+            "template",
+            "",
+            Mode::Build, Transcript::Static)
     }
 }
 

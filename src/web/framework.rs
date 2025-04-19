@@ -5,7 +5,7 @@ use tracing::trace;
 use crate::{
     config::*,
     devserve::LIVE_RELOAD_JS,
-    util::node_ref::NodeRefExt,
+    util::NodeRefExt,
     web::document::HtmlGenerator
 };
 
