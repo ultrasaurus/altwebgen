@@ -213,19 +213,22 @@ mod tests {
         assert_eq!(output_string.trim(), expected);
     }
 
-    #[test]
-    fn test_write_md_audio_transcript() {
-        // Create AudioFile
+    fn create_ref_full(config: &Config) -> Ref {
+        // Create AudioFile struct
         let path = PathBuf::from("src/test/data/short-sentence.mp3");
         let mime = MP3_MIME_STR.parse::<mime::Mime>().unwrap();
         let audio = Some(AudioFile { path, mime });
 
-        let reference: Ref<'_> = Ref {config: &Config::default(),
+        Ref {config,
             md: Some("src/test/data/short-sentence-no-punctuation.md".into()),
             audio,
             transcript: Some("src/test/data/short-sentence-no-punctuation.transcript.json".into()),
-        };
-
+        }
+    }
+    #[test]
+    fn test_write_md_audio_transcript() {
+        let config = Config::default();
+        let reference = create_ref_full(&config);
         let mut write_buf = Vec::new();
         reference.write_html(&mut write_buf).unwrap();
 
