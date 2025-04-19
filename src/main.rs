@@ -38,6 +38,10 @@ struct Cli {
     #[clap(short, long, value_parser, default_value = "")]
     prefix: String,
 
+    /// annotate transcript option
+    #[clap(short, long, value_parser, default_value = "static")]
+    annotate: String,
+
     #[command(subcommand)]
     command: Option<Command>,
 
@@ -50,11 +54,17 @@ fn cli_config(cli: &Cli) -> Config {
         _ => Mode::Build
     };
 
+    let annotate_option = match cli.annotate.as_str() {
+        "on" => Transcript::On,
+        "off" => Transcript::Off,
+        _ => Transcript::Static
+    };
+
     Config::new(&*cli.outdir,
                 &*cli.indir,
                 &*cli.templatedir,
                 &*cli.prefix,
-                mode )
+                mode, annotate_option )
 }
 
 #[tokio::main]

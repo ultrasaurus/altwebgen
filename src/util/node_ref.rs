@@ -78,18 +78,21 @@ impl NodeRefExt for NodeRef {
 
 
     fn find_html_child_element(&self, name: &str) -> Option<NodeDataRef<ElementData>> {
+        println!("find_html_child_element: {}", name);
         let html_element_name: markup5ever::QualName = QualName::new(None, ns!(html),LocalName::from(name));
-        let maybe_head_node = self.children()
+        let maybe_node = self.inclusive_descendants()
         .find(|node| {
             if let Some(element) = node.as_element() {
+                print!("test: {:?} == {:?}", element.name, html_element_name);
                 if element.name == html_element_name {
+                    print!("found: {:?}", html_element_name);
                     return true
                 }
             }
             false
         });
-        if let Some(head) = maybe_head_node {
-            return head.into_element_ref()
+        if let Some(node) = maybe_node {
+            return node.into_element_ref()
         };
         None
     }

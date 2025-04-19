@@ -24,7 +24,8 @@ pub fn init_templates<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
         anyhow!(format!("failed to create directory: {}, error: {}", &buildrefdir.display(), e))
     })?;
 
-    web::Ref::process_markdown(config, "ref", &buildtemplatedir.join("ref"))?;
+    let ref_dir = config.sourcedir.canonicalize()?.parent().unwrap().join("ref");
+    web::Ref::process_markdown(config, ref_dir, &buildtemplatedir.canonicalize()?.join("ref"))?;
 
     let buildtemplatedir = config.buildtemplatedir();
     info!("buildtemplatedir: {}", buildtemplatedir.display());

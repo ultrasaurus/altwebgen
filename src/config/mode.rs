@@ -8,7 +8,11 @@ pub enum Mode {
 
 impl fmt::Display for Mode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self.to_string())
+        let s = match self {
+            Mode::Dev => "Mode::Dev",
+            Mode::Build => "Mode::Build"
+        };
+        write!(f, "{}", s)
     }
 }
 
