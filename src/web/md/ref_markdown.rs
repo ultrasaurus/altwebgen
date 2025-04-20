@@ -40,6 +40,7 @@ impl<'r> Ref<'r> {
     }
     fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
+        writer.write("<div class='ref'>\n".as_bytes())?;
         if let Some(audio) = &self.audio {
             writer.write("<div id='audiotext'>\n".as_bytes())?;
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
@@ -62,6 +63,7 @@ impl<'r> Ref<'r> {
         if self.audio.is_some() {
             writer.write("</div>\n".as_bytes())?;
         }
+        writer.write("</div>\n".as_bytes())?;   // closing div class='ref'
 
         Ok(())
     }
@@ -188,7 +190,7 @@ mod tests {
         reference.write_html(&mut write_buf).unwrap();
 
         let output_string = String::from_utf8(write_buf).unwrap();
-        let expected = "<p>it may contain annotations, additions and footnotes</p>";
+        let expected = "<div class='ref'>\n<p>it may contain annotations, additions and footnotes</p>\n</div>";
         assert_eq!(output_string.trim(), expected);
     }
     #[test]
@@ -209,7 +211,7 @@ mod tests {
 
         let output_string = String::from_utf8(write_buf).unwrap();
         let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
-        let expected = format!("<div id='audiotext'>\n{}<p>it may contain annotations, additions and footnotes</p>\n</div>", audio_html);
+        let expected = format!("<div class='ref'>\n<div id='audiotext'>\n{}<p>it may contain annotations, additions and footnotes</p>\n</div>\n</div>", audio_html);
         assert_eq!(output_string.trim(), expected);
     }
 
@@ -238,7 +240,7 @@ mod tests {
 
         let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
         let expected_words = EXPECTED_ANNOTATION;
-        let expected = format!("<div id='audiotext'>\n{}{}\n</div>", audio_html, expected_words);
+        let expected = format!("<div class='ref'>\n<div id='audiotext'>\n{}{}\n</div>\n</div>", audio_html, expected_words);
         assert_eq!(output_string.trim(), expected);
     }
 
@@ -254,7 +256,7 @@ mod tests {
 
         let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
         let expected_words = EXPECTED_TRANSCRIPT_OFF;
-        let expected = format!("<div id='audiotext'>\n{}{}\n</div>", audio_html, expected_words);
+        let expected = format!("<div class='ref'>\n<div id='audiotext'>\n{}{}\n</div>\n</div>", audio_html, expected_words);
         assert_eq!(output_string.trim(), expected);
     }
 
