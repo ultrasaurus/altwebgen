@@ -28,7 +28,7 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
     let livereload = LiveReloadLayer::new();
     let reloader = livereload.reloader();
     let config_watcher_copy = config.clone();
-    let mut watcher: notify::FsEventWatcher = notify::recommended_watcher(move |_|
+    let mut watcher = notify::recommended_watcher(move |_|
         if let Err(e) = setup::clean_build(&config_watcher_copy) {
             error!("change detected, then build failed: {:?}", e);
         } else {
