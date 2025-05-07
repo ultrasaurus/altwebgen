@@ -8,7 +8,6 @@ mod devserve;
 mod setup;
 
 mod util;
-mod watch;
 mod web;
 
 use clap::{Parser, Subcommand};
@@ -79,7 +78,7 @@ async fn main() -> anyhow::Result<()> {
         Some(ref cmd) => {
             let config:Config = cli_config(&cli);
             match cmd {
-                Command::Dev => watch::run(&config).await?,
+                Command::Dev => devserve::run(&config).await?,
                 Command::Build => {
                     let _hbs = setup::init_and_build(&config)?;
                 }

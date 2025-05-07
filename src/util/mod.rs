@@ -11,6 +11,7 @@ mod dir_entry;
 pub use self::dir_entry::DirEntryExt;
 
 mod node_ref;
+#[allow(unused)]
 pub use node_ref::NodeRefExt as NodeRefExt;
 
 pub mod path;
