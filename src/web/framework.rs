@@ -37,6 +37,7 @@ mod tests {
         web::document::Document,
         config::Config,
     };
+    #[allow(unused)]
     fn dev_config() -> Config {
         let mut config = Config::default();
         config.mode = Mode::Dev;

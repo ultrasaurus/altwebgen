@@ -10,8 +10,9 @@ use walkdir::WalkDir;
 mod dir_entry;
 pub use self::dir_entry::DirEntryExt;
 
-// mod node_ref;
-// pub use node_ref::NodeRefExt as NodeRefExt;
+mod node_ref;
+#[allow(unused)]
+pub use node_ref::NodeRefExt as NodeRefExt;
 
 pub mod path;
 pub use self::path::PathExt as PathExt;
