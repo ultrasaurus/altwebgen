@@ -4,6 +4,7 @@ use tracing::info;
 
 mod config;
 use config::*;
+mod watch;
 mod devserve;
 mod setup;
 
@@ -78,7 +79,7 @@ async fn main() -> anyhow::Result<()> {
         Some(ref cmd) => {
             let config:Config = cli_config(&cli);
             match cmd {
-                Command::Dev => devserve::run(&config).await?,
+                Command::Dev => watch::run(&config).await?,
                 Command::Build => {
                     let _hbs = setup::init_and_build(&config)?;
                 }
