@@ -2,7 +2,7 @@ use mime::Mime;
 use std::fmt;
 use std::io::Write;
 use std::path::{Path, PathBuf};
-use tracing::info;
+use tracing::{info, trace};
 use crate::config::{Config, Context};
 use crate::web::md;
 use crate::util::*;
@@ -120,13 +120,13 @@ fn read_source<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(HashMap<String,
     let source = read_file_to_string(sourcepath)?;
     use matter::matter;
     let (data, content) = match matter(&source) {
-        None => {info!("matter: None");
+        None => {trace!("matter: None");
             let data: HashMap<String, String> = HashMap::new();
             (data, source)
         },
 
         Some((yaml_string, content)) => {
-            info!("matter:\n{:?}\n------", yaml_string);
+            trace!("matter:\n{:?}\n------", yaml_string);
             let data:HashMap<String, String> = serde_yaml::from_str(&yaml_string)?;
 
             //  let data: HashMap<&str, String> = HashMap::new();
@@ -190,7 +190,7 @@ impl GenerateHtml for HandlebarsTemplate {
         } else {
             "default"
         };
-        info!("HandlebarsTemplate::render with layout: {layout_name}");
+        trace!("HandlebarsTemplate::render with layout: {layout_name}");
         context.hbs.render_to_write(layout_name, &self.attr, writer)?;
         Ok(())
     }

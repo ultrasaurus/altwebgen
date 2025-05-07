@@ -66,6 +66,8 @@ pub fn clean_build(config: &Config) -> anyhow::Result<Context> {
         Ok(context) => {
             if let Err(e) = web::process_files(&context) {
                 return Err(e.context("build failure"))
+            } else {
+                   info!("...build compelte!");
             }
             Ok(context)
         }

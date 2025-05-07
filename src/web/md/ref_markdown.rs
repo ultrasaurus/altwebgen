@@ -51,10 +51,10 @@ impl<'r> Ref<'r> {
         }
         if let Some(md) = &self.md {
             let html_body = if (self.transcript == None) || (self.config.transcript == Transcript::Off) {
-                info!("md::file2html");
+                trace!("md::file2html");
                 md::file2html(&md)?
             } else {
-                info!("md::file2html_with_timing");
+                trace!("md::file2html_with_timing");
                 let transcript_path = self.transcript.clone().unwrap();
                 md::file2html_with_timing(&md, &&transcript_path)?
             };
@@ -68,8 +68,8 @@ impl<'r> Ref<'r> {
         Ok(())
     }
     pub fn write_to_dest(&mut self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
-        info!("write_to_dest Ref: {:?}", self);
-        info!("write_to_dest source_dir: {}, dest_dir: {}", source_dir.display(), dest_dir.display());
+        trace!("write_to_dest Ref: {:?}", self);
+        trace!("write_to_dest source_dir: {}, dest_dir: {}", source_dir.display(), dest_dir.display());
         if let Some(audio) = &self.audio {
             let source_path = &audio.path;
             let outdir = &self.config.outdir;

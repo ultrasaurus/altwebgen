@@ -2,8 +2,9 @@ use axum::{
     Router,
     routing::any_service,
 };
-use notify::Watcher;
+use notify::{Config as WatchConfig, Watcher};
 use std::net::SocketAddr;
+use std::time::Duration;
 use tokio::net::TcpListener;
 use tower_livereload::LiveReloadLayer;
 use tracing::{error, info};
@@ -27,14 +28,18 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
     // setup live reload to watch files and rebuild when changed
     let livereload = LiveReloadLayer::new();
     let reloader = livereload.reloader();
+
     let config_watcher_copy = config.clone();
     let mut watcher = notify::recommended_watcher(move |_|
         if let Err(e) = setup::clean_build(&config_watcher_copy) {
             error!("change detected, then build failed: {:?}", e);
         } else {
+            info!("change detected, build complete\n---\n");
         reloader.reload()
         }
     )?;
+    // TODO: if build takes more than 2 sec, then this will loop
+    watcher.configure(WatchConfig::default().with_poll_interval(Duration::from_secs(2)))?;
     watcher.watch(&website_dir, notify::RecursiveMode::Recursive)?;
 
 

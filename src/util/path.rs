@@ -3,7 +3,7 @@
 use new_mime_guess as mime_guess;
 use mime::Mime;
 use std::{borrow::Cow, path::Path};
-use tracing::info;
+use tracing::trace;
 
 #[allow(dead_code)]
 pub trait PathExt {
@@ -40,7 +40,7 @@ impl PathExt for Path {
         }
     }
     fn mimetype(&self) -> Option<Mime> {
-        info!("PathExt mimetype {}", self.display());
+        trace!("PathExt mimetype {}", self.display());
         let result = mime_guess::from_path(self).first();
         if let Some(found) = result {
             if found.type_() == mime::AUDIO && found.subtype() == "m4a" {
