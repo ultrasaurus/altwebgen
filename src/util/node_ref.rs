@@ -2,6 +2,7 @@ use anyhow::bail;
 use kuchikiki::{ElementData, NodeDataRef, NodeRef};
 use markup5ever::{interface::QualName, namespace_url, ns, LocalName};
 
+#[allow(unused)]
 pub trait NodeRefExt {
     /// returns the `html` element, if present
     fn html(&self) -> Option<NodeDataRef<ElementData>>;

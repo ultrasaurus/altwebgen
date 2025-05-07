@@ -1,43 +1,54 @@
-use std::path::{Path, PathBuf};
-use tokio::sync::broadcast;
-use tracing::info;
-use warp::Filter;
-use warp::ws::Message;
-use crate::config::Config;
+use axum::{
+    Router,
+    routing::any_service,
+};
+use notify::Watcher;
+use std::net::SocketAddr;
+use tokio::net::TcpListener;
+use tower_livereload::LiveReloadLayer;
+use tracing::{error, info};
+use crate::{
+    config::Config,
+    setup
+};
 
-mod ws;
-use ws::ws_receiver;
-pub use ws::LIVE_RELOAD_JS as LIVE_RELOAD_JS;
+use bareurl::BareUrlServeDir;
 
-/// The HTTP endpoint for the websocket used to trigger reloads when a file changes.
-const LIVE_RELOAD_ENDPOINT: &str = "__livereload";
+pub async fn run(config: &Config) -> anyhow::Result<()> {
+    let website_dir = config.outdir.canonicalize()?;
 
-pub async fn serve<P: AsRef<Path>>(path: P, from_server_tx: broadcast::Sender<Message>) -> anyhow::Result<()> {
-    info!("serve website_dir: {}", path.as_ref().display());
-    let website_dir = PathBuf::from(path.as_ref());
-    let index_path = website_dir.join("index.html");
-     // GET / => index.html
-    let root = warp::get()
-        .and(warp::path::end())
-        .and(warp::fs::file(index_path));
+    info!("serve website_dir: {}", &website_dir.display());
 
-    // dir already requires GET...
-    let all = warp::fs::dir(website_dir);
-    let livereload = ws_receiver(LIVE_RELOAD_ENDPOINT, from_server_tx);
-    let http_routes = root.or(all)
-                .with(warp::trace::request());
+    // initial build
+    setup::clean_build(&config)?;
 
-    let routes = livereload.or(http_routes);
-    warp::serve(routes).run(([127, 0, 0, 1], 3456)).await;
+    let addr: SocketAddr = SocketAddr::from(([127, 0, 0, 1], 3456));
+
+    // setup live reload to watch files and rebuild when changed
+    let livereload = LiveReloadLayer::new();
+    let reloader = livereload.reloader();
+    let config_watcher_copy = config.clone();
+    let mut watcher: notify::FsEventWatcher = notify::recommended_watcher(move |_|
+        if let Err(e) = setup::clean_build(&config_watcher_copy) {
+            error!("change detected, then build failed: {:?}", e);
+        } else {
+        reloader.reload()
+        }
+    )?;
+    watcher.watch(&website_dir, notify::RecursiveMode::Recursive)?;
+
+
+    let app = Router::new()
+        .fallback(any_service(BareUrlServeDir::new(&website_dir)))
+        .layer(livereload);
+
+    let listener = TcpListener::bind(addr).await?;
+
+    axum::serve(
+        listener,
+        app,
+    ).await?;
+
     Ok(())
 }
 
-
-pub async fn run(config: &Config,
-                reload_tx: tokio::sync::broadcast::Sender<Message>
-) -> anyhow::Result<()> {
-    info!("devserve::run");
-    let website_dir = config.outdir.canonicalize()?;
-
-    serve(&website_dir, reload_tx).await
-}
