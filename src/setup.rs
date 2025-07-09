@@ -32,8 +32,8 @@ pub fn init_templates<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
     let mut hbs = Handlebars::new();
     hbs.register_helper("split", Box::new(split));
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
-        .map_err(|_| {
-            anyhow!("failed to register template directory: {}", buildtemplatedir.display())
+        .map_err(|e| {
+            anyhow!("failed to register template directory, error {:?}. directory: {}", e, buildtemplatedir.display())
         })?;
     info!("Setup: template directory '{}' registered", &buildtemplatedir.display());
 
