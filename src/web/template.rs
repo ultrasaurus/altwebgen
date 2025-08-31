@@ -1,5 +1,6 @@
 use anyhow::anyhow;
 use handlebars::{Handlebars,handlebars_helper};
+use ::slug::slugify;
 use tracing::info;
 
 use crate::{
@@ -8,6 +9,9 @@ use crate::{
     web,
 };
 
+handlebars_helper!(slug: |input:String|
+    slugify(input)
+);
 handlebars_helper!(split: |input:String, {sep:str="\n"}|
         input.split(sep).collect::<Vec<&str>>()
 );
@@ -28,6 +32,7 @@ pub fn init<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
     let buildtemplatedir = config.buildtemplatedir();
     info!("buildtemplatedir: {}", buildtemplatedir.display());
     let mut hbs = Handlebars::new();
+    hbs.register_helper("slug", Box::new(slug));
     hbs.register_helper("split", Box::new(split));
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
         .map_err(|e| {
@@ -48,7 +53,6 @@ mod tests {
     #[test]
     fn test_split_helper() {
         let mut hbs = Handlebars::new();
-
         hbs.register_helper("split", Box::new(split));
         let mut data: HashMap<String, String> = HashMap::new();
         let title = String::from("First Line
@@ -61,6 +65,17 @@ Second Line");
         assert_eq!(
             hbs.render_template(&template, &data).unwrap(),
             "<h1>First Line</h1>\n<h1>Second Line</h1>\n"
+        );
+    }
+
+        #[test]
+    fn test_slug_helper() {
+        let mut hbs = Handlebars::new();
+        hbs.register_helper("slug", Box::new(slug));
+        let data: HashMap<String, String> = HashMap::new();
+        assert_eq!(
+            hbs.render_template("{{ slug \"Ada Lovelace\" }}", &data).unwrap(),
+            "ada-lovelace"
         );
     }
 }
