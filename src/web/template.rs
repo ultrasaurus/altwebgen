@@ -1,5 +1,7 @@
 use anyhow::anyhow;
-use handlebars::{Handlebars,handlebars_helper};
+use handlebars::{Handlebars,handlebars_helper, Helper,
+                Context as HandlebarsContext, Output, RenderContext,
+                RenderError, RenderErrorReason};
 use ::slug::slugify;
 use tracing::info;
 
@@ -15,6 +17,36 @@ handlebars_helper!(slug: |input:String|
 handlebars_helper!(split: |input:String, {sep:str="\n"}|
         input.split(sep).collect::<Vec<&str>>()
 );
+
+fn helper_context_get_string_from_key(hc: &HandlebarsContext, key: &str) -> String {
+    if let Some(map) = hc.data().as_object() {
+        if let Some(value) = map.get(key) {
+            if let Some(s) = value.as_str() {
+                return s.to_string()
+            }
+        }
+    }
+    String::from("")
+}
+fn person_helper(
+    h: &Helper<'_>,
+    _: &Handlebars,
+    hc: &HandlebarsContext,
+    _: &mut RenderContext,
+    out: &mut dyn Output,
+) -> Result<(), RenderError> {
+    let param0 = h
+            .param(0)
+            .ok_or(RenderErrorReason::ParamNotFoundForIndex("name", 0))?;
+    let name = param0.value().as_str().unwrap();
+    let baseurl = helper_context_get_string_from_key(hc, "baseurl".into());
+    let output = format!("<a href='{}/people/{}'>{}</a>", baseurl, slugify(name), name);
+    out.write(&output)?;
+
+    Ok(())
+}
+
+
 
 pub fn init<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
     info!("init_templates");
@@ -32,6 +64,7 @@ pub fn init<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
     let buildtemplatedir = config.buildtemplatedir();
     info!("buildtemplatedir: {}", buildtemplatedir.display());
     let mut hbs = Handlebars::new();
+    hbs.register_helper("person", Box::new(person_helper));
     hbs.register_helper("slug", Box::new(slug));
     hbs.register_helper("split", Box::new(split));
     hbs.register_templates_directory(&buildtemplatedir, Default::default())
@@ -51,6 +84,19 @@ mod tests {
     use std::collections::HashMap;
 
     #[test]
+    fn test_person_helper() {
+        let mut hbs = Handlebars::new();
+        hbs.register_helper("person", Box::new(person_helper));
+        let mut data: HashMap<String, String> = HashMap::new();
+        data.insert(String::from("baseurl"),
+                    String::from("https://example.com"));
+        assert_eq!(
+            hbs.render_template("{{ person \"Ada Lovelace\" }}", &data).unwrap(),
+            "https://example.com/people/ada-lovelace"
+        );
+    }
+
+    #[test]
     fn test_split_helper() {
         let mut hbs = Handlebars::new();
         hbs.register_helper("split", Box::new(split));
@@ -68,7 +114,7 @@ Second Line");
         );
     }
 
-        #[test]
+    #[test]
     fn test_slug_helper() {
         let mut hbs = Handlebars::new();
         hbs.register_helper("slug", Box::new(slug));
@@ -78,5 +124,7 @@ Second Line");
             "ada-lovelace"
         );
     }
+
+
 }
 
