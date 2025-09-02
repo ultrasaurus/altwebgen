@@ -1,3 +1,4 @@
+use anyhow::anyhow;
 use std::collections::HashMap;
 use std::path::{Path,PathBuf};
 use tracing::{error, info};
@@ -61,6 +62,21 @@ impl Config {
     pub fn buildtemplatedir(&self) -> PathBuf {
          self.builddir.join("template")
     }
+
+    pub fn create_source_dirs(&self) -> anyhow::Result<()> {
+        std::fs::create_dir_all(&self.sourcedir).map_err(|e| {
+            anyhow!(format!("failed to create directory: {}, error: {}", self.sourcedir.display(), e))
+        })?;
+        let refdir = "ref";    // TODO: config?
+        std::fs::create_dir_all(refdir).map_err(|e| {
+            anyhow!(format!("failed to create directory: {}, error: {}", refdir, e))
+        })?;
+        std::fs::create_dir_all(&self.templatedir).map_err(|e| {
+            anyhow!(format!("failed to create directory: {}, error: {}", self.templatedir.display(), e))
+        })?;
+        Ok(())
+    }
+
 
     pub fn new(outdir_str: &str,
            sourcedir_str: &str,

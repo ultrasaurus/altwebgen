@@ -11,6 +11,9 @@ use framework::render_html;
 pub mod md;
 pub use md::Ref as Ref;
 
+pub mod template;
+
+
 pub mod words;
 
 use crate::{
