@@ -92,7 +92,7 @@ mod tests {
                     String::from("https://example.com"));
         assert_eq!(
             hbs.render_template("{{ person \"Ada Lovelace\" }}", &data).unwrap(),
-            "https://example.com/people/ada-lovelace"
+            "<a href='https://example.com/people/ada-lovelace'>Ada Lovelace</a>"
         );
     }
 
