@@ -1,16 +1,12 @@
 use std::io::Write;
 use tracing::trace;
 
-use crate::{
-    config::*,
-    web::document::HtmlGenerator
-};
-
+use crate::{config::*, web::document::HtmlGenerator};
 
 pub fn render_html<W: Write>(
     context: &Context,
     source: HtmlGenerator,
-    output:  &mut W,
+    output: &mut W,
 ) -> anyhow::Result<()> {
     trace!("web::html::render, mode={}", context.config.mode);
 
@@ -24,7 +20,7 @@ pub fn render_html<W: Write>(
     //     document.inject_script(LIVE_RELOAD_JS)?;
     //     document.serialize( output)?;
     // } else {
-        source.render(context, output)?;
+    source.render(context, output)?;
     // }
 
     Ok(())
@@ -33,10 +29,7 @@ pub fn render_html<W: Write>(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{
-        web::document::Document,
-        config::Config,
-    };
+    use crate::{config::Config, web::document::Document};
     #[allow(unused)]
     fn dev_config() -> Config {
         let mut config = Config::default();
@@ -49,7 +42,7 @@ mod tests {
         hbs.register_template_string("default", tmpl).unwrap();
         Context {
             config: config,
-            hbs
+            hbs,
         }
     }
 
@@ -68,6 +61,4 @@ mod tests {
         let output_string: String = String::from_utf8(write_buf).unwrap();
         assert_eq!(output_string, expected);
     }
-
-
 }

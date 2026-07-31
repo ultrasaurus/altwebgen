@@ -1,14 +1,14 @@
 use regex::Regex;
 mod transcript;
-pub use transcript::WordTime as WordTime;
 use anyhow::Result;
+pub use transcript::WordTime;
 
 #[derive(Debug)]
 pub struct HtmlWords {
-   pub html: String,
-   #[allow(dead_code)] // TODO remove?
-   pub word_index: usize,
-   pub last_timing_index: usize
+    pub html: String,
+    #[allow(dead_code)] // TODO remove?
+    pub word_index: usize,
+    pub last_timing_index: usize,
 }
 
 // Returns HtmlWords struct
@@ -28,7 +28,11 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
     // Iterate over each word in the text
     for capture in regex.captures_iter(text) {
         let word = &capture[1];
-        let between_words = if capture.get(2) == None {""} else { &capture[2] } ;
+        let between_words = if capture.get(2) == None {
+            ""
+        } else {
+            &capture[2]
+        };
         println!("capture: {:?} -- [2]: '{}'", &capture, between_words);
         let mut matched = false;
 
@@ -50,7 +54,8 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
                     timing.start_time,
                     timing.end_time,
                     timing.body,
-                    word, between_words
+                    word,
+                    between_words
                 ));
                 last_timing_index = timing_index + 1; // Advance timing index only on match
                 matched = true;
@@ -70,7 +75,8 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
                 } else {
                     "NOT FOUND".to_string()
                 },
-                word, between_words
+                word,
+                between_words
             ));
         }
 
@@ -80,11 +86,9 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
     Ok(HtmlWords {
         html: html_string.trim().to_string(),
         word_index,
-        last_timing_index
+        last_timing_index,
     })
 }
-
-
 
 //where in the timings vector we left off -- if 10 and only went through 9 wordtimes, return 9
 // I forget why??
@@ -93,8 +97,8 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
 mod tests {
     use super::*;
 
-     #[test]
-     fn html_words_empty_string() {
+    #[test]
+    fn html_words_empty_string() {
         let result = html_words("", None);
         assert!(result.is_ok());
         let data = result.unwrap();
@@ -113,12 +117,19 @@ mod tests {
         // assert_eq!(result_string, expected_string);
     }
 
-
     #[test]
     fn html_words_hello_world_with_timing() {
         let timings = vec![
-            WordTime { start_time: 0.0, end_time: 0.1, body: "hello".to_string() },
-            WordTime { start_time: 0.2, end_time: 0.3, body: "world".to_string() }
+            WordTime {
+                start_time: 0.0,
+                end_time: 0.1,
+                body: "hello".to_string(),
+            },
+            WordTime {
+                start_time: 0.2,
+                end_time: 0.3,
+                body: "world".to_string(),
+            },
         ];
         let result = html_words("Hello world", Some(&timings));
         assert!(result.is_ok());
@@ -141,12 +152,20 @@ mod tests {
     #[test]
     fn html_words_mismatch() {
         let timings = vec![
-            WordTime { start_time: 0.0, end_time: 0.1, body: "hello".to_string() },
-            WordTime { start_time: 0.2, end_time: 0.3, body: "world".to_string() }
+            WordTime {
+                start_time: 0.0,
+                end_time: 0.1,
+                body: "hello".to_string(),
+            },
+            WordTime {
+                start_time: 0.2,
+                end_time: 0.3,
+                body: "world".to_string(),
+            },
         ];
         let result = html_words("Hello there world", Some(&timings));
         assert!(result.is_ok());
-        let data= result.unwrap();
+        let data = result.unwrap();
         let expected_string = "<span word='0' start='0' end='0.1' debug_body='hello'>Hello</span> <span word='1' error='NO_MATCH' debug_body='world'>there</span> <span word='2' start='0.2' end='0.3' debug_body='world'>world</span>";
         assert_eq!(data.html, expected_string);
         assert_eq!(data.word_index, 3);
@@ -156,9 +175,21 @@ mod tests {
     #[test]
     fn html_words_mismatch2() {
         let timings = vec![
-            WordTime { start_time: 0.0, end_time: 0.1, body: "hello".to_string() },
-            WordTime { start_time: 0.2, end_time: 0.3, body: "there".to_string() },
-            WordTime { start_time: 0.4, end_time: 0.5, body: "world".to_string() }
+            WordTime {
+                start_time: 0.0,
+                end_time: 0.1,
+                body: "hello".to_string(),
+            },
+            WordTime {
+                start_time: 0.2,
+                end_time: 0.3,
+                body: "there".to_string(),
+            },
+            WordTime {
+                start_time: 0.4,
+                end_time: 0.5,
+                body: "world".to_string(),
+            },
         ];
         let result = html_words("Hello my world", Some(&timings));
         assert!(result.is_ok());
@@ -169,17 +200,49 @@ mod tests {
         assert_eq!(data.last_timing_index, 3);
     }
 
-        #[test]
+    #[test]
     fn html_words_mismatch_repeat() {
         let timings = vec![
-            WordTime { start_time: 0.0, end_time: 0.01, body: "in".to_string() },
-            WordTime { start_time: 0.02, end_time: 0.03, body: "the".to_string() },
-            WordTime { start_time: 0.04, end_time: 0.1, body: "in".to_string() },
-            WordTime { start_time: 0.2, end_time: 0.3, body: "the".to_string() },
-            WordTime { start_time: 0.4, end_time: 0.5, body: "city".to_string() },
-            WordTime { start_time: 0.6, end_time: 0.7, body: "in".to_string() },
-            WordTime { start_time: 0.8, end_time: 0.9, body: "the".to_string() },
-            WordTime { start_time: 1.0, end_time: 1.1, body: "world".to_string() },
+            WordTime {
+                start_time: 0.0,
+                end_time: 0.01,
+                body: "in".to_string(),
+            },
+            WordTime {
+                start_time: 0.02,
+                end_time: 0.03,
+                body: "the".to_string(),
+            },
+            WordTime {
+                start_time: 0.04,
+                end_time: 0.1,
+                body: "in".to_string(),
+            },
+            WordTime {
+                start_time: 0.2,
+                end_time: 0.3,
+                body: "the".to_string(),
+            },
+            WordTime {
+                start_time: 0.4,
+                end_time: 0.5,
+                body: "city".to_string(),
+            },
+            WordTime {
+                start_time: 0.6,
+                end_time: 0.7,
+                body: "in".to_string(),
+            },
+            WordTime {
+                start_time: 0.8,
+                end_time: 0.9,
+                body: "the".to_string(),
+            },
+            WordTime {
+                start_time: 1.0,
+                end_time: 1.1,
+                body: "world".to_string(),
+            },
         ];
         let result = html_words("in the city in the world", Some(&timings));
         assert!(result.is_ok());
@@ -189,7 +252,6 @@ mod tests {
         // assert_eq!(data.word_index, 6);
         // assert_eq!(data.last_timing_index, 8);
     }
-
 
     const SENTENCE_JSON: &str = r#"
 [
@@ -359,6 +421,4 @@ mod tests {
         assert_eq!(data.word_index, 31);
         assert_eq!(data.last_timing_index, 29); // will be timings.len() when punctuation is ignored
     }
-
-
 }

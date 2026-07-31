@@ -1,7 +1,7 @@
 //-- Path utlity functions -----------------------------------------------
 // extensons to Path struct and related helper functions
-use new_mime_guess as mime_guess;
 use mime::Mime;
+use new_mime_guess as mime_guess;
 use std::{borrow::Cow, path::Path};
 use tracing::trace;
 

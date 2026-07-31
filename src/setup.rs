@@ -14,9 +14,9 @@ pub fn clean_build(config: &Config) -> anyhow::Result<Context> {
         Err(e) => return Err(e.context("setting up templates failed")),
         Ok(context) => {
             if let Err(e) = web::process_files(&context) {
-                return Err(e.context("build failure"))
+                return Err(e.context("build failure"));
             } else {
-                   info!("...build compelte!");
+                info!("...build compelte!");
             }
             Ok(context)
         }
@@ -26,7 +26,10 @@ pub fn clean_build(config: &Config) -> anyhow::Result<Context> {
 // initial setup, called only once
 pub fn init_and_build(config: &Config) -> anyhow::Result<Context> {
     info!("init: start");
-    info!("      working directory {}", get_current_working_dir()?.display());
+    info!(
+        "      working directory {}",
+        get_current_working_dir()?.display()
+    );
     config.create_source_dirs()?;
 
     let context = clean_build(&config)?;

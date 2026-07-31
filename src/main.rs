@@ -1,12 +1,11 @@
-
 use anyhow;
 use tracing::info;
 
 mod config;
 use config::*;
-mod watch;
 mod devserve;
 mod setup;
+mod watch;
 
 mod util;
 mod web;
@@ -16,7 +15,7 @@ use clap::{Parser, Subcommand};
 #[derive(Subcommand, Debug)]
 pub enum Command {
     Dev,
-    Build
+    Build,
 }
 
 #[derive(Parser, Debug)]
@@ -44,27 +43,29 @@ struct Cli {
 
     #[command(subcommand)]
     command: Option<Command>,
-
 }
 
 fn cli_config(cli: &Cli) -> Config {
     assert!(cli.command.is_some()); // programmer error, UI should enforce
     let mode = match cli.command {
         Some(Command::Dev) => Mode::Dev,
-        _ => Mode::Build
+        _ => Mode::Build,
     };
 
     let annotate_option = match cli.annotate.as_str() {
         "on" => Transcript::On,
         "off" => Transcript::Off,
-        _ => Transcript::Static
+        _ => Transcript::Static,
     };
 
-    Config::new(&*cli.outdir,
-                &*cli.indir,
-                &*cli.templatedir,
-                &*cli.prefix,
-                mode, annotate_option )
+    Config::new(
+        &*cli.outdir,
+        &*cli.indir,
+        &*cli.templatedir,
+        &*cli.prefix,
+        mode,
+        annotate_option,
+    )
 }
 
 #[tokio::main]
@@ -75,9 +76,11 @@ async fn main() -> anyhow::Result<()> {
 
     let cli = Cli::parse();
     match cli.command {
-        None => println!("\nuse command 'dev' for  watch server or 'build' for generating static files\n\n"),
+        None => println!(
+            "\nuse command 'dev' for  watch server or 'build' for generating static files\n\n"
+        ),
         Some(ref cmd) => {
-            let config:Config = cli_config(&cli);
+            let config: Config = cli_config(&cli);
             match cmd {
                 Command::Dev => watch::run(&config).await?,
                 Command::Build => {
@@ -89,5 +92,3 @@ async fn main() -> anyhow::Result<()> {
 
     Ok(())
 }
-
-

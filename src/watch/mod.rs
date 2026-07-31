@@ -1,22 +1,14 @@
-
 use std::path::PathBuf;
-use tracing::{info, error};
 use tower_livereload::LiveReloadLayer;
+use tracing::{error, info};
 
-use crate::{
-    config::Config,
-    devserve,
-    setup,
-    util::*,
-    web
-};
+use crate::{config::Config, devserve, setup, util::*, web};
 
 mod watch_files;
 use watch_files::detect_changes;
 
-
 pub async fn run(config: &Config) -> anyhow::Result<()> {
-    let mut context= setup::init_and_build(&config)?;
+    let mut context = setup::init_and_build(&config)?;
     let mut source_watch = Vec::new();
     source_watch.push(config.sourcedir.clone());
     let mut template_watch = Vec::new();
@@ -63,4 +55,3 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
 
     Ok(())
 }
-

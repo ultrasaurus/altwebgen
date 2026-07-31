@@ -7,7 +7,10 @@ use std::{
 use tracing::{info, trace};
 use walkdir::WalkDir;
 
-use crate::{config::{Config, Transcript}, web::{self, md}};
+use crate::{
+    config::{Config, Transcript},
+    web::{self, md},
+};
 
 #[derive(Debug, Clone)]
 struct AudioFile {
@@ -22,7 +25,7 @@ pub struct Ref<'a> {
     transcript: Option<PathBuf>,
 }
 
-fn audio_tag(file_name: &str, audio_mime: &str, url:&str) -> String {
+fn audio_tag(file_name: &str, audio_mime: &str, url: &str) -> String {
     let link_tag: String= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
         &url, &file_name, &file_name);
     format!("<audio id=\"audio\" controls><source src=\"{}\" type=\"{}\">Your browser does not support the audio element. {}</audio>",
@@ -50,26 +53,31 @@ impl<'r> Ref<'r> {
             writer.write(&audio_html.as_bytes())?;
         }
         if let Some(md) = &self.md {
-            let html_body = if (self.transcript == None) || (self.config.transcript == Transcript::Off) {
-                trace!("md::file2html");
-                md::file2html(&md)?
-            } else {
-                trace!("md::file2html_with_timing");
-                let transcript_path = self.transcript.clone().unwrap();
-                md::file2html_with_timing(&md, &&transcript_path)?
-            };
+            let html_body =
+                if (self.transcript == None) || (self.config.transcript == Transcript::Off) {
+                    trace!("md::file2html");
+                    md::file2html(&md)?
+                } else {
+                    trace!("md::file2html_with_timing");
+                    let transcript_path = self.transcript.clone().unwrap();
+                    md::file2html_with_timing(&md, &&transcript_path)?
+                };
             writer.write(&html_body)?;
         }
         if self.audio.is_some() {
             writer.write("</div>\n".as_bytes())?;
         }
-        writer.write("</div>\n".as_bytes())?;   // closing div class='ref'
+        writer.write("</div>\n".as_bytes())?; // closing div class='ref'
 
         Ok(())
     }
     pub fn write_to_dest(&mut self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
         trace!("write_to_dest Ref: {:?}", self);
-        trace!("write_to_dest source_dir: {}, dest_dir: {}", source_dir.display(), dest_dir.display());
+        trace!(
+            "write_to_dest source_dir: {}, dest_dir: {}",
+            source_dir.display(),
+            dest_dir.display()
+        );
         if let Some(audio) = &self.audio {
             let source_path = &audio.path;
             let outdir = &self.config.outdir;
@@ -169,7 +177,7 @@ impl<'r> Ref<'r> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    const MP3_MIME_STR:&str = "audio/mpeg";
+    const MP3_MIME_STR: &str = "audio/mpeg";
 
     #[test]
     fn test_audio_tag() {
@@ -179,10 +187,11 @@ mod tests {
 
     #[test]
     fn test_write_md() {
-        let reference: Ref<'_> = Ref {config: &Config::default(),
+        let reference: Ref<'_> = Ref {
+            config: &Config::default(),
             md: Some("src/test/data/short-sentence.md".into()),
             audio: None,
-            transcript: None
+            transcript: None,
         };
 
         //let write_buf = std::io::BufWriter::new(Vec::new());
@@ -190,7 +199,8 @@ mod tests {
         reference.write_html(&mut write_buf).unwrap();
 
         let output_string = String::from_utf8(write_buf).unwrap();
-        let expected = "<div class='ref'>\n<p>it may contain annotations, additions and footnotes</p>\n</div>";
+        let expected =
+            "<div class='ref'>\n<p>it may contain annotations, additions and footnotes</p>\n</div>";
         assert_eq!(output_string.trim(), expected);
     }
     #[test]
@@ -200,17 +210,22 @@ mod tests {
         let mime = MP3_MIME_STR.parse::<mime::Mime>().unwrap();
         let audio = Some(AudioFile { path, mime });
 
-        let reference: Ref<'_> = Ref {config: &Config::default(),
+        let reference: Ref<'_> = Ref {
+            config: &Config::default(),
             md: Some("src/test/data/short-sentence.md".into()),
             audio,
-            transcript: None
+            transcript: None,
         };
 
         let mut write_buf = Vec::new();
         reference.write_html(&mut write_buf).unwrap();
 
         let output_string = String::from_utf8(write_buf).unwrap();
-        let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
+        let audio_html: String = audio_tag(
+            "short-sentence.mp3",
+            MP3_MIME_STR,
+            "/media/short-sentence.mp3",
+        );
         let expected = format!("<div class='ref'>\n<div id='audiotext'>\n{}<p>it may contain annotations, additions and footnotes</p>\n</div>\n</div>", audio_html);
         assert_eq!(output_string.trim(), expected);
     }
@@ -221,14 +236,16 @@ mod tests {
         let mime = MP3_MIME_STR.parse::<mime::Mime>().unwrap();
         let audio = Some(AudioFile { path, mime });
 
-        Ref {config,
+        Ref {
+            config,
             md: Some("src/test/data/short-sentence-no-punctuation.md".into()),
             audio,
             transcript: Some("src/test/data/short-sentence-no-punctuation.transcript.json".into()),
         }
     }
     const EXPECTED_ANNOTATION: &str = "<p><span word='0' start='0.11' end='0.17' debug_body='It'>it</span> <span word='1' start='0.211' end='0.352' debug_body='may'>may</span> <span word='2' start='0.392' end='0.755' debug_body='contain'>contain</span> <span word='3' start='0.876' end='1.622' debug_body='annotations'>annotations</span> <span word='4' start='2.368' end='2.832' debug_body='additions'>additions</span> <span word='5' start='2.893' end='2.973' debug_body='and'>and</span> <span word='6' start='3.034' end='3.498' debug_body='footnotes'>footnotes</span></p>";
-    const EXPECTED_TRANSCRIPT_OFF: &str = "<p>it may contain annotations additions and footnotes</p>";
+    const EXPECTED_TRANSCRIPT_OFF: &str =
+        "<p>it may contain annotations additions and footnotes</p>";
     #[test]
     fn test_write_md_audio_transcript() {
         let config = Config::default();
@@ -238,13 +255,20 @@ mod tests {
 
         let output_string = String::from_utf8(write_buf).unwrap();
 
-        let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
+        let audio_html: String = audio_tag(
+            "short-sentence.mp3",
+            MP3_MIME_STR,
+            "/media/short-sentence.mp3",
+        );
         let expected_words = EXPECTED_ANNOTATION;
-        let expected = format!("<div class='ref'>\n<div id='audiotext'>\n{}{}\n</div>\n</div>", audio_html, expected_words);
+        let expected = format!(
+            "<div class='ref'>\n<div id='audiotext'>\n{}{}\n</div>\n</div>",
+            audio_html, expected_words
+        );
         assert_eq!(output_string.trim(), expected);
     }
 
-        #[test]
+    #[test]
     fn test_write_md_audio_transcript_off() {
         let mut config = Config::default();
         config.transcript = Transcript::Off;
@@ -254,11 +278,16 @@ mod tests {
 
         let output_string = String::from_utf8(write_buf).unwrap();
 
-        let audio_html: String = audio_tag("short-sentence.mp3",  MP3_MIME_STR, "/media/short-sentence.mp3");
+        let audio_html: String = audio_tag(
+            "short-sentence.mp3",
+            MP3_MIME_STR,
+            "/media/short-sentence.mp3",
+        );
         let expected_words = EXPECTED_TRANSCRIPT_OFF;
-        let expected = format!("<div class='ref'>\n<div id='audiotext'>\n{}{}\n</div>\n</div>", audio_html, expected_words);
+        let expected = format!(
+            "<div class='ref'>\n<div id='audiotext'>\n{}{}\n</div>\n</div>",
+            audio_html, expected_words
+        );
         assert_eq!(output_string.trim(), expected);
     }
-
-
 }

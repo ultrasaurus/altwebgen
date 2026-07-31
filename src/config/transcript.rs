@@ -4,7 +4,7 @@ use std::fmt;
 pub enum Transcript {
     Off = 0,
     On,
-    Static
+    Static,
 }
 
 impl fmt::Display for Transcript {
@@ -17,6 +17,3 @@ impl fmt::Display for Transcript {
         write!(f, "{}", s)
     }
 }
-
-
-

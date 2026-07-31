@@ -3,14 +3,14 @@ use std::fmt;
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Mode {
     Dev,
-    Build
+    Build,
 }
 
 impl fmt::Display for Mode {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let s = match self {
             Mode::Dev => "Mode::Dev",
-            Mode::Build => "Mode::Build"
+            Mode::Build => "Mode::Build",
         };
         write!(f, "{}", s)
     }
@@ -23,4 +23,3 @@ impl fmt::Display for Mode {
 //         _ => Mode::Build
 //     };
 // }
-

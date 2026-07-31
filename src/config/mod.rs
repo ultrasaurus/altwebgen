@@ -1,18 +1,18 @@
 use anyhow::anyhow;
 use std::collections::HashMap;
-use std::path::{Path,PathBuf};
+use std::path::{Path, PathBuf};
 use tracing::{error, info};
 
 // export types for config fields
 mod mode;
-pub use mode::Mode as Mode;
+pub use mode::Mode;
 mod transcript;
-pub use transcript::Transcript as Transcript;
+pub use transcript::Transcript;
 
 #[derive(Clone, Debug)]
 pub struct Context<'a> {
     pub config: &'a Config,
-    pub hbs: handlebars::Handlebars<'a>
+    pub hbs: handlebars::Handlebars<'a>,
 }
 
 #[derive(Clone, Debug)]
@@ -24,7 +24,7 @@ pub struct Config {
     pub site_attr: HashMap<String, String>,
     pub prefix: String,
     pub mode: Mode,
-    pub transcript: Transcript
+    pub transcript: Transcript,
 }
 
 // ensure prefix starts and ends with '/'
@@ -32,18 +32,22 @@ fn root_prefix_format(path_prefix: &str) -> String {
     if path_prefix == "" {
         String::from("/")
     } else {
-        let start = if path_prefix.starts_with('/') { "" } else { "/" };
+        let start = if path_prefix.starts_with('/') {
+            ""
+        } else {
+            "/"
+        };
         let end = if path_prefix.ends_with('/') { "" } else { "/" };
         format!("{}{}{}", start, path_prefix, end)
     }
 }
 
-
 impl Config {
     // given sourcepath: some path inside sourcedir
     // return: new parallel path inside outdir
     pub fn outpath<P: AsRef<Path>>(&self, sourcepath: P) -> std::io::Result<PathBuf> {
-        let rel_path = sourcepath.as_ref()
+        let rel_path = sourcepath
+            .as_ref()
             .strip_prefix(&self.sourcedir)
             .expect("sourcedir strip prefix match");
         Ok(self.outdir.join(rel_path))
@@ -53,45 +57,57 @@ impl Config {
     // so they can be kept in the template directory
     // when building, they are automatically copied to the outdir
     pub fn templatedir_outpath<P: AsRef<Path>>(&self, sourcepath: P) -> std::io::Result<PathBuf> {
-        let rel_path = sourcepath.as_ref()
+        let rel_path = sourcepath
+            .as_ref()
             .strip_prefix(&self.templatedir)
             .expect("templatedir strip prefix match");
         Ok(self.outdir.join(rel_path))
     }
 
     pub fn buildtemplatedir(&self) -> PathBuf {
-         self.builddir.join("template")
+        self.builddir.join("template")
     }
 
     pub fn create_source_dirs(&self) -> anyhow::Result<()> {
         std::fs::create_dir_all(&self.sourcedir).map_err(|e| {
-            anyhow!(format!("failed to create directory: {}, error: {}", self.sourcedir.display(), e))
+            anyhow!(format!(
+                "failed to create directory: {}, error: {}",
+                self.sourcedir.display(),
+                e
+            ))
         })?;
-        let refdir = "ref";    // TODO: config?
+        let refdir = "ref"; // TODO: config?
         std::fs::create_dir_all(refdir).map_err(|e| {
-            anyhow!(format!("failed to create directory: {}, error: {}", refdir, e))
+            anyhow!(format!(
+                "failed to create directory: {}, error: {}",
+                refdir, e
+            ))
         })?;
         std::fs::create_dir_all(&self.templatedir).map_err(|e| {
-            anyhow!(format!("failed to create directory: {}, error: {}", self.templatedir.display(), e))
+            anyhow!(format!(
+                "failed to create directory: {}, error: {}",
+                self.templatedir.display(),
+                e
+            ))
         })?;
         Ok(())
     }
 
-
-    pub fn new(outdir_str: &str,
-           sourcedir_str: &str,
-           templatedir_str: &str,
-           path_prefix: &str,
-           mode: Mode,
-           transcript: Transcript
+    pub fn new(
+        outdir_str: &str,
+        sourcedir_str: &str,
+        templatedir_str: &str,
+        path_prefix: &str,
+        mode: Mode,
+        transcript: Transcript,
     ) -> Config {
         info!("config...");
         info!("   outdir:      {}", outdir_str);
         info!("   sourcedir:   {}", sourcedir_str);
         info!("   templatedir: {}", templatedir_str);
-        info!("   prefix: {}",      path_prefix);
-        info!("   mode: {}",      mode);
-        info!("   transcript: {}",   transcript);
+        info!("   prefix: {}", path_prefix);
+        info!("   mode: {}", mode);
+        info!("   transcript: {}", transcript);
 
         // create output directory if not present
         let outdir: PathBuf = std::path::PathBuf::from(outdir_str);
@@ -107,7 +123,11 @@ impl Config {
         let site_attr = match read_site_yaml(&sourcedir) {
             Ok(h) => h,
             Err(e) => {
-                error!("could not read _site.yaml from {}, {:?}", &sourcedir.display(), e);
+                error!(
+                    "could not read _site.yaml from {}, {:?}",
+                    &sourcedir.display(),
+                    e
+                );
                 HashMap::new()
             }
         };
@@ -120,7 +140,6 @@ impl Config {
                 error!("could not create templatedir directory");
             }
         }
-
 
         // build dir and sub-directories not configurable
         info!("   -- additional directories not user configurable -- ");
@@ -140,7 +159,11 @@ impl Config {
         info!("   buildtemplatedir: {}", buildtemplatedir.display());
         if !buildtemplatedir.exists() {
             if let Err(e) = std::fs::create_dir_all(&builddir) {
-                error!("could not create build template directory: {}, error: {}", buildtemplatedir.display(), e)
+                error!(
+                    "could not create build template directory: {}, error: {}",
+                    buildtemplatedir.display(),
+                    e
+                )
             };
         }
 
@@ -155,17 +178,14 @@ impl Config {
             site_attr,
             prefix: prefix.to_string(),
             mode,
-            transcript
+            transcript,
         }
-
     }
-
 }
 
 fn read_site_yaml(sourcedir: &Path) -> anyhow::Result<HashMap<String, String>> {
-
     let site_yaml_path = sourcedir.join("_site.yaml");
-    let site_attr:HashMap<String, String>  = if !site_yaml_path.exists() {
+    let site_attr: HashMap<String, String> = if !site_yaml_path.exists() {
         HashMap::new()
     } else {
         let f = std::fs::File::open(&site_yaml_path)?;
@@ -175,14 +195,16 @@ fn read_site_yaml(sourcedir: &Path) -> anyhow::Result<HashMap<String, String>> {
 }
 
 impl Default for Config {
-
-     fn default() -> Config {
+    fn default() -> Config {
         info!("default config");
-        Config::new(".dist",
+        Config::new(
+            ".dist",
             "source",
             "template",
             "",
-            Mode::Build, Transcript::Static)
+            Mode::Build,
+            Transcript::Static,
+        )
     }
 }
 
@@ -210,7 +232,6 @@ mod tests {
         assert_eq!(result, String::from(given_prefix));
     }
 
-
     #[test]
     fn test_prefix_format_missing_end_slash() {
         let result = root_prefix_format("/thing");
@@ -222,5 +243,4 @@ mod tests {
         let result = root_prefix_format("start/");
         assert_eq!(result, String::from("/start/"));
     }
-
 }

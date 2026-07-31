@@ -14,9 +14,9 @@ pub trait NodeRefExt {
     fn find_or_create_head(&self) -> anyhow::Result<NodeDataRef<ElementData>>;
 
     #[allow(dead_code)]
-    fn inject_style(&self, sheet: &str)-> anyhow::Result<()>;
+    fn inject_style(&self, sheet: &str) -> anyhow::Result<()>;
 
-    fn inject_script(&self, script: &str)-> anyhow::Result<()>;
+    fn inject_script(&self, script: &str) -> anyhow::Result<()>;
 
     /// finds first match
     fn find_html_child_element(&self, name: &str) -> Option<NodeDataRef<ElementData>>;
@@ -29,33 +29,31 @@ impl NodeRefExt for NodeRef {
         self.find_html_child_element("html")
     }
 
-    fn head(&self) -> Option<NodeDataRef<ElementData>>  {
+    fn head(&self) -> Option<NodeDataRef<ElementData>> {
         if let Some(html) = self.html() {
             if let Some(head) = html.as_node().find_html_child_element("head") {
-                return Some(head)
+                return Some(head);
             }
         }
         None
     }
 
     fn find_or_create_head(&self) -> anyhow::Result<NodeDataRef<ElementData>> {
-        let html =
-            if let Some(html_node) = self.html() {
-                html_node
-            } else {
-                return Err(anyhow::anyhow!("html node expected at root"));
-            };
+        let html = if let Some(html_node) = self.html() {
+            html_node
+        } else {
+            return Err(anyhow::anyhow!("html node expected at root"));
+        };
         if let Some(head) = html.as_node().find_html_child_element("head") {
-                return Ok(head)
+            return Ok(head);
         } else {
             let head = NodeRef::new_html_element("head", vec![]);
             html.as_node().append(head.clone());
-            return Ok(head.into_element_ref().unwrap())
+            return Ok(head.into_element_ref().unwrap());
         }
-
     }
 
-    fn inject_style(&self, sheet: &str)-> anyhow::Result<()> {
+    fn inject_style(&self, sheet: &str) -> anyhow::Result<()> {
         let head = self.find_or_create_head()?;
         let style_node = NodeRef::new_html_element("style", vec![]);
         style_node.append(NodeRef::new_text(sheet));
@@ -63,7 +61,7 @@ impl NodeRefExt for NodeRef {
         Ok(())
     }
 
-    fn inject_script(&self, script: &str)-> anyhow::Result<()> {
+    fn inject_script(&self, script: &str) -> anyhow::Result<()> {
         match self.head() {
             None => bail!("could not insert script, <head> element not found"),
             Some(head) => {
@@ -75,29 +73,25 @@ impl NodeRefExt for NodeRef {
         }
     }
 
-
-
-
     fn find_html_child_element(&self, name: &str) -> Option<NodeDataRef<ElementData>> {
         println!("find_html_child_element: {}", name);
-        let html_element_name: markup5ever::QualName = QualName::new(None, ns!(html),LocalName::from(name));
-        let maybe_node = self.inclusive_descendants()
-        .find(|node| {
+        let html_element_name: markup5ever::QualName =
+            QualName::new(None, ns!(html), LocalName::from(name));
+        let maybe_node = self.inclusive_descendants().find(|node| {
             if let Some(element) = node.as_element() {
                 print!("test: {:?} == {:?}", element.name, html_element_name);
                 if element.name == html_element_name {
                     print!("found: {:?}", html_element_name);
-                    return true
+                    return true;
                 }
             }
             false
         });
         if let Some(node) = maybe_node {
-            return node.into_element_ref()
+            return node.into_element_ref();
         };
         None
     }
-
 
     // thanks critter-rs for this utility function
     fn new_html_element(name: &str, attributes: Vec<(&str, &str)>) -> NodeRef {
@@ -141,8 +135,6 @@ mod tests {
         let e = document.head().unwrap();
         assert_eq!(e.name.local, LocalName::from("head"));
     }
-
-
 
     #[test]
     fn test_new_html_element_no_attrs() {

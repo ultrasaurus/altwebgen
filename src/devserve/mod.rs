@@ -1,18 +1,16 @@
-use axum::{
-    Router,
-    routing::any_service,
-};
+use crate::config::Config;
+use axum::{routing::any_service, Router};
 use std::net::SocketAddr;
 use tokio::net::TcpListener;
 use tower_livereload::LiveReloadLayer;
 use tracing::info;
-use crate::config::Config;
 
 use bareurl::BareUrlServeDir;
 
 pub async fn run(config: &Config, livereload: LiveReloadLayer) -> anyhow::Result<()> {
     let website_dir = config.outdir.canonicalize()?;
     info!("serve website_dir: {}", &website_dir.display());
+    info!("open browser to: http://localhost:3456");
 
     let addr: SocketAddr = SocketAddr::from(([127, 0, 0, 1], 3456));
 
@@ -22,11 +20,7 @@ pub async fn run(config: &Config, livereload: LiveReloadLayer) -> anyhow::Result
 
     let listener = TcpListener::bind(addr).await?;
 
-    axum::serve(
-        listener,
-        app,
-    ).await?;
+    axum::serve(listener, app).await?;
 
     Ok(())
 }
-
