@@ -4,7 +4,7 @@ use std::{
     io::Read,
     path::{Path, PathBuf},
 };
-use tracing::{error, info, trace};
+use tracing::{error, info, trace, warn};
 use walkdir::WalkDir;
 
 mod dir_entry;
@@ -56,7 +56,7 @@ pub fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
 
         let from = entry.path();
         let to = dst_dir.join(from.strip_prefix(&src)?);
-        println!("\tcopy {} => {}", from.display(), to.display());
+        trace!("copy {} => {}", from.display(), to.display());
 
         // create directories
         if entry.file_type().is_dir() {
@@ -79,7 +79,7 @@ pub fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
         }
         // ignore the rest
         else {
-            eprintln!("copy: ignored symlink {}", from.display());
+            warn!("copy: ignored symlink {}", from.display());
         }
     }
     Ok(())
