@@ -1,10 +1,11 @@
 use mime::Mime;
 use new_mime_guess as mime_guess;
 use std::{
+    collections::BTreeMap,
     io::Write,
     path::{Path, PathBuf},
 };
-use tracing::{info, trace};
+use tracing::{info, trace, warn};
 use walkdir::WalkDir;
 
 use crate::{
@@ -12,7 +13,7 @@ use crate::{
     web::{self, md},
 };
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 struct AudioFile {
     pub path: PathBuf,
     pub mime: Mime,
@@ -25,6 +26,84 @@ pub struct Ref<'a> {
     transcript: Option<PathBuf>,
 }
 
+// stem shared by all files belonging to one ref, e.g.
+//   ref/talks/hypertext.md, ref/talks/hypertext.mp3, ref/talks/hypertext.transcript.json
+// all share the stem ref/talks/hypertext
+//
+// strips up to two extensions so that "<stem>.transcript.json" collapses to
+// the same stem as "<stem>.md" / "<stem>.mp3".
+fn ref_stem(path: &Path) -> PathBuf {
+    path.with_extension("").with_extension("")
+}
+
+// the files collected for one ref stem, before a Config is attached.
+// kept separate from Ref so grouping logic can be tested without a Config.
+#[derive(Debug, Clone, Default, PartialEq)]
+struct RefFiles {
+    md: Option<PathBuf>,
+    audio: Option<AudioFile>,
+    transcript: Option<PathBuf>,
+}
+
+impl RefFiles {
+    // classify one file into the appropriate slot, based on its mime type.
+    // warns (rather than silently overwriting) if a slot is already filled,
+    // and warns on any file type not recognized as md/audio/transcript.
+    fn merge(&mut self, path: &Path, mime: Mime) {
+        match (mime.type_(), mime.subtype()) {
+            (mime::TEXT, subtype) if subtype == "markdown" => {
+                if self.md.is_some() {
+                    warn!(
+                        "ref: multiple markdown files for stem '{}', overwriting with '{}'",
+                        ref_stem(path).display(),
+                        path.display()
+                    );
+                }
+                self.md = Some(path.to_path_buf());
+            }
+            (mime::AUDIO, _) => {
+                if self.audio.is_some() {
+                    warn!(
+                        "ref: multiple audio files for stem '{}', overwriting with '{}'",
+                        ref_stem(path).display(),
+                        path.display()
+                    );
+                }
+                self.audio = Some(AudioFile {
+                    path: path.to_path_buf(),
+                    mime,
+                });
+            }
+            (mime::APPLICATION, mime::JSON) => {
+                if self.transcript.is_some() {
+                    warn!(
+                        "ref: multiple transcript files for stem '{}', overwriting with '{}'",
+                        ref_stem(path).display(),
+                        path.display()
+                    );
+                }
+                self.transcript = Some(path.to_path_buf());
+            }
+            _ => {
+                warn!(
+                    "ref: ignoring unrecognized file type, path: {}, mime: {}",
+                    path.display(),
+                    mime
+                );
+            }
+        }
+    }
+
+    fn into_ref(self, config: &Config) -> Ref<'_> {
+        Ref {
+            config,
+            md: self.md,
+            audio: self.audio,
+            transcript: self.transcript,
+        }
+    }
+}
+
 fn audio_tag(file_name: &str, audio_mime: &str, url: &str) -> String {
     let link_tag: String= format!("<a href=\"{}\" title=\"{}\" class=\"audio\"><span class=\"fa-solid fa-play\">{}</span></a>",
         &url, &file_name, &file_name);
@@ -33,14 +112,6 @@ fn audio_tag(file_name: &str, audio_mime: &str, url: &str) -> String {
 }
 
 impl<'r> Ref<'r> {
-    pub fn new(config: &'r Config) -> Self {
-        Ref {
-            config,
-            md: None,
-            audio: None,
-            transcript: None,
-        }
-    }
     fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
         writer.write_all("<div class='ref'>\n".as_bytes())?;
@@ -91,6 +162,12 @@ impl<'r> Ref<'r> {
                 web::audio::gen_transcript(source_path, &transcript_path)?;
                 self.transcript = Some(transcript_path);
             }
+            if self.md.is_none() {
+                warn!(
+                    "ref: audio file '{}' has no matching markdown file, media was copied but no ref partial was written",
+                    source_path.display()
+                );
+            }
         }
         if let Some(md) = &self.md {
             let relpath = md.strip_prefix(source_dir)?;
@@ -125,51 +202,25 @@ impl<'r> Ref<'r> {
             src_dir_path.display(),
             dest_dir.display()
         );
-        // maybe first create a map of stem => Vec[file types]
-        let mut prev_stem = None;
-        let mut current_ref = Ref::new(config);
-        for e in WalkDir::new(src_dir_path).sort_by(|a, b| a.file_name().cmp(b.file_name())) {
+
+        // group every file under src_dir_path by its ref stem (directory-aware,
+        // so refs in different subdirectories never collide just because they
+        // happened to land next to each other in the walk order)
+        let mut refs: BTreeMap<PathBuf, RefFiles> = BTreeMap::new();
+        for e in WalkDir::new(src_dir_path) {
             let entry = e?;
             let path: &Path = entry.path();
             if std::fs::metadata(path)?.is_file() {
-                let path_stem = path.with_extension("").with_extension("");
-                trace!("prev_stem: {:?}", prev_stem);
-                trace!("path_stem: {}", path_stem.display());
                 let mime = mime_guess::from_path(path).first_or_octet_stream();
-                if prev_stem != Some(path_stem.clone()) {
-                    if prev_stem.is_some() {
-                        current_ref.write_to_dest(src_dir_path, dest_dir)?;
-                    }
-                    current_ref = Ref::new(config);
-                    prev_stem = Some(path_stem);
-                }
-                match (mime.type_(), mime.subtype()) {
-                    (mime::TEXT, subtype) => {
-                        if subtype == "markdown" {
-                            current_ref.md = Some(path.to_path_buf())
-                        }
-                        // else ignore
-                    }
-                    (mime::AUDIO, _) => {
-                        current_ref.audio = Some(AudioFile {
-                            path: path.to_path_buf(),
-                            mime,
-                        })
-                    }
-                    (mime::APPLICATION, mime::JSON) => {
-                        current_ref.transcript = Some(path.to_path_buf())
-                    }
-                    _ => {
-                        info!(
-                            "\n\nignorning unknown file type...\npath: {}\nmime: {}\n\n",
-                            path.display(),
-                            mime
-                        );
-                    } // ignore other file types
-                }
+                refs.entry(ref_stem(path)).or_default().merge(path, mime);
             }
         }
-        current_ref.write_to_dest(src_dir_path, dest_dir)?;
+
+        for files in refs.into_values() {
+            files
+                .into_ref(config)
+                .write_to_dest(src_dir_path, dest_dir)?;
+        }
 
         Ok(())
     }
@@ -184,6 +235,115 @@ mod tests {
     fn test_audio_tag() {
         let output = audio_tag("hello.mp3", MP3_MIME_STR, "/audio/hello.mp3");
         assert_eq!(output, "<audio id=\"audio\" controls><source src=\"/audio/hello.mp3\" type=\"audio/mpeg\">Your browser does not support the audio element. <a href=\"/audio/hello.mp3\" title=\"hello.mp3\" class=\"audio\"><span class=\"fa-solid fa-play\">hello.mp3</span></a></audio>")
+    }
+
+    #[test]
+    fn test_ref_stem_single_extension() {
+        assert_eq!(
+            ref_stem(Path::new("ref/talks/hypertext.md")),
+            PathBuf::from("ref/talks/hypertext")
+        );
+        assert_eq!(
+            ref_stem(Path::new("ref/talks/hypertext.mp3")),
+            PathBuf::from("ref/talks/hypertext")
+        );
+    }
+
+    #[test]
+    fn test_ref_stem_double_extension() {
+        assert_eq!(
+            ref_stem(Path::new("ref/talks/hypertext.transcript.json")),
+            PathBuf::from("ref/talks/hypertext")
+        );
+    }
+
+    #[test]
+    fn test_ref_stem_no_extension() {
+        assert_eq!(
+            ref_stem(Path::new("ref/talks/hypertext")),
+            PathBuf::from("ref/talks/hypertext")
+        );
+    }
+
+    #[test]
+    fn test_ref_files_merge_classifies_each_kind() {
+        let mut files = RefFiles::default();
+        files.merge(
+            Path::new("ref/hypertext.md"),
+            "text/markdown".parse().unwrap(),
+        );
+        files.merge(
+            Path::new("ref/hypertext.mp3"),
+            MP3_MIME_STR.parse().unwrap(),
+        );
+        files.merge(
+            Path::new("ref/hypertext.transcript.json"),
+            "application/json".parse().unwrap(),
+        );
+
+        assert_eq!(files.md, Some(PathBuf::from("ref/hypertext.md")));
+        assert_eq!(
+            files.audio.map(|a| a.path),
+            Some(PathBuf::from("ref/hypertext.mp3"))
+        );
+        assert_eq!(
+            files.transcript,
+            Some(PathBuf::from("ref/hypertext.transcript.json"))
+        );
+    }
+
+    #[test]
+    fn test_ref_files_merge_second_md_overwrites_with_warning() {
+        let mut files = RefFiles::default();
+        files.merge(
+            Path::new("ref/hypertext.md"),
+            "text/markdown".parse().unwrap(),
+        );
+        files.merge(
+            Path::new("ref/hypertext.markdown"),
+            "text/markdown".parse().unwrap(),
+        );
+        // last one wins; a warning is logged (not asserted here) rather than
+        // the first file silently vanishing with no trace
+        assert_eq!(files.md, Some(PathBuf::from("ref/hypertext.markdown")));
+    }
+
+    #[test]
+    fn test_ref_files_merge_unrecognized_type_ignored() {
+        let mut files = RefFiles::default();
+        files.merge(
+            Path::new("ref/hypertext.pdf"),
+            "application/pdf".parse().unwrap(),
+        );
+        assert_eq!(files, RefFiles::default());
+    }
+
+    #[test]
+    fn test_process_markdown_groups_by_stem() {
+        let out_dir = PathBuf::from("target/test-out/ref_markdown/process_markdown_groups/.dist");
+        let _ = std::fs::remove_dir_all(&out_dir);
+        std::fs::create_dir_all(out_dir.join("media")).unwrap();
+        let config = Config {
+            outdir: out_dir,
+            ..Config::default()
+        };
+        let dest_dir = PathBuf::from("target/test-out/ref_markdown/process_markdown_groups/ref");
+        std::fs::create_dir_all(&dest_dir).unwrap();
+
+        Ref::process_markdown(&config, "src/test/data", &dest_dir).unwrap();
+
+        // two distinct stems from src/test/data should each produce their own partial
+        let short_sentence_html =
+            std::fs::read_to_string(dest_dir.join("short-sentence.html.hbs")).unwrap();
+        assert!(short_sentence_html.contains("annotations"));
+        assert!(short_sentence_html.contains("/media/short-sentence.mp3"));
+
+        let no_punctuation_html =
+            std::fs::read_to_string(dest_dir.join("short-sentence-no-punctuation.html.hbs"))
+                .unwrap();
+        // this stem has no audio file in the fixture, so no audio div/media reference
+        assert!(no_punctuation_html.contains("<span word='0'"));
+        assert!(!no_punctuation_html.contains("audiotext"));
     }
 
     #[test]
