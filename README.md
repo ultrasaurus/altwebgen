@@ -26,6 +26,16 @@ BEWARE:
 
 # SETUP for Development
 
+## Git hooks
+
+This repo has a pre-commit hook (`.githooks/pre-commit`) that runs `cargo fmt --check`
+and `cargo clippy` before allowing a commit. Since `.git/hooks` isn't version-controlled,
+each clone needs to opt in once:
+
+```sh
+git config core.hooksPath .githooks
+```
+
 to use automatic whisper-generated transcript, we depend on some python code
 which (for now) needs to be symlinked from your $HOME directory
 
