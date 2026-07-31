@@ -26,9 +26,8 @@ mod tests {
         );
 
         let result = setup::init_and_build(&config);
-        if result.is_err() {
-            println!("Err: {:?}", result.err());
-            assert!(false, "unexpected failure of setup::init_and_build");
+        if let Err(e) = result {
+            panic!("unexpected failure of setup::init_and_build: {:?}", e);
         }
 
         // test that static files were copied

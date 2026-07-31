@@ -8,19 +8,16 @@ mod watch_files;
 use watch_files::detect_changes;
 
 pub async fn run(config: &Config) -> anyhow::Result<()> {
-    let mut context = setup::init_and_build(&config)?;
-    let mut source_watch = Vec::new();
-    source_watch.push(config.sourcedir.clone());
-    let mut template_watch = Vec::new();
-    template_watch.push(config.templatedir.clone());
-    template_watch.push(PathBuf::from("ref"));
+    let mut context = setup::init_and_build(config)?;
+    let source_watch = vec![config.sourcedir.clone()];
+    let template_watch = vec![config.templatedir.clone(), PathBuf::from("ref")];
 
     // Tower Layer to handle browser/client comms
     let livereload = LiveReloadLayer::new();
     let reloader = livereload.reloader();
 
     tokio::select! {
-        _ = devserve::run(&config, livereload) => {
+        _ = devserve::run(config, livereload) => {
             println!("server shutdown")
         }
         _ = async {
@@ -38,7 +35,7 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
                     },
                     template_result = detect_changes(&template_watch) => {
                         info!("template watcher result {:?}", template_result);
-                        match setup::clean_build(&config) {
+                        match setup::clean_build(config) {
                             Err(e) => {error!("build failed: {:?}", e); break},
                             Ok(new_context) => {
                                 context = new_context;

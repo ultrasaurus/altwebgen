@@ -56,7 +56,7 @@ fn copy_template_assets(context: &Context) -> anyhow::Result<()> {
         if path.is_dir() {
             create_destdir(&config.templatedir, &config.outdir, path)?;
         } else if path.extension() != Some(template_extension) {
-            std::fs::copy(&path, config.templatedir_outpath(&path)?)?;
+            std::fs::copy(path, config.templatedir_outpath(path)?)?;
         }
     }
 
@@ -64,8 +64,8 @@ fn copy_template_assets(context: &Context) -> anyhow::Result<()> {
 }
 
 pub fn process_files(context: &Context) -> anyhow::Result<()> {
-    build_source_files(&context)?;
-    copy_template_assets(&context)?;
+    build_source_files(context)?;
+    copy_template_assets(context)?;
     Ok(())
 }
 
@@ -74,7 +74,7 @@ fn render_file<P: AsRef<Path>>(context: &Context, path: P) -> anyhow::Result<()>
     let sourcepath = path.as_ref();
     trace!("render_file: {}", sourcepath.display());
     let document = Document::from_path(&path);
-    match document.html_generator(&context)? {
+    match document.html_generator(context)? {
         None => {
             std::fs::copy(&path, config.outpath(&path)?)?;
         }
@@ -82,9 +82,10 @@ fn render_file<P: AsRef<Path>>(context: &Context, path: P) -> anyhow::Result<()>
             let writepath = document.outpath(config)?;
             let mut writer = std::fs::File::options()
                 .create(true)
+                .truncate(true)
                 .write(true)
                 .open(writepath)?;
-            render_html(&context, html_source, &mut writer)?;
+            render_html(context, html_source, &mut writer)?;
         }
     }
     Ok(())

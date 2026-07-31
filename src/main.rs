@@ -1,4 +1,3 @@
-use anyhow;
 use tracing::info;
 
 mod config;
@@ -59,10 +58,10 @@ fn cli_config(cli: &Cli) -> Config {
     };
 
     Config::new(
-        &*cli.outdir,
-        &*cli.indir,
-        &*cli.templatedir,
-        &*cli.prefix,
+        &cli.outdir,
+        &cli.indir,
+        &cli.templatedir,
+        &cli.prefix,
         mode,
         annotate_option,
     )

@@ -29,7 +29,7 @@ pub struct Config {
 
 // ensure prefix starts and ends with '/'
 fn root_prefix_format(path_prefix: &str) -> String {
-    if path_prefix == "" {
+    if path_prefix.is_empty() {
         String::from("/")
     } else {
         let start = if path_prefix.starts_with('/') {

@@ -40,7 +40,7 @@ fn person_helper(
         .param(0)
         .ok_or(RenderErrorReason::ParamNotFoundForIndex("name", 0))?;
     let name = param0.value().as_str().unwrap();
-    let baseurl = helper_context_get_string_from_key(hc, "baseurl".into());
+    let baseurl = helper_context_get_string_from_key(hc, "baseurl");
     let output = format!(
         "<a href='{}/people/{}'>{}</a>",
         baseurl,
@@ -132,7 +132,7 @@ Second Line",
 <h1>{{ this }}</h1>
 {{/each}}";
         assert_eq!(
-            hbs.render_template(&template, &data).unwrap(),
+            hbs.render_template(template, &data).unwrap(),
             "<h1>First Line</h1>\n<h1>Second Line</h1>\n"
         );
     }

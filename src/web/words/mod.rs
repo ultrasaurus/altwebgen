@@ -28,7 +28,7 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
     // Iterate over each word in the text
     for capture in regex.captures_iter(text) {
         let word = &capture[1];
-        let between_words = if capture.get(2) == None {
+        let between_words = if capture.get(2).is_none() {
             ""
         } else {
             &capture[2]
@@ -37,8 +37,7 @@ pub fn html_words(text: &str, optional_timing: Option<&[WordTime]>) -> Result<Ht
         let mut matched = false;
 
         // Try to find a match with any remaining timing
-        for timing_index in last_timing_index..timings.len() {
-            let timing = &timings[timing_index];
+        for (timing_index, timing) in timings.iter().enumerate().skip(last_timing_index) {
             // print!(
             //     "Comparing: timing body '{}' with word '{}'",
             //     timing.body.to_lowercase(),

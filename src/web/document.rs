@@ -47,7 +47,7 @@ impl Document {
         match HtmlGenerator::from_document(context, self) {
             Err(e) => {
                 if e.downcast_ref() == Some(&NotHtmlSourceError {}) {
-                    return Ok(None);
+                    Ok(None)
                 } else {
                     anyhow::bail!(e)
                 }
@@ -76,7 +76,7 @@ pub enum HtmlGenerator {
 
 impl HtmlGenerator {
     pub fn from_document(context: &Context, document: &Document) -> anyhow::Result<Self> {
-        return match document.mime.subtype().as_str() {
+        match document.mime.subtype().as_str() {
             "x-handlebars-template" => {
                 let data = HandlebarsTemplate::from_path(context, &document.path)?;
                 Ok(HtmlGenerator::Template(data))
@@ -93,14 +93,14 @@ impl HtmlGenerator {
                 //anyhow::bail!(NotHtmlSourceError(document.path.display().to_string()))
                 anyhow::bail!(NotHtmlSourceError {})
             }
-        };
+        }
     }
     pub fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
         match self {
             HtmlGenerator::Markdown(md) => md.render(context, writer)?,
             HtmlGenerator::Template(template) => template.render(context, writer)?,
             HtmlGenerator::Html(html_string) => {
-                writer.write(html_string.as_bytes())?;
+                writer.write_all(html_string.as_bytes())?;
             }
         }
         Ok(())
@@ -266,7 +266,7 @@ mod tests {
         };
         let doc = Document::from_path("src/test/data/short-sentence.md");
         let maybe_html_source: Option<HtmlGenerator> = doc.html_generator(&context).unwrap();
-        assert!(maybe_html_source != None);
+        assert!(maybe_html_source.is_some());
         if let Some(html_source) = maybe_html_source {
             let mut write_buf: Vec<u8> = Vec::new();
             html_source.render(&context, &mut write_buf).unwrap();
@@ -289,7 +289,7 @@ mod tests {
         };
         let doc = Document::from_path("src/test/data/var.md.hbs");
         let maybe_html_source: Option<HtmlGenerator> = doc.html_generator(&context).unwrap();
-        assert!(maybe_html_source != None);
+        assert!(maybe_html_source.is_some());
         if let Some(html_source) = maybe_html_source {
             let mut write_buf: Vec<u8> = Vec::new();
             html_source.render(&context, &mut write_buf).unwrap();

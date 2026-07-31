@@ -15,7 +15,7 @@ pub fn file2html<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<Vec<u8>> {
 pub fn str2html(source: &str) -> anyhow::Result<Vec<u8>> {
     let mut html_body: Vec<u8> = Vec::new();
 
-    let parser = cmark::Parser::new(&source);
+    let parser = cmark::Parser::new(source);
     cmark::html::write_html(&mut html_body, parser)?;
 
     Ok(html_body)
@@ -36,8 +36,8 @@ fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result
     let mut html_body = Vec::new();
     let mut next_timings: &[WordTime] = timings;
     let mut new_event_list: Vec<Event> = Vec::new();
-    let mut parser = cmark::Parser::new(&source);
-    while let Some(event) = parser.next() {
+    let parser = cmark::Parser::new(source);
+    for event in parser {
         let next_event = match event {
             Event::Text(cow_str) => {
                 let data = html_words(&cow_str, Some(next_timings))?;

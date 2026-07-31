@@ -37,7 +37,7 @@ pub fn get_current_working_dir() -> std::io::Result<PathBuf> {
 
 // copy a directory with all of its files recursively
 pub fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
-    let dst_path: &Path = dst.as_ref();
+    let dst_path: &Path = dst;
     let dst_dir = dst_path.to_path_buf();
     info!(
         "copy_dir_all from: {} to: {}",
@@ -69,7 +69,7 @@ pub fn copy_dir_all<P: AsRef<Path>>(src: P, dst: &Path) -> anyhow::Result<()> {
         }
         // copy files
         else if entry.file_type().is_file() {
-            std::fs::copy(&from, &to).map_err(|_| {
+            std::fs::copy(from, &to).map_err(|_| {
                 anyhow!(
                     "copy_dir_all: failed to copy file, from {} to {}",
                     from.display(),

@@ -143,13 +143,13 @@ mod tests {
     fn test_generate_whisperx_json() {
         let infile = Path::new("src/test/data/short-sentence.mp3");
         let outdir = Path::new("src/test/data");
-        generate_whisperx_json(&infile, &outdir).unwrap();
+        generate_whisperx_json(infile, outdir).unwrap();
     }
 
     #[test]
     fn test_gen_transcript() {
         let infile = Path::new("src/test/data/short-sentence.mp3");
         let outfile = Path::new("src/test/data/short-sentence.transcript.json");
-        gen_transcript(&infile, &outfile).unwrap();
+        gen_transcript(infile, outfile).unwrap();
     }
 }

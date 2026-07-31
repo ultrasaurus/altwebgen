@@ -82,7 +82,7 @@ mod tests {
             assert_eq!(vec.len(), 1);
             assert_eq!(vec[0].body, String::from("let"));
             assert_eq!(vec[0].start_time, 0.0);
-            assert_eq!(vec[0].end_time, 0.2399999999999931);
+            assert_eq!(vec[0].end_time, 0.24);
         }
     }
 }

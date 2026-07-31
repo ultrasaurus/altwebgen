@@ -33,11 +33,8 @@ impl PathExt for Path {
         }
     }
     fn get_ext(&self) -> Option<Cow<'static, str>> {
-        if let Some(ext_osstr) = self.extension() {
-            Some(Cow::Owned(ext_osstr.to_string_lossy().to_lowercase()))
-        } else {
-            None
-        }
+        self.extension()
+            .map(|ext_osstr| Cow::Owned(ext_osstr.to_string_lossy().to_lowercase()))
     }
     fn mimetype(&self) -> Option<Mime> {
         trace!("PathExt mimetype {}", self.display());

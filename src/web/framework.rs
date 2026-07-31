@@ -32,18 +32,16 @@ mod tests {
     use crate::{config::Config, web::document::Document};
     #[allow(unused)]
     fn dev_config() -> Config {
-        let mut config = Config::default();
-        config.mode = Mode::Dev;
-        config
+        Config {
+            mode: Mode::Dev,
+            ..Config::default()
+        }
     }
 
     fn context_with_default_template<'a>(config: &'a Config, tmpl: &str) -> Context<'a> {
         let mut hbs = handlebars::Handlebars::new();
         hbs.register_template_string("default", tmpl).unwrap();
-        Context {
-            config: config,
-            hbs,
-        }
+        Context { config, hbs }
     }
 
     #[test]

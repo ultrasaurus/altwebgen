@@ -45,11 +45,11 @@ impl NodeRefExt for NodeRef {
             return Err(anyhow::anyhow!("html node expected at root"));
         };
         if let Some(head) = html.as_node().find_html_child_element("head") {
-            return Ok(head);
+            Ok(head)
         } else {
             let head = NodeRef::new_html_element("head", vec![]);
             html.as_node().append(head.clone());
-            return Ok(head.into_element_ref().unwrap());
+            Ok(head.into_element_ref().unwrap())
         }
     }
 

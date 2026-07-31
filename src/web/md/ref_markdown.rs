@@ -43,31 +43,31 @@ impl<'r> Ref<'r> {
     }
     fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
-        writer.write("<div class='ref'>\n".as_bytes())?;
+        writer.write_all("<div class='ref'>\n".as_bytes())?;
         if let Some(audio) = &self.audio {
-            writer.write("<div id='audiotext'>\n".as_bytes())?;
+            writer.write_all("<div id='audiotext'>\n".as_bytes())?;
             trace!("write_html audio file_name: {:?}", audio.path.file_name());
             let file_name: &str = audio.path.file_name().unwrap().try_into()?;
             let url = format!("{}media/{}", self.config.prefix, file_name);
-            let audio_html = audio_tag(file_name.into(), &audio.mime.to_string(), &url.to_string());
-            writer.write(&audio_html.as_bytes())?;
+            let audio_html = audio_tag(file_name, audio.mime.as_ref(), &url.to_string());
+            writer.write_all(audio_html.as_bytes())?;
         }
         if let Some(md) = &self.md {
             let html_body =
-                if (self.transcript == None) || (self.config.transcript == Transcript::Off) {
+                if self.transcript.is_none() || (self.config.transcript == Transcript::Off) {
                     trace!("md::file2html");
-                    md::file2html(&md)?
+                    md::file2html(md)?
                 } else {
                     trace!("md::file2html_with_timing");
                     let transcript_path = self.transcript.clone().unwrap();
                     md::file2html_with_timing(&md, &&transcript_path)?
                 };
-            writer.write(&html_body)?;
+            writer.write_all(&html_body)?;
         }
         if self.audio.is_some() {
-            writer.write("</div>\n".as_bytes())?;
+            writer.write_all("</div>\n".as_bytes())?;
         }
-        writer.write("</div>\n".as_bytes())?; // closing div class='ref'
+        writer.write_all("</div>\n".as_bytes())?; // closing div class='ref'
 
         Ok(())
     }
@@ -85,7 +85,7 @@ impl<'r> Ref<'r> {
             trace!("copy from {:?} to {:?}", &source_path, &dest_path);
             std::fs::copy(source_path, dest_path)?;
 
-            if self.transcript == None && self.config.transcript == Transcript::On {
+            if self.transcript.is_none() && self.config.transcript == Transcript::On {
                 info!("write_to_dest: no transcript found, attempting to generate one");
                 let transcript_path = source_path.with_extension("transcript.json");
                 web::audio::gen_transcript(source_path, &transcript_path)?;
@@ -99,6 +99,7 @@ impl<'r> Ref<'r> {
             trace!("     writepath: {:?}", writepath);
             let mut writer = std::fs::File::options()
                 .create(true)
+                .truncate(true)
                 .write(true)
                 .open(writepath)?;
             self.write_html(&mut writer)?;
@@ -126,7 +127,7 @@ impl<'r> Ref<'r> {
         );
         // maybe first create a map of stem => Vec[file types]
         let mut prev_stem = None;
-        let mut current_ref = Ref::new(&config);
+        let mut current_ref = Ref::new(config);
         for e in WalkDir::new(src_dir_path).sort_by(|a, b| a.file_name().cmp(b.file_name())) {
             let entry = e?;
             let path: &Path = entry.path();
@@ -137,7 +138,7 @@ impl<'r> Ref<'r> {
                 let mime = mime_guess::from_path(path).first_or_octet_stream();
                 if prev_stem != Some(path_stem.clone()) {
                     if prev_stem.is_some() {
-                        current_ref.write_to_dest(src_dir_path, &dest_dir)?;
+                        current_ref.write_to_dest(src_dir_path, dest_dir)?;
                     }
                     current_ref = Ref::new(config);
                     prev_stem = Some(path_stem);
@@ -168,7 +169,7 @@ impl<'r> Ref<'r> {
                 }
             }
         }
-        current_ref.write_to_dest(src_dir_path, &dest_dir)?;
+        current_ref.write_to_dest(src_dir_path, dest_dir)?;
 
         Ok(())
     }
@@ -230,7 +231,7 @@ mod tests {
         assert_eq!(output_string.trim(), expected);
     }
 
-    fn create_ref_full(config: &Config) -> Ref {
+    fn create_ref_full(config: &Config) -> Ref<'_> {
         // Create AudioFile struct
         let path = PathBuf::from("src/test/data/short-sentence.mp3");
         let mime = MP3_MIME_STR.parse::<mime::Mime>().unwrap();
@@ -270,8 +271,10 @@ mod tests {
 
     #[test]
     fn test_write_md_audio_transcript_off() {
-        let mut config = Config::default();
-        config.transcript = Transcript::Off;
+        let config = Config {
+            transcript: Transcript::Off,
+            ..Config::default()
+        };
         let reference = create_ref_full(&config);
         let mut write_buf = Vec::new();
         reference.write_html(&mut write_buf).unwrap();
