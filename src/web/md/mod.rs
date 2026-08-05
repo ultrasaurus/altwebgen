@@ -2,14 +2,33 @@ use crate::web::read_file_to_string;
 use crate::web::words::*;
 use cmark::Event;
 use pulldown_cmark as cmark;
+use std::collections::HashMap;
 use std::path::Path;
 
 mod ref_markdown;
 pub use ref_markdown::Ref;
 
-pub fn file2html<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<Vec<u8>> {
+// splits optional YAML frontmatter (a `---`-delimited block at the top of the
+// file) from the rest of the source, returning the parsed attributes
+// alongside the remaining content. Returns an empty map if there's no
+// frontmatter, rather than erroring, since frontmatter is optional.
+pub(crate) fn strip_frontmatter(source: &str) -> anyhow::Result<(HashMap<String, String>, String)> {
+    use matter::matter;
+    match matter(source) {
+        None => Ok((HashMap::new(), source.to_string())),
+        Some((yaml_string, content)) => {
+            let attrs: HashMap<String, String> = serde_yaml::from_str(&yaml_string)?;
+            Ok((attrs, content))
+        }
+    }
+}
+
+pub fn file2html<P: AsRef<Path>>(
+    sourcepath: P,
+) -> anyhow::Result<(HashMap<String, String>, Vec<u8>)> {
     let source = read_file_to_string(sourcepath)?;
-    str2html(&source)
+    let (attrs, content) = strip_frontmatter(&source)?;
+    Ok((attrs, str2html(&content)?))
 }
 
 pub fn str2html(source: &str) -> anyhow::Result<Vec<u8>> {
@@ -24,12 +43,13 @@ pub fn str2html(source: &str) -> anyhow::Result<Vec<u8>> {
 pub fn file2html_with_timing<P: AsRef<Path>>(
     md_path: P,
     transcript_path: P,
-) -> anyhow::Result<Vec<u8>> {
-    let md_text = read_file_to_string(md_path)?;
+) -> anyhow::Result<(HashMap<String, String>, Vec<u8>)> {
+    let md_source = read_file_to_string(md_path)?;
+    let (attrs, md_text) = strip_frontmatter(&md_source)?;
     let file = std::fs::File::open(transcript_path)?;
     let timings = WordTime::from_transcript(file)?;
 
-    str2html_with_timing(&md_text, &timings)
+    Ok((attrs, str2html_with_timing(&md_text, &timings)?))
 }
 
 fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result<Vec<u8>> {
@@ -57,6 +77,22 @@ fn str2html_with_timing(source: &str, timings: &Vec<WordTime>) -> anyhow::Result
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn strip_frontmatter_no_frontmatter() {
+        let (attrs, content) = strip_frontmatter("hello world").unwrap();
+        assert!(attrs.is_empty());
+        assert_eq!(content, "hello world");
+    }
+
+    #[test]
+    fn strip_frontmatter_with_frontmatter() {
+        let source = "---\ntitle: Hello\nauthor: Ada\n---\nhello world";
+        let (attrs, content) = strip_frontmatter(source).unwrap();
+        assert_eq!(attrs.get("title"), Some(&"Hello".to_string()));
+        assert_eq!(attrs.get("author"), Some(&"Ada".to_string()));
+        assert_eq!(content, "hello world");
+    }
 
     #[test]
     fn str2html_empty() {

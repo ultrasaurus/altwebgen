@@ -124,7 +124,7 @@ impl<'r> Ref<'r> {
             writer.write_all(audio_html.as_bytes())?;
         }
         if let Some(md) = &self.md {
-            let html_body =
+            let (attrs, html_body) =
                 if self.transcript.is_none() || (self.config.transcript == Transcript::Off) {
                     trace!("md::file2html");
                     md::file2html(md)?
@@ -133,6 +133,13 @@ impl<'r> Ref<'r> {
                     let transcript_path = self.transcript.clone().unwrap();
                     md::file2html_with_timing(&md, &&transcript_path)?
                 };
+            if !attrs.is_empty() {
+                warn!(
+                    "ref: '{}' has frontmatter ({}) that isn't used by ref rendering yet, it was stripped and ignored",
+                    md.display(),
+                    attrs.keys().cloned().collect::<Vec<_>>().join(", ")
+                );
+            }
             writer.write_all(&html_body)?;
         }
         if self.audio.is_some() {
@@ -363,6 +370,24 @@ mod tests {
         let expected =
             "<div class='ref'>\n<p>it may contain annotations, additions and footnotes</p>\n</div>";
         assert_eq!(output_string.trim(), expected);
+    }
+
+    #[test]
+    fn test_write_md_strips_frontmatter() {
+        let reference: Ref<'_> = Ref {
+            config: &Config::default(),
+            md: Some("src/test/data/with-frontmatter.md".into()),
+            audio: None,
+            transcript: None,
+        };
+
+        let mut write_buf = Vec::new();
+        reference.write_html(&mut write_buf).unwrap();
+
+        let output_string = String::from_utf8(write_buf).unwrap();
+        assert!(!output_string.contains("title:"));
+        assert!(!output_string.contains("Ada Lovelace"));
+        assert!(output_string.contains("it may contain annotations"));
     }
     #[test]
     fn test_write_md_audio() {

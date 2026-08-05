@@ -109,29 +109,10 @@ impl HtmlGenerator {
 //---------------
 use std::collections::HashMap;
 
-// private function
-//   reads markdown source file
-//   parses yaml front matter into Hashmap of (key, value) pairs
-//   returns Hashmap + rest of file
+// reads a markdown source file and splits off its YAML frontmatter
 fn read_source<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(HashMap<String, String>, String)> {
     let source = read_file_to_string(sourcepath)?;
-    use matter::matter;
-    let (data, content) = match matter(&source) {
-        None => {
-            trace!("matter: None");
-            let data: HashMap<String, String> = HashMap::new();
-            (data, source)
-        }
-
-        Some((yaml_string, content)) => {
-            trace!("matter:\n{:?}\n------", yaml_string);
-            let data: HashMap<String, String> = serde_yaml::from_str(&yaml_string)?;
-
-            //  let data: HashMap<&str, String> = HashMap::new();
-            (data, content)
-        }
-    };
-    Ok((data, content))
+    md::strip_frontmatter(&source)
 }
 
 #[derive(PartialEq, Debug, Clone)]
