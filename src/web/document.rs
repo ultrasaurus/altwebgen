@@ -142,9 +142,14 @@ impl GenerateHtml for MarkdownData {
 
 impl MarkdownData {
     fn from_path<P: AsRef<Path>>(context: &Context, path: P) -> anyhow::Result<Self> {
-        let (mut template_vars, content) = read_source(path)?;
+        let (mut template_vars, content) = read_source(path.as_ref())?;
         let site_attr = context.config.site_attr.clone();
         template_vars.extend(site_attr);
+
+        if let Some(series) = crate::web::series::Series::load_sibling(path.as_ref()) {
+            let slug = crate::web::series::page_slug(path.as_ref());
+            template_vars.extend(series.nav_vars(&slug));
+        }
 
         let html_body = md::str2html(&content)?;
         let body_string = String::from_utf8(html_body)?;
@@ -192,9 +197,15 @@ impl HandlebarsTemplate {
             };
         }
 
-        let (mut data, content) = read_source(path)?;
+        let (mut data, content) = read_source(path.as_ref())?;
         let site_attr = context.config.site_attr.clone();
         data.extend(site_attr);
+
+        if let Some(series) = crate::web::series::Series::load_sibling(path.as_ref()) {
+            let slug = crate::web::series::page_slug(path.as_ref());
+            data.extend(series.nav_vars(&slug));
+        }
+
         let hbs = &context.hbs;
         let mut rendered_body: String = hbs.render_template(&content, &data)?;
 

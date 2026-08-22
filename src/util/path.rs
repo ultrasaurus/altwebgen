@@ -2,7 +2,10 @@
 // extensons to Path struct and related helper functions
 use mime::Mime;
 use new_mime_guess as mime_guess;
-use std::{borrow::Cow, path::Path};
+use std::{
+    borrow::Cow,
+    path::{Path, PathBuf},
+};
 use tracing::trace;
 
 #[allow(dead_code)]
@@ -14,6 +17,11 @@ pub trait PathExt {
     fn get_ext_str(&self) -> Option<&str>;
     fn mimetype(&self) -> Option<Mime>;
     fn is_markdown(&self) -> bool;
+    // strips up to two extensions, e.g. "foo.md.hbs" -> "foo",
+    // "foo.transcript.json" -> "foo", "foo.md" -> "foo". used to identify a
+    // document by its "stem" regardless of which of these extension
+    // combinations it was written with.
+    fn double_stem(&self) -> PathBuf;
 }
 
 impl PathExt for Path {
@@ -57,6 +65,9 @@ impl PathExt for Path {
         }
         false
     }
+    fn double_stem(&self) -> PathBuf {
+        self.with_extension("").with_extension("")
+    }
 }
 
 #[cfg(test)]
@@ -73,6 +84,18 @@ mod tests {
     fn test_get_ext_empty() {
         let result = Path::new("").get_ext();
         assert_eq!(result, None);
+    }
+    #[test]
+    fn test_double_stem_two_extensions() {
+        assert_eq!(Path::new("foo.md.hbs").double_stem(), PathBuf::from("foo"));
+    }
+    #[test]
+    fn test_double_stem_one_extension() {
+        assert_eq!(Path::new("foo.md").double_stem(), PathBuf::from("foo"));
+    }
+    #[test]
+    fn test_double_stem_no_extension() {
+        assert_eq!(Path::new("foo").double_stem(), PathBuf::from("foo"));
     }
     #[test]
     fn test_imetype_png() {

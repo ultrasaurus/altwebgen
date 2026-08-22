@@ -10,6 +10,7 @@ use walkdir::WalkDir;
 
 use crate::{
     config::{Config, Transcript},
+    util::PathExt,
     web::{self, md},
 };
 
@@ -29,11 +30,8 @@ pub struct Ref<'a> {
 // stem shared by all files belonging to one ref, e.g.
 //   ref/talks/hypertext.md, ref/talks/hypertext.mp3, ref/talks/hypertext.transcript.json
 // all share the stem ref/talks/hypertext
-//
-// strips up to two extensions so that "<stem>.transcript.json" collapses to
-// the same stem as "<stem>.md" / "<stem>.mp3".
 fn ref_stem(path: &Path) -> PathBuf {
-    path.with_extension("").with_extension("")
+    path.double_stem()
 }
 
 // the files collected for one ref stem, before a Config is attached.

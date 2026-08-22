@@ -11,6 +11,8 @@ use framework::render_html;
 pub mod md;
 pub use md::Ref;
 
+mod series;
+
 pub mod template;
 
 pub mod words;

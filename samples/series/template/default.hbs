@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        margin: 10vw;
+        font-family: serif;
+    }
+    nav a {
+        margin-right: 1rem;
+    }
+</style>
+</head>
+
+<body>
+    {{#if series-title}}
+    <nav>
+        {{#if toc}}
+        <a href="{{toc}}">{{series-title}}</a>
+        {{else}}
+        <strong>{{series-title}}</strong>
+        {{/if}}
+        {{#if series-position}}<span>{{series-position}}</span>{{/if}}
+        {{#if prev}}<a href="{{prev}}">&larr; Previous</a>{{/if}}
+        {{#if next}}<a href="{{next}}">Next &rarr;</a>{{/if}}
+    </nav>
+    <hr>
+    {{/if}}
+
+    {{{ body }}}
+</body>
+
+</html>

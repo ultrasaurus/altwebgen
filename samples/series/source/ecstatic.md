@@ -1,0 +1,15 @@
+---
+title: For each extatic instant
+---
+
+# For each extatic instant
+
+For each extatic instant  
+We must an anguish pay  
+In keen and quivering ratio  
+To the extasy –  
+
+For each beloved hour  
+Sharp pittances of Years –  
+Bitter contested farthings –  
+And Coffers heaped with tears!  
