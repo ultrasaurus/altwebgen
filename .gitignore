@@ -3,3 +3,4 @@ target/
 .dist/
 .build/
 /ext
+.DS_Store
