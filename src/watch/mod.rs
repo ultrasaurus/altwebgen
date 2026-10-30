@@ -17,7 +17,8 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
     let reloader = livereload.reloader();
 
     tokio::select! {
-        _ = devserve::run(config, livereload) => {
+        result = devserve::run(config, livereload) => {
+            result?;
             println!("server shutdown")
         }
         _ = async {

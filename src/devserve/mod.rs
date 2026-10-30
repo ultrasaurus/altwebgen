@@ -18,7 +18,9 @@ pub async fn run(config: &Config, livereload: LiveReloadLayer) -> anyhow::Result
         .fallback(any_service(BareUrlServeDir::new(&website_dir)))
         .layer(livereload);
 
-    let listener = TcpListener::bind(addr).await?;
+    let listener = TcpListener::bind(addr)
+        .await
+        .map_err(|e| anyhow::anyhow!(e).context(format!("dev server can't listen on {addr}")))?;
 
     axum::serve(listener, app).await?;
 
