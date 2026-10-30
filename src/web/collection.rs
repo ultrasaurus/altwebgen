@@ -264,12 +264,26 @@ impl Collections {
     }
 
     // for a page with `list` frontmatter: the members it lists, and the
-    // same grouped by month, named after the collection
+    // same grouped by month, named after the collection (or `as`).
+    // `list` may also be a sequence of lists, to show several on one page
     pub fn list_vars(&self, page: &Path, list: &Value) -> Attrs {
+        match list {
+            Value::Array(lists) => {
+                let mut vars = Attrs::new();
+                for one in lists {
+                    vars.extend(self.one_list_vars(page, one));
+                }
+                vars
+            }
+            _ => self.one_list_vars(page, list),
+        }
+    }
+
+    fn one_list_vars(&self, page: &Path, list: &Value) -> Attrs {
         let mut vars = Attrs::new();
         let empty = serde_json::Map::new();
-        let (name, filter, order) = match list {
-            Value::String(name) => (name.as_str(), &empty, "oldest"),
+        let (name, filter, order, var, limit) = match list {
+            Value::String(name) => (name.as_str(), &empty, "oldest", name.as_str(), None),
             Value::Object(spec) => {
                 let Some(name) = spec.get("collection").and_then(Value::as_str) else {
                     warn!("'{}': list needs a collection name", page.display());
@@ -291,7 +305,33 @@ impl Collections {
                     .get("order")
                     .and_then(Value::as_str)
                     .unwrap_or("oldest");
-                (name, filter, order)
+                let var = match spec.get("as") {
+                    None => name,
+                    Some(Value::String(var)) => var.as_str(),
+                    Some(other) => {
+                        warn!(
+                            "'{}': list `as` should be a name, found {}",
+                            page.display(),
+                            other
+                        );
+                        name
+                    }
+                };
+                let limit = match spec.get("limit") {
+                    None => None,
+                    Some(limit) => match limit.as_u64() {
+                        Some(n) => Some(n as usize),
+                        None => {
+                            warn!(
+                                "'{}': list limit should be a whole number, found {}",
+                                page.display(),
+                                limit
+                            );
+                            None
+                        }
+                    },
+                };
+                (name, filter, order, var, limit)
             }
             other => {
                 warn!(
@@ -322,6 +362,9 @@ impl Collections {
         if order == "newest" {
             selected.reverse();
         }
+        if let Some(limit) = limit {
+            selected.truncate(limit);
+        }
 
         let item = |m: &Member| {
             let mut attrs = m.attrs.clone();
@@ -343,16 +386,16 @@ impl Collections {
             .map(|(month, items)| {
                 let mut group = Attrs::new();
                 group.insert("month".into(), month.into());
-                group.insert(name.into(), items.into());
+                group.insert(var.into(), items.into());
                 Value::Object(group)
             })
             .collect();
 
         vars.insert(
-            name.into(),
+            var.into(),
             selected.into_iter().map(item).collect::<Vec<_>>().into(),
         );
-        vars.insert(format!("{name}_by_month"), by_month.into());
+        vars.insert(format!("{var}_by_month"), by_month.into());
         vars
     }
 }
@@ -520,5 +563,45 @@ mod tests {
         assert!(sample()
             .list_vars(Path::new("a.md"), &"nope".into())
             .is_empty());
+    }
+
+    fn urls<'a>(vars: &'a Attrs, name: &str) -> Vec<&'a str> {
+        vars[name]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|p| p["url"].as_str().unwrap())
+            .collect()
+    }
+
+    #[test]
+    fn list_vars_several_named_lists_with_limit() {
+        let list = md::parse_attrs(
+            "list:
+  - collection: posts
+    filter: {category: code}
+    order: newest
+    limit: 2
+    as: notebook
+  - collection: posts
+    filter: {category: general}
+    as: recent",
+        )
+        .unwrap();
+        let vars = sample().list_vars(Path::new("index.md"), &list["list"]);
+        assert_eq!(urls(&vars, "notebook"), ["/p4/", "/p3/"]);
+        assert_eq!(urls(&vars, "recent"), ["/p2/"]);
+        assert!(!vars.contains_key("posts"));
+        // month groups use the `as` name too
+        let months = vars["notebook_by_month"].as_array().unwrap();
+        assert_eq!(months.len(), 1);
+        assert_eq!(months[0]["notebook"].as_array().unwrap().len(), 1);
+    }
+
+    #[test]
+    fn list_vars_bad_limit_and_as_are_ignored() {
+        let list = md::parse_attrs("list:\n  collection: posts\n  limit: lots\n  as: [x]").unwrap();
+        let vars = sample().list_vars(Path::new("a.md"), &list["list"]);
+        assert_eq!(vars["posts"].as_array().unwrap().len(), 4);
     }
 }

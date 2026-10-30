@@ -85,8 +85,10 @@ list:
 * `list: posts` is short for `list: {collection: posts}`
 * `filter`: only members whose frontmatter has these exact values
 * `order`: `oldest` (default) or `newest`
+* `limit`: keep only the first this many, after ordering
+* `as`: name the variables something other than the collection name
 
-The page gets two variables, named after the collection:
+The page gets two variables, named after the collection (or `as`):
 
 * `posts`: the members, each with its frontmatter (after defaults) and
   `url`
@@ -104,6 +106,30 @@ The page gets two variables, named after the collection:
 </ul>
 {{/each}}
 ```
+
+To show several lists on one page, give `list` a sequence of them, each
+with its own `as`:
+
+```yaml
+---
+title: Home
+list:
+  - collection: posts
+    filter: {category: general}
+    order: newest
+    limit: 5
+    as: recent
+  - collection: posts
+    filter: {category: code}
+    order: newest
+    limit: 5
+    as: notebook
+---
+```
+
+The page gets `recent`, `recent_by_month`, `notebook` and
+`notebook_by_month`; inside `recent_by_month`, each month's members are
+under `recent`.
 
 * A listing page doesn't need to be in the collection
 * Naming a collection that doesn't exist is a warning, and the page gets
