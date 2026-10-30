@@ -115,7 +115,7 @@ pub fn init<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
         .parent()
         .unwrap()
         .join("ref");
-    web::Ref::process_markdown(
+    let ref_outputs = web::Ref::process_markdown(
         config,
         ref_dir,
         &buildtemplatedir.canonicalize()?.join("ref"),
@@ -142,7 +142,11 @@ pub fn init<'a>(config: &'a Config) -> anyhow::Result<Context<'a>> {
         &buildtemplatedir.display()
     );
 
-    Ok(Context { config, hbs })
+    Ok(Context {
+        config,
+        hbs,
+        ref_outputs,
+    })
 }
 
 #[cfg(test)]

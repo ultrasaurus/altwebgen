@@ -8,7 +8,7 @@ use crate::{
 
 pub fn clean_build(config: &Config) -> anyhow::Result<Context<'_>> {
     config.create_source_dirs()?;
-    clean_and_recreate_dir(&config.outdir)?;
+    ensure_outdir(&config.outdir)?;
 
     match web::template::init(config) {
         Err(e) => Err(e.context("setting up templates failed")),

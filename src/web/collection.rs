@@ -35,6 +35,8 @@ struct Member {
     url: String,
     // the collection's defaults, then the page's own frontmatter
     attrs: Attrs,
+    // the page source after its frontmatter, kept so it's only read once
+    content: String,
     date: Option<FmDate>,
     title: String,
     prev: Option<usize>,
@@ -141,7 +143,7 @@ impl Collections {
             let spec = &specs[index].1;
 
             let source = read_file_to_string(path)?;
-            let (page_attrs, _) = md::strip_frontmatter(&source)?;
+            let (page_attrs, content) = md::strip_frontmatter(&source)?;
             let mut attrs = spec.defaults.clone();
             attrs.extend(page_attrs);
 
@@ -186,6 +188,7 @@ impl Collections {
                 outpath,
                 url,
                 attrs,
+                content,
                 date,
                 title,
                 prev: None,
@@ -237,6 +240,12 @@ impl Collections {
     // frontmatter defaults for a member page
     pub fn defaults(&self, path: &Path) -> Option<&Attrs> {
         self.member(path).map(|(c, _)| &c.defaults)
+    }
+
+    // a member's frontmatter (with defaults) and content, as already read
+    pub fn source(&self, path: &Path) -> Option<(Attrs, String)> {
+        self.member(path)
+            .map(|(_, m)| (m.attrs.clone(), m.content.clone()))
     }
 
     // prev/next/prev-title/next-title for a member page
@@ -386,6 +395,7 @@ mod tests {
             url: format!("/{path}/"),
             date: attrs.get("date").and_then(FmDate::from_value),
             title: String::new(),
+            content: String::new(),
             attrs,
             prev: None,
             next: None,

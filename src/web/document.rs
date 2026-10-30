@@ -120,8 +120,12 @@ use crate::web::md::Attrs;
 use serde_json::Value;
 use tracing::warn;
 
-// reads a markdown source file and splits off its YAML frontmatter
-fn read_source<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(Attrs, String)> {
+// a source file's YAML frontmatter and content: as read by the collection
+// pass for a collection member, otherwise read from the file
+fn read_source(collections: &Collections, sourcepath: &Path) -> anyhow::Result<(Attrs, String)> {
+    if let Some(source) = collections.source(sourcepath) {
+        return Ok(source);
+    }
     let source = read_file_to_string(sourcepath)?;
     md::strip_frontmatter(&source)
 }
@@ -204,7 +208,7 @@ impl MarkdownData {
         collections: &Collections,
         path: P,
     ) -> anyhow::Result<Self> {
-        let (page_attrs, content) = read_source(path.as_ref())?;
+        let (page_attrs, content) = read_source(collections, path.as_ref())?;
         let mut template_vars = page_vars(context, collections, path.as_ref(), page_attrs);
 
         let html_body = md::str2html(&content)?;
@@ -252,7 +256,7 @@ impl HandlebarsTemplate {
             };
         }
 
-        let (page_attrs, content) = read_source(path.as_ref())?;
+        let (page_attrs, content) = read_source(collections, path.as_ref())?;
         let mut data = page_vars(context, collections, path.as_ref(), page_attrs);
 
         let hbs = &context.hbs;
@@ -284,6 +288,7 @@ mod tests {
         let context = Context {
             config: &config,
             hbs: Handlebars::new(),
+            ref_outputs: Vec::new(),
         };
         let page_attrs = md::parse_attrs("title: Page Title").unwrap();
         let vars = page_vars(
@@ -338,6 +343,7 @@ mod tests {
         let context = Context {
             config: &config,
             hbs,
+            ref_outputs: Vec::new(),
         };
         let doc = Document::from_path("src/test/data/short-sentence.md");
         let maybe_html_source: Option<HtmlGenerator> = doc
@@ -363,6 +369,7 @@ mod tests {
         let context = Context {
             config: &config,
             hbs,
+            ref_outputs: Vec::new(),
         };
         let doc = Document::from_path("src/test/data/var.md.hbs");
         let maybe_html_source: Option<HtmlGenerator> = doc

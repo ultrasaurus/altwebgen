@@ -180,7 +180,14 @@ impl<'r> Ref<'r> {
 
         Ok(())
     }
-    pub fn write_to_dest(&mut self, source_dir: &Path, dest_dir: &Path) -> anyhow::Result<()> {
+    // writes the ref partial to dest_dir and copies its audio to the
+    // output media directory; returns the path of the copied audio
+    pub fn write_to_dest(
+        &mut self,
+        source_dir: &Path,
+        dest_dir: &Path,
+    ) -> anyhow::Result<Option<PathBuf>> {
+        let mut media_path = None;
         trace!("write_to_dest Ref: {:?}", self);
         trace!(
             "write_to_dest source_dir: {}, dest_dir: {}",
@@ -192,7 +199,8 @@ impl<'r> Ref<'r> {
             let outdir = &self.config.outdir;
             let dest_path = outdir.join("media").join(source_path.file_name().unwrap());
             trace!("copy from {:?} to {:?}", &source_path, &dest_path);
-            std::fs::copy(source_path, dest_path)?;
+            crate::util::copy_if_changed(source_path, &dest_path)?;
+            media_path = Some(dest_path);
 
             if self.transcript.is_none() && self.config.transcript == Transcript::On {
                 info!("write_to_dest: no transcript found, attempting to generate one");
@@ -219,21 +227,23 @@ impl<'r> Ref<'r> {
                 .open(writepath)?;
             self.write_html(&mut writer)?;
         }
-        Ok(())
+        Ok(media_path)
     }
 
+    // returns the media files copied to the output directory
     pub fn process_markdown<P: AsRef<Path>>(
         config: &Config,
         source_dir: P,
         dest_dir: &Path,
-    ) -> anyhow::Result<()> {
+    ) -> anyhow::Result<Vec<PathBuf>> {
         let src_dir_path = source_dir.as_ref();
+        let mut media = Vec::new();
         if !src_dir_path.exists() {
             info!(
                 "skipping process_ref_markdown, no ref source directory: '{}'",
                 src_dir_path.display()
             );
-            return Ok(());
+            return Ok(media);
         }
         trace!(
             "process_ref_markdown from '{}' to '{}'",
@@ -255,12 +265,13 @@ impl<'r> Ref<'r> {
         }
 
         for files in refs.into_values() {
-            files
+            let copied = files
                 .into_ref(config)
                 .write_to_dest(src_dir_path, dest_dir)?;
+            media.extend(copied);
         }
 
-        Ok(())
+        Ok(media)
     }
 }
 

@@ -15,7 +15,7 @@ pub async fn detect_changes<P: AsRef<Path>>(paths: &Vec<P>) -> anyhow::Result<Ve
     let (tx, mut rx) = channel(1);
 
     let mut debouncer = new_debouncer(
-        Duration::from_secs(1),
+        Duration::from_millis(200),
         move |result: DebounceEventResult| {
             let tx: tokio::sync::mpsc::Sender<
                 Result<Vec<notify_debouncer_mini::DebouncedEvent>, notify::Error>,

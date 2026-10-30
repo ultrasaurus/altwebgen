@@ -14,6 +14,9 @@ pub use transcript::Transcript;
 pub struct Context<'a> {
     pub config: &'a Config,
     pub hbs: handlebars::Handlebars<'a>,
+    // media files copied to the output directory while setting up refs,
+    // kept when a build removes stale output
+    pub ref_outputs: Vec<PathBuf>,
 }
 
 #[derive(Clone, Debug)]

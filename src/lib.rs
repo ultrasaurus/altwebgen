@@ -53,8 +53,14 @@ mod tests {
             Mode::Build,
             Transcript::Off,
         );
+        // output from an earlier build whose source is gone
+        let stale = Path::new("samples/blog/.dist/2009/04/deleted-post/index.html");
+        std::fs::create_dir_all(stale.parent().unwrap()).unwrap();
+        std::fs::write(stale, "old").unwrap();
+
         setup::init_and_build(&config).unwrap();
         let read = |p: &str| std::fs::read_to_string(format!("samples/blog/.dist/{p}")).unwrap();
+        assert!(!Path::new("samples/blog/.dist/2009/04/deleted-post").exists());
 
         assert!(!Path::new("samples/blog/.dist/2009/05/unfinished").exists());
         assert!(!Path::new("samples/blog/.dist/2009/05/unfinished.html").exists());

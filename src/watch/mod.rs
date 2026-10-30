@@ -2,7 +2,7 @@ use std::path::PathBuf;
 use tower_livereload::LiveReloadLayer;
 use tracing::{error, info};
 
-use crate::{config::Config, devserve, setup, util::*, web};
+use crate::{config::Config, devserve, setup, web};
 
 mod watch_files;
 use watch_files::detect_changes;
@@ -26,7 +26,6 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
                 tokio::select! {
                     source_result = detect_changes(&source_watch) => {
                         info!("source watcher result {:?}", source_result);
-                        clean_and_recreate_dir(&config.outdir)?;
                         if let Err(e) = web::process_files(&context) {
                             error!("process_files failed: {:?}", e);
                         } else {

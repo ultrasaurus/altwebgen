@@ -1,4 +1,5 @@
-use std::path::Path;
+use std::collections::HashSet;
+use std::path::{Path, PathBuf};
 use tracing::{info, trace};
 use walkdir::WalkDir;
 
@@ -24,7 +25,10 @@ pub mod words;
 
 use crate::{config::Context, util::*};
 
-fn build_source_files(context: &Context) -> anyhow::Result<()> {
+// output paths written (or found already up to date) during one build
+type Outputs = HashSet<PathBuf>;
+
+fn build_source_files(context: &Context, outputs: &mut Outputs) -> anyhow::Result<()> {
     let config: &crate::config::Config = context.config;
     let collections = Collections::load(config)?;
     info!("Bulding source files...");
@@ -39,10 +43,11 @@ fn build_source_files(context: &Context) -> anyhow::Result<()> {
         let path = entry.path();
         if path.is_dir() {
             create_destdir(&config.sourcedir, &config.outdir, path)?;
+            outputs.insert(config.outpath(path)?);
         } else if is_config_file(path) || collections.is_draft(path) {
             trace!("  not published: {}", path.display());
         } else {
-            render_file(context, &collections, path)?;
+            outputs.insert(render_file(context, &collections, path)?);
         }
     }
     Ok(())
@@ -53,7 +58,7 @@ fn is_config_file(path: &Path) -> bool {
         .is_some_and(|name| collection::CONFIG_FILES.iter().any(|f| name == *f))
 }
 
-fn copy_template_assets(context: &Context) -> anyhow::Result<()> {
+fn copy_template_assets(context: &Context, outputs: &mut Outputs) -> anyhow::Result<()> {
     let config: &crate::config::Config = context.config;
     info!("Copying template assets...");
     let walker = WalkDir::new(&config.templatedir)
@@ -70,32 +75,48 @@ fn copy_template_assets(context: &Context) -> anyhow::Result<()> {
         let path = entry.path();
         if path.is_dir() {
             create_destdir(&config.templatedir, &config.outdir, path)?;
+            outputs.insert(config.templatedir_outpath(path)?);
         } else if path.extension() != Some(template_extension) {
-            std::fs::copy(path, config.templatedir_outpath(path)?)?;
+            let outpath = config.templatedir_outpath(path)?;
+            copy_if_changed(path, &outpath)?;
+            outputs.insert(outpath);
         }
     }
 
     Ok(())
 }
 
+// builds into the output directory in place: unchanged files aren't
+// rewritten, and anything this build didn't produce is removed
 pub fn process_files(context: &Context) -> anyhow::Result<()> {
-    build_source_files(context)?;
-    copy_template_assets(context)?;
+    let config = context.config;
+    ensure_outdir(&config.outdir)?;
+    let mut outputs: Outputs = context.ref_outputs.iter().cloned().collect();
+    outputs.insert(config.outdir.join("media"));
+    build_source_files(context, &mut outputs)?;
+    copy_template_assets(context, &mut outputs)?;
+    let removed = remove_stale(&config.outdir, &outputs)?;
+    if removed > 0 {
+        info!("removed {removed} stale files and folders from the output");
+    }
     Ok(())
 }
 
+// renders or copies one source file; returns where it was written
 fn render_file<P: AsRef<Path>>(
     context: &Context,
     collections: &Collections,
     path: P,
-) -> anyhow::Result<()> {
+) -> anyhow::Result<PathBuf> {
     let config = context.config;
     let sourcepath = path.as_ref();
     trace!("render_file: {}", sourcepath.display());
     let document = Document::from_path(&path);
     match document.html_generator(context, collections)? {
         None => {
-            std::fs::copy(&path, config.outpath(&path)?)?;
+            let outpath = config.outpath(&path)?;
+            copy_if_changed(sourcepath, &outpath)?;
+            Ok(outpath)
         }
         Some(html_source) => {
             let writepath = match collections.outpath(sourcepath) {
@@ -105,13 +126,10 @@ fn render_file<P: AsRef<Path>>(
                 }
                 None => document.outpath(config)?,
             };
-            let mut writer = std::fs::File::options()
-                .create(true)
-                .truncate(true)
-                .write(true)
-                .open(writepath)?;
-            render_html(context, html_source, &mut writer)?;
+            let mut html: Vec<u8> = Vec::new();
+            render_html(context, html_source, &mut html)?;
+            write_if_changed(&writepath, &html)?;
+            Ok(writepath)
         }
     }
-    Ok(())
 }
