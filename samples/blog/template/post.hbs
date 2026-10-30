@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <nav><a href="/archives.html">Archives</a> <a href="/category-code.html">Code</a> <a href="/about.html">About</a></nav>
+    <h1>{{ title }}</h1>
+    <p class="date">{{date_format date}} &middot; {{ category }}</p>
+    {{{ body }}}
+    <nav class="prev-next">
+        {{#if prev}}<a href="{{prev}}">&larr; {{prev-title}}</a>{{/if}}
+        {{#if next}}<a href="{{next}}">{{next-title}} &rarr;</a>{{/if}}
+    </nav>
+</body>
+</html>

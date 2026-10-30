@@ -53,7 +53,10 @@ mod tests {
         let context = context_with_default_template(&config, default_tpl);
 
         let doc = Document::from_path("src/test/data/short-sentence.md");
-        let html_source = doc.html_generator(&context).unwrap().unwrap();
+        let html_source = doc
+            .html_generator(&context, &Default::default())
+            .unwrap()
+            .unwrap();
         render_html(&context, html_source, &mut write_buf).unwrap();
         let expected = "<html><body><p>it may contain annotations, additions and footnotes</p>\n</body></html>".to_string();
         let output_string: String = String::from_utf8(write_buf).unwrap();

@@ -87,6 +87,14 @@ impl FmDate {
 
     // display used when no format is given, or when the given format needs
     // more precision than this date has
+    // "YYYY-MM" for grouping by month; None for a date that is only a year
+    pub fn month(&self) -> Option<String> {
+        if self.precision < Precision::Month {
+            return None;
+        }
+        Some(self.start.format("%Y-%m").to_string())
+    }
+
     pub fn default_format(&self) -> &'static str {
         match self.precision {
             Precision::Year => "%Y",

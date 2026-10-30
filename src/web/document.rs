@@ -43,8 +43,12 @@ impl Document {
         Ok(path)
     }
 
-    pub fn html_generator(&self, context: &Context) -> anyhow::Result<Option<HtmlGenerator>> {
-        match HtmlGenerator::from_document(context, self) {
+    pub fn html_generator(
+        &self,
+        context: &Context,
+        collections: &Collections,
+    ) -> anyhow::Result<Option<HtmlGenerator>> {
+        match HtmlGenerator::from_document(context, collections, self) {
             Err(e) => {
                 if e.downcast_ref() == Some(&NotHtmlSourceError {}) {
                     Ok(None)
@@ -75,14 +79,18 @@ pub enum HtmlGenerator {
 }
 
 impl HtmlGenerator {
-    pub fn from_document(context: &Context, document: &Document) -> anyhow::Result<Self> {
+    pub fn from_document(
+        context: &Context,
+        collections: &Collections,
+        document: &Document,
+    ) -> anyhow::Result<Self> {
         match document.mime.subtype().as_str() {
             "x-handlebars-template" => {
-                let data = HandlebarsTemplate::from_path(context, &document.path)?;
+                let data = HandlebarsTemplate::from_path(context, collections, &document.path)?;
                 Ok(HtmlGenerator::Template(data))
             }
             "markdown" => {
-                let data = MarkdownData::from_path(context, &document.path)?;
+                let data = MarkdownData::from_path(context, collections, &document.path)?;
                 Ok(HtmlGenerator::Markdown(data))
             }
             "html" => {
@@ -107,6 +115,7 @@ impl HtmlGenerator {
     }
 }
 //---------------
+use crate::web::collection::Collections;
 use crate::web::md::Attrs;
 use serde_json::Value;
 use tracing::warn;
@@ -118,9 +127,15 @@ fn read_source<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(Attrs, String)>
 }
 
 // template variables for one page: site-wide values from _site.yaml, then
-// the page's own frontmatter (so the page wins on a shared key), then any
+// collection defaults, then the page's own frontmatter (so the page wins on
+// a shared key), then collection prev/next, any listed collection, and
 // series navigation vars
-fn page_vars(context: &Context, path: &Path, page_attrs: Attrs) -> Attrs {
+fn page_vars(
+    context: &Context,
+    collections: &Collections,
+    path: &Path,
+    page_attrs: Attrs,
+) -> Attrs {
     if let Some(date) = page_attrs.get("date") {
         if crate::web::date::FmDate::from_value(date).is_none() {
             warn!(
@@ -131,7 +146,14 @@ fn page_vars(context: &Context, path: &Path, page_attrs: Attrs) -> Attrs {
         }
     }
     let mut vars = context.config.site_attr.clone();
+    if let Some(defaults) = collections.defaults(path) {
+        vars.extend(defaults.clone());
+    }
     vars.extend(page_attrs);
+    vars.extend(collections.nav_vars(path));
+    if let Some(list) = vars.get("list").cloned() {
+        vars.extend(collections.list_vars(path, &list));
+    }
     if let Some(series) = crate::web::series::Series::load_sibling(path) {
         let slug = crate::web::series::page_slug(path);
         vars.extend(
@@ -177,9 +199,13 @@ impl GenerateHtml for MarkdownData {
 }
 
 impl MarkdownData {
-    fn from_path<P: AsRef<Path>>(context: &Context, path: P) -> anyhow::Result<Self> {
+    fn from_path<P: AsRef<Path>>(
+        context: &Context,
+        collections: &Collections,
+        path: P,
+    ) -> anyhow::Result<Self> {
         let (page_attrs, content) = read_source(path.as_ref())?;
-        let mut template_vars = page_vars(context, path.as_ref(), page_attrs);
+        let mut template_vars = page_vars(context, collections, path.as_ref(), page_attrs);
 
         let html_body = md::str2html(&content)?;
         let body_string = String::from_utf8(html_body)?;
@@ -209,7 +235,11 @@ impl GenerateHtml for HandlebarsTemplate {
     }
 }
 impl HandlebarsTemplate {
-    fn from_path<P: AsRef<Path>>(context: &Context, path: P) -> anyhow::Result<Self> {
+    fn from_path<P: AsRef<Path>>(
+        context: &Context,
+        collections: &Collections,
+        path: P,
+    ) -> anyhow::Result<Self> {
         // check if target file has markdown, so we can render it as html below
         let mut is_markdown: bool = false;
         if let Some(root_file_name) = path.as_ref().file_stem() {
@@ -223,7 +253,7 @@ impl HandlebarsTemplate {
         }
 
         let (page_attrs, content) = read_source(path.as_ref())?;
-        let mut data = page_vars(context, path.as_ref(), page_attrs);
+        let mut data = page_vars(context, collections, path.as_ref(), page_attrs);
 
         let hbs = &context.hbs;
         let mut rendered_body: String = hbs.render_template(&content, &data)?;
@@ -258,6 +288,7 @@ mod tests {
         let page_attrs = md::parse_attrs("title: Page Title").unwrap();
         let vars = page_vars(
             &context,
+            &Collections::default(),
             Path::new("src/test/data/short-sentence.md"),
             page_attrs,
         );
@@ -309,7 +340,9 @@ mod tests {
             hbs,
         };
         let doc = Document::from_path("src/test/data/short-sentence.md");
-        let maybe_html_source: Option<HtmlGenerator> = doc.html_generator(&context).unwrap();
+        let maybe_html_source: Option<HtmlGenerator> = doc
+            .html_generator(&context, &Collections::default())
+            .unwrap();
         assert!(maybe_html_source.is_some());
         if let Some(html_source) = maybe_html_source {
             let mut write_buf: Vec<u8> = Vec::new();
@@ -332,7 +365,9 @@ mod tests {
             hbs,
         };
         let doc = Document::from_path("src/test/data/var.md.hbs");
-        let maybe_html_source: Option<HtmlGenerator> = doc.html_generator(&context).unwrap();
+        let maybe_html_source: Option<HtmlGenerator> = doc
+            .html_generator(&context, &Collections::default())
+            .unwrap();
         assert!(maybe_html_source.is_some());
         if let Some(html_source) = maybe_html_source {
             let mut write_buf: Vec<u8> = Vec::new();

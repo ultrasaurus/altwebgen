@@ -15,9 +15,11 @@ layout: booklet
 ## Status
 <= `v0.4.4` every value must be a string, site values override page values, ref frontmatter was ignored
 
-\> `v0.4.4` Typed attributes, page values override site values, and refs read `reader`
+new in `v0.5`: Typed attributes, page values override site values, and refs read `reader`
 
-TBD: after collections, sorting & blog-specific keys
+collections: sorting by date, `status` and `list`
+
+TBD: sorting by author
 
 ## Where frontmatter is read
 
@@ -55,9 +57,11 @@ variable.
 | `date` | display; sorting by date | see [Dates](#dates) |
 | `author` | display; sorting by author | see [People](#people) |
 | `reader` | refs: "Read by ..." next to the audio | see [People](#people) |
+| `status` | collection members: anything other than `publish` is a draft, not built | string |
+| `list` | a page that lists a collection | see [collections](collections.md#listing-pages) |
 
-Blog-specific keys (`category`, `status`, `permalink`) will be added with
-collections.
+A collection can also name a key to group by (e.g. `category`); see
+[collections](collections.md).
 
 ## Dates
 
@@ -76,7 +80,7 @@ A date can be as precise as you know it to be:
 * Use ISO order (year-month-day), not free text; `Nov. 8, 2025` is not a
   valid date
 * An invalid date is still available to templates as the original string,
-  but it is ignored for sorting and gets a warning at build time
+  but it sorts after all valid dates and gets a warning at build time
 
 ### Displaying dates
 
@@ -93,7 +97,9 @@ A date can be as precise as you know it to be:
 * `{{date_format x}}` on a value that isn't a valid date renders it as
   written; on a missing value, renders nothing
 
-### Sorting by date *(planned)*
+### Sorting by date
+
+Used by [collections](collections.md).
 
 * Oldest first
 * A less precise date sorts at the start of its period, before more
@@ -103,6 +109,7 @@ A date can be as precise as you know it to be:
 * Ties (e.g. two blog posts on the same day with no time, or the same
   timestamp) are broken by title, then by file path, so the order is
   always the same from build to build
+* A missing or invalid date sorts after all valid dates
 
 ## People
 

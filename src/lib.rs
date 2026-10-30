@@ -41,6 +41,49 @@ mod tests {
         );
     }
 
+    #[test]
+    // builds samples/blog: pretty urls, drafts, prev/next within a category,
+    // and archive pages listed by month
+    fn test_sample_blog() {
+        let config = Config::new(
+            "samples/blog/.dist",
+            "samples/blog/source",
+            "samples/blog/template",
+            "",
+            Mode::Build,
+            Transcript::Off,
+        );
+        setup::init_and_build(&config).unwrap();
+        let read = |p: &str| std::fs::read_to_string(format!("samples/blog/.dist/{p}")).unwrap();
+
+        assert!(!Path::new("samples/blog/.dist/2009/05/unfinished").exists());
+        assert!(!Path::new("samples/blog/.dist/2009/05/unfinished.html").exists());
+        assert!(!Path::new("samples/blog/.dist/collection.yaml").exists());
+
+        // general: hello-world -> later-that-day (same day, by time) -> spring,
+        // skipping the code posts between
+        let hello = read("2009/04/hello-world/index.html");
+        assert!(hello.contains(r#"<a href="/2009/04/later-that-day/">Later that day &rarr;</a>"#));
+        assert!(!hello.contains("&larr;"));
+        let later = read("2009/04/later-that-day/index.html");
+        assert!(later.contains(r#"<a href="/2009/04/hello-world/">&larr; Hello, world</a>"#));
+        assert!(later.contains(r#"<a href="/2009/05/spring/">Spring &rarr;</a>"#));
+        // code: first-code -> more-code
+        let more_code = read("2009/04/more-code/index.html");
+        assert!(more_code.contains(r#"<a href="/2009/04/first-code/">&larr; First code</a>"#));
+        assert!(!more_code.contains("&rarr;"));
+        // category from the collection defaults
+        assert!(read("2009/05/spring/index.html").contains("May 2, 2009 &middot; general"));
+
+        let archives = read("archives.html");
+        let may = archives.find("<h2>May 2009</h2>").unwrap();
+        let april = archives.find("<h2>April 2009</h2>").unwrap();
+        assert!(may < april, "newest month first");
+        let code = read("category-code.html");
+        assert!(code.contains("/2009/04/more-code/"));
+        assert!(!code.contains("/2009/04/hello-world/"));
+    }
+
     fn audio_sample_config(transcript_opt: Transcript) -> Config {
         Config::new(
             "src/test/sample-audio/.dist",

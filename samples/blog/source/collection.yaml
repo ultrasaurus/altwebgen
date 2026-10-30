@@ -1,0 +1,8 @@
+name: posts
+include: "[0-9][0-9][0-9][0-9]/**/*.md"
+sort: date
+group: category
+defaults:
+  layout: post
+  category: general
+pretty_urls: true

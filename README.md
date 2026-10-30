@@ -10,6 +10,8 @@ Supports
   * in addition to built-in templates:
     * split string (optional separator, default: '\n')
     * date_format, people, person (see [doc/frontmatter.md](doc/frontmatter.md))
+* collections, e.g. blog posts with prev/next and archive pages
+  (see [doc/collections.md](doc/collections.md))
 * directly serves all other files
 * dev mode for live reload: watches file system every second, reloads page on changes
 

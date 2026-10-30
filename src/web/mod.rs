@@ -3,6 +3,8 @@ use tracing::{info, trace};
 use walkdir::WalkDir;
 
 mod audio;
+pub mod collection;
+use collection::Collections;
 pub mod date;
 mod document;
 use document::Document;
@@ -24,6 +26,7 @@ use crate::{config::Context, util::*};
 
 fn build_source_files(context: &Context) -> anyhow::Result<()> {
     let config: &crate::config::Config = context.config;
+    let collections = Collections::load(config)?;
     info!("Bulding source files...");
     let walker = WalkDir::new(&config.sourcedir)
         .follow_links(true)
@@ -36,11 +39,18 @@ fn build_source_files(context: &Context) -> anyhow::Result<()> {
         let path = entry.path();
         if path.is_dir() {
             create_destdir(&config.sourcedir, &config.outdir, path)?;
+        } else if is_config_file(path) || collections.is_draft(path) {
+            trace!("  not published: {}", path.display());
         } else {
-            render_file(context, path)?;
+            render_file(context, &collections, path)?;
         }
     }
     Ok(())
+}
+
+fn is_config_file(path: &Path) -> bool {
+    path.file_name()
+        .is_some_and(|name| collection::CONFIG_FILES.iter().any(|f| name == *f))
 }
 
 fn copy_template_assets(context: &Context) -> anyhow::Result<()> {
@@ -74,17 +84,27 @@ pub fn process_files(context: &Context) -> anyhow::Result<()> {
     Ok(())
 }
 
-fn render_file<P: AsRef<Path>>(context: &Context, path: P) -> anyhow::Result<()> {
+fn render_file<P: AsRef<Path>>(
+    context: &Context,
+    collections: &Collections,
+    path: P,
+) -> anyhow::Result<()> {
     let config = context.config;
     let sourcepath = path.as_ref();
     trace!("render_file: {}", sourcepath.display());
     let document = Document::from_path(&path);
-    match document.html_generator(context)? {
+    match document.html_generator(context, collections)? {
         None => {
             std::fs::copy(&path, config.outpath(&path)?)?;
         }
         Some(html_source) => {
-            let writepath = document.outpath(config)?;
+            let writepath = match collections.outpath(sourcepath) {
+                Some(outpath) => {
+                    outpath.create_all_parent_dir()?;
+                    outpath.to_path_buf()
+                }
+                None => document.outpath(config)?,
+            };
             let mut writer = std::fs::File::options()
                 .create(true)
                 .truncate(true)
