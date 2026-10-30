@@ -109,20 +109,23 @@ fn audio_tag(file_name: &str, audio_mime: &str, url: &str) -> String {
         url, audio_mime, &link_tag)
 }
 
+// "Read by ..." credit shown after the audio player
+fn reader_tag(reader: &serde_json::Value) -> String {
+    format!(
+        "\n<div class='reader'>Read by {}</div>\n",
+        handlebars::html_escape(&web::people::display_names(reader))
+    )
+}
+
 impl<'r> Ref<'r> {
     fn write_html<W: Write>(&self, mut writer: W) -> anyhow::Result<()> {
         trace!("write_html for ref: {:?}", self);
-        writer.write_all("<div class='ref'>\n".as_bytes())?;
-        if let Some(audio) = &self.audio {
-            writer.write_all("<div id='audiotext'>\n".as_bytes())?;
-            trace!("write_html audio file_name: {:?}", audio.path.file_name());
-            let file_name: &str = audio.path.file_name().unwrap().try_into()?;
-            let url = format!("{}media/{}", self.config.prefix, file_name);
-            let audio_html = audio_tag(file_name, audio.mime.as_ref(), &url.to_string());
-            writer.write_all(audio_html.as_bytes())?;
-        }
+
+        // markdown is converted first, since its frontmatter (e.g. reader)
+        // is written alongside the audio player that comes before it
+        let mut body: Option<(md::Attrs, Vec<u8>)> = None;
         if let Some(md) = &self.md {
-            let (attrs, html_body) =
+            let (mut attrs, html_body) =
                 if self.transcript.is_none() || (self.config.transcript == Transcript::Off) {
                     trace!("md::file2html");
                     md::file2html(md)?
@@ -131,14 +134,44 @@ impl<'r> Ref<'r> {
                     let transcript_path = self.transcript.clone().unwrap();
                     md::file2html_with_timing(&md, &&transcript_path)?
                 };
-            if !attrs.is_empty() {
+            if self.audio.is_none() {
+                if let Some(reader) = attrs.remove("reader") {
+                    warn!(
+                        "ref: '{}' has a reader ({}) but no audio, reader was ignored",
+                        md.display(),
+                        reader
+                    );
+                }
+            }
+            let unused: Vec<&String> = attrs.keys().filter(|k| *k != "reader").collect();
+            if !unused.is_empty() {
                 warn!(
-                    "ref: '{}' has frontmatter ({}) that isn't used by ref rendering yet, it was stripped and ignored",
+                    "ref: '{}' has frontmatter ({}) that isn't used by ref rendering, it was ignored",
                     md.display(),
-                    attrs.keys().cloned().collect::<Vec<_>>().join(", ")
+                    unused
+                        .iter()
+                        .map(|k| k.as_str())
+                        .collect::<Vec<_>>()
+                        .join(", ")
                 );
             }
-            writer.write_all(&html_body)?;
+            body = Some((attrs, html_body));
+        }
+
+        writer.write_all("<div class='ref'>\n".as_bytes())?;
+        if let Some(audio) = &self.audio {
+            writer.write_all("<div id='audiotext'>\n".as_bytes())?;
+            trace!("write_html audio file_name: {:?}", audio.path.file_name());
+            let file_name: &str = audio.path.file_name().unwrap().try_into()?;
+            let url = format!("{}media/{}", self.config.prefix, file_name);
+            let audio_html = audio_tag(file_name, audio.mime.as_ref(), &url.to_string());
+            writer.write_all(audio_html.as_bytes())?;
+            if let Some(reader) = body.as_ref().and_then(|(attrs, _)| attrs.get("reader")) {
+                writer.write_all(reader_tag(reader).as_bytes())?;
+            }
+        }
+        if let Some((_, html_body)) = &body {
+            writer.write_all(html_body)?;
         }
         if self.audio.is_some() {
             writer.write_all("</div>\n".as_bytes())?;
@@ -412,6 +445,46 @@ mod tests {
         );
         let expected = format!("<div class='ref'>\n<div id='audiotext'>\n{}<p>it may contain annotations, additions and footnotes</p>\n</div>\n</div>", audio_html);
         assert_eq!(output_string.trim(), expected);
+    }
+
+    #[test]
+    fn test_write_md_audio_reader() {
+        let path = PathBuf::from("src/test/data/short-sentence.mp3");
+        let mime = MP3_MIME_STR.parse::<mime::Mime>().unwrap();
+        let reference: Ref<'_> = Ref {
+            config: &Config::default(),
+            md: Some("src/test/data/with-reader.md".into()),
+            audio: Some(AudioFile { path, mime }),
+            transcript: None,
+        };
+
+        let mut write_buf = Vec::new();
+        reference.write_html(&mut write_buf).unwrap();
+
+        let output_string = String::from_utf8(write_buf).unwrap();
+        let audio_html: String = audio_tag(
+            "short-sentence.mp3",
+            MP3_MIME_STR,
+            "/media/short-sentence.mp3",
+        );
+        let expected = format!("<div class='ref'>\n<div id='audiotext'>\n{}\n<div class='reader'>Read by Patrick Stewart and Nichelle N.</div>\n<p>it may contain annotations, additions and footnotes</p>\n</div>\n</div>", audio_html);
+        assert_eq!(output_string.trim(), expected);
+    }
+
+    #[test]
+    fn test_write_md_reader_without_audio_is_ignored() {
+        let reference: Ref<'_> = Ref {
+            config: &Config::default(),
+            md: Some("src/test/data/with-reader.md".into()),
+            audio: None,
+            transcript: None,
+        };
+
+        let mut write_buf = Vec::new();
+        reference.write_html(&mut write_buf).unwrap();
+
+        let output_string = String::from_utf8(write_buf).unwrap();
+        assert!(!output_string.contains("Read by"));
     }
 
     fn create_ref_full(config: &Config) -> Ref<'_> {

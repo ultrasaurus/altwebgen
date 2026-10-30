@@ -15,6 +15,7 @@ path = "src/lib.rs"
 anyhow = "1.0"
 axum = "0.8.4"
 bareurl = {git = "https://github.com/ultrasaurus/axum-serving-static-files.git", branch="lib"}
+chrono = "0.4"
 clap = {version = "4.5", features = ["derive"]}
 futures-util = "0.3.30"
 handlebars = {version="5.1.0", features = ["dir_source"]}

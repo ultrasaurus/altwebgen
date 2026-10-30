@@ -1,0 +1,172 @@
+# Frontmatter
+
+Frontmatter is an optional YAML block at the top of a markdown or handlebars
+source file, between `---` lines:
+
+```yaml
+---
+title: A Room of One's Own
+author: Woolf, Virginia
+date: 1929
+layout: booklet
+---
+```
+
+## Status
+<= `v0.4.4` every value must be a string, site values override page values, ref frontmatter was ignored
+
+\> `v0.4.4` Typed attributes, page values override site values, and refs read `reader`
+
+TBD: after collections, sorting & blog-specific keys
+
+## Where frontmatter is read
+
+* **Pages** in `source/` (`.md`, `.md.hbs`, `.html.hbs`): every key becomes a
+  template variable for the page and its layout
+* **Refs** in `ref/` (`.md`): only the keys listed under [Refs](#refs) are
+  used; any other key is ignored with a warning
+* **Site-wide values** come from `source/_site.yaml` (optional) and are
+  merged into every page's variables
+  * a page's own value wins over a site value with the same key
+  * typical use: `baseurl`, set per deployment, e.g. copied in by a build
+    script
+
+## Value types
+
+* Any YAML value is allowed: string, number, boolean, list, map
+* Values are passed to templates as is, so templates can use
+  `{{#each tags}}`, `{{#if draft}}`, `{{photo.width}}` and so on
+* Strings render exactly as before, including multi-line strings
+  (`|` and `>` blocks; the last line has no trailing newline)
+* `layout` must be a string; if it is missing (or isn't a string, with a
+  warning), the `default` layout is used
+* YAML has no date type, so dates are written as strings or numbers and
+  interpreted by altwebgen (see [Dates](#dates))
+
+## Reserved keys
+
+These keys have meaning to altwebgen. Any other key is just a template
+variable.
+
+| key | used for | value |
+|---|---|---|
+| `layout` | which template wraps the page | template name, e.g. `booklet` |
+| `title` | page title; sorting by title | string |
+| `date` | display; sorting by date | see [Dates](#dates) |
+| `author` | display; sorting by author | see [People](#people) |
+| `reader` | refs: "Read by ..." next to the audio | see [People](#people) |
+
+Blog-specific keys (`category`, `status`, `permalink`) will be added with
+collections.
+
+## Dates
+
+A date can be as precise as you know it to be:
+
+| precision | example | default display |
+|---|---|---|
+| year | `date: 1984` | 1984 |
+| month | `date: 1984-10` | October 1984 |
+| day | `date: 2025-11-08` | November 8, 2025 |
+| date and time | `date: '2003-03-03T15:17:38-08:00'` | March 3, 2003 |
+
+* Quote a date with a time (`'...'`), since it contains `:`
+* The UTC offset (`-08:00`) is optional; a time without an offset is
+  read as-is, with no timezone conversion
+* Use ISO order (year-month-day), not free text; `Nov. 8, 2025` is not a
+  valid date
+* An invalid date is still available to templates as the original string,
+  but it is ignored for sorting and gets a warning at build time
+
+### Displaying dates
+
+* `{{date}}` renders the value exactly as written in the frontmatter
+* `{{date_format date}}` renders the default display for its precision
+  (table above)
+* `{{date_format date "%b %-d, %Y"}}` uses a custom
+  [strftime](https://docs.rs/chrono/latest/chrono/format/strftime/index.html)
+  format
+  * if the format asks for more precision than the date has (e.g. a day
+    for `1984-10`), the default display for that precision is used instead
+  * likewise for a timezone (`%z`) on a time written without an offset
+  * an invalid format string is a build error
+* `{{date_format x}}` on a value that isn't a valid date renders it as
+  written; on a missing value, renders nothing
+
+### Sorting by date *(planned)*
+
+* Oldest first
+* A less precise date sorts at the start of its period, before more
+  precise dates in that period: `1984` < `1984-10` < `1984-10-01`
+* Times sort by clock time as written; the UTC offset is only used for
+  display
+* Ties (e.g. two blog posts on the same day with no time, or the same
+  timestamp) are broken by title, then by file path, so the order is
+  always the same from build to build
+
+## People
+
+Applies to `author` and `reader`.
+
+* One person: a string
+* More than one: a list
+* Write a person's name as `Last, First`; write an organization's name
+  as is (no comma)
+
+```yaml
+author: Vasquez, Maria
+```
+
+```yaml
+author:
+  - Smith, Mary Ann
+  - Farmer, Jane
+```
+
+```yaml
+author: The Daystrom Institute
+```
+
+* Only the first comma splits the name: `Last, First` is displayed as
+  `First Last`
+* Known limitation: a suffix like `King, Martin Luther, Jr.` can't be
+  displayed correctly yet
+
+### Displaying people
+
+* `{{people author}}` renders display names joined in a sentence:
+
+  | names | display |
+  |---|---|
+  | one | Mary Ann Smith |
+  | two | Mary Ann Smith and Jane Farmer |
+  | three or more | Mary Ann Smith, Jane Farmer, and Ada Lovelace |
+
+* `{{person name}}` links one name to its page:
+  `<a href='{baseurl}/people/{slug}'>First Last</a>`
+  * the slug is made from the display name (`First Last`), so
+    `Farmer, Jane` still links to `/people/jane-farmer`
+
+### Sorting by author *(planned)*
+
+* By the first author's name as written (`Last, First`), ignoring case
+* Then by title, then by file path
+
+## Refs
+
+A ref is a markdown file in `ref/`, optionally with a matching audio file
+and transcript, rendered into a partial that pages include with
+`{{> ref/<name>.html }}`.
+
+* `reader`: if the ref has audio, renders inside the audio block, after
+  the player:
+
+  ```html
+  <div class='reader'>Read by Maria Vasquez</div>
+  ```
+
+  * uses the same name rules as `author` (string or list,
+    `Last, First`)
+  * ignored with a warning if the ref has no audio
+* Any other key is ignored with a warning (`title`, `author` and `layout`
+  belong on the page that includes the ref)

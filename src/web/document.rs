@@ -107,17 +107,58 @@ impl HtmlGenerator {
     }
 }
 //---------------
-use std::collections::HashMap;
+use crate::web::md::Attrs;
+use serde_json::Value;
+use tracing::warn;
 
 // reads a markdown source file and splits off its YAML frontmatter
-fn read_source<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(HashMap<String, String>, String)> {
+fn read_source<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(Attrs, String)> {
     let source = read_file_to_string(sourcepath)?;
     md::strip_frontmatter(&source)
 }
 
+// template variables for one page: site-wide values from _site.yaml, then
+// the page's own frontmatter (so the page wins on a shared key), then any
+// series navigation vars
+fn page_vars(context: &Context, path: &Path, page_attrs: Attrs) -> Attrs {
+    if let Some(date) = page_attrs.get("date") {
+        if crate::web::date::FmDate::from_value(date).is_none() {
+            warn!(
+                "'{}': date {} isn't a valid date (expected e.g. 1984, 1984-10, 2025-11-08), it will display as written",
+                path.display(),
+                date
+            );
+        }
+    }
+    let mut vars = context.config.site_attr.clone();
+    vars.extend(page_attrs);
+    if let Some(series) = crate::web::series::Series::load_sibling(path) {
+        let slug = crate::web::series::page_slug(path);
+        vars.extend(
+            series
+                .nav_vars(&slug)
+                .into_iter()
+                .map(|(k, v)| (k, Value::String(v))),
+        );
+    }
+    vars
+}
+
+// the template named by `layout` frontmatter, or "default"
+fn layout_name(attr: &Attrs) -> &str {
+    match attr.get("layout") {
+        None => "default",
+        Some(Value::String(layout)) => layout.as_str(),
+        Some(other) => {
+            warn!("layout should be a template name, found: {other}, using 'default'");
+            "default"
+        }
+    }
+}
+
 #[derive(PartialEq, Debug, Clone)]
 pub struct MarkdownData {
-    attr: HashMap<String, String>,
+    attr: Attrs,
 }
 
 trait GenerateHtml {
@@ -126,12 +167,7 @@ trait GenerateHtml {
 
 impl GenerateHtml for MarkdownData {
     fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
-        let layout_key = "layout".to_string();
-        let layout_name = if let Some(layout) = self.attr.get(&layout_key) {
-            layout.as_str()
-        } else {
-            "default"
-        };
+        let layout_name = layout_name(&self.attr);
         info!("MarkdownData::render with layout: {layout_name}");
         context
             .hbs
@@ -142,19 +178,13 @@ impl GenerateHtml for MarkdownData {
 
 impl MarkdownData {
     fn from_path<P: AsRef<Path>>(context: &Context, path: P) -> anyhow::Result<Self> {
-        let (mut template_vars, content) = read_source(path.as_ref())?;
-        let site_attr = context.config.site_attr.clone();
-        template_vars.extend(site_attr);
-
-        if let Some(series) = crate::web::series::Series::load_sibling(path.as_ref()) {
-            let slug = crate::web::series::page_slug(path.as_ref());
-            template_vars.extend(series.nav_vars(&slug));
-        }
+        let (page_attrs, content) = read_source(path.as_ref())?;
+        let mut template_vars = page_vars(context, path.as_ref(), page_attrs);
 
         let html_body = md::str2html(&content)?;
         let body_string = String::from_utf8(html_body)?;
 
-        template_vars.insert("body".into(), body_string);
+        template_vars.insert("body".into(), body_string.into());
 
         Ok(MarkdownData {
             attr: template_vars,
@@ -164,18 +194,13 @@ impl MarkdownData {
 
 #[derive(PartialEq, Debug, Clone)]
 pub struct HandlebarsTemplate {
-    attr: HashMap<String, String>,
+    attr: Attrs,
     is_markdown: bool,
 }
 
 impl GenerateHtml for HandlebarsTemplate {
     fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
-        let layout_key = "layout".to_string();
-        let layout_name = if let Some(layout) = self.attr.get(&layout_key) {
-            layout.as_str()
-        } else {
-            "default"
-        };
+        let layout_name = layout_name(&self.attr);
         trace!("HandlebarsTemplate::render with layout: {layout_name}");
         context
             .hbs
@@ -197,14 +222,8 @@ impl HandlebarsTemplate {
             };
         }
 
-        let (mut data, content) = read_source(path.as_ref())?;
-        let site_attr = context.config.site_attr.clone();
-        data.extend(site_attr);
-
-        if let Some(series) = crate::web::series::Series::load_sibling(path.as_ref()) {
-            let slug = crate::web::series::page_slug(path.as_ref());
-            data.extend(series.nav_vars(&slug));
-        }
+        let (page_attrs, content) = read_source(path.as_ref())?;
+        let mut data = page_vars(context, path.as_ref(), page_attrs);
 
         let hbs = &context.hbs;
         let mut rendered_body: String = hbs.render_template(&content, &data)?;
@@ -213,7 +232,7 @@ impl HandlebarsTemplate {
             let html_bytes = md::str2html(&rendered_body)?;
             rendered_body = String::from_utf8(html_bytes)?;
         }
-        data.insert("body".into(), rendered_body);
+        data.insert("body".into(), rendered_body.into());
         Ok(HandlebarsTemplate {
             attr: data,
             is_markdown,
@@ -225,6 +244,39 @@ impl HandlebarsTemplate {
 mod tests {
     use super::*;
     use handlebars::Handlebars;
+
+    #[test]
+    fn test_page_vars_page_wins_over_site() {
+        let config = Config {
+            site_attr: md::parse_attrs("baseurl: /site\ntitle: Site Title").unwrap(),
+            ..Config::default()
+        };
+        let context = Context {
+            config: &config,
+            hbs: Handlebars::new(),
+        };
+        let page_attrs = md::parse_attrs("title: Page Title").unwrap();
+        let vars = page_vars(
+            &context,
+            Path::new("src/test/data/short-sentence.md"),
+            page_attrs,
+        );
+        assert_eq!(vars.get("title"), Some(&"Page Title".into()));
+        assert_eq!(vars.get("baseurl"), Some(&"/site".into()));
+    }
+
+    #[test]
+    fn test_layout_name() {
+        assert_eq!(layout_name(&Attrs::new()), "default");
+        assert_eq!(
+            layout_name(&md::parse_attrs("layout: booklet").unwrap()),
+            "booklet"
+        );
+        assert_eq!(
+            layout_name(&md::parse_attrs("layout: [a, b]").unwrap()),
+            "default"
+        );
+    }
 
     #[test]
     fn test_outpath_from_md() {

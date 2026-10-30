@@ -1,6 +1,7 @@
 use anyhow::anyhow;
-use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+
+use crate::web::md::Attrs;
 use tracing::{error, info};
 
 // export types for config fields
@@ -21,7 +22,7 @@ pub struct Config {
     pub builddir: PathBuf,
     pub sourcedir: PathBuf,
     pub templatedir: PathBuf,
-    pub site_attr: HashMap<String, String>,
+    pub site_attr: Attrs,
     pub prefix: String,
     pub mode: Mode,
     pub transcript: Transcript,
@@ -128,7 +129,7 @@ impl Config {
                     &sourcedir.display(),
                     e
                 );
-                HashMap::new()
+                Attrs::new()
             }
         };
 
@@ -183,15 +184,13 @@ impl Config {
     }
 }
 
-fn read_site_yaml(sourcedir: &Path) -> anyhow::Result<HashMap<String, String>> {
+fn read_site_yaml(sourcedir: &Path) -> anyhow::Result<Attrs> {
     let site_yaml_path = sourcedir.join("_site.yaml");
-    let site_attr: HashMap<String, String> = if !site_yaml_path.exists() {
-        HashMap::new()
-    } else {
-        let f = std::fs::File::open(&site_yaml_path)?;
-        serde_yaml::from_reader(f)?
-    };
-    Ok(site_attr)
+    if !site_yaml_path.exists() {
+        return Ok(Attrs::new());
+    }
+    let yaml = std::fs::read_to_string(&site_yaml_path)?;
+    crate::web::md::parse_attrs(&yaml)
 }
 
 impl Default for Config {

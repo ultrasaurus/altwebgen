@@ -3,6 +3,7 @@ use tracing::{info, trace};
 use walkdir::WalkDir;
 
 mod audio;
+pub mod date;
 mod document;
 use document::Document;
 mod framework;
@@ -10,6 +11,8 @@ use framework::render_html;
 
 pub mod md;
 pub use md::Ref;
+
+pub mod people;
 
 mod series;
 

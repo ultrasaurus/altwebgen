@@ -9,6 +9,7 @@ Supports
   * markdown (`.md.html`)
   * in addition to built-in templates:
     * split string (optional separator, default: '\n')
+    * date_format, people, person (see [doc/frontmatter.md](doc/frontmatter.md))
 * directly serves all other files
 * dev mode for live reload: watches file system every second, reloads page on changes
 

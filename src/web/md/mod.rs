@@ -2,30 +2,41 @@ use crate::web::read_file_to_string;
 use crate::web::words::*;
 use cmark::Event;
 use pulldown_cmark as cmark;
-use std::collections::HashMap;
 use std::path::Path;
 
 mod ref_markdown;
 pub use ref_markdown::Ref;
 
+// template variables: frontmatter (or _site.yaml) keys mapped to any YAML
+// value (string, number, bool, list, map), held as JSON values since that's
+// what handlebars renders from
+pub type Attrs = serde_json::Map<String, serde_json::Value>;
+
+// parses a YAML mapping into Attrs. an empty document (e.g. a frontmatter
+// block with nothing in it) is an empty map; anything other than a mapping
+// at the top level is an error.
+pub(crate) fn parse_attrs(yaml: &str) -> anyhow::Result<Attrs> {
+    let value: serde_yaml::Value = serde_yaml::from_str(yaml)?;
+    match serde_json::to_value(value)? {
+        serde_json::Value::Null => Ok(Attrs::new()),
+        serde_json::Value::Object(map) => Ok(map),
+        other => anyhow::bail!("expected key: value pairs, found: {}", other),
+    }
+}
+
 // splits optional YAML frontmatter (a `---`-delimited block at the top of the
 // file) from the rest of the source, returning the parsed attributes
 // alongside the remaining content. Returns an empty map if there's no
 // frontmatter, rather than erroring, since frontmatter is optional.
-pub(crate) fn strip_frontmatter(source: &str) -> anyhow::Result<(HashMap<String, String>, String)> {
+pub(crate) fn strip_frontmatter(source: &str) -> anyhow::Result<(Attrs, String)> {
     use matter::matter;
     match matter(source) {
-        None => Ok((HashMap::new(), source.to_string())),
-        Some((yaml_string, content)) => {
-            let attrs: HashMap<String, String> = serde_yaml::from_str(&yaml_string)?;
-            Ok((attrs, content))
-        }
+        None => Ok((Attrs::new(), source.to_string())),
+        Some((yaml_string, content)) => Ok((parse_attrs(&yaml_string)?, content)),
     }
 }
 
-pub fn file2html<P: AsRef<Path>>(
-    sourcepath: P,
-) -> anyhow::Result<(HashMap<String, String>, Vec<u8>)> {
+pub fn file2html<P: AsRef<Path>>(sourcepath: P) -> anyhow::Result<(Attrs, Vec<u8>)> {
     let source = read_file_to_string(sourcepath)?;
     let (attrs, content) = strip_frontmatter(&source)?;
     Ok((attrs, str2html(&content)?))
@@ -43,7 +54,7 @@ pub fn str2html(source: &str) -> anyhow::Result<Vec<u8>> {
 pub fn file2html_with_timing<P: AsRef<Path>>(
     md_path: P,
     transcript_path: P,
-) -> anyhow::Result<(HashMap<String, String>, Vec<u8>)> {
+) -> anyhow::Result<(Attrs, Vec<u8>)> {
     let md_source = read_file_to_string(md_path)?;
     let (attrs, md_text) = strip_frontmatter(&md_source)?;
     let file = std::fs::File::open(transcript_path)?;
@@ -89,9 +100,34 @@ mod tests {
     fn strip_frontmatter_with_frontmatter() {
         let source = "---\ntitle: Hello\nauthor: Ada\n---\nhello world";
         let (attrs, content) = strip_frontmatter(source).unwrap();
-        assert_eq!(attrs.get("title"), Some(&"Hello".to_string()));
-        assert_eq!(attrs.get("author"), Some(&"Ada".to_string()));
+        assert_eq!(attrs.get("title"), Some(&"Hello".into()));
+        assert_eq!(attrs.get("author"), Some(&"Ada".into()));
         assert_eq!(content, "hello world");
+    }
+
+    #[test]
+    fn strip_frontmatter_typed_values() {
+        let source = "---\ncategory:\n  - code\nid: 11\ndraft: false\nintro: |\n  line one\n  line two\n---\nbody";
+        let (attrs, _) = strip_frontmatter(source).unwrap();
+        assert_eq!(attrs.get("category"), Some(&serde_json::json!(["code"])));
+        assert_eq!(attrs.get("id"), Some(&serde_json::json!(11)));
+        assert_eq!(attrs.get("draft"), Some(&serde_json::json!(false)));
+        // the frontmatter block is trimmed before parsing, so the last line
+        // of a multi-line string has no trailing newline
+        assert_eq!(
+            attrs.get("intro"),
+            Some(&serde_json::json!("line one\nline two"))
+        );
+    }
+
+    #[test]
+    fn parse_attrs_empty_is_empty_map() {
+        assert!(parse_attrs("").unwrap().is_empty());
+    }
+
+    #[test]
+    fn parse_attrs_rejects_non_mapping() {
+        assert!(parse_attrs("- just\n- a list").is_err());
     }
 
     #[test]
