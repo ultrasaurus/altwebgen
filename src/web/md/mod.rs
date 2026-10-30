@@ -51,6 +51,89 @@ pub fn str2html(source: &str) -> anyhow::Result<Vec<u8>> {
     Ok(html_body)
 }
 
+// a plain-text teaser for a page: its first paragraph with words in it
+// (skipping ones that are only an image, embed or HTML), cut at the end of
+// the first sentence if that comes within `max` characters, otherwise at
+// the last word before `max`, with "…"
+pub fn excerpt(source: &str, max: usize) -> String {
+    use cmark::{Tag, TagEnd};
+    let mut text = String::new();
+    let mut in_paragraph = false;
+    let mut in_image = 0;
+    for event in cmark::Parser::new(source) {
+        match event {
+            Event::Start(Tag::Paragraph) => {
+                in_paragraph = true;
+                text.clear();
+            }
+            Event::End(TagEnd::Paragraph) => {
+                in_paragraph = false;
+                if text.chars().any(char::is_alphanumeric) {
+                    break;
+                }
+                text.clear();
+            }
+            Event::Start(Tag::Image { .. }) => in_image += 1,
+            Event::End(TagEnd::Image) => in_image -= 1,
+            Event::Text(s) | Event::Code(s) if in_paragraph && in_image == 0 => text.push_str(&s),
+            Event::SoftBreak | Event::HardBreak if in_paragraph => text.push(' '),
+            _ => {}
+        }
+    }
+    if !text.chars().any(char::is_alphanumeric) {
+        return String::new();
+    }
+    let text = text.split_whitespace().collect::<Vec<_>>().join(" ");
+    shorten(&text, max)
+}
+
+// words ending in "." that don't end a sentence
+const ABBREVIATIONS: [&str; 8] = ["mr", "mrs", "ms", "dr", "st", "vs", "e.g", "i.e"];
+
+fn shorten(text: &str, max: usize) -> String {
+    let chars: Vec<char> = text.chars().collect();
+    // the first sentence, if it ends within max: . ! or ? then a space
+    // (allowing closing quotes or brackets in between), but not after an
+    // initial ("B. J. Fogg") or a common abbreviation
+    for (i, c) in chars.iter().enumerate().take(max) {
+        if !matches!(c, '.' | '!' | '?') {
+            continue;
+        }
+        let mut end = i;
+        while chars.get(end + 1).is_some_and(|n| "”’\")]".contains(*n)) {
+            end += 1;
+        }
+        if !chars.get(end + 1).is_none_or(|n| n.is_whitespace()) {
+            continue;
+        }
+        if *c == '.' {
+            let start = chars[..i]
+                .iter()
+                .rposition(|c| c.is_whitespace())
+                .map_or(0, |p| p + 1);
+            let word: String = chars[start..i].iter().collect::<String>().to_lowercase();
+            if word.chars().count() == 1 || ABBREVIATIONS.contains(&word.as_str()) {
+                continue;
+            }
+        }
+        if end < max {
+            return chars[..=end].iter().collect();
+        }
+    }
+    if chars.len() <= max {
+        return text.to_string();
+    }
+    let cut = chars[..max]
+        .iter()
+        .rposition(|c| c.is_whitespace())
+        .unwrap_or(max);
+    let head: String = chars[..cut].iter().collect();
+    format!(
+        "{}…",
+        head.trim_end_matches(|c: char| c.is_whitespace() || ",;:-–—".contains(c))
+    )
+}
+
 pub fn file2html_with_timing<P: AsRef<Path>>(
     md_path: P,
     transcript_path: P,
@@ -128,6 +211,57 @@ mod tests {
     #[test]
     fn parse_attrs_rejects_non_mapping() {
         assert!(parse_attrs("- just\n- a list").is_err());
+    }
+
+    #[test]
+    fn excerpt_first_sentence() {
+        let source = "Hello *there*, [friend](http://example.com). More text.\n\nNext paragraph.";
+        assert_eq!(excerpt(source, 200), "Hello there, friend.");
+    }
+
+    #[test]
+    fn excerpt_skips_image_and_html_paragraphs() {
+        let source =
+            "![a photo](p.jpg)\n\n<figure>\n\n![x](y.png)\n\n</figure>\n\nThe `real` start";
+        assert_eq!(excerpt(source, 200), "The real start");
+    }
+
+    #[test]
+    fn excerpt_cuts_at_a_word() {
+        let source = "one two three four five six, seven";
+        assert_eq!(excerpt(source, 26), "one two three four five…");
+        assert_eq!(excerpt(source, 100), "one two three four five six, seven");
+    }
+
+    #[test]
+    fn excerpt_sentence_past_max_is_cut() {
+        // a full stop after max doesn't count, so cut at a word instead
+        assert_eq!(excerpt("A long sentence here. Short.", 10), "A long…");
+    }
+
+    #[test]
+    fn excerpt_sentence_rules() {
+        // an ellipsis doesn't end a sentence
+        assert_eq!(
+            excerpt("I got to the limit … then I rested.", 200),
+            "I got to the limit … then I rested."
+        );
+        // a closing quote after the full stop is kept
+        assert_eq!(
+            excerpt("“You can do it.” In a podcast, B. J. said so.", 200),
+            "“You can do it.”"
+        );
+        // initials and abbreviations don't end it
+        assert_eq!(
+            excerpt("A talk by B. J. Fogg, e.g. this one. More.", 200),
+            "A talk by B. J. Fogg, e.g. this one."
+        );
+    }
+
+    #[test]
+    fn excerpt_empty_without_words() {
+        assert_eq!(excerpt("![only](an-image.png)", 200), "");
+        assert_eq!(excerpt("", 200), "");
     }
 
     #[test]

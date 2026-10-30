@@ -28,6 +28,9 @@ struct CollectionSpec {
     pretty_urls: bool,
 }
 
+// longest generated excerpt, in characters
+const EXCERPT_LENGTH: usize = 200;
+
 #[derive(Debug, Clone)]
 struct Member {
     path: PathBuf,
@@ -37,6 +40,8 @@ struct Member {
     attrs: Attrs,
     // the page source after its frontmatter, kept so it's only read once
     content: String,
+    // plain-text teaser for listings: `excerpt` frontmatter, or from content
+    excerpt: String,
     date: Option<FmDate>,
     title: String,
     prev: Option<usize>,
@@ -75,6 +80,14 @@ fn page_stem(rel_path: &Path) -> PathBuf {
 fn is_markdown_page(path: &Path) -> bool {
     let name = path.to_string_lossy();
     name.ends_with(".md") || name.ends_with(".md.hbs")
+}
+
+// `excerpt` frontmatter as written, or one made from the page's content
+fn member_excerpt(attrs: &Attrs, content: &str) -> String {
+    match attrs.get("excerpt").and_then(Value::as_str) {
+        Some(s) => s.to_string(),
+        None => md::excerpt(content, EXCERPT_LENGTH),
+    }
 }
 
 // a root-relative URL from a path relative to the output directory
@@ -183,12 +196,14 @@ impl Collections {
                 .and_then(Value::as_str)
                 .unwrap_or_default()
                 .to_string();
+            let excerpt = member_excerpt(&attrs, &content);
             members[index].push(Member {
                 path: path.clone(),
                 outpath,
                 url,
                 attrs,
                 content,
+                excerpt,
                 date,
                 title,
                 prev: None,
@@ -369,6 +384,7 @@ impl Collections {
         let item = |m: &Member| {
             let mut attrs = m.attrs.clone();
             attrs.insert("url".into(), m.url.clone().into());
+            attrs.insert("excerpt".into(), m.excerpt.clone().into());
             Value::Object(attrs)
         };
         let mut months: Vec<(String, Vec<Value>)> = Vec::new();
@@ -439,6 +455,7 @@ mod tests {
             date: attrs.get("date").and_then(FmDate::from_value),
             title: String::new(),
             content: String::new(),
+            excerpt: format!("about {path}"),
             attrs,
             prev: None,
             next: None,
@@ -553,6 +570,26 @@ mod tests {
             .collect();
         // undated p4 is listed, but not under a month
         assert_eq!(months, ["2009-05", "2009-04"]);
+    }
+
+    #[test]
+    fn member_excerpt_frontmatter_wins() {
+        let attrs = md::parse_attrs("excerpt: Written by hand").unwrap();
+        assert_eq!(
+            member_excerpt(&attrs, "First line. Second."),
+            "Written by hand"
+        );
+        assert_eq!(
+            member_excerpt(&Attrs::new(), "First line. Second."),
+            "First line."
+        );
+    }
+
+    #[test]
+    fn list_vars_items_have_excerpt() {
+        let vars = sample().list_vars(Path::new("a.md"), &"posts".into());
+        assert_eq!(vars["posts"][0]["excerpt"], "about p1");
+        assert_eq!(vars["posts_by_month"][0]["posts"][0]["excerpt"], "about p1");
     }
 
     #[test]

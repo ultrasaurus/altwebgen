@@ -90,8 +90,13 @@ list:
 
 The page gets two variables, named after the collection (or `as`):
 
-* `posts`: the members, each with its frontmatter (after defaults) and
-  `url`
+* `posts`: the members, each with its frontmatter (after defaults), `url`
+  and `excerpt`
+  * `excerpt` is the page's `excerpt` frontmatter if it has one; otherwise
+    its first paragraph with words in it (paragraphs that are only an
+    image, embed or HTML are skipped), as plain text, cut at the end of
+    the first sentence if that comes within 200 characters, or else at
+    the last word before 200 characters, with "…"
 * `posts_by_month`: the same members grouped by month, each with `month`
   (`YYYY-MM`) and `posts` (that month's members); members with no date, or
   a date that is only a year, are left out
