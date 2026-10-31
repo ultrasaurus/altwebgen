@@ -1,55 +1,107 @@
 use anyhow::anyhow;
-use notify_debouncer_mini::{new_debouncer, DebounceEventResult};
+use notify::RecommendedWatcher;
+use notify_debouncer_mini::{new_debouncer, DebounceEventResult, Debouncer};
 use std::{
     path::{Path, PathBuf},
     time::Duration,
 };
-use tokio::sync::mpsc::channel;
+use tokio::sync::mpsc::{unbounded_channel, UnboundedReceiver};
 use tracing::{error, info};
 
-pub async fn detect_changes<P: AsRef<Path>>(paths: &Vec<P>) -> anyhow::Result<Vec<PathBuf>> {
-    use notify::RecursiveMode::*;
-    let rt = tokio::runtime::Handle::current();
+// Watches paths for as long as it lives, so changes made while a build is
+// running are queued and reported by the next call to `next_changes`
+pub struct ChangeWatcher {
+    _debouncer: Debouncer<RecommendedWatcher>,
+    rx: UnboundedReceiver<DebounceEventResult>,
+}
 
-    // Create a channel to receive the events.
-    let (tx, mut rx) = channel(1);
+impl ChangeWatcher {
+    pub fn new<P: AsRef<Path>>(paths: &[P]) -> anyhow::Result<Self> {
+        use notify::RecursiveMode::*;
 
-    let mut debouncer = new_debouncer(
-        Duration::from_millis(200),
-        move |result: DebounceEventResult| {
-            let tx: tokio::sync::mpsc::Sender<
-                Result<Vec<notify_debouncer_mini::DebouncedEvent>, notify::Error>,
-            > = tx.clone();
+        // unbounded, so the notify thread never blocks or drops events
+        let (tx, rx) = unbounded_channel();
 
-            info!("calling by notify -> {:?}", &result);
-            rt.spawn(async move {
-                if let Err(e) = tx.send(result).await {
+        let mut debouncer = new_debouncer(
+            Duration::from_millis(200),
+            move |result: DebounceEventResult| {
+                info!("calling by notify -> {:?}", &result);
+                if let Err(e) = tx.send(result) {
                     error!("Error sending event result: {:?}", e);
                 }
-            });
-        },
-    )
-    .map_err(|e| anyhow!("Error while trying to watch for changes:\n\n\t{:?}", e))?;
-    let watcher = debouncer.watcher();
+            },
+        )
+        .map_err(|e| anyhow!("Error while trying to watch for changes:\n\n\t{:?}", e))?;
+        let watcher = debouncer.watcher();
 
-    // Add the source directories to the watcher
-    for path in paths {
-        if let Err(e) = watcher.watch(path.as_ref(), Recursive) {
-            anyhow::bail!("Error while watching {:?}:\n    {:?}", path.as_ref(), e);
-        }
-    }
-
-    info!("Listening for changes...");
-    let result = tokio::spawn(async move {
-        loop {
-            if let Some(result) = rx.recv().await {
-                break result;
+        // Add the source directories to the watcher
+        for path in paths {
+            if let Err(e) = watcher.watch(path.as_ref(), Recursive) {
+                anyhow::bail!("Error while watching {:?}:\n    {:?}", path.as_ref(), e);
             }
         }
-    })
-    .await;
-    let recv_result = result.or_else(|e| anyhow::bail!("listen failure: {:?}", e))?;
-    let events = recv_result.or_else(|e| anyhow::bail!("listen recv failure: {:?}", e))?;
-    info!("events: {:?}", events);
-    Ok(events.iter().map(|e| e.path.clone()).collect())
+
+        Ok(Self {
+            _debouncer: debouncer,
+            rx,
+        })
+    }
+
+    // Waits for changes, then also takes any already queued so that
+    // a burst of changes results in one build (cancel safe)
+    pub async fn next_changes(&mut self) -> anyhow::Result<Vec<PathBuf>> {
+        let first = self
+            .rx
+            .recv()
+            .await
+            .ok_or_else(|| anyhow!("watcher channel closed"))?;
+        let mut paths = Vec::new();
+        let mut collect = |result: DebounceEventResult| match result {
+            Ok(events) => paths.extend(events.into_iter().map(|e| e.path)),
+            Err(e) => error!("watch error: {:?}", e),
+        };
+        collect(first);
+        while let Ok(result) = self.rx.try_recv() {
+            collect(result);
+        }
+        info!("changed paths: {:?}", paths);
+        Ok(paths)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[tokio::test(flavor = "multi_thread")]
+    // a new folder + file created while a build runs (between calls to
+    // next_changes) must still be reported
+    async fn change_during_build_is_not_lost() {
+        let dir = std::env::temp_dir().join(format!("awg-watch-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        let mut watcher = ChangeWatcher::new(&[&dir]).unwrap();
+
+        std::fs::write(dir.join("a.md"), "a").unwrap();
+        let first = tokio::time::timeout(Duration::from_secs(4), watcher.next_changes()).await;
+        assert!(matches!(first, Ok(Ok(ref p)) if !p.is_empty()));
+
+        // simulated build: changes happen while nobody is awaiting next_changes
+        std::fs::create_dir_all(dir.join("category/general")).unwrap();
+        std::fs::write(dir.join("category/general/index.md"), "b").unwrap();
+        tokio::time::sleep(Duration::from_millis(1500)).await;
+
+        let second = tokio::time::timeout(Duration::from_secs(4), watcher.next_changes()).await;
+        std::fs::remove_dir_all(&dir).unwrap();
+        let second = second
+            .expect("change made during build was never reported")
+            .unwrap();
+        assert!(
+            second
+                .iter()
+                .any(|p| p.ends_with("category/general/index.md")),
+            "missing new file in {:?}",
+            second
+        );
+    }
 }

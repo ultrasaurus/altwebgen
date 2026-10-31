@@ -5,7 +5,7 @@ use tracing::{error, info};
 use crate::{config::Config, devserve, setup, web};
 
 mod watch_files;
-use watch_files::detect_changes;
+use watch_files::ChangeWatcher;
 
 pub async fn run(config: &Config) -> anyhow::Result<()> {
     let mut context = setup::init_and_build(config)?;
@@ -22,10 +22,13 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
             println!("server shutdown")
         }
         _ = async {
+            // created once, so changes during a build are queued for the next pass
+            let mut source_watcher = ChangeWatcher::new(&source_watch)?;
+            let mut template_watcher = ChangeWatcher::new(&template_watch)?;
             loop {
                 info!("watching for changes...");
                 tokio::select! {
-                    source_result = detect_changes(&source_watch) => {
+                    source_result = source_watcher.next_changes() => {
                         info!("source watcher result {:?}", source_result);
                         if let Err(e) = web::process_files(&context) {
                             error!("process_files failed: {:?}", e);
@@ -33,7 +36,7 @@ pub async fn run(config: &Config) -> anyhow::Result<()> {
                             reloader.reload();
                         }
                     },
-                    template_result = detect_changes(&template_watch) => {
+                    template_result = template_watcher.next_changes() => {
                         info!("template watcher result {:?}", template_result);
                         match setup::clean_build(config) {
                             Err(e) => {error!("build failed: {:?}", e); break},
