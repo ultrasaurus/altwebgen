@@ -95,6 +95,17 @@ impl FmDate {
         Some(self.start.format("%Y-%m").to_string())
     }
 
+    // W3C date for sitemaps, as precise as written down to the day:
+    // "1984", "1984-10", "2003-03-03"
+    pub fn w3c_date(&self) -> String {
+        let fmt = match self.precision {
+            Precision::Year => "%Y",
+            Precision::Month => "%Y-%m",
+            Precision::Day | Precision::DateTime => "%Y-%m-%d",
+        };
+        self.start.format(fmt).to_string()
+    }
+
     pub fn default_format(&self) -> &'static str {
         match self.precision {
             Precision::Year => "%Y",

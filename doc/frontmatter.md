@@ -34,6 +34,8 @@ TBD: sorting by author
   * a page's own value wins over a site value with the same key
   * typical use: `baseurl`, set per deployment, e.g. copied in by a build
     script
+  * `site_url` (e.g. `https://example.com`): the build also writes
+    `sitemap.xml`, see [Sitemap](#sitemap)
 * **Data files** next to a page, see [Data files](#data-files)
 
 ## Data files
@@ -72,6 +74,28 @@ and in the page's layout:
 {{/each}}
 ```
 
+## Sitemap
+
+With `site_url` in `_site.yaml`, each build writes `sitemap.xml` to the
+output folder, listing every HTML page it builds:
+
+```yaml
+site_url: https://example.com
+```
+
+* each page at the URL it's served from: `site_url`, the path prefix,
+  then the page's path, e.g. `https://example.com/2009/04/slug/` for a
+  collection with `pretty_urls`
+* `<lastmod>` is the page's `updated` frontmatter, or else its `date`,
+  as precise as written down to the day (`2009-04-17`, `2009-04`); none if
+  it has neither
+* left out: pages with `sitemap: false`, drafts, and plain copied files
+  (images, PDFs)
+* a `sitemap.xml` in the source folder is copied as is instead (with a
+  warning)
+* `robots.txt` is up to the site: add one to the source folder with
+  `Sitemap: https://example.com/sitemap.xml`
+
 ## Value types
 
 * Any YAML value is allowed: string, number, boolean, list, map
@@ -98,6 +122,8 @@ variable.
 | `reader` | refs: "Read by ..." next to the audio | see [People](#people) |
 | `status` | anything other than `publish` is a draft, built only by `dev --drafts` (which sets `draft: true`); see [collections](collections.md#members) | string |
 | `list` | a page that lists a collection | see [collections](collections.md#listing-pages) |
+| `sitemap` | `false` leaves the page out of `sitemap.xml` | boolean |
+| `updated` | `sitemap.xml` lastmod (else `date`) | see [Dates](#dates) |
 
 A collection can also name a key to group by (e.g. `category`); see
 [collections](collections.md).

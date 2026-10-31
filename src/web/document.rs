@@ -103,6 +103,15 @@ impl HtmlGenerator {
             }
         }
     }
+    // the page's template variables; None for a plain HTML file
+    pub fn attrs(&self) -> Option<&Attrs> {
+        match self {
+            HtmlGenerator::Markdown(md) => Some(&md.attr),
+            HtmlGenerator::Template(template) => Some(&template.attr),
+            HtmlGenerator::Html(_) => None,
+        }
+    }
+
     pub fn render<W: Write>(&self, context: &Context, writer: &mut W) -> anyhow::Result<()> {
         match self {
             HtmlGenerator::Markdown(md) => md.render(context, writer)?,

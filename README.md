@@ -12,6 +12,8 @@ Supports
     * date_format, people, person (see [doc/frontmatter.md](doc/frontmatter.md))
 * collections, e.g. blog posts with prev/next and archive pages
   (see [doc/collections.md](doc/collections.md))
+* `sitemap.xml` when `_site.yaml` has `site_url`
+  (see [doc/frontmatter.md](doc/frontmatter.md#sitemap))
 * directly serves all other files
 * dev mode for live reload: watches file system every second, reloads page on changes
   * `dev --drafts` also builds drafts (`status` other than `publish`)

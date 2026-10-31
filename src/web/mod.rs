@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
-use tracing::{info, trace};
+use tracing::{info, trace, warn};
 use walkdir::WalkDir;
 
 mod audio;
@@ -20,6 +20,9 @@ pub mod people;
 
 mod series;
 
+mod sitemap;
+use sitemap::Sitemap;
+
 pub mod template;
 
 pub mod words;
@@ -32,6 +35,7 @@ type Outputs = HashSet<PathBuf>;
 fn build_source_files(context: &Context, outputs: &mut Outputs) -> anyhow::Result<()> {
     let config: &crate::config::Config = context.config;
     let collections = Collections::load(config)?;
+    let mut sitemap = Sitemap::default();
     info!("Bulding source files...");
     let walker = WalkDir::new(&config.sourcedir)
         .follow_links(true)
@@ -51,7 +55,16 @@ fn build_source_files(context: &Context, outputs: &mut Outputs) -> anyhow::Resul
         {
             trace!("  not published: {}", path.display());
         } else {
-            outputs.insert(render_file(context, &collections, path)?);
+            outputs.insert(render_file(context, &collections, &mut sitemap, path)?);
+        }
+    }
+    if let Some(site_url) = sitemap::site_url(&config.site_attr) {
+        let path = config.outdir.join("sitemap.xml");
+        if outputs.contains(&path) {
+            warn!("source has its own sitemap.xml, so it isn't generated");
+        } else {
+            write_if_changed(&path, sitemap.xml(&site_url, &config.prefix).as_bytes())?;
+            outputs.insert(path);
         }
     }
     Ok(())
@@ -106,10 +119,12 @@ pub fn process_files(context: &Context) -> anyhow::Result<()> {
     Ok(())
 }
 
-// renders or copies one source file; returns where it was written
+// renders or copies one source file; returns where it was written.
+// an HTML page is added to the sitemap
 fn render_file<P: AsRef<Path>>(
     context: &Context,
     collections: &Collections,
+    sitemap: &mut Sitemap,
     path: P,
 ) -> anyhow::Result<PathBuf> {
     let config = context.config;
@@ -130,6 +145,9 @@ fn render_file<P: AsRef<Path>>(
                 }
                 None => document.outpath(config)?,
             };
+            if writepath.extension().is_some_and(|ext| ext == "html") {
+                sitemap.add(writepath.strip_prefix(&config.outdir)?, html_source.attrs());
+            }
             let mut html: Vec<u8> = Vec::new();
             render_html(context, html_source, &mut html)?;
             write_if_changed(&writepath, &html)?;

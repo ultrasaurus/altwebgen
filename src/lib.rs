@@ -97,6 +97,14 @@ mod tests {
         // the drafts page has `status: draft` too
         assert!(!Path::new("samples/blog/.dist/drafts.html").exists());
         assert!(!archives.contains("unfinished"));
+        // sitemap from `site_url` in _site.yaml, which isn't published
+        let sitemap = read("sitemap.xml");
+        assert!(sitemap.contains(
+            "<url><loc>https://blog.example.com/2009/04/hello-world/</loc><lastmod>2009-04-17</lastmod></url>"
+        ));
+        assert!(sitemap.contains("<loc>https://blog.example.com/archives.html</loc>"));
+        assert!(!sitemap.contains("unfinished"));
+        assert!(!Path::new("samples/blog/.dist/_site.yaml").exists());
 
         // with drafts (`dev --drafts`): built, labeled, listed, in prev/next;
         // the next plain build above removes them again
@@ -113,6 +121,7 @@ mod tests {
         assert!(drafts.contains("/2009/05/unfinished/"));
         assert!(!drafts.contains("/2009/05/spring/"));
         assert!(read("archives.html").contains(r#"<span class="draft">Draft</span>"#));
+        assert!(!read("sitemap.xml").contains("unfinished"));
     }
 
     fn audio_sample_config(transcript_opt: Transcript) -> Config {
