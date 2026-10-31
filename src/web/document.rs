@@ -131,9 +131,9 @@ fn read_source(collections: &Collections, sourcepath: &Path) -> anyhow::Result<(
 }
 
 // template variables for one page: site-wide values from _site.yaml, then
-// collection defaults, then the page's own frontmatter (so the page wins on
-// a shared key), then collection prev/next, any listed collection, and
-// series navigation vars
+// collection defaults, then its data files (`<slug>.<name>.yaml`), then the
+// page's own frontmatter (so the page wins on a shared key), then
+// collection prev/next, any listed collection, and series navigation vars
 fn page_vars(
     context: &Context,
     collections: &Collections,
@@ -152,6 +152,16 @@ fn page_vars(
     let mut vars = context.config.site_attr.clone();
     if let Some(defaults) = collections.defaults(path) {
         vars.extend(defaults.clone());
+    }
+    for (name, value) in crate::web::data_file::page_data(path) {
+        if page_attrs.contains_key(&name) {
+            warn!(
+                "'{}': frontmatter `{name}` is used, not the data file of the same name",
+                path.display()
+            );
+        } else {
+            vars.insert(name, value);
+        }
     }
     vars.extend(page_attrs);
     vars.extend(collections.nav_vars(path));
@@ -299,6 +309,36 @@ mod tests {
         );
         assert_eq!(vars.get("title"), Some(&"Page Title".into()));
         assert_eq!(vars.get("baseurl"), Some(&"/site".into()));
+    }
+
+    #[test]
+    fn test_page_vars_data_files_frontmatter_wins() {
+        let config = Config {
+            site_attr: md::parse_attrs("reviews: from site").unwrap(),
+            ..Config::default()
+        };
+        let context = Context {
+            config: &config,
+            hbs: Handlebars::new(),
+            ref_outputs: Vec::new(),
+        };
+        let dir = std::env::temp_dir().join(format!("altwebgen-page-data-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        std::fs::write(dir.join("post.md"), "Post").unwrap();
+        std::fs::write(dir.join("post.reviews.yaml"), "- good").unwrap();
+        std::fs::write(dir.join("post.title.yaml"), "From A Data File").unwrap();
+        let page_attrs = md::parse_attrs("title: Page Title").unwrap();
+        let vars = page_vars(
+            &context,
+            &Collections::default(),
+            &dir.join("post.md"),
+            page_attrs,
+        );
+        assert_eq!(vars.get("title"), Some(&"Page Title".into()));
+        assert_eq!(
+            vars["reviews"][0], "good",
+            "a data file wins over a site value"
+        );
     }
 
     #[test]

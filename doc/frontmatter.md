@@ -19,6 +19,8 @@ new in `v0.5`: Typed attributes, page values override site values, and refs read
 
 collections: sorting by date, `status` and `list`
 
+data files: `<slug>.<name>.yaml` next to a page
+
 TBD: sorting by author
 
 ## Where frontmatter is read
@@ -32,6 +34,43 @@ TBD: sorting by author
   * a page's own value wins over a site value with the same key
   * typical use: `baseurl`, set per deployment, e.g. copied in by a build
     script
+* **Data files** next to a page, see [Data files](#data-files)
+
+## Data files
+
+For data too long to keep in frontmatter, a page can have data files: a
+file `<slug>.<name>.yaml` next to the page gives it the template variable
+`<name>`, holding the whole file.
+
+* e.g. `hello-world.reviews.yaml` next to `hello-world.md` (or
+  `.md.hbs`, `.html.hbs`) gives that page `reviews`
+* any YAML value: a list, a mapping, a string; templates use it as usual,
+  `{{#each reviews}}`, `{{stats.views}}`
+* a page can have several data files, each under its own name
+* the page's frontmatter wins over a data file of the same name (with a
+  warning); a data file wins over site values and collection defaults
+* data files aren't published; a `.yaml` file with no page of that slug
+  next to it is copied to the output as usual
+* a file that isn't valid YAML is ignored with a warning
+* only `.yaml`, not `.yml` or `.json`
+
+`hello-world.reviews.yaml`:
+
+```yaml
+- author: First Reader
+  url: https://example.com/first
+  stars: 5
+  text: <p>Clear and useful.</p>
+```
+
+and in the page's layout:
+
+```handlebars
+{{#each reviews}}
+<p><a href="{{url}}">{{author}}</a>: {{stars}} stars</p>
+{{{text}}}
+{{/each}}
+```
 
 ## Value types
 

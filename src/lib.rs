@@ -71,6 +71,12 @@ mod tests {
         let hello = read("2009/04/hello-world/index.html");
         assert!(hello.contains(r#"<a href="/2009/04/later-that-day/">Later that day &rarr;</a>"#));
         assert!(!hello.contains("&larr;"));
+        // `comments` from the data file hello-world.comments.yaml, which
+        // isn't published
+        assert!(hello.contains(r#"<a href="https://example.com/first">First Reader</a>"#));
+        assert!(hello.contains("<p>Looking forward to more.</p>"));
+        assert!(!Path::new("samples/blog/.dist/2009/04/hello-world.comments.yaml").exists());
+        assert!(!read("2009/04/later-that-day/index.html").contains("Comments"));
         let later = read("2009/04/later-that-day/index.html");
         assert!(later.contains(r#"<a href="/2009/04/hello-world/">&larr; Hello, world</a>"#));
         assert!(later.contains(r#"<a href="/2009/05/spring/">Spring &rarr;</a>"#));

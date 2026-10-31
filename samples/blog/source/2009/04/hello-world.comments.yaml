@@ -1,0 +1,7 @@
+- author: First Reader
+  url: https://example.com/first
+  date: '2009-04-17T10:15:00-07:00'
+  content: <p>Welcome to the blog!</p>
+- author: Second Reader
+  date: '2009-04-18T08:00:00-07:00'
+  content: <p>Looking forward to more.</p>

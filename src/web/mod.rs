@@ -6,6 +6,7 @@ use walkdir::WalkDir;
 mod audio;
 pub mod collection;
 use collection::Collections;
+mod data_file;
 pub mod date;
 mod document;
 use document::Document;
@@ -44,7 +45,10 @@ fn build_source_files(context: &Context, outputs: &mut Outputs) -> anyhow::Resul
         if path.is_dir() {
             create_destdir(&config.sourcedir, &config.outdir, path)?;
             outputs.insert(config.outpath(path)?);
-        } else if is_config_file(path) || collections.is_draft(path) {
+        } else if is_config_file(path)
+            || data_file::is_data_file(path)
+            || collections.is_draft(path)
+        {
             trace!("  not published: {}", path.display());
         } else {
             outputs.insert(render_file(context, &collections, path)?);
