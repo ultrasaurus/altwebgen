@@ -13,7 +13,11 @@ use clap::{Parser, Subcommand};
 
 #[derive(Subcommand, Debug)]
 pub enum Command {
-    Dev,
+    Dev {
+        /// also build drafts (`status` other than `publish`), for review
+        #[arg(long)]
+        drafts: bool,
+    },
     Build,
 }
 
@@ -46,9 +50,9 @@ struct Cli {
 
 fn cli_config(cli: &Cli) -> Config {
     assert!(cli.command.is_some()); // programmer error, UI should enforce
-    let mode = match cli.command {
-        Some(Command::Dev) => Mode::Dev,
-        _ => Mode::Build,
+    let (mode, drafts) = match cli.command {
+        Some(Command::Dev { drafts }) => (Mode::Dev, drafts),
+        _ => (Mode::Build, false),
     };
 
     let annotate_option = match cli.annotate.as_str() {
@@ -57,14 +61,17 @@ fn cli_config(cli: &Cli) -> Config {
         _ => Transcript::Static,
     };
 
-    Config::new(
-        &cli.outdir,
-        &cli.indir,
-        &cli.templatedir,
-        &cli.prefix,
-        mode,
-        annotate_option,
-    )
+    Config {
+        drafts,
+        ..Config::new(
+            &cli.outdir,
+            &cli.indir,
+            &cli.templatedir,
+            &cli.prefix,
+            mode,
+            annotate_option,
+        )
+    }
 }
 
 #[tokio::main]
@@ -81,7 +88,7 @@ async fn main() -> anyhow::Result<()> {
         Some(ref cmd) => {
             let config: Config = cli_config(&cli);
             match cmd {
-                Command::Dev => watch::run(&config).await?,
+                Command::Dev { .. } => watch::run(&config).await?,
                 Command::Build => {
                     let _hbs = setup::init_and_build(&config)?;
                 }

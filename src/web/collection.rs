@@ -90,6 +90,13 @@ fn member_excerpt(attrs: &Attrs, content: &str) -> String {
     }
 }
 
+// true when frontmatter has a `status` other than `publish`
+pub fn has_draft_status(attrs: &Attrs) -> bool {
+    attrs
+        .get("status")
+        .is_some_and(|status| status.as_str() != Some("publish"))
+}
+
 // a root-relative URL from a path relative to the output directory
 fn url_from(prefix: &str, rel: &Path, trailing_slash: bool) -> String {
     let parts: Vec<String> = rel
@@ -142,17 +149,22 @@ impl Collections {
         }
 
         let mut result = Collections::default();
-        if specs.is_empty() {
-            return Ok(result);
-        }
-
         let mut members: Vec<Vec<Member>> = specs.iter().map(|_| Vec::new()).collect();
         for path in files.iter().filter(|p| is_markdown_page(p)) {
             let found = specs.iter().position(|(dir, _, matcher)| {
                 path.strip_prefix(dir)
                     .is_ok_and(|rel| matcher.is_match(rel))
             });
-            let Some(index) = found else { continue };
+            let Some(index) = found else {
+                // a page outside any collection can be a draft too, e.g. a
+                // page that lists drafts for review
+                let (attrs, _) = md::strip_frontmatter(&read_file_to_string(path)?)?;
+                if has_draft_status(&attrs) && !config.drafts {
+                    info!("draft, not built: {}", path.display());
+                    result.drafts.insert(path.clone());
+                }
+                continue;
+            };
             let spec = &specs[index].1;
 
             let source = read_file_to_string(path)?;
@@ -160,14 +172,13 @@ impl Collections {
             let mut attrs = spec.defaults.clone();
             attrs.extend(page_attrs);
 
-            match attrs.get("status") {
-                None => {}
-                Some(Value::String(s)) if s == "publish" => {}
-                Some(status) => {
-                    info!("draft, not built: {} (status {})", path.display(), status);
+            if has_draft_status(&attrs) {
+                if !config.drafts {
+                    info!("draft, not built: {}", path.display());
                     result.drafts.insert(path.clone());
                     continue;
                 }
+                attrs.insert("draft".into(), true.into());
             }
 
             let rel = path.strip_prefix(&config.sourcedir)?;
@@ -241,7 +252,7 @@ impl Collections {
         Some((collection, &collection.members[*mi]))
     }
 
-    // true for a collection member whose status isn't `publish`
+    // true for a page whose status isn't `publish`, unless drafts are built
     pub fn is_draft(&self, path: &Path) -> bool {
         self.drafts.contains(path)
     }
@@ -460,6 +471,16 @@ mod tests {
             prev: None,
             next: None,
         }
+    }
+
+    #[test]
+    fn draft_status_is_anything_but_publish() {
+        let draft = |yaml: &str| has_draft_status(&md::parse_attrs(yaml).unwrap());
+        assert!(draft("status: draft"));
+        assert!(draft("status: pending"));
+        assert!(draft("status: [publish]"));
+        assert!(!draft("status: publish"));
+        assert!(!draft("title: no status"));
     }
 
     #[test]

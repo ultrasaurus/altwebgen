@@ -14,6 +14,7 @@ Supports
   (see [doc/collections.md](doc/collections.md))
 * directly serves all other files
 * dev mode for live reload: watches file system every second, reloads page on changes
+  * `dev --drafts` also builds drafts (`status` other than `publish`)
 
 Run with debug logging on:
 ```

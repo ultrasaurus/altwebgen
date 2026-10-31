@@ -96,7 +96,7 @@ variable.
 | `date` | display; sorting by date | see [Dates](#dates) |
 | `author` | display; sorting by author | see [People](#people) |
 | `reader` | refs: "Read by ..." next to the audio | see [People](#people) |
-| `status` | collection members: anything other than `publish` is a draft, not built | string |
+| `status` | anything other than `publish` is a draft, built only by `dev --drafts` (which sets `draft: true`); see [collections](collections.md#members) | string |
 | `list` | a page that lists a collection | see [collections](collections.md#listing-pages) |
 
 A collection can also name a key to group by (e.g. `category`); see

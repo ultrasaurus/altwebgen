@@ -29,6 +29,8 @@ pub struct Config {
     pub prefix: String,
     pub mode: Mode,
     pub transcript: Transcript,
+    // build pages whose `status` isn't `publish` (`dev --drafts`)
+    pub drafts: bool,
 }
 
 // ensure prefix starts and ends with '/'
@@ -183,6 +185,7 @@ impl Config {
             prefix: prefix.to_string(),
             mode,
             transcript,
+            drafts: false,
         }
     }
 }

@@ -44,6 +44,24 @@ pretty_urls: true
   frontmatter, then prev/next
 * **Drafts:** a member with a `status` other than `publish` is left out of
   the collection and not built; a member with no `status` is published
+  * to review drafts, run `altwebgen dev --drafts`: drafts are built and
+    listed like any member (in prev/next too), with the variable
+    `draft: true` so templates can label them (`{{#if draft}}`)
+  * `build` never builds drafts; its next run removes draft pages left in
+    the output folder by `dev --drafts`
+  * this works for any markdown page, not only members: a page with
+    `status: draft` is built only with `--drafts`
+  * a page that lists only drafts, built only with `--drafts`:
+
+    ```yaml
+    ---
+    title: Drafts
+    status: draft
+    list:
+      collection: posts
+      filter: {status: draft}
+    ---
+    ```
 * **Sort order:** by date, oldest first, following the
   [date sorting rules](frontmatter.md#sorting-by-date)
 * **Groups:** with `group: category`, each member's prev/next stays among

@@ -163,7 +163,12 @@ fn page_vars(
             vars.insert(name, value);
         }
     }
+    // only built when drafts are, e.g. `dev --drafts`
+    let draft = crate::web::collection::has_draft_status(&page_attrs);
     vars.extend(page_attrs);
+    if draft {
+        vars.insert("draft".into(), true.into());
+    }
     vars.extend(collections.nav_vars(path));
     if let Some(list) = vars.get("list").cloned() {
         vars.extend(collections.list_vars(path, &list));

@@ -94,6 +94,25 @@ mod tests {
         let code = read("category-code.html");
         assert!(code.contains("/2009/04/more-code/"));
         assert!(!code.contains("/2009/04/hello-world/"));
+        // the drafts page has `status: draft` too
+        assert!(!Path::new("samples/blog/.dist/drafts.html").exists());
+        assert!(!archives.contains("unfinished"));
+
+        // with drafts (`dev --drafts`): built, labeled, listed, in prev/next;
+        // the next plain build above removes them again
+        let config = Config {
+            drafts: true,
+            ..config
+        };
+        setup::init_and_build(&config).unwrap();
+        let unfinished = read("2009/05/unfinished/index.html");
+        assert!(unfinished.contains(r#"<p class="draft">Draft</p>"#));
+        assert!(unfinished.contains(r#"<a href="/2009/05/spring/">&larr; Spring</a>"#));
+        assert!(!read("2009/05/spring/index.html").contains(r#"<p class="draft">"#));
+        let drafts = read("drafts.html");
+        assert!(drafts.contains("/2009/05/unfinished/"));
+        assert!(!drafts.contains("/2009/05/spring/"));
+        assert!(read("archives.html").contains(r#"<span class="draft">Draft</span>"#));
     }
 
     fn audio_sample_config(transcript_opt: Transcript) -> Config {

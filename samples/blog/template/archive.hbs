@@ -11,7 +11,7 @@
     <h2>{{date_format month}}</h2>
     <ul>
         {{#each posts}}
-        <li><a href="{{url}}">{{title}}</a> <span class="date">{{date_format date "%b %-d"}}</span></li>
+        <li><a href="{{url}}">{{title}}</a> <span class="date">{{date_format date "%b %-d"}}</span>{{#if draft}} <span class="draft">Draft</span>{{/if}}</li>
         {{/each}}
     </ul>
     {{/each}}
