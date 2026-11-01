@@ -92,15 +92,18 @@ mod tests {
         tokio::time::sleep(Duration::from_millis(1500)).await;
 
         let second = tokio::time::timeout(Duration::from_secs(4), watcher.next_changes()).await;
+        // events use the real path (macOS: /private/var/... for /var/...)
+        let category = dir.canonicalize().unwrap().join("category");
         std::fs::remove_dir_all(&dir).unwrap();
         let second = second
             .expect("change made during build was never reported")
             .unwrap();
+        // macOS reports the new file; Linux (inotify) only starts watching a
+        // new folder once it's reported, so a file written right away may
+        // show up only as the folder. Either one triggers the rebuild.
         assert!(
-            second
-                .iter()
-                .any(|p| p.ends_with("category/general/index.md")),
-            "missing new file in {:?}",
+            second.iter().any(|p| p.starts_with(&category)),
+            "missing new folder or file in {:?}",
             second
         );
     }
