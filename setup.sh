@@ -17,6 +17,10 @@ pip install git+https://github.com/m-bain/whisperx.git
 pip uninstall -y numpy
 pip install numpy==1.26.3
 
+# whisperx pulls in torch 2.8.0; keep torchaudio matched (2.11.0 needs CUDA 13
+# and fails with "libcudart.so.13: cannot open shared object file")
+pip install torchaudio==2.8.0
+
 which whisperx
 
 whisperx --help
