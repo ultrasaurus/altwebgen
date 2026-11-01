@@ -13,9 +13,12 @@ OUT_DIR="gh-pages/content/_website"
 mkdir -p $OUT_DIR
 
 
-(cd ./samples/media; altwebgen -p $PREFIX/media-sample build)
+(cd ./samples/media; altwebgen --baseurl $PREFIX/media-sample build)
 echo "pwd: " `pwd`
 mv ./samples/media/.dist $OUT_DIR/media-sample
+
+(cd ./samples/blog; altwebgen --baseurl $PREFIX/blog-sample build)
+mv ./samples/blog/.dist $OUT_DIR/blog-sample
 echo "ls $OUT_DIR"
 ls -lR $OUT_DIR
 
@@ -43,7 +46,7 @@ $GITHUB_SHA
 \`\`\`
 EOT
 
-altwebgen -p $PREFIX build
+altwebgen --baseurl $PREFIX build
 mv .dist/index.html _website/.
 
 echo "---> files that will be deployed <---"

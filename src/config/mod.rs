@@ -70,6 +70,12 @@ impl Config {
         Ok(self.outdir.join(rel_path))
     }
 
+    // the path prefix without its final '/', for templates:
+    // "" at the root, "/docs" under /docs/ (so `{{baseurl}}/about.html`)
+    pub fn baseurl(&self) -> &str {
+        self.prefix.trim_end_matches('/')
+    }
+
     pub fn buildtemplatedir(&self) -> PathBuf {
         self.builddir.join("template")
     }

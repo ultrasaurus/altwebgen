@@ -80,8 +80,8 @@ A member page gets:
 | `next` | URL of the next (newer) member, missing on the last |
 | `next-title` | its title |
 
-* URLs start at the site root (`/2009/04/slug/`), with the `--prefix`
-  option if one is set
+* URLs start at the site root (`/2009/04/slug/`), after `--baseurl` if
+  one is set
 * The names match [series](../samples/series) navigation, so one nav
   partial can serve both; if a page is in a series too, the series wins
 

@@ -36,9 +36,10 @@ struct Cli {
     #[clap(short, long, value_parser, default_value = "template")]
     templatedir: String,
 
-    /// path prefix: change if deploying somewhere that is not root path
+    /// path the site is served under, e.g. /docs (default: root); also
+    /// `{{baseurl}}` in templates
     #[clap(short, long, value_parser, default_value = "")]
-    prefix: String,
+    baseurl: String,
 
     /// annotate transcript option
     #[clap(short, long, value_parser, default_value = "static")]
@@ -67,7 +68,7 @@ fn cli_config(cli: &Cli) -> Config {
             &cli.outdir,
             &cli.indir,
             &cli.templatedir,
-            &cli.prefix,
+            &cli.baseurl,
             mode,
             annotate_option,
         )

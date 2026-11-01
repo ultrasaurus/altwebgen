@@ -32,11 +32,13 @@ TBD: sorting by author
 * **Site-wide values** come from `source/_site.yaml` (optional) and are
   merged into every page's variables
   * a page's own value wins over a site value with the same key
-  * typical use: `baseurl`, set per deployment, e.g. copied in by a build
-    script
   * `site_url` (e.g. `https://example.com`): the build also writes
     `sitemap.xml`, see [Sitemap](#sitemap)
 * **Data files** next to a page, see [Data files](#data-files)
+* **`baseurl`** is set by altwebgen, not frontmatter: the `--baseurl`
+  option without its final `/`, so `""` for a site at the root and
+  `/docs` for one served under `/docs/`. Use it for links in templates,
+  e.g. `<a href="{{baseurl}}/about.html">`
 
 ## Data files
 
@@ -83,7 +85,7 @@ output folder, listing every HTML page it builds:
 site_url: https://example.com
 ```
 
-* each page at the URL it's served from: `site_url`, the path prefix,
+* each page at the URL it's served from: `site_url`, `--baseurl`,
   then the page's path, e.g. `https://example.com/2009/04/slug/` for a
   collection with `pretty_urls`
 * `<lastmod>` is the page's `updated` frontmatter, or else its `date`,

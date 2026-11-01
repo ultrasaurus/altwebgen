@@ -142,7 +142,8 @@ fn read_source(collections: &Collections, sourcepath: &Path) -> anyhow::Result<(
 // template variables for one page: site-wide values from _site.yaml, then
 // collection defaults, then its data files (`<slug>.<name>.yaml`), then the
 // page's own frontmatter (so the page wins on a shared key), then
-// collection prev/next, any listed collection, and series navigation vars
+// `baseurl`, collection prev/next, any listed collection, and series
+// navigation vars
 fn page_vars(
     context: &Context,
     collections: &Collections,
@@ -178,6 +179,8 @@ fn page_vars(
     if draft {
         vars.insert("draft".into(), true.into());
     }
+    // set by --baseurl, the one place for it (also used for collection URLs)
+    vars.insert("baseurl".into(), context.config.baseurl().into());
     vars.extend(collections.nav_vars(path));
     if let Some(list) = vars.get("list").cloned() {
         vars.extend(collections.list_vars(path, &list));
@@ -306,7 +309,7 @@ mod tests {
     #[test]
     fn test_page_vars_page_wins_over_site() {
         let config = Config {
-            site_attr: md::parse_attrs("baseurl: /site\ntitle: Site Title").unwrap(),
+            site_attr: md::parse_attrs("author: Site Author\ntitle: Site Title").unwrap(),
             ..Config::default()
         };
         let context = Context {
@@ -322,7 +325,31 @@ mod tests {
             page_attrs,
         );
         assert_eq!(vars.get("title"), Some(&"Page Title".into()));
-        assert_eq!(vars.get("baseurl"), Some(&"/site".into()));
+        assert_eq!(vars.get("author"), Some(&"Site Author".into()));
+    }
+
+    #[test]
+    fn test_page_vars_baseurl_from_config() {
+        for (prefix, baseurl) in [("/", ""), ("/docs/", "/docs")] {
+            let config = Config {
+                prefix: prefix.into(),
+                // --baseurl is the one place it's set
+                site_attr: md::parse_attrs("baseurl: /ignored").unwrap(),
+                ..Config::default()
+            };
+            let context = Context {
+                config: &config,
+                hbs: Handlebars::new(),
+                ref_outputs: Vec::new(),
+            };
+            let vars = page_vars(
+                &context,
+                &Collections::default(),
+                Path::new("src/test/data/short-sentence.md"),
+                Attrs::new(),
+            );
+            assert_eq!(vars.get("baseurl"), Some(&baseurl.into()));
+        }
     }
 
     #[test]
