@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <nav><a href="{{baseurl}}/archives.html">Archives</a> <a href="{{baseurl}}/category-code.html">Code</a> <a href="{{baseurl}}/about.html">About</a></nav>
+    <h1>{{ title }}</h1>
+    {{{ body }}}
+    <h2>Recent posts</h2>
+    {{#each recent}}
+    <article>
+        <h3><a href="{{url}}">{{title}}</a></h3>
+        <p class="date">{{date_format date "%b %-d, %Y"}}</p>
+        <p>{{excerpt}}</p>
+    </article>
+    {{/each}}
+    <h2>From the code category</h2>
+    <ul>
+        {{#each code}}
+        <li><a href="{{url}}">{{title}}</a></li>
+        {{/each}}
+    </ul>
+    <p><a href="{{baseurl}}/archives.html">All posts</a></p>
+</body>
+</html>

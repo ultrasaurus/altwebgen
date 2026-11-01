@@ -94,6 +94,14 @@ mod tests {
         let code = read("category-code.html");
         assert!(code.contains("/2009/04/more-code/"));
         assert!(!code.contains("/2009/04/hello-world/"));
+        // home: two lists (`as`), the 3 newest with excerpts, then code posts
+        let home = read("index.html");
+        let recent = &home[home.find("Recent posts").unwrap()..home.find("From the code").unwrap()];
+        assert_eq!(recent.matches("<article>").count(), 3, "limit: 3");
+        assert!(recent.contains(r#"<a href="/2009/05/spring/">Spring</a>"#));
+        assert!(recent.contains("<p>No category, so it is general by default.</p>"));
+        assert!(!recent.contains("/2009/04/hello-world/"));
+        assert!(home.contains(r#"<li><a href="/2009/04/first-code/">First code</a></li>"#));
         // the drafts page has `status: draft` too
         assert!(!Path::new("samples/blog/.dist/drafts.html").exists());
         assert!(!archives.contains("unfinished"));
